@@ -9,7 +9,7 @@
       "value": "UNDER_CONSTRUCTION",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-ntu-browns-range-dfs-2025",
+        "source_id": "src-iluka-ar25-2025",
         "assertion_confidence": "HIGH",
         "last_verified": "2026-08-30"
       }
@@ -20,21 +20,21 @@
     "output_material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
     "capacities": [
       {
-        "value": { "material_id": "mat-separated-reo", "tonnes_per_year": 17500 },
-        "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+        "value": { "material_id": "mat-separated-reo", "tonnes_per_year": 16000 },
+        "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
       }
     ],
     "expected_start": {
       "value": 2027,
       "provenance": {
-        "type": "INFERRED",
-        "source_id": "src-ntu-browns-range-dfs-2025",
-        "assertion_confidence": "MEDIUM",
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "HIGH",
         "last_verified": "2026-08-30"
       }
     },
-    "description": "Australia's first fully integrated rare-earths refinery (Eneabba Phase 3): roasting, leaching, purification, solvent extraction and product finishing, producing separated Nd, Pr, Dy and Tb oxides. FID 3 Apr 2022; capital cost A$1,000-1,200M; modelled TREO capacity 17.5 ktpa (23 ktpa nameplate with all circuits). Owned and operated via Iluka wholly-owned SPE 'RefineryCo'. Fed initially from Iluka's own Eneabba monazite/xenotime stockpile (indicative 9-year life on stockpile alone); designed to also process Iluka's Wimmera and other deposits and third-party concentrates. Start: FID targeted first production in 2025; the NTU DFS schedule (Fig 37, p.63) shows refinery completion mid-2027, and NTU describes the refinery as under construction (Sep 2025). Iluka identifies rare-earth metallisation as a potential future step.",
-    "aliases": ["Eneabba", "Eneabba Phase 3", "RefineryCo"]
+    "description": "Australia's first fully integrated rare-earths refinery (Eneabba Phase 3): roasting, leaching, purification, solvent extraction and product finishing, producing separated Nd, Pr, Dy and Tb oxides - 'one of the few rare earths refineries operating outside of China' on commissioning. Capacity (AR25 p.57): 16.0 ktpa REO output on Eneabba stockpile feed (max 18 ktpa contained REO feed); 23 ktpa total REO capacity with all circuits on blended feed; FID (2022) modelled 17.5 ktpa. Owned and operated via Iluka wholly-owned SPE Iluka Eneabba Pty Ltd ('RefineryCo'). FID 3 Apr 2022 at A$1,000-1,200M and 2025 start; AR25: capital estimate now A$1.7-1.8B with >A$1B spent or committed (A$1,134M to date, A$443M in 2025), engineering >95% complete, civil works substantially complete, all major equipment ordered (roaster kiln due H1 2026), SMPEI contracts to be awarded H1 2026; commissioning 2027. Feedstock: Eneabba stockpile initially; Wimmera as potential future feed; third-party concentrates under contract from Northern Minerals (Browns Range) and Lindian (Kangankunde, 10% of capacity for 15 years). Offtake: binding customer agreements still being negotiated (A$400M EFA tranche conditional on offtake). Metallisation feasibility study to conclude in 2026; magnet-waste recycling at the refinery assessed as technically viable (2025 desktop study).",
+    "aliases": ["Eneabba", "Eneabba Phase 3", "RefineryCo", "ERER"]
   },
   {
     "id": "fac-usar-wheat-ridge",

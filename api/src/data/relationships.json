@@ -11,21 +11,21 @@
     "total_tonnes": 30500,
     "start_year": 2028,
     "end_year": null,
-    "note": "Iluka Supply Agreement (Oct 2022): binding contract for 30,500 t of contained TREO within a 20-30% xenotime concentrate (total_tonnes is contained TREO, not concentrate mass); Iluka takes 100% of product up to a 5,500 tpa TREO maximum with right of first refusal on excess. Delivery by road from first concentrate (2028). RISK: certain conditions precedent (NTU financing/FID, Iluka financial close) passed their satisfaction dates as at Sep 2025, entitling either party to terminate; neither has, and extensions are under discussion (pp.5, 91-92)."
+    "note": "Iluka Supply Agreement (Oct 2022): binding contract for 30,500 t of contained TREO within a 20-30% xenotime concentrate (total_tonnes is contained TREO, not concentrate mass); Iluka takes 100% of product up to a 5,500 tpa TREO maximum with right of first refusal on excess. Delivery by road from first concentrate (2028). RISK: certain conditions precedent (NTU financing/FID, Iluka financial close) passed their satisfaction dates as at Sep 2025, entitling either party to terminate; neither has, and extensions are under discussion (NTU DFS pp.5, 91-92). Corroborated by Iluka AR25 p.9: 'the prospect of offtake under our existing agreement with Northern Minerals was also strengthened by support from the Australian and US governments for the development of the Browns Range deposit'."
   },
   {
     "id": "rel-iluka-invested-in-northern-minerals",
     "type": "INVESTED_IN",
     "from_id": "org-iluka-resources",
     "to_id": "org-northern-minerals",
-    "status": "PLANNED",
-    "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
+    "status": "OBSERVED",
+    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
     "material_ids": [],
     "annual_tonnes": null,
     "total_tonnes": null,
-    "start_year": null,
+    "start_year": 2022,
     "end_year": null,
-    "note": "Strategic partnership includes a conditional post-FID equity commitment: Iluka may subscribe for ~A$53M of Northern Minerals equity via placement and put/call options, subject to positive FID, secured project funding, Iluka due diligence and continuation of the Supply Agreement (p.86)."
+    "note": "Existing stake: in October 2022 Iluka invested A$20M in Northern Minerals - A$5M for 125 million ordinary shares (still held; fair value A$3.8M at 31 Dec 2025) and a A$15M convertible note that matured 31 Dec 2024 and was redeemed in 2025 for A$18.5M incl. interest (AR25 note 5(c), p.112). Conditional further commitment: per the NTU DFS (p.86) Iluka may subscribe for ~A$53M of additional equity post-FID via placement and put/call options, subject to positive FID, secured project funding, Iluka due diligence and continuation of the Supply Agreement - that tranche remains PLANNED."
   },
   {
     "id": "rel-wimmera-supplies-eneabba",
@@ -33,13 +33,13 @@
     "from_id": "proj-wimmera",
     "to_id": "fac-eneabba",
     "status": "POTENTIAL",
-    "provenance": { "type": "REPORTED", "source_id": "src-iluka-wimmera-disclosures", "assertion_confidence": "HIGH", "last_verified": null },
+    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
     "material_ids": ["mat-re-concentrate"],
-    "annual_tonnes": 15000,
+    "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Iluka scenario: ~15 ktpa for more than 25 years. High confidence this is the intended pathway; project itself remains pre-production."
+    "note": "AR25 p.21: 'Wimmera's rare earths are an important potential future feedstock for the Eneabba refinery'; p.9: 'a potential multi decade source of light and heavy rare earths'. High confidence this is the intended pathway; project remains in DFS. The ~15 ktpa / 25+ year volume from Iluka's refinery feed scenarios is NOT in AR25 and is held on the project record against an unverified placeholder source (annual_tonnes left null here)."
   },
   {
     "id": "rel-fingerboards-supplies-unresolved",
@@ -103,13 +103,13 @@
     "from_id": "fac-eneabba",
     "to_id": null,
     "status": "UNRESOLVED",
-    "provenance": { "type": "INFERRED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "MEDIUM", "last_verified": "2026-08-30" },
+    "provenance": { "type": "INFERRED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "MEDIUM", "last_verified": "2026-08-30" },
     "material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Separated oxides -> metals/alloys -> magnets is a functional dependency only; no offtake, metallisation or magnet-production counterparty identified. Iluka's FID release (p.2) names rare-earth metallisation as a potential future step; NTU DFS (Fig 41, p.74) shows a 'potential Iluka metallisation plant (study in progress)' and ex-China magnet producers / Western OEMs as the intended market."
+    "note": "Separated oxides -> metals/alloys -> magnets is a functional dependency only; no offtake, metallisation or magnet-production counterparty identified. AR25: offtake discussions with commercial customers ongoing, priority is binding agreements on pricing independent of the Asian Metal Index (p.9, p.31); metallisation feasibility study advanced in 2025 and will conclude in 2026, with electrolytic cell development with technology partners (p.9, p.21, p.29). Earlier: FID release (2022, p.2) named metallisation as a potential future step; NTU DFS (Fig 41, p.74) shows a 'potential Iluka metallisation plant (study in progress)' with ex-China magnet producers / Western OEMs as the intended market."
   },
   {
     "id": "rel-eneabba-stockpile-supplies-eneabba",
@@ -121,9 +121,9 @@
     "material_ids": ["mat-re-concentrate"],
     "annual_tonnes": null,
     "total_tonnes": null,
-    "start_year": null,
+    "start_year": 2027,
     "end_year": null,
-    "note": "The refinery will be fed initially from Iluka's own Eneabba monazite/xenotime stockpile, giving an indicative nine-year refinery life on the stockpile alone with project NPV > A$500M under that conservative scenario (p.2). Owned feed - not dependent on any third-party mine."
+    "note": "The refinery will be fed initially from Iluka's own Eneabba monazite/xenotime stockpile, giving an indicative nine-year refinery life on the stockpile alone with project NPV > A$500M under that conservative scenario (FID 2022, p.2). Owned feed - not dependent on any third-party mine. AR25 p.57: stockpile feed supports up to 18 ktpa contained REO into the plant and 16.0 ktpa REO output; Iluka's 2026 incentive targets 15 ktpa REO feed in the first year of operation (commissioning 2027)."
   },
   {
     "id": "rel-eneabba-stockpile-alternative-to-browns-range",
@@ -144,14 +144,28 @@
     "type": "INVESTED_IN",
     "from_id": "org-export-finance-australia",
     "to_id": "fac-eneabba",
-    "status": "CONTRACTED",
-    "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
+    "status": "OBSERVED",
+    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
     "material_ids": [],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": 2022,
+    "end_year": 2038,
+    "note": "Australian Government risk-sharing arrangement under the Critical Minerals Facility, administered by Export Finance Australia: non-recourse loan to Iluka Eneabba Pty Ltd secured against the refinery, BBSY + 3%, term up to 16 years expiring 2038, repayments from project completion. Originally A$1,050M + A$200M overrun (FID 2022; Iluka equity A$200M on 1:3 basis, royalty to Iluka up to A$81M/yr capped at A$900M). AR25 (pp.12, 127-128): facility increased to A$1,650M in Feb 2025 (Iluka cash contribution rising to A$414M); the additional A$400M tranche is subject to securing offtake satisfactory to the Australian Government and drawable only after the initial A$1,450M is used; A$609.7M drawn at 31 Dec 2025 at 7.8% effective; A$150M overrun facility (50% EFA / 50% Iluka) undrawn. Debt, not equity - drawn and in force, hence OBSERVED."
+  },
+  {
+    "id": "rel-kangankunde-supplies-eneabba",
+    "type": "SUPPLIES",
+    "from_id": "proj-kangankunde",
+    "to_id": "fac-eneabba",
+    "status": "CONTRACTED",
+    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
+    "material_ids": ["mat-re-concentrate"],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
     "end_year": null,
-    "note": "Australian Government risk-sharing arrangement: A$1,050M non-recourse loan to RefineryCo under the A$2B Critical Minerals Facility administered by Export Finance Australia, plus A$200M cost-overrun facility; BBSY + 3%, tenor up to 16 years; royalty to Iluka up to A$81M/yr capped at A$900M (pp.1-2). Debt, not equity."
+    "note": "Rare-earth concentrate supply agreement finalised in 2025 between Iluka and Lindian Resources, 'securing 10% of the refinery's capacity feedstock for 15 years, with options to significantly increase the volume and duration of the contract' (AR25 p.9, p.53). Kangankunde is a neodymium/praseodymium (light rare earth) source, so this diversifies Eneabba's feed but does not substitute for Browns Range Dy/Tb. Tonnage not disclosed."
   },
   {
     "id": "rel-usar-invested-in-serra-verde",
