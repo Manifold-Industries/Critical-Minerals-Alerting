@@ -1,0 +1,114 @@
+[
+  {
+    "id": "fac-eneabba",
+    "name": "Eneabba Rare Earths Refinery",
+    "facility_type": "REFINERY",
+    "country_id": "AU",
+    "operator_id": "org-iluka-resources",
+    "operating_status": {
+      "value": "UNDER_CONSTRUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-eneabba-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "location_description": "Eneabba, Western Australia",
+    "coordinates": null,
+    "input_material_ids": ["mat-hre-concentrate", "mat-re-concentrate"],
+    "output_material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
+    "capacities": [],
+    "expected_start": {
+      "value": 2027,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-eneabba-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "description": "Australia's first fully integrated rare-earth refinery (cracking, leaching, separation). Designed to process multiple feedstocks — Iluka-owned deposits and third-party concentrates including mineral-sands, xenotime hard-rock, monazite and ionic-clay material — into separated Nd, Pr, Dy, Tb and other rare-earth oxides.",
+    "aliases": ["Eneabba"]
+  },
+  {
+    "id": "fac-usar-wheat-ridge",
+    "name": "USA Rare Earth Wheat Ridge Separation Facility",
+    "facility_type": "SEPARATION",
+    "country_id": "US",
+    "operator_id": "org-usa-rare-earth",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": null
+      }
+    },
+    "location_description": "Wheat Ridge, Colorado",
+    "coordinates": null,
+    "input_material_ids": ["mat-mrec"],
+    "output_material_ids": ["mat-dy-oxide", "mat-ndpr-oxide"],
+    "capacities": [],
+    "expected_start": null,
+    "description": "Separation capability that has demonstrated production of commercial-grade Dy and NdPr oxide from recycled feed. Future Serra Verde concentrates are described as part of the planned oxide-production feedstock base; commercial scale not established from public disclosures.",
+    "aliases": ["Wheat Ridge"]
+  },
+  {
+    "id": "fac-less-common-metals",
+    "name": "Less Common Metals",
+    "facility_type": "METALLIZATION_AND_ALLOYING",
+    "country_id": "GB",
+    "operator_id": "org-less-common-metals",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "location_description": "United Kingdom",
+    "coordinates": null,
+    "input_material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
+    "output_material_ids": ["mat-re-metals", "mat-ndfeb-alloy"],
+    "capacities": [],
+    "expected_start": null,
+    "description": "Rare-earth metal and alloy producer through which USA Rare Earth operates its metallization capability.",
+    "aliases": ["LCM"]
+  },
+  {
+    "id": "fac-usar-stillwater",
+    "name": "USA Rare Earth Stillwater Magnet Facility",
+    "facility_type": "MAGNET_MANUFACTURING",
+    "country_id": "US",
+    "operator_id": "org-usa-rare-earth",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "location_description": "Stillwater, Oklahoma",
+    "coordinates": null,
+    "input_material_ids": ["mat-ndfeb-alloy"],
+    "output_material_ids": ["mat-sintered-ndfeb-magnet"],
+    "capacities": [],
+    "expected_start": {
+      "value": 2026,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "description": "First commercial sintered NdFeB magnet-production line commissioned in March 2026. Aerospace and defense are among the stated target markets.",
+    "aliases": ["Stillwater"]
+  }
+]

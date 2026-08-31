@@ -1,0 +1,224 @@
+[
+  {
+    "id": "proj-browns-range",
+    "name": "Browns Range HRE Project",
+    "country_id": "AU",
+    "deposit_id": "dep-browns-range",
+    "operator_id": "org-northern-minerals",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-ntu-browns-range-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-ntu-browns-range-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "tonnes": 30500,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Rare-earth oxide concentrate contracted to Eneabba over life of mine"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-disclosures",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Planned open-pit and underground mining of the Dy/Tb-rich Wolverine deposit, with on-site beneficiation into a mixed heavy rare-earth oxide concentrate.",
+    "aliases": ["Browns Range"]
+  },
+  {
+    "id": "proj-wimmera",
+    "name": "Wimmera Project",
+    "country_id": "AU",
+    "deposit_id": "dep-wimmera",
+    "operator_id": "org-iluka-resources",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-wimmera-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-wimmera-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "tonnes": 15000,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Iluka scenario modelling: ~15 ktpa rare-earth concentrate to Eneabba for more than 25 years; not a committed production plan"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-iluka-wimmera-disclosures",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Mineral-sands development containing monazite and xenotime rare-earth minerals (Nd/Pr plus Dy/Tb), progressing through definitive feasibility as a potential long-term Eneabba feed source.",
+    "aliases": ["Wimmera"]
+  },
+  {
+    "id": "proj-fingerboards",
+    "name": "Fingerboards Critical Minerals Project",
+    "country_id": "AU",
+    "deposit_id": "dep-glenaladale",
+    "operator_id": "org-gippsland-critical-minerals",
+    "development_stage": {
+      "value": "DEVELOPMENT",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-gcm-fingerboards-disclosures",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": null
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-gcm-fingerboards-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-heavy-mineral-concentrate",
+          "tonnes": 280000,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Containing roughly 14,000 tpa of xenotime and monazite rare-earth minerals"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-gcm-fingerboards-disclosures",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hreo",
+          "tonnes": 200,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Heavy rare-earth oxides including Dy and Tb, contained in product"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-au-gov-major-project-status-fingerboards",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-lreo",
+          "tonnes": 1800,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Light rare-earth oxides including Nd and Pr, contained in product"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-au-gov-major-project-status-fingerboards",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Development-stage mineral-sands project at the Glenaladale deposit. Heavy mineral concentrate would be processed further in the Northern Territory or Western Australia; the specific downstream refinery is not publicly established.",
+    "aliases": ["Fingerboards"]
+  },
+  {
+    "id": "proj-serra-verde",
+    "name": "Serra Verde Pela Ema Operation",
+    "country_id": "BR",
+    "deposit_id": "dep-pela-ema",
+    "operator_id": "org-serra-verde",
+    "development_stage": {
+      "value": "PRODUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-serra-verde-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-serra-verde-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "expected_production_start": {
+      "value": 2024,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-serra-verde-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 6400,
+          "period": "ANNUAL",
+          "target_year": 2027,
+          "note": "Rare-earth oxide equivalent contained in mixed rare-earth carbonate; company target by end of 2027"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-serra-verde-disclosures",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Integrated mining and processing operation in commercial production since 2024, producing a mixed rare-earth carbonate with Dy, Tb, Nd and Pr — the first scaled producer outside Asia of all four magnet rare earths.",
+    "aliases": ["Serra Verde", "Pela Ema"]
+  }
+]
