@@ -1,12 +1,12 @@
 [
   {
-    "id": "src-ntu-browns-range-disclosures",
-    "name": "Northern Minerals Browns Range HRE Project disclosures and DFS",
+    "id": "src-ntu-browns-range-dfs-2025",
+    "name": "Northern Minerals ASX Announcement: Browns Range Heavy Rare Earths Project Definitive Feasibility Study (with Appendix 1, DFS Executive Summary)",
     "source_type": "DOCUMENT",
-    "publisher": "Northern Minerals Ltd",
-    "published_on": null,
-    "url": null,
-    "locator": null,
+    "publisher": "Northern Minerals Ltd (ASX:NTU)",
+    "published_on": "2025-09-15",
+    "url": "https://announcements.asx.com.au/asxpdf/20250915/pdf/06p6zt0hxtpg01.pdf",
+    "locator": "Highlights pp.1-3; Table 1 Project Physicals p.7; Table 3 Wolverine MRE p.20 (App.1); Table 9 Ore Reserve p.33 (App.1); Table 9 LOM Processing Summary p.20; Iluka Supply Agreement risks pp.5, 86, 91-92; Fig 42 REO assemblage p.75; execution schedule p.63",
     "source_confidence": "HIGH"
   },
   {

@@ -5,13 +5,27 @@
     "from_id": "proj-browns-range",
     "to_id": "fac-eneabba",
     "status": "CONTRACTED",
-    "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-disclosures", "assertion_confidence": "HIGH", "last_verified": null },
+    "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
     "material_ids": ["mat-hre-concentrate"],
     "annual_tonnes": null,
     "total_tonnes": 30500,
+    "start_year": 2028,
+    "end_year": null,
+    "note": "Iluka Supply Agreement (Oct 2022): binding contract for 30,500 t of contained TREO within a 20-30% xenotime concentrate (total_tonnes is contained TREO, not concentrate mass); Iluka takes 100% of product up to a 5,500 tpa TREO maximum with right of first refusal on excess. Delivery by road from first concentrate (2028). RISK: certain conditions precedent (NTU financing/FID, Iluka financial close) passed their satisfaction dates as at Sep 2025, entitling either party to terminate; neither has, and extensions are under discussion (pp.5, 91-92)."
+  },
+  {
+    "id": "rel-iluka-invested-in-northern-minerals",
+    "type": "INVESTED_IN",
+    "from_id": "org-iluka-resources",
+    "to_id": "org-northern-minerals",
+    "status": "PLANNED",
+    "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Strategic partnership with Iluka to supply 30.5 kt of rare-earth oxide concentrate over life of mine; also supported by Iluka disclosures."
+    "note": "Strategic partnership includes a conditional post-FID equity commitment: Iluka may subscribe for ~A$53M of Northern Minerals equity via placement and put/call options, subject to positive FID, secured project funding, Iluka due diligence and continuation of the Supply Agreement (p.86)."
   },
   {
     "id": "rel-wimmera-supplies-eneabba",

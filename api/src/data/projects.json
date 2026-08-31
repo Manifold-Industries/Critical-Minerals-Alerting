@@ -1,7 +1,7 @@
 [
   {
     "id": "proj-browns-range",
-    "name": "Browns Range HRE Project",
+    "name": "Browns Range Heavy Rare Earths Project",
     "country_id": "AU",
     "deposit_id": "dep-browns-range",
     "operator_id": "org-northern-minerals",
@@ -9,41 +9,94 @@
       "value": "FEASIBILITY",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-ntu-browns-range-disclosures",
+        "source_id": "src-ntu-browns-range-dfs-2025",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-08-30"
       }
     },
     "operating_status": {
       "value": "PLANNED",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-ntu-browns-range-disclosures",
+        "source_id": "src-ntu-browns-range-dfs-2025",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-08-30"
       }
     },
-    "expected_production_start": null,
+    "expected_production_start": {
+      "value": 2028,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-ntu-browns-range-dfs-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
     "planned_production": [
       {
         "value": {
           "material_id": "mat-hre-concentrate",
-          "tonnes": 30500,
-          "period": "LIFE_OF_MINE",
+          "tonnes": 17500,
+          "period": "ANNUAL",
           "target_year": null,
-          "note": "Rare-earth oxide concentrate contracted to Eneabba over life of mine"
+          "note": "Average steady-state xenotime concentrate at ~25% TREO (Table 1, p.7); contains ~4,350 tpa TREO of which ~10.7% is Dy/Tb"
         },
         "provenance": {
           "type": "REPORTED",
-          "source_id": "src-ntu-browns-range-disclosures",
+          "source_id": "src-ntu-browns-range-dfs-2025",
           "assertion_confidence": "HIGH",
-          "last_verified": null
+          "last_verified": "2026-08-30"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "tonnes": 181000,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Total dry concentrate over the 11-year LOM, containing 45,000 t TREO (Table 1, p.7; Table 9, p.20)"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 4230,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Dy2O3 contained in concentrate over LOM (Table 9, p.20); separated downstream at Eneabba, not produced as oxide at site"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 630,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Tb4O7 contained in concentrate over LOM (Table 9, p.20); separated downstream at Eneabba, not produced as oxide at site"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
         }
       }
     ],
     "resource_estimates": [],
-    "description": "Planned open-pit and underground mining of the Dy/Tb-rich Wolverine deposit, with on-site beneficiation into a mixed heavy rare-earth oxide concentrate.",
-    "aliases": ["Browns Range"]
+    "description": "100%-owned by Northern Minerals. Open-pit then underground (sublevel caving) mining of the Wolverine deposit, with on-site crushing, grinding, magnetic separation and flotation producing a ~25% TREO xenotime concentrate, trucked by road to Iluka's Eneabba refinery. DFS: A$592M pre-production capital, 11-year LOM, ~84% TREO recovery. FID subject to funding; construction ~26 months from financial close, targeting completion Q4 2027 and ramp-up in 2028. Dy/Tb ~70% of basket value.",
+    "aliases": ["Browns Range", "Browns Range HRE Project"]
   },
   {
     "id": "proj-wimmera",

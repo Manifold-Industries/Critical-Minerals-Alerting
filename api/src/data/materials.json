@@ -1,5 +1,5 @@
 [
-  { "id": "mat-hre-concentrate", "name": "Mixed heavy rare-earth oxide concentrate", "category": "CONCENTRATE", "elements": ["Dy", "Tb"], "unit": "t" },
+  { "id": "mat-hre-concentrate", "name": "Xenotime concentrate (~25% TREO, heavy rare-earth rich)", "category": "CONCENTRATE", "elements": ["Y", "Dy", "Tb", "Gd", "Er", "Lu"], "unit": "t" },
   { "id": "mat-re-concentrate", "name": "Monazite / xenotime rare-earth concentrate", "category": "CONCENTRATE", "elements": ["Nd", "Pr", "Dy", "Tb"], "unit": "t" },
   { "id": "mat-heavy-mineral-concentrate", "name": "Heavy mineral concentrate", "category": "CONCENTRATE", "elements": ["Nd", "Pr", "Dy", "Tb"], "unit": "t" },
   { "id": "mat-mrec", "name": "Mixed rare-earth carbonate", "category": "CARBONATE", "elements": ["Dy", "Tb", "Nd", "Pr"], "unit": "t" },
