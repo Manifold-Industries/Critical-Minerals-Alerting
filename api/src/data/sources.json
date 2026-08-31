@@ -68,5 +68,15 @@
     "url": null,
     "locator": null,
     "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-dod-ree-magnet-publications",
+    "name": "U.S. Department of Defense publications identifying rare-earth permanent magnet dependencies in defense systems",
+    "source_type": "DOCUMENT",
+    "publisher": "U.S. Department of Defense",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
   }
 ]

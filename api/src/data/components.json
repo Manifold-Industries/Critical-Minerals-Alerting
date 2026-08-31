@@ -1,0 +1,22 @@
+[
+  {
+    "id": "cmp-ndfeb-magnet",
+    "name": "NdFeB permanent magnet",
+    "category": "Permanent magnet",
+    "requires": [
+      {
+        "value": "mat-ndpr-oxide",
+        "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-disclosures", "assertion_confidence": "HIGH", "last_verified": null }
+      },
+      {
+        "value": "mat-dy-oxide",
+        "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-disclosures", "assertion_confidence": "HIGH", "last_verified": null }
+      },
+      {
+        "value": "mat-tb-oxide",
+        "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-disclosures", "assertion_confidence": "HIGH", "last_verified": null }
+      }
+    ],
+    "defense_relevant": true
+  }
+]
