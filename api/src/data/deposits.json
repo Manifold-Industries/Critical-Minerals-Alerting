@@ -1,0 +1,50 @@
+[
+  {
+    "id": "dep-browns-range",
+    "name": "Browns Range",
+    "country_id": "AU",
+    "commodities": ["Dy", "Tb"],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Hard-rock xenotime",
+    "resource_estimates": [],
+    "location_description": "East Kimberley, Western Australia; centred on the Wolverine deposit",
+    "aliases": ["Wolverine", "Browns Range HRE Project"]
+  },
+  {
+    "id": "dep-wimmera",
+    "name": "Wimmera",
+    "country_id": "AU",
+    "commodities": ["Nd", "Pr", "Dy", "Tb"],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Mineral sands (monazite / xenotime)",
+    "resource_estimates": [],
+    "location_description": "Wimmera region, Victoria",
+    "aliases": []
+  },
+  {
+    "id": "dep-glenaladale",
+    "name": "Glenaladale",
+    "country_id": "AU",
+    "commodities": ["Dy", "Tb", "Nd", "Pr"],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Mineral sands (monazite / xenotime)",
+    "resource_estimates": [],
+    "location_description": "Glenaladale, East Gippsland, Victoria",
+    "aliases": ["Fingerboards"]
+  },
+  {
+    "id": "dep-pela-ema",
+    "name": "Pela Ema",
+    "country_id": "BR",
+    "commodities": ["Dy", "Tb", "Nd", "Pr"],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Ionic clay",
+    "resource_estimates": [],
+    "location_description": "Goiás, Brazil",
+    "aliases": ["Serra Verde"]
+  }
+]

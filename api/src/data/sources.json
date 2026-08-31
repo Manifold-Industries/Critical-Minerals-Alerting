@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "src-ntu-browns-range-disclosures",
+    "name": "Northern Minerals Browns Range HRE Project disclosures and DFS",
+    "source_type": "DOCUMENT",
+    "publisher": "Northern Minerals Ltd",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-iluka-wimmera-disclosures",
+    "name": "Iluka Resources Wimmera project disclosures and Eneabba refinery feed scenarios",
+    "source_type": "DOCUMENT",
+    "publisher": "Iluka Resources Ltd",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-gcm-fingerboards-disclosures",
+    "name": "Gippsland Critical Minerals Fingerboards project disclosures",
+    "source_type": "DOCUMENT",
+    "publisher": "Gippsland Critical Minerals",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-serra-verde-disclosures",
+    "name": "Serra Verde Pela Ema operation and production disclosures",
+    "source_type": "DOCUMENT",
+    "publisher": "Serra Verde",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
+  }
+]
