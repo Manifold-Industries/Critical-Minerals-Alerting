@@ -71,5 +71,15 @@
       "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
     },
     "aliases": ["EFA"]
+  },
+  {
+    "id": "org-lindian-resources",
+    "name": "Lindian Resources",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": null,
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": ["Lindian"]
   }
 ]

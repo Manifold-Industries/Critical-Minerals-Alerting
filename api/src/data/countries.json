@@ -66,5 +66,14 @@
       }
     },
     "risk_score": null
+  },
+  {
+    "id": "MW",
+    "name": "Malawi",
+    "iso_alpha2": "MW",
+    "iso_alpha3": "MWI",
+    "geometry_wkt": null,
+    "alignment": null,
+    "risk_score": null
   }
 ]

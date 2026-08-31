@@ -108,18 +108,18 @@
       "value": "FEASIBILITY",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-iluka-wimmera-disclosures",
+        "source_id": "src-iluka-ar25-2025",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-08-30"
       }
     },
     "operating_status": {
       "value": "PLANNED",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-iluka-wimmera-disclosures",
+        "source_id": "src-iluka-ar25-2025",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-08-30"
       }
     },
     "expected_production_start": null,
@@ -130,19 +130,19 @@
           "tonnes": 15000,
           "period": "ANNUAL",
           "target_year": null,
-          "note": "Iluka scenario modelling: ~15 ktpa rare-earth concentrate to Eneabba for more than 25 years; not a committed production plan"
+          "note": "UNVERIFIED: ~15 ktpa rare-earth concentrate to Eneabba for 25+ years, per Iluka refinery feed scenarios cited in the v0 brief. Not stated in the 2025 Annual Report, which says only 'potential multi-decade source of light and heavy rare earths'. Not a committed production plan."
         },
         "provenance": {
           "type": "REPORTED",
-          "source_id": "src-iluka-wimmera-disclosures",
-          "assertion_confidence": "MEDIUM",
+          "source_id": "src-iluka-wimmera-feed-scenarios",
+          "assertion_confidence": "LOW",
           "last_verified": null
         }
       }
     ],
     "resource_estimates": [],
-    "description": "Mineral-sands development containing monazite and xenotime rare-earth minerals (Nd/Pr plus Dy/Tb), progressing through definitive feasibility as a potential long-term Eneabba feed source.",
-    "aliases": ["Wimmera"]
+    "description": "Mining and beneficiation of a fine-grained heavy mineral sands ore body in western Victoria for potential long-term supply of rare earths (monazite/xenotime: Nd/Pr plus Dy/Tb) and zircon. In definitive feasibility study; Environment Effects Statement being prepared for submission to the Victorian Government in 2026; detailed engineering began 2025 with WSP as major engineering provider (Integrated Owner's Team). Flowsheet successfully tested with finished zircon produced (~40% of zircon suitable for ceramics, markets identified for ~60%). Resource increase announced January 2026 following additional exploration and modelling. ~A$10M of 2025 feasibility spend covered Wimmera, Tutunup and other deposits. Iluka expects Wimmera (with Eneabba) to be operational in the long term (2040-2050).",
+    "aliases": ["Wimmera", "WIM100"]
   },
   {
     "id": "proj-fingerboards",
@@ -299,9 +299,55 @@
       }
     },
     "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "tonnes": 18000,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Maximum refinery plant feed rate of 18 ktpa CONTAINED REO (before recovery losses) when processing the Eneabba stockpile, per Iluka Investor Briefing Day 5 May 2025 as cited in AR25 p.57; not concentrate mass. Corresponding REO output rate 16.0 ktpa."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-iluka-ar25-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-08-30"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Iluka's existing stockpile of rare-earth-bearing monazite and xenotime at Eneabba, WA (a by-product of historical mineral-sands mining), with Phase 1 screening and Phase 2 concentrating plant already built (A$50M deployed). Described by Iluka as the highest-grade rare earths operation globally; valued at A$1,270M as an equity-like contribution to the refinery (FID 2022). No mining required. Provides the refinery's initial feed for an indicative nine years; replenished from Iluka's Jacinth-Ambrosia and Cataby mineral-sands operations. AR25: the Rare Earths segment comprises the refinery plus Phases 1 and 2; Iluka's 2026 LTIP targets securing at least 8 kt contained NdPr (or Dy/Tb equivalent) of additional feedstock beyond the monazite stockpile. Tonnage and REO assemblage of the stockpile not disclosed.",
+    "aliases": ["Eneabba stockpile"]
+  },
+  {
+    "id": "proj-kangankunde",
+    "name": "Kangankunde Rare Earths Project",
+    "country_id": "MW",
+    "deposit_id": null,
+    "operator_id": "org-lindian-resources",
+    "development_stage": {
+      "value": "DEVELOPMENT",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "expected_production_start": null,
     "planned_production": [],
     "resource_estimates": [],
-    "description": "Iluka's existing stockpile of rare-earth-bearing monazite and xenotime at Eneabba, WA (a by-product of historical mineral-sands mining), with Phase 1 screening and Phase 2 concentrating plant already built (A$50M deployed). Described by Iluka as the highest-grade rare earths operation globally; valued at A$1,270M as an equity-like contribution to the refinery. No mining required. Provides the refinery's initial feed for an indicative nine years; replenished from Iluka's Jacinth-Ambrosia and Cataby mineral-sands operations. Tonnage and REO assemblage not disclosed in this source.",
-    "aliases": ["Eneabba stockpile"]
+    "description": "Rare-earth deposit in Malawi being developed by Lindian Resources; described by Iluka as 'a major source of neodymium and praseodymium'. Included here only as a contracted Eneabba feedstock (light rare earths) - it is not a Dy/Tb alternative to Browns Range. Stage and status inferred from Iluka's description of Lindian as 'developing' the deposit; no Lindian disclosure has been reviewed.",
+    "aliases": ["Kangankunde"]
   }
 ]

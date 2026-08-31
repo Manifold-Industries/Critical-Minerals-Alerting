@@ -51,13 +51,13 @@
     "id": "dep-wimmera",
     "name": "Wimmera",
     "country_id": "AU",
-    "commodities": ["Nd", "Pr", "Dy", "Tb"],
+    "commodities": ["Nd", "Pr", "Dy", "Tb", "Zr"],
     "coordinates": null,
     "geometry_wkt": null,
-    "deposit_type": "Mineral sands (monazite / xenotime)",
+    "deposit_type": "Fine-grained heavy mineral sands (monazite / xenotime, zircon)",
     "resource_estimates": [],
-    "location_description": "Wimmera region, Victoria",
-    "aliases": []
+    "location_description": "Wimmera region, western Victoria (Murray Basin). Iluka's WIM100 deposit; re-modelling added +3.9 Mt HM to Murray Basin Mineral Resources in 2025 and a resource increase was announced January 2026 (AR25 pp.21, 167). AR25 reports Murray Basin resources only in aggregate (2,272 Mt @ 5.6% HM, monazite+xenotime 2.2% of HM), so no Wimmera-specific estimate is recorded here; the January 2026 resource announcement is the source to load.",
+    "aliases": ["WIM100"]
   },
   {
     "id": "dep-glenaladale",
