@@ -38,5 +38,35 @@
     "url": null,
     "locator": null,
     "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-iluka-eneabba-disclosures",
+    "name": "Iluka Resources Eneabba Rare Earths Refinery project disclosures, investor presentations and annual reports",
+    "source_type": "DOCUMENT",
+    "publisher": "Iluka Resources Ltd",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-au-gov-major-project-status-fingerboards",
+    "name": "Australian Government Major Project Status listing for the Fingerboards Critical Minerals Project",
+    "source_type": "DOCUMENT",
+    "publisher": "Australian Government, Department of Industry, Science and Resources",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-usar-disclosures",
+    "name": "USA Rare Earth disclosures on the Serra Verde combination and offtake, Wheat Ridge separation, Less Common Metals and Stillwater magnet production",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth",
+    "published_on": null,
+    "url": null,
+    "locator": null,
+    "source_confidence": "HIGH"
   }
 ]
