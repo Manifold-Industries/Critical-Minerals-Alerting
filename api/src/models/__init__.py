@@ -20,6 +20,7 @@ from src.models.provenance import (
     Source,
     SourceType,
 )
+from src.models.relationship import Relationship, RelationshipStatus, RelationshipType
 from src.models.system import System
 
 __all__ = [
@@ -43,6 +44,9 @@ __all__ = [
     "Project",
     "Provenance",
     "ProvenanceType",
+    "Relationship",
+    "RelationshipStatus",
+    "RelationshipType",
     "ResourceClassification",
     "ResourceEstimate",
     "Source",
