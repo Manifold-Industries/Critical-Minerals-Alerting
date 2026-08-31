@@ -1,0 +1,70 @@
+[
+  {
+    "id": "AU",
+    "name": "Australia",
+    "iso_alpha2": "AU",
+    "iso_alpha3": "AUS",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "BR",
+    "name": "Brazil",
+    "iso_alpha2": "BR",
+    "iso_alpha3": "BRA",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "PARTNER",
+      "provenance": {
+        "type": "JUDGMENT",
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "US",
+    "name": "United States",
+    "iso_alpha2": "US",
+    "iso_alpha3": "USA",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "DOMESTIC",
+      "provenance": {
+        "type": "JUDGMENT",
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "GB",
+    "name": "United Kingdom",
+    "iso_alpha2": "GB",
+    "iso_alpha3": "GBR",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  }
+]
