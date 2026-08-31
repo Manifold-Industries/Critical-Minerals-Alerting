@@ -5,14 +5,11 @@ which is treated as the geological asset layer only — *not* as authoritative
 for current project-development status (that lives on ``Project``).
 """
 
+import math
 from dataclasses import dataclass
 from enum import StrEnum
 
-from src.models._validation import (
-    require_in_range,
-    require_non_blank,
-    require_non_negative,
-)
+from src.models._validation import require_in_range, require_non_blank
 from src.models.geography import Coordinates
 from src.models.provenance import Attested, Provenance
 
@@ -42,10 +39,9 @@ class ResourceEstimate:
     contained_tonnes: float | None = None
 
     def __post_init__(self) -> None:
-        require_non_negative("ore_tonnes", self.ore_tonnes)
-        require_non_negative("contained_tonnes", self.contained_tonnes)
-        if self.grade_pct is not None:
-            require_in_range("grade_pct", self.grade_pct, 0.0, 100.0)
+        require_in_range("ore_tonnes", self.ore_tonnes, 0.0, math.inf)
+        require_in_range("contained_tonnes", self.contained_tonnes, 0.0, math.inf)
+        require_in_range("grade_pct", self.grade_pct, 0.0, 100.0)
 
 
 @dataclass(frozen=True)

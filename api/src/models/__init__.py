@@ -8,6 +8,7 @@ from src.models.deposit import Deposit, ResourceClassification, ResourceEstimate
 from src.models.geography import Coordinates, Country
 from src.models.provenance import (
     Attested,
+    Confidence,
     Provenance,
     ProvenanceType,
     Source,
@@ -16,6 +17,7 @@ from src.models.provenance import (
 
 __all__ = [
     "Attested",
+    "Confidence",
     "Coordinates",
     "Country",
     "Deposit",

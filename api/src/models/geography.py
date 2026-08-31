@@ -3,11 +3,7 @@
 import re
 from dataclasses import dataclass
 
-from src.models._validation import (
-    require_in_range,
-    require_non_blank,
-    require_unit_interval,
-)
+from src.models._validation import require_in_range, require_non_blank
 from src.models.provenance import Attested
 
 _ISO_ALPHA2 = re.compile(r"^[A-Z]{2}$")
@@ -53,4 +49,4 @@ class Country:
         if self.iso_alpha3 is not None and not _ISO_ALPHA3.match(self.iso_alpha3):
             raise ValueError(f"iso_alpha3 must be three uppercase letters, got {self.iso_alpha3!r}")
         if self.risk_score is not None:
-            require_unit_interval("risk_score", self.risk_score.value)
+            require_in_range("risk_score", self.risk_score.value, 0.0, 1.0)
