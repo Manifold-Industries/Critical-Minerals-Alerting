@@ -58,5 +58,18 @@
     "listing": null,
     "government_affiliation": null,
     "aliases": ["LCM"]
+  },
+  {
+    "id": "org-export-finance-australia",
+    "name": "Export Finance Australia",
+    "organization_type": "GOVERNMENT",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": {
+      "value": "Australian Government export credit agency; administers the A$2B Critical Minerals Facility",
+      "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+    },
+    "aliases": ["EFA"]
   }
 ]

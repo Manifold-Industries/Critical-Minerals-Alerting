@@ -5,6 +5,7 @@
   { "id": "mat-mrec", "name": "Mixed rare-earth carbonate", "category": "CARBONATE", "elements": ["Dy", "Tb", "Nd", "Pr"], "unit": "t" },
   { "id": "mat-hreo", "name": "Heavy rare-earth oxides", "category": "OXIDE", "elements": ["Dy", "Tb"], "unit": "t" },
   { "id": "mat-lreo", "name": "Light rare-earth oxides", "category": "OXIDE", "elements": ["Nd", "Pr"], "unit": "t" },
+  { "id": "mat-separated-reo", "name": "Separated rare-earth oxides (TREO basis)", "category": "OXIDE", "elements": ["Nd", "Pr", "Dy", "Tb"], "unit": "t" },
   { "id": "mat-ndpr-oxide", "name": "NdPr oxide", "category": "OXIDE", "elements": ["Nd", "Pr"], "unit": "t" },
   { "id": "mat-dy-oxide", "name": "Dysprosium oxide", "category": "OXIDE", "elements": ["Dy"], "unit": "t" },
   { "id": "mat-tb-oxide", "name": "Terbium oxide", "category": "OXIDE", "elements": ["Tb"], "unit": "t" },

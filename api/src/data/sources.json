@@ -6,18 +6,28 @@
     "publisher": "Northern Minerals Ltd (ASX:NTU)",
     "published_on": "2025-09-15",
     "url": "https://announcements.asx.com.au/asxpdf/20250915/pdf/06p6zt0hxtpg01.pdf",
-    "locator": "Highlights pp.1-3; Table 1 Project Physicals p.7; Table 3 Wolverine MRE p.20 (App.1); Table 9 Ore Reserve p.33 (App.1); Table 9 LOM Processing Summary p.20; Iluka Supply Agreement risks pp.5, 86, 91-92; Fig 42 REO assemblage p.75; execution schedule p.63",
+    "locator": "Two separately paginated parts: ASX announcement (pp.1-33) then Appendix 1 DFS Executive Summary (pp.1-151). Announcement: highlights pp.1-3, cautionary statement p.5, Table 1 physicals p.7, Table 9 LOM processing summary p.20. Appendix 1: Table 3 Wolverine MRE p.20, Table 9 Ore Reserve p.33, execution schedule Fig 37 p.63, Fig 41 mine-to-magnet p.74, Fig 42 REO assemblage p.75, Dy/Tb market p.77, funding and Iluka equity p.86, Iluka Supply Agreement risk pp.91-92",
     "source_confidence": "HIGH"
   },
   {
-    "id": "src-iluka-wimmera-disclosures",
-    "name": "Iluka Resources Wimmera project disclosures and Eneabba refinery feed scenarios",
+    "id": "src-iluka-ar25-2025",
+    "name": "Iluka Resources 2025 Annual Report (year ended 31 December 2025)",
     "source_type": "DOCUMENT",
-    "publisher": "Iluka Resources Ltd",
+    "publisher": "Iluka Resources Ltd (ASX:ILU)",
+    "published_on": "2026-02-18",
+    "url": "https://www.iluka.com/media/yhwn2hzi/iluka-ar25-final-single-pages-18226.pdf",
+    "locator": "Printed page numbers (PDF page = printed + 2). Chairman/MD review pp.8-9: Eneabba online 2027, engineering >95%, capex A$1.7-1.8B, Lindian agreement, Northern Minerals offtake, Wimmera DFS, metallisation study to conclude 2026. Financial summary pp.11-12: Eneabba capex A$443M in 2025, NTU convertible note redeemed, EFA facility A$1,650M / A$610M drawn / A$150M overrun. Project overview p.21: Eneabba construction status and 2027 commissioning; Wimmera DFS, EES 2026, WSP, resource upgrade Jan 2026. Product stewardship p.29: metallisation and magnet-waste recycling. Remuneration p.53: Lindian 10% of refinery feedstock for 15 years; p.57 fns: 16.0 ktpa REO output on stockpile feed, 23 ktpa total capacity, 18 ktpa max feed. Climate p.79: Eneabba capex committed/spent A$1,134M; p.86: Eneabba and Wimmera long-term assets. Notes 3 (p.108), 5(c) (p.112), 16 (pp.127-128). Mineral Resources p.167: WIM100 re-modelling +3.9 Mt HM.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-iluka-wimmera-feed-scenarios",
+    "name": "Iluka Eneabba refinery feed scenarios citing ~15 ktpa Wimmera concentrate for 25+ years - DOCUMENT NOT YET IDENTIFIED (figure taken from the v0 supply-chain brief; not found in the 2025 Annual Report or the 2022 FID release)",
+    "source_type": "OTHER",
+    "publisher": "Iluka Resources Ltd (presumed)",
     "published_on": null,
     "url": null,
     "locator": null,
-    "source_confidence": "HIGH"
+    "source_confidence": "LOW"
   },
   {
     "id": "src-gcm-fingerboards-disclosures",
@@ -40,13 +50,13 @@
     "source_confidence": "HIGH"
   },
   {
-    "id": "src-iluka-eneabba-disclosures",
-    "name": "Iluka Resources Eneabba Rare Earths Refinery project disclosures, investor presentations and annual reports",
+    "id": "src-iluka-eneabba-fid-2022",
+    "name": "Iluka Resources ASX Notice: Eneabba Rare Earths Refinery - Final Investment Decision",
     "source_type": "DOCUMENT",
-    "publisher": "Iluka Resources Ltd",
-    "published_on": null,
-    "url": null,
-    "locator": null,
+    "publisher": "Iluka Resources Ltd (ASX:ILU)",
+    "published_on": "2022-04-03",
+    "url": "https://www.iluka.com/media/srypf2vr/erer-fid-asx-release-final.pdf",
+    "locator": "Refinery overview and parameters p.1 (capacity fn.1); risk sharing / EFA loan pp.1-2; stockpile feed, 9-year indicative life and metallisation p.2",
     "source_confidence": "HIGH"
   },
   {

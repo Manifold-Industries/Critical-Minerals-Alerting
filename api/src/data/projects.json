@@ -273,5 +273,35 @@
     "resource_estimates": [],
     "description": "Integrated mining and processing operation in commercial production since 2024, producing a mixed rare-earth carbonate with Dy, Tb, Nd and Pr — the first scaled producer outside Asia of all four magnet rare earths.",
     "aliases": ["Serra Verde", "Pela Ema"]
+  },
+  {
+    "id": "proj-eneabba-stockpile",
+    "name": "Eneabba Rare Earths Stockpile (Phases 1-2)",
+    "country_id": "AU",
+    "deposit_id": null,
+    "operator_id": "org-iluka-resources",
+    "development_stage": {
+      "value": "PRODUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-eneabba-fid-2022",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-eneabba-fid-2022",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [],
+    "resource_estimates": [],
+    "description": "Iluka's existing stockpile of rare-earth-bearing monazite and xenotime at Eneabba, WA (a by-product of historical mineral-sands mining), with Phase 1 screening and Phase 2 concentrating plant already built (A$50M deployed). Described by Iluka as the highest-grade rare earths operation globally; valued at A$1,270M as an equity-like contribution to the refinery. No mining required. Provides the refinery's initial feed for an indicative nine years; replenished from Iluka's Jacinth-Ambrosia and Cataby mineral-sands operations. Tonnage and REO assemblage not disclosed in this source.",
+    "aliases": ["Eneabba stockpile"]
   }
 ]
