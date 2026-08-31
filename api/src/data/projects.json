@@ -1,0 +1,353 @@
+[
+  {
+    "id": "proj-browns-range",
+    "name": "Browns Range Heavy Rare Earths Project",
+    "country_id": "AU",
+    "deposit_id": "dep-browns-range",
+    "operator_id": "org-northern-minerals",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-ntu-browns-range-dfs-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-ntu-browns-range-dfs-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "expected_production_start": {
+      "value": 2028,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-ntu-browns-range-dfs-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "tonnes": 17500,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average steady-state xenotime concentrate at ~25% TREO (Table 1, p.7); contains ~4,350 tpa TREO of which ~10.7% is Dy/Tb"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "tonnes": 181000,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Total dry concentrate over the 11-year LOM, containing 45,000 t TREO (Table 1, p.7; Table 9, p.20)"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 4230,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Dy2O3 contained in concentrate over LOM (Table 9, p.20); separated downstream at Eneabba, not produced as oxide at site"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 630,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Tb4O7 contained in concentrate over LOM (Table 9, p.20); separated downstream at Eneabba, not produced as oxide at site"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "100%-owned by Northern Minerals. Open-pit then underground (sublevel caving) mining of the Wolverine deposit, with on-site crushing, grinding, magnetic separation and flotation producing a ~25% TREO xenotime concentrate, trucked by road to Iluka's Eneabba refinery. DFS: A$592M pre-production capital, 11-year LOM, ~84% TREO recovery. FID subject to funding; construction ~26 months from financial close, targeting completion Q4 2027 and ramp-up in 2028. Dy/Tb ~70% of basket value.",
+    "aliases": ["Browns Range", "Browns Range HRE Project"]
+  },
+  {
+    "id": "proj-wimmera",
+    "name": "Wimmera Project",
+    "country_id": "AU",
+    "deposit_id": "dep-wimmera",
+    "operator_id": "org-iluka-resources",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "tonnes": 15000,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "UNVERIFIED: ~15 ktpa rare-earth concentrate to Eneabba for 25+ years, per Iluka refinery feed scenarios cited in the v0 brief. Not stated in the 2025 Annual Report, which says only 'potential multi-decade source of light and heavy rare earths'. Not a committed production plan."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-iluka-wimmera-feed-scenarios",
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Mining and beneficiation of a fine-grained heavy mineral sands ore body in western Victoria for potential long-term supply of rare earths (monazite/xenotime: Nd/Pr plus Dy/Tb) and zircon. In definitive feasibility study; Environment Effects Statement being prepared for submission to the Victorian Government in 2026; detailed engineering began 2025 with WSP as major engineering provider (Integrated Owner's Team). Flowsheet successfully tested with finished zircon produced (~40% of zircon suitable for ceramics, markets identified for ~60%). Resource increase announced January 2026 following additional exploration and modelling. ~A$10M of 2025 feasibility spend covered Wimmera, Tutunup and other deposits. Iluka expects Wimmera (with Eneabba) to be operational in the long term (2040-2050).",
+    "aliases": ["Wimmera", "WIM100"]
+  },
+  {
+    "id": "proj-fingerboards",
+    "name": "Fingerboards Critical Minerals Project",
+    "country_id": "AU",
+    "deposit_id": "dep-glenaladale",
+    "operator_id": "org-gippsland-critical-minerals",
+    "development_stage": {
+      "value": "DEVELOPMENT",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-gcm-fingerboards-disclosures",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": null
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-gcm-fingerboards-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-heavy-mineral-concentrate",
+          "tonnes": 280000,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Containing roughly 14,000 tpa of xenotime and monazite rare-earth minerals"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-gcm-fingerboards-disclosures",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hreo",
+          "tonnes": 200,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Heavy rare-earth oxides including Dy and Tb, contained in product"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-au-gov-major-project-status-fingerboards",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-lreo",
+          "tonnes": 1800,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Light rare-earth oxides including Nd and Pr, contained in product"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-au-gov-major-project-status-fingerboards",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Development-stage mineral-sands project at the Glenaladale deposit. Heavy mineral concentrate would be processed further in the Northern Territory or Western Australia; the specific downstream refinery is not publicly established.",
+    "aliases": ["Fingerboards"]
+  },
+  {
+    "id": "proj-serra-verde",
+    "name": "Serra Verde Pela Ema Operation",
+    "country_id": "BR",
+    "deposit_id": "dep-pela-ema",
+    "operator_id": "org-serra-verde",
+    "development_stage": {
+      "value": "PRODUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-serra-verde-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-serra-verde-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "expected_production_start": {
+      "value": 2024,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-serra-verde-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 6400,
+          "period": "ANNUAL",
+          "target_year": 2027,
+          "note": "Rare-earth oxide equivalent contained in mixed rare-earth carbonate; company target by end of 2027"
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-serra-verde-disclosures",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Integrated mining and processing operation in commercial production since 2024, producing a mixed rare-earth carbonate with Dy, Tb, Nd and Pr — the first scaled producer outside Asia of all four magnet rare earths.",
+    "aliases": ["Serra Verde", "Pela Ema"]
+  },
+  {
+    "id": "proj-eneabba-stockpile",
+    "name": "Eneabba Rare Earths Stockpile (Phases 1-2)",
+    "country_id": "AU",
+    "deposit_id": null,
+    "operator_id": "org-iluka-resources",
+    "development_stage": {
+      "value": "PRODUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-eneabba-fid-2022",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-eneabba-fid-2022",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "tonnes": 18000,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Maximum refinery plant feed rate of 18 ktpa CONTAINED REO (before recovery losses) when processing the Eneabba stockpile, per Iluka Investor Briefing Day 5 May 2025 as cited in AR25 p.57; not concentrate mass. Corresponding REO output rate 16.0 ktpa."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-iluka-ar25-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-08-30"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Iluka's existing stockpile of rare-earth-bearing monazite and xenotime at Eneabba, WA (a by-product of historical mineral-sands mining), with Phase 1 screening and Phase 2 concentrating plant already built (A$50M deployed). Described by Iluka as the highest-grade rare earths operation globally; valued at A$1,270M as an equity-like contribution to the refinery (FID 2022). No mining required. Provides the refinery's initial feed for an indicative nine years; replenished from Iluka's Jacinth-Ambrosia and Cataby mineral-sands operations. AR25: the Rare Earths segment comprises the refinery plus Phases 1 and 2; Iluka's 2026 LTIP targets securing at least 8 kt contained NdPr (or Dy/Tb equivalent) of additional feedstock beyond the monazite stockpile. Tonnage and REO assemblage of the stockpile not disclosed.",
+    "aliases": ["Eneabba stockpile"]
+  },
+  {
+    "id": "proj-kangankunde",
+    "name": "Kangankunde Rare Earths Project",
+    "country_id": "MW",
+    "deposit_id": null,
+    "operator_id": "org-lindian-resources",
+    "development_stage": {
+      "value": "DEVELOPMENT",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "expected_production_start": null,
+    "planned_production": [],
+    "resource_estimates": [],
+    "description": "Rare-earth deposit in Malawi being developed by Lindian Resources; described by Iluka as 'a major source of neodymium and praseodymium'. Included here only as a contracted Eneabba feedstock (light rare earths) - it is not a Dy/Tb alternative to Browns Range. Stage and status inferred from Iluka's description of Lindian as 'developing' the deposit; no Lindian disclosure has been reviewed.",
+    "aliases": ["Kangankunde"]
+  }
+]

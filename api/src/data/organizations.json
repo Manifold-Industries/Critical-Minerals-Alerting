@@ -1,0 +1,85 @@
+[
+  {
+    "id": "org-northern-minerals",
+    "name": "Northern Minerals",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:NTU",
+    "government_affiliation": null,
+    "aliases": ["NTU"]
+  },
+  {
+    "id": "org-iluka-resources",
+    "name": "Iluka Resources",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:ILU",
+    "government_affiliation": null,
+    "aliases": ["Iluka"]
+  },
+  {
+    "id": "org-gippsland-critical-minerals",
+    "name": "Gippsland Critical Minerals",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": ["GCM"]
+  },
+  {
+    "id": "org-serra-verde",
+    "name": "Serra Verde",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "BR",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": []
+  },
+  {
+    "id": "org-usa-rare-earth",
+    "name": "USA Rare Earth",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "US",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": ["USAR"]
+  },
+  {
+    "id": "org-less-common-metals",
+    "name": "Less Common Metals",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "GB",
+    "parent_organization_id": "org-usa-rare-earth",
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": ["LCM"]
+  },
+  {
+    "id": "org-export-finance-australia",
+    "name": "Export Finance Australia",
+    "organization_type": "GOVERNMENT",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": {
+      "value": "Australian Government export credit agency; administers the A$2B Critical Minerals Facility",
+      "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+    },
+    "aliases": ["EFA"]
+  },
+  {
+    "id": "org-lindian-resources",
+    "name": "Lindian Resources",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": null,
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": ["Lindian"]
+  }
+]

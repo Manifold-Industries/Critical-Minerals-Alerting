@@ -1,0 +1,119 @@
+[
+  {
+    "id": "fac-eneabba",
+    "name": "Eneabba Rare Earths Refinery",
+    "facility_type": "REFINERY",
+    "country_id": "AU",
+    "operator_id": "org-iluka-resources",
+    "operating_status": {
+      "value": "UNDER_CONSTRUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "location_description": "Eneabba, Western Australia (brownfields site at Iluka's existing Eneabba operation)",
+    "coordinates": null,
+    "input_material_ids": ["mat-hre-concentrate", "mat-re-concentrate"],
+    "output_material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
+    "capacities": [
+      {
+        "value": { "material_id": "mat-separated-reo", "tonnes_per_year": 16000 },
+        "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+      }
+    ],
+    "expected_start": {
+      "value": 2027,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-ar25-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
+    },
+    "description": "Australia's first fully integrated rare-earths refinery (Eneabba Phase 3): roasting, leaching, purification, solvent extraction and product finishing, producing separated Nd, Pr, Dy and Tb oxides - 'one of the few rare earths refineries operating outside of China' on commissioning. Capacity (AR25 p.57): 16.0 ktpa REO output on Eneabba stockpile feed (max 18 ktpa contained REO feed); 23 ktpa total REO capacity with all circuits on blended feed; FID (2022) modelled 17.5 ktpa. Owned and operated via Iluka wholly-owned SPE Iluka Eneabba Pty Ltd ('RefineryCo'). FID 3 Apr 2022 at A$1,000-1,200M and 2025 start; AR25: capital estimate now A$1.7-1.8B with >A$1B spent or committed (A$1,134M to date, A$443M in 2025), engineering >95% complete, civil works substantially complete, all major equipment ordered (roaster kiln due H1 2026), SMPEI contracts to be awarded H1 2026; commissioning 2027. Feedstock: Eneabba stockpile initially; Wimmera as potential future feed; third-party concentrates under contract from Northern Minerals (Browns Range) and Lindian (Kangankunde, 10% of capacity for 15 years). Offtake: binding customer agreements still being negotiated (A$400M EFA tranche conditional on offtake). Metallisation feasibility study to conclude in 2026; magnet-waste recycling at the refinery assessed as technically viable (2025 desktop study).",
+    "aliases": ["Eneabba", "Eneabba Phase 3", "RefineryCo", "ERER"]
+  },
+  {
+    "id": "fac-usar-wheat-ridge",
+    "name": "USA Rare Earth Wheat Ridge Separation Facility",
+    "facility_type": "SEPARATION",
+    "country_id": "US",
+    "operator_id": "org-usa-rare-earth",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": null
+      }
+    },
+    "location_description": "Wheat Ridge, Colorado",
+    "coordinates": null,
+    "input_material_ids": ["mat-mrec"],
+    "output_material_ids": ["mat-dy-oxide", "mat-ndpr-oxide"],
+    "capacities": [],
+    "expected_start": null,
+    "description": "Separation capability that has demonstrated production of commercial-grade Dy and NdPr oxide from recycled feed. Future Serra Verde concentrates are described as part of the planned oxide-production feedstock base; commercial scale not established from public disclosures.",
+    "aliases": ["Wheat Ridge"]
+  },
+  {
+    "id": "fac-less-common-metals",
+    "name": "Less Common Metals",
+    "facility_type": "METALLIZATION_AND_ALLOYING",
+    "country_id": "GB",
+    "operator_id": "org-less-common-metals",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "location_description": "United Kingdom",
+    "coordinates": null,
+    "input_material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
+    "output_material_ids": ["mat-re-metals", "mat-ndfeb-alloy"],
+    "capacities": [],
+    "expected_start": null,
+    "description": "Rare-earth metal and alloy producer through which USA Rare Earth operates its metallization capability.",
+    "aliases": ["LCM"]
+  },
+  {
+    "id": "fac-usar-stillwater",
+    "name": "USA Rare Earth Stillwater Magnet Facility",
+    "facility_type": "MAGNET_MANUFACTURING",
+    "country_id": "US",
+    "operator_id": "org-usa-rare-earth",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "location_description": "Stillwater, Oklahoma",
+    "coordinates": null,
+    "input_material_ids": ["mat-ndfeb-alloy"],
+    "output_material_ids": ["mat-sintered-ndfeb-magnet"],
+    "capacities": [],
+    "expected_start": {
+      "value": 2026,
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-usar-disclosures",
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "description": "First commercial sintered NdFeB magnet-production line commissioned in March 2026. Aerospace and defense are among the stated target markets.",
+    "aliases": ["Stillwater"]
+  }
+]

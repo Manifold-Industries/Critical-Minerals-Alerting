@@ -1,0 +1,15 @@
+[
+  { "id": "mat-hre-concentrate", "name": "Xenotime concentrate (~25% TREO, heavy rare-earth rich)", "category": "CONCENTRATE", "elements": ["Y", "Dy", "Tb", "Gd", "Er", "Lu"], "unit": "t" },
+  { "id": "mat-re-concentrate", "name": "Monazite / xenotime rare-earth concentrate", "category": "CONCENTRATE", "elements": ["Nd", "Pr", "Dy", "Tb"], "unit": "t" },
+  { "id": "mat-heavy-mineral-concentrate", "name": "Heavy mineral concentrate", "category": "CONCENTRATE", "elements": ["Nd", "Pr", "Dy", "Tb"], "unit": "t" },
+  { "id": "mat-mrec", "name": "Mixed rare-earth carbonate", "category": "CARBONATE", "elements": ["Dy", "Tb", "Nd", "Pr"], "unit": "t" },
+  { "id": "mat-hreo", "name": "Heavy rare-earth oxides", "category": "OXIDE", "elements": ["Dy", "Tb"], "unit": "t" },
+  { "id": "mat-lreo", "name": "Light rare-earth oxides", "category": "OXIDE", "elements": ["Nd", "Pr"], "unit": "t" },
+  { "id": "mat-separated-reo", "name": "Separated rare-earth oxides (TREO basis)", "category": "OXIDE", "elements": ["Nd", "Pr", "Dy", "Tb"], "unit": "t" },
+  { "id": "mat-ndpr-oxide", "name": "NdPr oxide", "category": "OXIDE", "elements": ["Nd", "Pr"], "unit": "t" },
+  { "id": "mat-dy-oxide", "name": "Dysprosium oxide", "category": "OXIDE", "elements": ["Dy"], "unit": "t" },
+  { "id": "mat-tb-oxide", "name": "Terbium oxide", "category": "OXIDE", "elements": ["Tb"], "unit": "t" },
+  { "id": "mat-re-metals", "name": "Rare-earth metals", "category": "METAL", "elements": ["Nd", "Pr", "Dy", "Tb"], "unit": "t" },
+  { "id": "mat-ndfeb-alloy", "name": "NdFeB alloy", "category": "ALLOY", "elements": ["Nd", "Pr", "Dy", "Tb", "Fe", "B"], "unit": "t" },
+  { "id": "mat-sintered-ndfeb-magnet", "name": "Sintered NdFeB magnet", "category": "MAGNET", "elements": ["Nd", "Pr", "Dy", "Tb", "Fe", "B"], "unit": "t" }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "dep-browns-range",
+    "name": "Browns Range (Wolverine)",
+    "country_id": "AU",
+    "commodities": ["Dy", "Tb", "Y"],
+    "coordinates": {
+      "value": { "latitude": -18.86, "longitude": 128.94 },
+      "provenance": { "type": "INFERRED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "MEDIUM", "last_verified": "2026-08-30" }
+    },
+    "geometry_wkt": null,
+    "deposit_type": "Unconformity-related hydrothermal xenotime (breccia-hosted)",
+    "resource_estimates": [
+      {
+        "classification": "MEASURED",
+        "ore_tonnes": 100000,
+        "grade_pct": 0.91,
+        "grade_basis": "TREO",
+        "contained_tonnes": 1000,
+        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 4900000,
+        "grade_pct": 1.13,
+        "grade_basis": "TREO",
+        "contained_tonnes": 54400,
+        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+      },
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 2400000,
+        "grade_pct": 0.63,
+        "grade_basis": "TREO",
+        "contained_tonnes": 15100,
+        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 5180000,
+        "grade_pct": 0.88,
+        "grade_basis": "TREO",
+        "contained_tonnes": 45800,
+        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+      }
+    ],
+    "location_description": "East Kimberley, Western Australia, ~160 km SE of Halls Creek on the Gordon Downs pastoral lease, mining lease M80/627, adjacent to the NT border. Wolverine is the flagship of seven Browns Range deposits (global MRE 11.7 Mt @ 0.77% TREO). Coordinates inferred from MGA94 Zone 52 grid in DFS figures (~493,650 mE, ~7,914,750 mN). Resource figures: Wolverine MRE as at 15 Jan 2025 above 0.15% TREO cut-off (Table 3); Probable Ore Reserve includes BRPP stockpile (Table 9, App.1). HREO ~90% of TREO; assemblage ~63% Y, 9.4% Dy, 1.4% Tb.",
+    "aliases": ["Wolverine", "Browns Range"]
+  },
+  {
+    "id": "dep-wimmera",
+    "name": "Wimmera",
+    "country_id": "AU",
+    "commodities": ["Nd", "Pr", "Dy", "Tb", "Zr"],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Fine-grained heavy mineral sands (monazite / xenotime, zircon)",
+    "resource_estimates": [],
+    "location_description": "Wimmera region, western Victoria (Murray Basin). Iluka's WIM100 deposit; re-modelling added +3.9 Mt HM to Murray Basin Mineral Resources in 2025 and a resource increase was announced January 2026 (AR25 pp.21, 167). AR25 reports Murray Basin resources only in aggregate (2,272 Mt @ 5.6% HM, monazite+xenotime 2.2% of HM), so no Wimmera-specific estimate is recorded here; the January 2026 resource announcement is the source to load.",
+    "aliases": ["WIM100"]
+  },
+  {
+    "id": "dep-glenaladale",
+    "name": "Glenaladale",
+    "country_id": "AU",
+    "commodities": ["Dy", "Tb", "Nd", "Pr"],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Mineral sands (monazite / xenotime)",
+    "resource_estimates": [],
+    "location_description": "Glenaladale, East Gippsland, Victoria",
+    "aliases": ["Fingerboards"]
+  },
+  {
+    "id": "dep-pela-ema",
+    "name": "Pela Ema",
+    "country_id": "BR",
+    "commodities": ["Dy", "Tb", "Nd", "Pr"],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Ionic clay",
+    "resource_estimates": [],
+    "location_description": "Goiás, Brazil",
+    "aliases": ["Serra Verde"]
+  }
+]
