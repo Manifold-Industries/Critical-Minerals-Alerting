@@ -28,7 +28,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
   - Acceptance: "43 nodes · 49 edges" with API up; Retry recovers; zod failure → error state
   - Verify: `npm run lint && npm run typecheck && npm run build`; manual stop/start API
   - Files: `web/package.json`, `web/src/lib/api/{schemas,types,client,useGraph}.ts`, `web/src/app/{page,layout}.tsx`, `web/src/components/ui/ErrorState.tsx`
-- [ ] Task 5: `toFlow` + ELK layout + `SupplyChainGraph` with default nodes
+- [x] Task 5: `toFlow` + ELK layout + `SupplyChainGraph` with default nodes
   - Acceptance: 36 + 2 placeholder nodes, left-to-right stage order, no overlaps; pure lib modules
   - Verify: lint/typecheck/build; screenshot at 1280px
   - Files: `web/src/lib/graph/{toFlow,layout}.ts`, `web/src/components/graph/SupplyChainGraph.tsx`, `web/src/app/page.tsx`, `globals.css`

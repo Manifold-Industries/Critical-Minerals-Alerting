@@ -2,6 +2,7 @@
 
 import { useGraph } from "@/lib/api/useGraph";
 import { ErrorState } from "@/components/ui/ErrorState";
+import { SupplyChainGraph } from "@/components/graph/SupplyChainGraph";
 
 export default function FlowPage() {
   const { state, retry } = useGraph();
@@ -21,10 +22,8 @@ export default function FlowPage() {
     );
   }
   return (
-    <main className="flex flex-1 items-center justify-center">
-      <p className="text-lg text-zinc-800 dark:text-zinc-200">
-        {state.graph.nodes.length} nodes · {state.graph.edges.length} edges
-      </p>
+    <main className="h-dvh w-full">
+      <SupplyChainGraph graph={state.graph} />
     </main>
   );
 }
