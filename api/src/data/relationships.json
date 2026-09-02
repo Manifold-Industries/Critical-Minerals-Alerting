@@ -5,13 +5,22 @@
     "from_id": "proj-browns-range",
     "to_id": "fac-eneabba",
     "status": "CONTRACTED",
-    "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
-    "material_ids": ["mat-hre-concentrate"],
+    "provenance": {
+      "type": "REPORTED",
+      "source_id": "src-ntu-browns-range-dfs-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-08-30"
+    },
+    "material_ids": [
+      "mat-hre-concentrate"
+    ],
     "annual_tonnes": null,
     "total_tonnes": 30500,
     "start_year": 2028,
     "end_year": null,
-    "note": "Iluka Supply Agreement (Oct 2022): binding contract for 30,500 t of contained TREO within a 20-30% xenotime concentrate (total_tonnes is contained TREO, not concentrate mass); Iluka takes 100% of product up to a 5,500 tpa TREO maximum with right of first refusal on excess. Delivery by road from first concentrate (2028). RISK: certain conditions precedent (NTU financing/FID, Iluka financial close) passed their satisfaction dates as at Sep 2025, entitling either party to terminate; neither has, and extensions are under discussion (NTU DFS pp.5, 91-92). Corroborated by Iluka AR25 p.9: 'the prospect of offtake under our existing agreement with Northern Minerals was also strengthened by support from the Australian and US governments for the development of the Browns Range deposit'."
+    "note": "Iluka Supply Agreement (Oct 2022): binding contract for 30,500 t of contained TREO within a 20-30% xenotime concentrate (total_tonnes is contained TREO, not concentrate mass); Iluka takes 100% of product up to a 5,500 tpa TREO maximum with right of first refusal on excess. Delivery by road from first concentrate (2028). RISK: certain conditions precedent (NTU financing/FID, Iluka financial close) passed their satisfaction dates as at Sep 2025, entitling either party to terminate; neither has, and extensions are under discussion (NTU DFS pp.5, 91-92). Corroborated by Iluka AR25 p.9: 'the prospect of offtake under our existing agreement with Northern Minerals was also strengthened by support from the Australian and US governments for the development of the Browns Range deposit'.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
   },
   {
     "id": "rel-iluka-invested-in-northern-minerals",
@@ -19,13 +28,20 @@
     "from_id": "org-iluka-resources",
     "to_id": "org-northern-minerals",
     "status": "OBSERVED",
-    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
+    "provenance": {
+      "type": "REPORTED",
+      "source_id": "src-iluka-ar25-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-08-30"
+    },
     "material_ids": [],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": 2022,
     "end_year": null,
-    "note": "Existing stake: in October 2022 Iluka invested A$20M in Northern Minerals - A$5M for 125 million ordinary shares (still held; fair value A$3.8M at 31 Dec 2025) and a A$15M convertible note that matured 31 Dec 2024 and was redeemed in 2025 for A$18.5M incl. interest (AR25 note 5(c), p.112). Conditional further commitment: per the NTU DFS (p.86) Iluka may subscribe for ~A$53M of additional equity post-FID via placement and put/call options, subject to positive FID, secured project funding, Iluka due diligence and continuation of the Supply Agreement - that tranche remains PLANNED."
+    "note": "Existing stake: in October 2022 Iluka invested A$20M in Northern Minerals - A$5M for 125 million ordinary shares (still held; fair value A$3.8M at 31 Dec 2025) and a A$15M convertible note that matured 31 Dec 2024 and was redeemed in 2025 for A$18.5M incl. interest (AR25 note 5(c), p.112). Conditional further commitment: per the NTU DFS (p.86) Iluka may subscribe for ~A$53M of additional equity post-FID via placement and put/call options, subject to positive FID, secured project funding, Iluka due diligence and continuation of the Supply Agreement - that tranche remains PLANNED.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-wimmera-supplies-eneabba",
@@ -33,13 +49,22 @@
     "from_id": "proj-wimmera",
     "to_id": "fac-eneabba",
     "status": "POTENTIAL",
-    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
-    "material_ids": ["mat-re-concentrate"],
+    "provenance": {
+      "type": "REPORTED",
+      "source_id": "src-iluka-ar25-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-08-30"
+    },
+    "material_ids": [
+      "mat-re-concentrate"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "AR25 p.21: 'Wimmera's rare earths are an important potential future feedstock for the Eneabba refinery'; p.9: 'a potential multi decade source of light and heavy rare earths'. High confidence this is the intended pathway; project remains in DFS. The ~15 ktpa / 25+ year volume from Iluka's refinery feed scenarios is NOT in AR25 and is held on the project record against an unverified placeholder source (annual_tonnes left null here)."
+    "note": "AR25 p.21: 'Wimmera's rare earths are an important potential future feedstock for the Eneabba refinery'; p.9: 'a potential multi decade source of light and heavy rare earths'. High confidence this is the intended pathway; project remains in DFS. The ~15 ktpa / 25+ year volume from Iluka's refinery feed scenarios is NOT in AR25 and is held on the project record against an unverified placeholder source (annual_tonnes left null here).",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": null
   },
   {
     "id": "rel-fingerboards-supplies-unresolved",
@@ -47,55 +72,97 @@
     "from_id": "proj-fingerboards",
     "to_id": null,
     "status": "UNRESOLVED",
-    "provenance": { "type": "REPORTED", "source_id": "src-gcm-fingerboards-disclosures", "assertion_confidence": "HIGH", "last_verified": null },
-    "material_ids": ["mat-heavy-mineral-concentrate"],
+    "provenance": {
+      "type": "REPORTED",
+      "source_id": "src-gcm-fingerboards-disclosures",
+      "assertion_confidence": "HIGH",
+      "last_verified": null
+    },
+    "material_ids": [
+      "mat-heavy-mineral-concentrate"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Heavy mineral concentrate requires further processing in the Northern Territory or Western Australia; specific refinery not publicly established. Insufficient evidence to assert Fingerboards -> Eneabba."
+    "note": "Heavy mineral concentrate requires further processing in the Northern Territory or Western Australia; specific refinery not publicly established. Insufficient evidence to assert Fingerboards -> Eneabba.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-serra-verde-supplies-usar-wheat-ridge",
     "type": "SUPPLIES",
     "from_id": "proj-serra-verde",
     "to_id": "fac-usar-wheat-ridge",
-    "status": "PLANNED",
-    "provenance": { "type": "REPORTED", "source_id": "src-usar-disclosures", "assertion_confidence": "MEDIUM", "last_verified": null },
-    "material_ids": ["mat-mrec"],
+    "status": "OBSERVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-defm14a-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": 2026,
     "end_year": null,
-    "note": "15-year offtake structure covering the four magnet rare earths announced April 2026; USAR names future Serra Verde concentrates as planned oxide-production feedstock. No evidence material has yet physically flowed."
+    "note": "Wheat Ridge's demonstration campaign covers third-party MREC 'including material from Serra Verde's Pela Ema mine' (Q2 2026 earnings release). This is DEMONSTRATION-SCALE flowsheet validation, not commercial supply: Wheat Ridge is explicitly not a commercial production facility and no tonnage is disclosed.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
   },
   {
+    "_commented_out": "endpoint fac-less-common-metals is outside the subset",
     "id": "rel-usar-wheat-ridge-supplies-lcm",
     "type": "SUPPLIES",
     "from_id": "fac-usar-wheat-ridge",
     "to_id": "fac-less-common-metals",
     "status": "PLANNED",
-    "provenance": { "type": "INFERRED", "source_id": "src-usar-disclosures", "assertion_confidence": "MEDIUM", "last_verified": null },
-    "material_ids": ["mat-dy-oxide", "mat-ndpr-oxide"],
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-10k-fy2025",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-ndpr-oxide"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Inferred from USAR's stated integrated mining-to-magnets strategy; internal flow within the USAR platform."
+    "note": "Inferred from USAR's stated integrated mining-to-magnets strategy; internal flow within the USAR platform.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
+    "_commented_out": "endpoint fac-less-common-metals is outside the subset",
     "id": "rel-lcm-supplies-usar-stillwater",
     "type": "SUPPLIES",
     "from_id": "fac-less-common-metals",
     "to_id": "fac-usar-stillwater",
     "status": "PLANNED",
-    "provenance": { "type": "INFERRED", "source_id": "src-usar-disclosures", "assertion_confidence": "MEDIUM", "last_verified": null },
-    "material_ids": ["mat-ndfeb-alloy"],
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-10k-fy2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-ndfeb-alloy"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Inferred from USAR's stated integrated mining-to-magnets strategy; internal flow within the USAR platform."
+    "note": "Inferred from USAR's stated integrated mining-to-magnets strategy; internal flow within the USAR platform.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-eneabba-supplies-unresolved",
@@ -103,13 +170,24 @@
     "from_id": "fac-eneabba",
     "to_id": null,
     "status": "UNRESOLVED",
-    "provenance": { "type": "INFERRED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "MEDIUM", "last_verified": "2026-08-30" },
-    "material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
+    "provenance": {
+      "type": "INFERRED",
+      "source_id": "src-iluka-ar25-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-08-30"
+    },
+    "material_ids": [
+      "mat-ndpr-oxide",
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Separated oxides -> metals/alloys -> magnets is a functional dependency only; no offtake, metallisation or magnet-production counterparty identified. AR25: offtake discussions with commercial customers ongoing, priority is binding agreements on pricing independent of the Asian Metal Index (p.9, p.31); metallisation feasibility study advanced in 2025 and will conclude in 2026, with electrolytic cell development with technology partners (p.9, p.21, p.29). Earlier: FID release (2022, p.2) named metallisation as a potential future step; NTU DFS (Fig 41, p.74) shows a 'potential Iluka metallisation plant (study in progress)' with ex-China magnet producers / Western OEMs as the intended market."
+    "note": "Separated oxides -> metals/alloys -> magnets is a functional dependency only; no offtake, metallisation or magnet-production counterparty identified. AR25: offtake discussions with commercial customers ongoing, priority is binding agreements on pricing independent of the Asian Metal Index (p.9, p.31); metallisation feasibility study advanced in 2025 and will conclude in 2026, with electrolytic cell development with technology partners (p.9, p.21, p.29). Earlier: FID release (2022, p.2) named metallisation as a potential future step; NTU DFS (Fig 41, p.74) shows a 'potential Iluka metallisation plant (study in progress)' with ex-China magnet producers / Western OEMs as the intended market.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-eneabba-stockpile-supplies-eneabba",
@@ -117,13 +195,22 @@
     "from_id": "proj-eneabba-stockpile",
     "to_id": "fac-eneabba",
     "status": "PLANNED",
-    "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
-    "material_ids": ["mat-re-concentrate"],
+    "provenance": {
+      "type": "REPORTED",
+      "source_id": "src-iluka-eneabba-fid-2022",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-08-30"
+    },
+    "material_ids": [
+      "mat-re-concentrate"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": 2027,
     "end_year": null,
-    "note": "The refinery will be fed initially from Iluka's own Eneabba monazite/xenotime stockpile, giving an indicative nine-year refinery life on the stockpile alone with project NPV > A$500M under that conservative scenario (FID 2022, p.2). Owned feed - not dependent on any third-party mine. AR25 p.57: stockpile feed supports up to 18 ktpa contained REO into the plant and 16.0 ktpa REO output; Iluka's 2026 incentive targets 15 ktpa REO feed in the first year of operation (commissioning 2027)."
+    "note": "The refinery will be fed initially from Iluka's own Eneabba monazite/xenotime stockpile, giving an indicative nine-year refinery life on the stockpile alone with project NPV > A$500M under that conservative scenario (FID 2022, p.2). Owned feed - not dependent on any third-party mine. AR25 p.57: stockpile feed supports up to 18 ktpa contained REO into the plant and 16.0 ktpa REO output; Iluka's 2026 incentive targets 15 ktpa REO feed in the first year of operation (commissioning 2027).",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
   },
   {
     "id": "rel-eneabba-stockpile-alternative-to-browns-range",
@@ -131,13 +218,24 @@
     "from_id": "proj-eneabba-stockpile",
     "to_id": "proj-browns-range",
     "status": "OBSERVED",
-    "provenance": { "type": "INFERRED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "MEDIUM", "last_verified": "2026-08-30" },
-    "material_ids": ["mat-dy-oxide", "mat-tb-oxide", "mat-ndpr-oxide"],
+    "provenance": {
+      "type": "INFERRED",
+      "source_id": "src-iluka-eneabba-fid-2022",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-08-30"
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide",
+      "mat-ndpr-oxide"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Same refinery and already in Iluka's hands, so a Browns Range disruption does not stop Eneabba producing. Caveat: the stockpile is monazite-dominant (LREE-rich) with a xenotime component; its Dy/Tb contribution relative to Browns Range's concentrate is not quantified in this source, so it is an alternative for refinery throughput more than for heavy rare-earth volume."
+    "note": "Same refinery and already in Iluka's hands, so a Browns Range disruption does not stop Eneabba producing. Caveat: the stockpile is monazite-dominant (LREE-rich) with a xenotime component; its Dy/Tb contribution relative to Browns Range's concentrate is not quantified in this source, so it is an alternative for refinery throughput more than for heavy rare-earth volume.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-efa-invested-in-eneabba",
@@ -145,13 +243,20 @@
     "from_id": "org-export-finance-australia",
     "to_id": "fac-eneabba",
     "status": "OBSERVED",
-    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
+    "provenance": {
+      "type": "REPORTED",
+      "source_id": "src-iluka-ar25-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-08-30"
+    },
     "material_ids": [],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": 2022,
     "end_year": 2038,
-    "note": "Australian Government risk-sharing arrangement under the Critical Minerals Facility, administered by Export Finance Australia: non-recourse loan to Iluka Eneabba Pty Ltd secured against the refinery, BBSY + 3%, term up to 16 years expiring 2038, repayments from project completion. Originally A$1,050M + A$200M overrun (FID 2022; Iluka equity A$200M on 1:3 basis, royalty to Iluka up to A$81M/yr capped at A$900M). AR25 (pp.12, 127-128): facility increased to A$1,650M in Feb 2025 (Iluka cash contribution rising to A$414M); the additional A$400M tranche is subject to securing offtake satisfactory to the Australian Government and drawable only after the initial A$1,450M is used; A$609.7M drawn at 31 Dec 2025 at 7.8% effective; A$150M overrun facility (50% EFA / 50% Iluka) undrawn. Debt, not equity - drawn and in force, hence OBSERVED."
+    "note": "Australian Government risk-sharing arrangement under the Critical Minerals Facility, administered by Export Finance Australia: non-recourse loan to Iluka Eneabba Pty Ltd secured against the refinery, BBSY + 3%, term up to 16 years expiring 2038, repayments from project completion. Originally A$1,050M + A$200M overrun (FID 2022; Iluka equity A$200M on 1:3 basis, royalty to Iluka up to A$81M/yr capped at A$900M). AR25 (pp.12, 127-128): facility increased to A$1,650M in Feb 2025 (Iluka cash contribution rising to A$414M); the additional A$400M tranche is subject to securing offtake satisfactory to the Australian Government and drawable only after the initial A$1,450M is used; A$609.7M drawn at 31 Dec 2025 at 7.8% effective; A$150M overrun facility (50% EFA / 50% Iluka) undrawn. Debt, not equity - drawn and in force, hence OBSERVED.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-kangankunde-supplies-eneabba",
@@ -159,13 +264,23 @@
     "from_id": "proj-kangankunde",
     "to_id": "fac-eneabba",
     "status": "CONTRACTED",
-    "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" },
-    "material_ids": ["mat-re-concentrate"],
-    "annual_tonnes": null,
-    "total_tonnes": null,
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-lindian-supply-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-monazite-concentrate"
+    ],
+    "annual_tonnes": 6000,
+    "total_tonnes": 90000,
     "start_year": null,
     "end_year": null,
-    "note": "Rare-earth concentrate supply agreement finalised in 2025 between Iluka and Lindian Resources, 'securing 10% of the refinery's capacity feedstock for 15 years, with options to significantly increase the volume and duration of the contract' (AR25 p.9, p.53). Kangankunde is a neodymium/praseodymium (light rare earth) source, so this diversifies Eneabba's feed but does not substitute for Browns Range Dy/Tb. Tonnage not disclosed."
+    "note": "Binding supply agreement announced 6 Aug 2025: 6,000 dmt/yr (+/-5%) of 55% TREO monazite concentrate for approximately 15 years, 90,000 dmt total containing 9,600 dmt NdPr, plus a US$20m Iluka loan facility at SOFR+11%. annual_tonnes and total_tonnes are CONCENTRATE MASS, not contained TREO (6,000 dmt at 55% is 3,300 t contained REO). Iluka characterises this as 'approximately 10% of Eneabba's capacity'; the AR25 remuneration scorecard's '10% of the refinery's capacity feedstock for 15 years' describes THIS SAME CONTRACT - not an additional commitment. Iluka also holds two rights of first refusal: 33% or 80% of any production incremental to an 18,000 dmt/yr initial capacity up to a 31,000 dmt/yr entitlement, and a ROFR on any sale by Lindian on less favourable terms. Kangankunde is a LIGHT rare earth source, so this edge carries little Dy/Tb.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
   },
   {
     "id": "rel-usar-invested-in-serra-verde",
@@ -173,13 +288,21 @@
     "from_id": "org-usa-rare-earth",
     "to_id": "org-serra-verde",
     "status": "PLANNED",
-    "provenance": { "type": "REPORTED", "source_id": "src-usar-disclosures", "assertion_confidence": "HIGH", "last_verified": null },
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-defm14a-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
     "material_ids": [],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": 2026,
     "end_year": null,
-    "note": "Agreement announced April 2026 for Serra Verde to combine with USA Rare Earth; not modelled as completed ownership."
+    "note": "Definitive agreement dated 19 April 2026, amended 16 July 2026: US$300,000,000 cash plus 126,849,307 USAR shares, an implied equity value of US$2,831 million on USAR's 17 Apr 2026 close of US$19.95. Shareholder approval obtained 28 Aug 2026 (108,248,297 for / 1,403,269 against). NOT YET CLOSED as at 1 Sep 2026 - no Item 2.01 8-K has been filed. Status is PLANNED, not OBSERVED, for that reason.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-wimmera-alternative-to-browns-range",
@@ -187,13 +310,24 @@
     "from_id": "proj-wimmera",
     "to_id": "proj-browns-range",
     "status": "POTENTIAL",
-    "provenance": { "type": "INFERRED", "source_id": null, "assertion_confidence": "HIGH", "last_verified": null },
-    "material_ids": ["mat-dy-oxide", "mat-tb-oxide", "mat-ndpr-oxide"],
+    "provenance": {
+      "type": "INFERRED",
+      "source_id": null,
+      "assertion_confidence": "HIGH",
+      "last_verified": null
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide",
+      "mat-ndpr-oxide"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Uses the same downstream refining infrastructure (Eneabba), so a Browns Range disruption could be mitigated without a new refining pathway."
+    "note": "Uses the same downstream refining infrastructure (Eneabba), so a Browns Range disruption could be mitigated without a new refining pathway.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-serra-verde-alternative-to-browns-range",
@@ -201,13 +335,24 @@
     "from_id": "proj-serra-verde",
     "to_id": "proj-browns-range",
     "status": "OBSERVED",
-    "provenance": { "type": "INFERRED", "source_id": null, "assertion_confidence": "HIGH", "last_verified": null },
-    "material_ids": ["mat-dy-oxide", "mat-tb-oxide", "mat-ndpr-oxide"],
+    "provenance": {
+      "type": "INFERRED",
+      "source_id": null,
+      "assertion_confidence": "HIGH",
+      "last_verified": null
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide",
+      "mat-ndpr-oxide"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Already producing Dy/Tb-bearing material, unlike the Australian projects; relies on a separate (USAR) downstream pathway rather than Eneabba."
+    "note": "Already producing Dy/Tb-bearing material, unlike the Australian projects; relies on a separate (USAR) downstream pathway rather than Eneabba.",
+    "qualification": null,
+    "qualification_lead_months": null
   },
   {
     "id": "rel-fingerboards-alternative-to-browns-range",
@@ -215,12 +360,2103 @@
     "from_id": "proj-fingerboards",
     "to_id": "proj-browns-range",
     "status": "POTENTIAL",
-    "provenance": { "type": "INFERRED", "source_id": null, "assertion_confidence": "LOW", "last_verified": null },
-    "material_ids": ["mat-dy-oxide", "mat-tb-oxide"],
+    "provenance": {
+      "type": "INFERRED",
+      "source_id": null,
+      "assertion_confidence": "LOW",
+      "last_verified": null
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
     "annual_tonnes": null,
     "total_tonnes": null,
     "start_year": null,
     "end_year": null,
-    "note": "Significant potential Dy/Tb output in an allied jurisdiction, but downstream pathway is unresolved; that uncertainty should lower its ranking, not be hidden."
+    "note": "Significant potential Dy/Tb output in an allied jurisdiction, but downstream pathway is unresolved; that uncertainty should lower its ranking, not be hidden.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-mount-weld-supplies-kalgoorlie",
+    "type": "SUPPLIES",
+    "from_id": "proj-mount-weld",
+    "to_id": "fac-lynas-kalgoorlie",
+    "status": "OBSERVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-lynas-q4-fy26-quarterly",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-re-concentrate"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Mt Weld concentrate is cracked and leached at Kalgoorlie. RISK: in Q4 FY26 a variation in the ore plus replacement of a moveable crusher with a fixed crusher degraded impurity control in the concentrate, which reduced cracking-and-leaching productivity at Kalgoorlie and Kuantan and cut finished product volumes. Operating standards for upstream and downstream processing have since been adjusted.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-kalgoorlie-supplies-lynas-malaysia",
+    "type": "SUPPLIES",
+    "from_id": "fac-lynas-kalgoorlie",
+    "to_id": "fac-lynas-malaysia",
+    "status": "OBSERVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-lynas-q4-fy26-quarterly",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Kalgoorlie produces mixed rare earth carbonate for separation at Lynas Malaysia. A continuous precipitation process was completed and commissioned in Q4 FY26, enabling design precipitation capacity and MREC quality improvements. This is the sole feed path for the only commercial ex-China Dy/Tb separation currently operating.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-mountain-pass-supplies-refinery",
+    "type": "SUPPLIES",
+    "from_id": "proj-mountain-pass",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "OBSERVED",
+    "provenance": {
+      "type": "INFERRED",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-re-concentrate"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Mine and separation complex are co-located and integrated at Mountain Pass. INFERRED from the DoD release describing a single Mountain Pass mining-and-processing site; no document read states the internal flow explicitly.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-donald-supplies-white-mesa",
+    "type": "SUPPLIES",
+    "from_id": "proj-donald",
+    "to_id": "fac-white-mesa",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-monazite-concentrate"
+    ],
+    "annual_tonnes": 8500,
+    "total_tonnes": null,
+    "start_year": 2028,
+    "end_year": null,
+    "note": "The White Mesa heavy rare earth expansion is 'sized and timed to process the anticipated near-term monazite output' from Donald: approximately 8,500 to 9,500 t/yr from 2028 (lower bound recorded). Together with contracted and prospective third-party feedstock this is expected to fully utilise the mill's NdPr capacity and its planned Tb and Dy capacity. RISK: conditional on a Donald FID anticipated Q3 2026, which is itself conditional on A$220 million of EFA-led project debt.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-white-mesa-supplies-asm",
+    "type": "SUPPLIES",
+    "from_id": "fac-white-mesa",
+    "to_id": "org-australian-strategic-materials",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-ndpr-oxide",
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "White Mesa oxides are expected to supply roughly 70% of the feedstock for ASM's existing and planned metal and alloy capacity in South Korea, which in turn is expected to supply over 100% of the 2,000 t magnet capacity at VAC's Sumter, South Carolina plant. Counterparty is the organization, not a facility node: no ASM or VAC facility has been modelled. Conditional on the pending ASM and VAC acquisitions closing.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-energy-fuels-invested-in-asm",
+    "type": "INVESTED_IN",
+    "from_id": "org-energy-fuels",
+    "to_id": "org-australian-strategic-materials",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pending acquisition announced ahead of 29 July 2026 ('Energy Fuels to acquire Australian Strategic Materials to create new mine-to-metal & alloy rare-earth champion'). Would give Energy Fuels metal and alloy capacity in South Korea. Not yet closed.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "_commented_out": "endpoint org-vacuumschmelze is outside the subset",
+    "id": "rel-energy-fuels-invested-in-vac",
+    "type": "INVESTED_IN",
+    "from_id": "org-energy-fuels",
+    "to_id": "org-vacuumschmelze",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pending acquisition of Vacuumschmelze at a stated US$1.9 billion equity value, giving Energy Fuels the Sumter, South Carolina magnet plant (2,000 t, described as the largest REPM facility in the United States). Completes the intended mine-to-magnet chain targeting 15,700 t REPM/yr. Not yet closed; the release conditions the integrated targets on completion, market conditions, financing, offtake and permitting.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-dod-invested-in-mp-materials",
+    "type": "INVESTED_IN",
+    "from_id": "org-us-dod",
+    "to_id": "org-mp-materials",
+    "status": "OBSERVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-materials-dod-partnership-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2025,
+    "end_year": null,
+    "note": "US$400 million of a new series of convertible preferred stock, positioning the DoD to become MP's largest shareholder at approximately 15% of common shares (announced 10 July 2025). Accompanied by a 10-year US$110/kg NdPr price floor and a DoD commitment to purchase 100% of the 10X Facility's magnet output for 10 years after construction.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-dod-invested-in-mountain-pass-hre",
+    "type": "INVESTED_IN",
+    "from_id": "org-us-dod",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-materials-dod-partnership-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2025,
+    "end_year": null,
+    "note": "US$150 million DoD loan specifically tied to expanding heavy rare earth separation capabilities at Mountain Pass - the funding basis for the Dy/Tb circuit.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-dod-invested-in-ucore-louisiana",
+    "type": "INVESTED_IN",
+    "from_id": "org-us-dod",
+    "to_id": "fac-ucore-louisiana",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-dod-phase2-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2025,
+    "end_year": null,
+    "note": "US$18.4 million Phase 2 Award funding construction of the first commercial-scale RapidSX machine at the Alexandria SMC, following a US$4 million Phase 1 demonstration award under which Ucore separated terbium from dysprosium. Phase 1 payments received to date US$3,352,884.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-jogmec-invested-in-caremag",
+    "type": "INVESTED_IN",
+    "from_id": "org-jogmec",
+    "to_id": "org-caremag",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-carester-caremag-launch-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2025,
+    "end_year": null,
+    "note": "EUR 110 million from JOGMEC and Iwatani Corporation within Caremag's EUR 216 million March 2025 financing (the balance, EUR 106 million, from the French State), in exchange for long-term Japanese offtake of heavy rare earth oxides through the Japan France Rare Earth Company joint venture.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-caremag-supplies-japan-unresolved",
+    "type": "SUPPLIES",
+    "from_id": "fac-caremag-lacq",
+    "to_id": null,
+    "status": "UNRESOLVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-carester-caremag-launch-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-dytb-combined"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2026,
+    "end_year": null,
+    "note": "Caremag heavy rare earth oxides are committed to Japan under a long-term supply agreement via the Japan France Rare Earth Company joint venture. Counterparty unresolved: the JV and its Japanese offtakers are not modelled as nodes, and the release does not name the receiving facility. Trade press reports the Japanese share as half of Caremag's HREO output; that split is not attested here.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-lynas-malaysia-alternative-to-eneabba",
+    "type": "ALTERNATIVE_TO",
+    "from_id": "fac-lynas-malaysia",
+    "to_id": "fac-eneabba",
+    "status": "OBSERVED",
+    "provenance": {
+      "type": "JUDGMENT",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Both are ex-China routes to separated Dy/Tb oxide. Asymmetric today: Lynas Malaysia is in commercial production (62 t Dy+Tb across FY26) while Eneabba is under construction for 2027, so Lynas is the incumbent alternative rather than a peer.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-caremag-alternative-to-eneabba",
+    "type": "ALTERNATIVE_TO",
+    "from_id": "fac-caremag-lacq",
+    "to_id": "fac-eneabba",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "JUDGMENT",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Comparable ex-China Dy/Tb separation capacity on a similar timeline (Caremag late 2026, Eneabba 2027), but a different risk profile: Caremag is recycling- and third-party-concentrate-fed with no captive mine, Eneabba is stockpile- and offtake-fed. A buyer treating them as substitutes is exposed to different upstream failure modes.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-white-mesa-alternative-to-eneabba",
+    "type": "ALTERNATIVE_TO",
+    "from_id": "fac-white-mesa",
+    "to_id": "fac-eneabba",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "JUDGMENT",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Both target separated Dy/Tb from monazite-type feed on a 2027 horizon. White Mesa's stated 120 tpa Dy / 20 tpa Tb design capacity is the larger single ex-China Dy/Tb addition currently under construction, but is conditional on the Donald FID for feed.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-carina-supplies-aclara-louisiana",
+    "type": "SUPPLIES",
+    "from_id": "proj-carina",
+    "to_id": "fac-aclara-louisiana",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-aclara-carina-fs-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": 4378,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Carina MREC routed to Aclara's own 100%-owned Louisiana separation facility. annual_tonnes is REO CONTAINED in the concentrate (4,378 t average annual over an 18-year LOM), not concentrate mass, and carries 156 t Dy plus 27 t Tb. The FS books a US$314.4 million average annual separation fee to this facility while excluding its NPV, so the edge is an internal transfer priced as though it were arm's length.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-monte-alto-supplies-caremag",
+    "type": "SUPPLIES",
+    "from_id": "proj-monte-alto",
+    "to_id": "fac-caremag-lacq",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-bre-carester-offtake-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-hre-concentrate"
+    ],
+    "annual_tonnes": 150,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Binding 10-year heavy rare earth offtake signed 9 Oct 2025: heavy rare earth concentrate (SEG+) from Monte Alto supporting 'up to a maximum of 150 tpa of contained DyTb over an initial 10-year term' at Caremag. annual_tonnes is CONTAINED DyTb, not concentrate mass - the same basis convention as the Browns Range edge. This is the only contracted feed on Caremag's books in this graph and covers a quarter of its 600 tpa steady-state DyTb output; the remaining three quarters of Caremag's feed is uncontracted here. Start year not disclosed; Caremag targets late-2026 operations.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-carina-alternative-to-monte-alto",
+    "type": "ALTERNATIVE_TO",
+    "from_id": "proj-carina",
+    "to_id": "proj-monte-alto",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "JUDGMENT",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "The two credible Brazilian ex-China Dy/Tb feedstocks, at comparable scale (Carina 183 tpa contained DyTb; Monte Alto contracted at up to 150 tpa contained DyTb). Different geology (ionic clay vs Rocha da Rocha hard rock) and different downstream: Carina to Aclara's own planned Louisiana plant, Monte Alto to Caremag in France. A buyer treating them as substitutes inherits different refining dependencies, not just different mines.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "_commented_out": "endpoint fac-neo-narva is outside the subset",
+    "id": "rel-caremag-supplies-neo-narva",
+    "type": "SUPPLIES",
+    "from_id": "fac-caremag-lacq",
+    "to_id": "fac-neo-narva",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-neo-carester-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Binding term sheet, 31 Aug 2026: 'Neo will receive separated dysprosium and terbium oxides from Caremag, providing some of the critical heavy rare earth inputs needed for its European sintered magnet facility.' No tonnage, term or price disclosed. This is the first attested ex-China Dy/Tb oxide DEMAND edge in the graph - a fully European loop from Caremag separation to Narva magnets.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-carester-tolls-mrec-at-silmet",
+    "type": "SUPPLIES",
+    "from_id": "org-carester",
+    "to_id": "fac-neo-silmet",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-neo-carester-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Tolling leg of the same 31 Aug 2026 term sheet: 'Neo will process Carester's mixed rare earth carbonate at its Silmet facility in Estonia, retaining the light rare earth output while returning the heavy rare earths to Carester.' Silmet's role here is LIGHT rare earth; the heavies go back to Carester for separation at Caremag. No tonnage disclosed.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-songwe-supplies-pulawy",
+    "type": "SUPPLIES",
+    "from_id": "proj-songwe-hill",
+    "to_id": "fac-mkango-pulawy",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mkango-pulawy-pfs-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": 5954,
+    "total_tonnes": null,
+    "start_year": 2030,
+    "end_year": null,
+    "note": "Songwe Hill MREC (55% TREO dry basis) is the intended feed for Pulawy; annual_tonnes is contained TREO, not MREC mass. Both were studied in the same 19 Mar 2026 release. Note the scale mismatch: Songwe supplies ~5,954 t TREO against Pulawy's 13,430 t/a REO throughput capacity, so Pulawy is designed for materially more third-party feed than Songwe alone provides.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-caldeira-supplies-ucore",
+    "type": "SUPPLIES",
+    "from_id": "proj-caldeira",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-caldeira-mou-2024",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": 3000,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "NON-BINDING MOU, Aug 2024: 'Ucore will purchase a minimum quantity of 3,000MT of TREO annually from Caldeira. This could represent over 900MT of NdPr, approximately 6MT of Tb and 24MT of Dy.' annual_tonnes is contained TREO. This is the ONLY quantified Dy/Tb feed basket Ucore has published, and it is Ucore's characterisation - Meteoric's own DFS discloses no volumes for it and lists Ucore alongside POSCO and Neo as three non-binding offtakes. Covers roughly a quarter of Caldeira's 12,500 tpa TREO. MATERIAL HAS NOW BEEN SHIPPED: Meteoric disclosed on 11 Jun 2026 that bulk Caldeira pilot MREC went 'to a range of groups for separation testwork and product qualification, including ... Ucore', with over 200 kg of MREC produced to date; the mass to Ucore specifically is not disclosed. STILL NOT QUALIFIED: no recovery, purity or separated product is reported by either party, the receiving facility is never named, and - decisively - Meteoric's disclosed SEPARATION TESTWORK partner is MTM Critical Metals, not Ucore. Meteoric's own PFS presentation lists MTM under 'PROCESS MOU / MREC separation test work' and Ucore under 'OFFTAKE MOU', a distinction the company itself draws.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-lofdal-supplies-unresolved",
+    "type": "SUPPLIES",
+    "from_id": "proj-lofdal",
+    "to_id": null,
+    "status": "UNRESOLVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-nmi-lofdal-earnin-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": 1478,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Lofdal's mixed carbonate has no named destination facility. JOGMEC holds a first right of refusal to purchase ALL production at market prices, and Japan holds 50% of the project through TJNREC, so the material is effectively Japanese-destined - but no receiving refinery is identified in any document read, and Japan's separation assets are not modelled in this graph. annual_tonnes is contained TREO ex-La,Ce.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-makuutu-supplies-unresolved",
+    "type": "SUPPLIES",
+    "from_id": "proj-makuutu",
+    "to_id": null,
+    "status": "UNRESOLVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ionicre-makuutu-dfs-2023",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": 1156,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "No offtake or destination refinery is disclosed. Discussions with FORGE (ex-Minerals Security Partnership) members and offtakers were still described as 'continuing' in the June 2026 quarter, and the project entered a strategic review on 31 Jul 2026. annual_tonnes is contained REO.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-lynas-supplies-us-dow",
+    "type": "SUPPLIES",
+    "from_id": "fac-lynas-malaysia",
+    "to_id": "org-us-dod",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-lynas-dow-loi-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-ndpr-oxide",
+      "mat-dy-oxide",
+      "mat-tb-oxide"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2026,
+    "end_year": 2030,
+    "note": "Binding Letter of Intent, March 2026: approximately US$96 million of light AND heavy rare earth oxides over four years, at a US$110/kg NdPr floor price, contracted via Lynas USA LLC with the US Department of War. THIS REPLACED THE SEADRIFT PLANT - the funding was reallocated from it. Supply therefore comes from existing Malaysian capacity rather than new US capacity, which is why the from_id is Lynas Malaysia. No tonnages are disclosed, only the dollar value.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-dod-invested-in-seadrift",
+    "type": "INVESTED_IN",
+    "from_id": "org-us-dod",
+    "to_id": "fac-lynas-seadrift",
+    "status": "HISTORICAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-lynas-ar25-2025",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2022,
+    "end_year": 2026,
+    "note": "'A contribution by the U.S. Department of Defence of approximately US$258m is currently allocated to the Seadrift facility' (Lynas FY2025 Annual Report p.15). ALLOCATED, not received: 'The contract is an expenditure-based contract under which all of Lynas' properly allocable construction costs in respect of the facility will be reimbursed', and as at FY25 Lynas 'is yet to commence construction or operations in the USA and had no USA employees'. Actual FY26 grants received were A$6.925m. HISTORICAL because the funding was reallocated in March 2026 to the DoW supply LOI. Corrects the ~US$288m 'received' figure that circulates in trade press.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-penco-supplies-aclara-louisiana",
+    "type": "SUPPLIES",
+    "from_id": "proj-penco",
+    "to_id": "fac-aclara-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-aclara-louisiana-site-2025",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Penco is the second intended feed for the Louisiana plant, but the link is explicitly OUT OF SCOPE of every current study: the Apr 2026 Dynamo scoping study states 'Feedstock is assumed to be sourced exclusively from the Carina Project' and 'Economic estimates exclude potential future feedstock from the Penco Module'. The Oct 2025 site-selection release anticipated 200 tpy Dy, 30 tpy Tb and 1,400 tpy NdPr 'upon the successful development of the Company's ionic clay deposits in Brazil and Chile' - aspirational, pre-study, never reaffirmed, NdPr later revised to 1,131 t. Aclara's Aug 2026 presentation defers quantification to the pending Penco FS.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-round-top-supplies-wheat-ridge",
+    "type": "SUPPLIES",
+    "from_id": "proj-round-top",
+    "to_id": "fac-usar-wheat-ridge",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-10q-q2-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-re-concentrate"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Wheat Ridge commenced operations 15 Jun 2026 'to validate processing flowsheets for feedstocks from the Round Top Project, third-party sources, and rare earth magnet scrap (swarf) recycling', and 'Initial production results are expected to support development of the Round Top Definitive Feasibility Study'. THIS IS A FLOWSHEET-VALIDATION LINK, NOT COMMERCIAL SUPPLY: Wheat Ridge is explicitly not a commercial production facility, and the commercial destination for Round Top ore - a planned on-site processing facility - is not modelled because it is unbuilt and unspecified. No tonnage on either side.",
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-browns-range-can-supply-caremag",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-browns-range",
+    "to_id": "fac-caremag-lacq",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-carester-caremag-launch-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-hre-concentrate"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 6,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Caremag's two declared feed classes are end-of-life magnets and 'mineral concentrates containing heavy rare earths', at 5,000 t/yr of mining concentrates. Browns Range's 20-30% TREO xenotime concentrate is the textbook instance of that class. FEED_ENVELOPE not QUALIFIED: no public evidence that Carester has tested or qualified Browns Range material specifically. The most credible reroute in the graph if Eneabba were unavailable, but note Browns Range is already 100% committed to Iluka up to 5,500 tpa TREO. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-browns-range-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-browns-range",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-yangibana-hoa-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-hre-concentrate"
+    ],
+    "qualification": "PLAUSIBLE",
+    "qualification_lead_months": 18,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Ucore's declared envelope is 'mixed rare earth carbonate (MREC) and mixed rare earth oxide (MREO) from Western-friendly feedstock sources' - NOT mineral concentrate. A xenotime concentrate would need cracking and leaching upstream before RapidSX could take it, and Ucore has no cracking circuit disclosed. PLAUSIBLE only via an intermediate step that is not publicly established. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. CONFIRMED BY PRECEDENT: for Yangibana concentrate, Ucore and Wyloo/Hastings agreed to assess building a NEW hydromet facility to convert concentrate into MREC before it could be separated at the SMC. The same upstream step would be required for Browns Range xenotime. Ucore's own gate reinforces the tier: 'Demonstrate the successful process qualification of any feedstock destined for an SMC at the Demo Plant over hundreds of runtime hours'."
+  },
+  {
+    "id": "rel-serra-verde-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-serra-verde",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "CORRECTED from PLAUSIBLE. The earlier rating asserted that no Iluka disclosure says Eneabba accepts MREC - that was wrong. Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Serra Verde ships ionic clay MREC, which is squarely inside the stated class. Interface and impurity specifications still unproven for this specific source."
+  },
+  {
+    "id": "rel-serra-verde-can-supply-caremag",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-serra-verde",
+    "to_id": "fac-caremag-lacq",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-carester-definitive-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "RESOLVED - the circulating claim is TRUE but weaker than it sounds. USAR's 23 Jul 2026 press release states verbatim: 'In turn, Carester will have access to USA Rare Earth feedstock sources, including Serra Verde and the Round Top deposit in Texas.' FOUR REASONS THIS IS NOT 'QUALIFIED': (1) the feedstock language appears only in FURNISHED press releases and investor decks, never in the filed Item 8.01 description of the instrument actually signed - which is an equity Share Purchase and Investment Agreement, with no supply or offtake agreement filed as an exhibit; (2) no tonnage is stated anywhere; (3) Serra Verde was not USAR's asset when the claim was made and the merger had not closed as at 1 Sep 2026; (4) SERRA VERDE PHASE 1 OUTPUT IS 100% COMMITTED to a US-government-backed SPV under a separate 15-year offtake, and no primary document reconciles how Carester obtains it. A stated commercial intention, not a contracted or tested route. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-round-top-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-round-top",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-10k-fy2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "qualification": "INFEASIBLE",
+    "qualification_lead_months": null,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "NEGATIVE RESULT, recorded to prune the reroute space. USAR's planned Round Top flowsheet is ore -> crushing -> heap leaching -> pregnant leach solution -> solvent extraction, and USAR states its mineralogy lets it AVOID the flotation, magnetic separation and cracking circuits conventional hard-rock REE ores need. It therefore produces no conventional monazite/xenotime concentrate, and Eneabba's front end is built for exactly that. Shipping Round Top ore to Eneabba makes no sense. A Round Top -> intermediate -> Eneabba path is conceivable but not publicly established."
+  },
+  {
+    "id": "rel-lofdal-can-supply-caremag",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-lofdal",
+    "to_id": "fac-caremag-lacq",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "JUDGMENT",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "PLAUSIBLE",
+    "qualification_lead_months": 18,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Lofdal's PFS product is a mixed 99% TREO carbonate, not a mining concentrate, so it sits outside Carester's stated feed class on form even though the assemblage (5.1-5.6% Dy2O3 of TREO) is ideal. COMMERCIAL BLOCK IS THE BINDING CONSTRAINT, NOT CHEMISTRY: JOGMEC holds a first right of refusal to purchase ALL Lofdal production at market prices and Japan holds 50% of the project, so this route is effectively foreclosed regardless of technical fit. Note the DFS is evaluating separate light and heavy carbonates, which would change the product form. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-caldeira-can-supply-caremag",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-caldeira",
+    "to_id": "fac-caremag-lacq",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "JUDGMENT",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "PLAUSIBLE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Same form mismatch as Serra Verde: Caldeira ships MREC against Carester's stated mining-concentrate feed class. Caldeira's non-binding offtakes with POSCO, Neo and Ucore also have first call on volume. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-makuutu-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-makuutu",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-scaleup-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Makuutu's Stage 1 product is MREC, which is squarely inside Ucore's declared envelope of 'MREC and MREO from Western-friendly feedstock sources'. FEED_ENVELOPE not QUALIFIED: no Ucore-Makuutu testwork or agreement is disclosed. Practical caveat - Makuutu has no FID, no construction start and entered a strategic review in July 2026, so this is a long-dated option. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-lofdal-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-lofdal",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-scaleup-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Lofdal's mixed carbonate fits Ucore's declared MREC/MREO envelope, and its Dy/Tb tenor is the highest in the graph. As with Caremag, JOGMEC's first right of refusal over all Lofdal production is the binding constraint rather than any technical barrier. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-carina-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-carina",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-scaleup-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Carina MREC fits Ucore's declared MREC/MREO envelope. Recorded as a compatibility option only - Carina is designated to Aclara's own Project Dynamo, and Aclara's FS books a US$314.4M annual separation fee to that facility, so diverting feed would break the economics of both. Compatibility is not availability. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-caldeira-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-caldeira",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Ionic clay carbonate, the third class Iluka names."
+  },
+  {
+    "id": "rel-carina-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-carina",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Ionic clay carbonate, the third class Iluka names."
+  },
+  {
+    "id": "rel-penco-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-penco",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Ionic clay carbonate, the third class Iluka names."
+  },
+  {
+    "id": "rel-makuutu-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-makuutu",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Ionic clay carbonate, the third class Iluka names."
+  },
+  {
+    "id": "rel-monte-alto-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-monte-alto",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-hre-concentrate"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Hard rock concentrate (SEG+). Already contracted to Caremag for up to 150 tpa contained DyTb, so availability is constrained even though the class fits."
+  },
+  {
+    "id": "rel-donald-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-donald",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-monazite-concentrate"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 6,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Mineral sands concentrate - the class Eneabba was built around. Already designated to White Mesa, whose Dy/Tb expansion is 'sized and timed' to Donald monazite."
+  },
+  {
+    "id": "rel-fingerboards-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-fingerboards",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-heavy-mineral-concentrate"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 6,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states the Eneabba refinery is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. Mineral sands concentrate. Fingerboards' downstream refinery is modelled as UNRESOLVED, so this is a genuinely open route."
+  },
+  {
+    "id": "rel-serra-verde-can-supply-white-mesa",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-serra-verde",
+    "to_id": "fac-white-mesa",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Energy Fuels' White Mesa expansion includes a 'new MREC circuit to process additional types of feedstocks produced globally that are rich in heavy rare earth oxides', enabling simultaneous REO and uranium production. FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-caldeira-can-supply-white-mesa",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-caldeira",
+    "to_id": "fac-white-mesa",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Energy Fuels' White Mesa expansion includes a 'new MREC circuit to process additional types of feedstocks produced globally that are rich in heavy rare earth oxides', enabling simultaneous REO and uranium production. FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-carina-can-supply-white-mesa",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-carina",
+    "to_id": "fac-white-mesa",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Energy Fuels' White Mesa expansion includes a 'new MREC circuit to process additional types of feedstocks produced globally that are rich in heavy rare earth oxides', enabling simultaneous REO and uranium production. FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-makuutu-can-supply-white-mesa",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-makuutu",
+    "to_id": "fac-white-mesa",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Energy Fuels' White Mesa expansion includes a 'new MREC circuit to process additional types of feedstocks produced globally that are rich in heavy rare earth oxides', enabling simultaneous REO and uranium production. FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-songwe-can-supply-white-mesa",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-songwe-hill",
+    "to_id": "fac-white-mesa",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Energy Fuels' White Mesa expansion includes a 'new MREC circuit to process additional types of feedstocks produced globally that are rich in heavy rare earth oxides', enabling simultaneous REO and uranium production. FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time."
+  },
+  {
+    "id": "rel-lofdal-can-supply-white-mesa",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-lofdal",
+    "to_id": "fac-white-mesa",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Energy Fuels' White Mesa expansion includes a 'new MREC circuit to process additional types of feedstocks produced globally that are rich in heavy rare earth oxides', enabling simultaneous REO and uranium production. FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC, not a disclosed lead time. JOGMEC holds a first right of refusal over all Lofdal production - commercially foreclosed regardless of technical fit."
+  },
+  {
+    "id": "rel-kangankunde-supplies-sareco",
+    "type": "SUPPLIES",
+    "from_id": "proj-kangankunde",
+    "to_id": "fac-sareco",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-lindian-ansto-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-monazite-concentrate"
+    ],
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null,
+    "annual_tonnes": 12500,
+    "total_tonnes": null,
+    "start_year": 2026,
+    "end_year": null,
+    "note": "'Approximately 12,500 tonnes per annum of monazite concentrate from Stage 1 of the Kangankunde Rare Earths Project is expected to feed the facility.' annual_tonnes is CONCENTRATE MASS at a stated 55% TREO grade, not contained TREO - roughly 6,900 t TREO. Now an INTRA-COMPANY route: Lindian owns both ends since taking SARECO to 100% on 10 Aug 2026, which makes this the most secure feed link in the graph commercially, though both ends are still pre-production with Q4 2026 targets. QUALIFIED on the strength of disclosed 96% NdPr recovery from Kangankunde concentrate specifically, i.e. this exact feed has been tested. QUALIFICATION EVIDENCE: ANSTO completed downstream hydrometallurgical testwork on Kangankunde monazite concentrate on 15 Jul 2026, independently validating the full sulphuric acid bake flowsheet through to specification MREC at 98% NdPr extraction and 96% overall NdPr recovery, with the final MREC certified exempt from radioactive transport and handling under IAEA standards. A 10 kg Kangankunde sample was also produced at the plant itself."
+  },
+  {
+    "id": "rel-sareco-supplies-unresolved",
+    "type": "SUPPLIES",
+    "from_id": "fac-sareco",
+    "to_id": null,
+    "status": "UNRESOLVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-lindian-sareco-2026",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": null,
+    "qualification_lead_months": null,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "SARECO's MREC has no disclosed destination. It is the archetypal unresolved midstream node: an operating plant producing exactly the intermediate that Ucore, White Mesa and Eneabba all say they accept, with no announced offtake. Whoever contracts this output gains a near-term ex-China MREC stream that does not depend on a new mine being built."
+  },
+  {
+    "id": "rel-sareco-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "fac-sareco",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-scaleup-2026",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "PLAUSIBLE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "SARECO's MREC fits Ucore's stated material class, but Ucore qualifies its envelope as MREC and MREO 'from WESTERN-FRIENDLY FEEDSTOCK SOURCES' - and whether Kazakhstan qualifies is precisely the open question. Rated PLAUSIBLE rather than FEED_ENVELOPE for that reason: the constraint here is jurisdictional, not chemical. Physical routing out of a landlocked Kazakhstan compounds it. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-sareco-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "fac-sareco",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "PLAUSIBLE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka's stated envelope covers 'mineral sands concentrates, hard rock concentrates and ionic clay carbonates'. SARECO's product is a carbonate derived from HARD ROCK monazite, which falls between the named classes rather than squarely inside one, so PLAUSIBLE rather than FEED_ENVELOPE. Commercially awkward too: Lindian already supplies Eneabba with concentrate directly, and routing the same material through SARECO first would compete with that contract. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-caldeira-supplies-neo-silmet",
+    "type": "SUPPLIES",
+    "from_id": "proj-caldeira",
+    "to_id": "fac-neo-silmet",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-meteoric-neo-mou-2024",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null,
+    "annual_tonnes": 3000,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "NON-BINDING MOU of 2 May 2024, still non-binding as at Meteoric's 1 Sep 2026 half-year report. 3,000 t TREO/yr of MREC to NPM Silmet in Estonia, running until Neo has purchased 30,000 t TREO cumulative, with a right of first refusal on additional material once Caldeira exceeds 6,000 t TREO/yr. PER-ELEMENT SPLIT IS DISCLOSED: 'as much as 900 MT of Nd-Pr oxide and 30 MT of Dy-Tb oxide, combined' - one of the few offtakes in this graph with a stated Dy/Tb figure. QUALIFIED tier because Neo names this specific deposit as the intended feed for a named facility; status POTENTIAL because the agreement is not binding. This is the missing link that connects Caldeira to the Caremag-to-Narva European magnet chain. OVERLAP RISK: Neo's right of first refusal covers 'additional material when the Caldeira Project produces more than 6,000 MT TREO per year' - potentially everything above 6,000 t/yr. Exercised in full it directly conflicts with both POSCO's 30% and Ucore's 3,000 t. The three MOUs are not mutually reconciled. Note also that Neo's FY2025 Annual Information Form DROPPED the Caldeira MOU, which the FY2024 AIF had carried twice - a possible cooling signal."
+  },
+  {
+    "id": "rel-caldeira-supplies-posco",
+    "type": "SUPPLIES",
+    "from_id": "proj-caldeira",
+    "to_id": "org-posco-international",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-meteoric-posco-mou-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "NON-BINDING Memorandum of Strategic Partnership signed 28 Jul 2026: 'approximately 30% of rare earth material sourced from Caldeira for a period of up to seven years', priced off an independent mechanism initially referenced to the Asian Metal Index. NO TONNAGE and NO per-element Dy/Tb split is disclosed by either party - unusually, POSCO's own release says less than Meteoric's. Counterparty is the organization, not a facility: POSCO International would produce REO for Korean magnet makers, but no receiving plant is named. annual_tonnes left null deliberately - 30% of 12,500 t would be ~3,750 t but that is inference, not disclosure. TIER UPGRADED TO QUALIFIED on a testwork statement in the same release: 'Metallurgical testwork confirms Caldeira's low impurity MREC is able to be processed by POSCO without additional refining steps.' That is testwork on this specific feed, which is the QUALIFIED bar - the non-binding commercial status is captured separately by status POTENTIAL. Note also POSCO discloses LESS than Meteoric: the 30% and seven-year figures appear only in Meteoric's ASX release, and POSCO's own newsroom gives no tonnage, percentage or term."
+  },
+  {
+    "id": "rel-usar-invested-in-carester",
+    "type": "INVESTED_IN",
+    "from_id": "org-usa-rare-earth",
+    "to_id": "org-carester",
+    "status": "PLANNED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-carester-definitive-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [],
+    "qualification": null,
+    "qualification_lead_months": null,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2026,
+    "end_year": null,
+    "note": "Share Purchase and Investment Agreement signed 22 Jul 2026, NOT CLOSED as at 31 Aug 2026. USAR takes 177,778 Preferred Shares RR for approximately 13.6% of Carester (up from 12.5% in the April term sheet), via EUR 10.8m cash, EUR 11.7m contributed in USAR common stock, EUR 5.0m of secondary shares from the founder, and EUR 12.5m buying out Rhodia Operations. STRATEGICALLY THE MOST INTERESTING DETAIL: the Rhodia purchase results in 'the full exit of Solvay as a shareholder of Carester' - so Europe's incumbent separator is leaving the shareholder register of Europe's new one, replaced by a US company and a French infrastructure fund. Completion expected Q3 2026."
+  },
+  {
+    "id": "rel-round-top-can-supply-caremag",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-round-top",
+    "to_id": "fac-caremag-lacq",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-carester-definitive-2026",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-hre-concentrate"
+    ],
+    "qualification": "PLAUSIBLE",
+    "qualification_lead_months": 24,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "USAR's April 2026 investor deck describes a '15-year supply: excess concentrate from Round Top or other USAR sources to Caremag', with a reciprocal 15-year offtake under which USAR takes oxides produced from its contributed concentrate. PLAUSIBLE not FEED_ENVELOPE despite the named source, because Round Top does not yet produce anything: it is an S-K 1300 exploration-stage property with no declared resources, a PFS still unfinished, and commercial operation expected 'late 2028'. The word 'excess' also implies Round Top's own captive separation has first call. Long-dated option, not a contingency route. qualification_lead_months is a MODELLING HEURISTIC dominated by mine construction, not qualification."
+  },
+  {
+    "id": "rel-caldeira-supplies-togni-option",
+    "type": "SUPPLIES",
+    "from_id": "proj-caldeira",
+    "to_id": "org-togni",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-meteoric-togni-option-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": null,
+    "qualification_lead_months": null,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "CONDITIONAL OFFTAKE OPTION, not an offtake: granted April 2026 as consideration for a tenement transfer, alongside a Meteoric board nomination right. 'The Offtake Option allows Togni to acquire up to 30% of the annual production from the Caldeira Project by providing five (5) years advance notice ... on a take or pay basis and provides that use of the MREC may not compete with Meteoric's interests.' No qualification tier: this is a commercial call on volume, not a technical routing claim, and the destination facility is unknown. It is the claim that tips Caldeira's total potential commitments past its production - see the project description."
+  },
+  {
+    "id": "rel-wicheeda-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-wicheeda",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-mda-campaigns-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "DOWNGRADED FROM QUALIFIED. I previously recorded this as the graph's only compatibility edge resting on actual testwork of a named deposit. A counterparty sweep of both companies' continuous-disclosure filings does not support that, and partly contradicts it. The QUALIFIED claim rests entirely on the headline and body of one Ucore NEWS RELEASE of 29 Apr 2024 ('Ucore Qualifies Wicheeda Mixed Rare Earth Carbonate...'). Against it: (1) Ucore's own MD&A series says only that Defense Metals 'sent' a sample - unchanged boilerplate for over two years, with no date, mass, grade, impurity data or ANY RESULT; (2) Ucore's Q1 2026 MD&A states that all seven DoD demonstration campaigns ran on a SINGLE heavy MREO feed source, and Wicheeda is not identified among them; (3) Defense Metals' own filings NEVER mention a sample to Ucore - their only shipment disclosure is an Oct 2023 distribution to unnamed recipients that predates the Jan 2024 MOU, with results still 'ongoing' 21 months later. A news-release headline uncorroborated by either party's filings, and in tension with one of them, does not meet the QUALIFIED bar of demonstrated testwork. FEED_ENVELOPE is the honest tier: Wicheeda MREC is squarely within Ucore's stated MREC/MREO class. Re-check when Defense Metals' post-Apr-2025 filings or its SEDAR+ PFS technical report become reachable."
+  },
+  {
+    "id": "rel-serra-verde-can-supply-pulawy",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-serra-verde",
+    "to_id": "fac-mkango-pulawy",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mkango-f4a-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pulawy is designed for third-party MREC: 55% of first-five-year throughput is market-sourced by design, and Mkango states it plans to source 'from other rare earth projects and market suppliers'. FEED_ENVELOPE not QUALIFIED - no impurity specification is published and Mkango flags off-Songwe chemistry as unresolved metallurgical risk. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-caldeira-can-supply-pulawy",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-caldeira",
+    "to_id": "fac-mkango-pulawy",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mkango-f4a-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pulawy is designed for third-party MREC: 55% of first-five-year throughput is market-sourced by design, and Mkango states it plans to source 'from other rare earth projects and market suppliers'. FEED_ENVELOPE not QUALIFIED - no impurity specification is published and Mkango flags off-Songwe chemistry as unresolved metallurgical risk. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-carina-can-supply-pulawy",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-carina",
+    "to_id": "fac-mkango-pulawy",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mkango-f4a-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pulawy is designed for third-party MREC: 55% of first-five-year throughput is market-sourced by design, and Mkango states it plans to source 'from other rare earth projects and market suppliers'. FEED_ENVELOPE not QUALIFIED - no impurity specification is published and Mkango flags off-Songwe chemistry as unresolved metallurgical risk. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-makuutu-can-supply-pulawy",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-makuutu",
+    "to_id": "fac-mkango-pulawy",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mkango-f4a-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pulawy is designed for third-party MREC: 55% of first-five-year throughput is market-sourced by design, and Mkango states it plans to source 'from other rare earth projects and market suppliers'. FEED_ENVELOPE not QUALIFIED - no impurity specification is published and Mkango flags off-Songwe chemistry as unresolved metallurgical risk. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-serra-verde-can-supply-silmet",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-serra-verde",
+    "to_id": "fac-neo-silmet",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-neo-presentation-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Silmet is explicitly non-captive and has taken ionic-clay MREC before under the Caldeira MOU. FEED_ENVELOPE not QUALIFIED - no specification is published, and the 2026 AIF's assertion that Silmet 'no longer processes feedstock that contains naturally occurring radioactive materials' is an unresolved constraint on any monazite-derived feed. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-carina-can-supply-silmet",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-carina",
+    "to_id": "fac-neo-silmet",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-neo-presentation-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Silmet is explicitly non-captive and has taken ionic-clay MREC before under the Caldeira MOU. FEED_ENVELOPE not QUALIFIED - no specification is published, and the 2026 AIF's assertion that Silmet 'no longer processes feedstock that contains naturally occurring radioactive materials' is an unresolved constraint on any monazite-derived feed. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-makuutu-can-supply-silmet",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-makuutu",
+    "to_id": "fac-neo-silmet",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-neo-presentation-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Silmet is explicitly non-captive and has taken ionic-clay MREC before under the Caldeira MOU. FEED_ENVELOPE not QUALIFIED - no specification is published, and the 2026 AIF's assertion that Silmet 'no longer processes feedstock that contains naturally occurring radioactive materials' is an unresolved constraint on any monazite-derived feed. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-penco-can-supply-silmet",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-penco",
+    "to_id": "fac-neo-silmet",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-neo-presentation-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Silmet is explicitly non-captive and has taken ionic-clay MREC before under the Caldeira MOU. FEED_ENVELOPE not QUALIFIED - no specification is published, and the 2026 AIF's assertion that Silmet 'no longer processes feedstock that contains naturally occurring radioactive materials' is an unresolved constraint on any monazite-derived feed. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-sareco-can-supply-pulawy",
+    "type": "CAN_SUPPLY",
+    "from_id": "fac-sareco",
+    "to_id": "fac-mkango-pulawy",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mkango-f4a-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pulawy is designed for third-party MREC: 55% of first-five-year throughput is market-sourced by design, and Mkango states it plans to source 'from other rare earth projects and market suppliers'. FEED_ENVELOPE not QUALIFIED - no impurity specification is published and Mkango flags off-Songwe chemistry as unresolved metallurgical risk. qualification_lead_months is a MODELLING HEURISTIC. SARECO is the nearest-term source of uncommitted ex-China MREC in this graph, which makes it the most practical answer to Pulawy's 55% market-feed requirement."
+  },
+  {
+    "id": "rel-serra-verde-supplies-us-siie",
+    "type": "SUPPLIES",
+    "from_id": "proj-serra-verde",
+    "to_id": "org-us-siie",
+    "status": "CONTRACTED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-usar-siie-offtake-live-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "QUALIFIED",
+    "qualification_lead_months": null,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": 2026,
+    "end_year": null,
+    "note": "BINDING TAKE-OR-PAY, LIVE SINCE 21-24 AUG 2026, covering 100% of Phase 1 Nd, Pr, Dy and Tb. THE LOCK IS NARROWER THAN IT LOOKS: yttrium is expressly carved out and is 42% of life-of-mine basket value, and a potential Phase 2 of roughly +6,400 tpa TREO is not covered. Floor prices Tb US$2,050/kg, Dy US$575/kg, Nd and Pr US$110/kg, escalating 2% annually with 70% of any excess over the market index returning to the seller - struck BELOW then-prevailing ex-China spot, so downside insurance rather than subsidy. Term is legally the earlier of 198 Mt of run-of-mine ore or 20 years from a Commercial Operations Date that has not yet occurred; the '15-year' framing in all marketing is unreconciled shorthand. US SIIE also holds a call option over ALL SVRE equity. The buyer resells to separators, so the material is redirected through a US-government-controlled chokepoint rather than withdrawn."
+  },
+  {
+    "id": "rel-mb-inc-can-supply-lynas-malaysia",
+    "type": "CAN_SUPPLY",
+    "from_id": "org-lynas",
+    "to_id": "fac-lynas-malaysia",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-lynas-mb-inc-mou-2025",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 18,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "PLACEHOLDER EDGE for the Malaysian ionic-clay feed route, drawn from org-lynas to its own plant because the counterparty - Menteri Besar Inc, the strategic investment arm of the Kelantan State Government - has no project or deposit node and no disclosed resource. Non-binding MoU of 30 May 2025 for supply of Malaysian ionic-clay MREC to Kuantan, with Lynas reserving a quality gate. STALE: MB Inc has vanished from Lynas disclosure since, never reaching definitive agreement. This is the only named third-party feed Lynas Malaysia has ever disclosed, and the FY2026 Annual Report now states the HRE expansion REQUIRES feedstock beyond Mt Weld to hit nameplate - so the gap between the 300 tpa Dy+Tb nameplate and the roughly 60-100 tpa Mt Weld can support is currently unbridged by any named source. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-monte-alto-can-supply-mountain-pass",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-monte-alto",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-q3-2025-earnings-call",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-hre-concentrate"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "MP's COO named the acceptable third-party classes on the Q3 2025 earnings call: SEG+ or 'a full mixed rare earth carbonate with lights and heavies', with the circuit able to handle 'either one of those'. FEED_ENVELOPE tier, but assertion_confidence LOW because the only record is a machine-generated third-party transcript - MP publishes none - and the statement has not been repeated in any filing. qualification_lead_months is a MODELLING HEURISTIC. Monte Alto ships SEG+ heavy rare earth concentrate - the class MP explicitly calls the EASIER of the two. The strongest chemical fit into this node, though the material is contracted to Caremag for up to 150 tpa contained DyTb."
+  },
+  {
+    "id": "rel-serra-verde-can-supply-mountain-pass",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-serra-verde",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-q3-2025-earnings-call",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "MP's COO named the acceptable third-party classes on the Q3 2025 earnings call: SEG+ or 'a full mixed rare earth carbonate with lights and heavies', with the circuit able to handle 'either one of those'. FEED_ENVELOPE tier, but assertion_confidence LOW because the only record is a machine-generated third-party transcript - MP publishes none - and the statement has not been repeated in any filing. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-caldeira-can-supply-mountain-pass",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-caldeira",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-q3-2025-earnings-call",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "MP's COO named the acceptable third-party classes on the Q3 2025 earnings call: SEG+ or 'a full mixed rare earth carbonate with lights and heavies', with the circuit able to handle 'either one of those'. FEED_ENVELOPE tier, but assertion_confidence LOW because the only record is a machine-generated third-party transcript - MP publishes none - and the statement has not been repeated in any filing. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-carina-can-supply-mountain-pass",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-carina",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-q3-2025-earnings-call",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "MP's COO named the acceptable third-party classes on the Q3 2025 earnings call: SEG+ or 'a full mixed rare earth carbonate with lights and heavies', with the circuit able to handle 'either one of those'. FEED_ENVELOPE tier, but assertion_confidence LOW because the only record is a machine-generated third-party transcript - MP publishes none - and the statement has not been repeated in any filing. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-makuutu-can-supply-mountain-pass",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-makuutu",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-q3-2025-earnings-call",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "MP's COO named the acceptable third-party classes on the Q3 2025 earnings call: SEG+ or 'a full mixed rare earth carbonate with lights and heavies', with the circuit able to handle 'either one of those'. FEED_ENVELOPE tier, but assertion_confidence LOW because the only record is a machine-generated third-party transcript - MP publishes none - and the statement has not been repeated in any filing. qualification_lead_months is a MODELLING HEURISTIC."
+  },
+  {
+    "id": "rel-sareco-can-supply-mountain-pass",
+    "type": "CAN_SUPPLY",
+    "from_id": "fac-sareco",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-q3-2025-earnings-call",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "MP's COO named the acceptable third-party classes on the Q3 2025 earnings call: SEG+ or 'a full mixed rare earth carbonate with lights and heavies', with the circuit able to handle 'either one of those'. FEED_ENVELOPE tier, but assertion_confidence LOW because the only record is a machine-generated third-party transcript - MP publishes none - and the statement has not been repeated in any filing. qualification_lead_months is a MODELLING HEURISTIC. SARECO produces exactly the 'full mixed rare earth carbonate with lights and heavies' MP describes, and is the only operating uncommitted ex-China MREC source in this graph."
+  },
+  {
+    "id": "rel-deep-leads-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-deep-leads",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-abx-deep-leads-mrec-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-01"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9,
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Material WAS physically sent - a 10 gram sample of Deep Leads maiden MREC, one of six recipients, dispatched by 2 Mar 2026 - and ABx reports 'highly favourable feedback' from Ucore. FEED_ENVELOPE not QUALIFIED for three reasons: ten grams is an evaluation sample, not a processing campaign; ABx never states which Ucore facility received it; and no recovery, purity or separated product is disclosed by either party. Contrast ABx's disclosure for a different customer, where it did report a finding - 'RETi advised that the Deep Leads MREC is of high purity and is suitable for the RETi process'. Under the Sep 2024 MOU Ucore has an intended first right of refusal over 50% of ABx annual volume for at least five years."
+  },
+  {
+    "id": "rel-colossus-supplies-unresolved",
+    "type": "SUPPLIES",
+    "from_id": "proj-colossus",
+    "to_id": null,
+    "status": "UNRESOLVED",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-viridis-funding-2026",
+      "assertion_confidence": "HIGH",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "NO SEPARATION COUNTERPARTY IS PUBLICLY ESTABLISHED. The 20 Aug 2026 funding release lists 'finalising binding offtake' among the immediate priorities alongside the senior debt package and EPCM mobilisation, and names no offtaker anywhere. Viridis and its Brazilian investors state an intent to 'maximise rare earth industrialisation capability in Brazil, including downstream processing', which points at a domestic separation route that does not exist yet in this graph - there is no Brazilian separation facility node. Until an offtake is signed, roughly 124 tpa of contained Dy+Tb has no committed ex-China separation home. Resolve this edge when binding offtake is announced.",
+    "qualification": null,
+    "qualification_lead_months": null
+  },
+  {
+    "id": "rel-colossus-can-supply-eneabba",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-colossus",
+    "to_id": "fac-eneabba",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-iluka-investor-briefing-2025",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Iluka states Eneabba is 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates' (Investor Briefing, 5 May 2025). Colossus ships ionic clay MREC, squarely inside that stated class, so the tier matches the other Brazilian ionic clay nodes. FEED_ENVELOPE not QUALIFIED: the class is stated, this source is not. qualification_lead_months is a MODELLING HEURISTIC for disruption scenarios, not a disclosed lead time.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9
+  },
+  {
+    "id": "rel-colossus-can-supply-white-mesa",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-colossus",
+    "to_id": "fac-white-mesa",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-energy-fuels-hre-construction-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Energy Fuels is adding an MREC circuit at White Mesa specifically to take heavy-rich third-party feedstocks. Colossus MREC is inside that class on form. Note the mismatch in kind rather than form: White Mesa's expansion is sized for Dy and Tb, and Colossus is a lanthanum-dominated basket carrying only about 124 tpa Dy+Tb, so it would be a low-tenor feed for that circuit. qualification_lead_months is a MODELLING HEURISTIC for disruption scenarios, not a disclosed lead time.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9
+  },
+  {
+    "id": "rel-colossus-can-supply-ucore",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-colossus",
+    "to_id": "fac-ucore-louisiana",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-ucore-scaleup-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Ucore's declared feed envelope is MREC/MREO, which Colossus MREC sits inside on form. Ucore's published capacities are contained TREO in feedstock and are feed-agnostic, so no Dy/Tb throughput can be inferred for this route. qualification_lead_months is a MODELLING HEURISTIC for disruption scenarios, not a disclosed lead time.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9
+  },
+  {
+    "id": "rel-colossus-can-supply-mkango-pulawy",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-colossus",
+    "to_id": "fac-mkango-pulawy",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mkango-f4a-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Pulawy is designed around MREC feed, so Colossus material is inside the stated class. The facility's own 50 tpa Dy/Tb figure is flagged CONFLICTED, so do not size this route from it. qualification_lead_months is a MODELLING HEURISTIC for disruption scenarios, not a disclosed lead time.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9
+  },
+  {
+    "id": "rel-colossus-can-supply-neo-silmet",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-colossus",
+    "to_id": "fac-neo-silmet",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-neo-presentation-2026",
+      "assertion_confidence": "MEDIUM",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "Silmet accepts MREC. Neo discloses no tonnage for its HREE line and describes the products as 'pre-cursor dysprosium and terbium' process solutions rather than finished oxide, so this route cannot be sized either. qualification_lead_months is a MODELLING HEURISTIC for disruption scenarios, not a disclosed lead time.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 9
+  },
+  {
+    "id": "rel-colossus-can-supply-mountain-pass",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-colossus",
+    "to_id": "fac-mountain-pass-refinery",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "REPORTED",
+      "unverified_model_extraction": true,
+      "source_id": "src-mp-q3-2025-earnings-call",
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "MP's COO named two accepted feed classes, SEG+ and a full MREC containing both lights and heavies. Colossus MREC is the latter on form, and its very high La and low Ce would land in MP's lights circuits rather than the Dy/Tb circuit. LOW confidence: the envelope comes from an earnings call, not a specification. qualification_lead_months is a MODELLING HEURISTIC for disruption scenarios, not a disclosed lead time.",
+    "qualification": "FEED_ENVELOPE",
+    "qualification_lead_months": 12
+  },
+  {
+    "id": "rel-colossus-can-supply-caremag",
+    "type": "CAN_SUPPLY",
+    "from_id": "proj-colossus",
+    "to_id": "fac-caremag-lacq",
+    "status": "POTENTIAL",
+    "provenance": {
+      "type": "JUDGMENT",
+      "unverified_model_extraction": true,
+      "source_id": null,
+      "assertion_confidence": "LOW",
+      "last_verified": "2026-09-02"
+    },
+    "material_ids": [
+      "mat-mrec"
+    ],
+    "annual_tonnes": null,
+    "total_tonnes": null,
+    "start_year": null,
+    "end_year": null,
+    "note": "PLAUSIBLE, NOT FEED_ENVELOPE - and deliberately rated below the equivalent Serra Verde edge. Carester's stated feed classes are end-of-life magnets and 'mining concentrates'; a mixed rare earth carbonate is not a mining concentrate, so MREC sits outside Carester's stated class on form. This is the same reasoning the Lofdal and Caldeira edges already apply. The existing Serra Verde and Lofdal MREC-into-Caremag edges are rated FEED_ENVELOPE and PLAUSIBLE respectively for materially the same product form; that inconsistency predates this node and is flagged rather than silently propagated. qualification_lead_months is a MODELLING HEURISTIC for disruption scenarios, not a disclosed lead time.",
+    "qualification": "PLAUSIBLE",
+    "qualification_lead_months": 12
   }
 ]

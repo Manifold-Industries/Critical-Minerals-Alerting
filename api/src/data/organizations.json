@@ -7,7 +7,9 @@
     "parent_organization_id": null,
     "listing": "ASX:NTU",
     "government_affiliation": null,
-    "aliases": ["NTU"]
+    "aliases": [
+      "NTU"
+    ]
   },
   {
     "id": "org-iluka-resources",
@@ -17,7 +19,9 @@
     "parent_organization_id": null,
     "listing": "ASX:ILU",
     "government_affiliation": null,
-    "aliases": ["Iluka"]
+    "aliases": [
+      "Iluka"
+    ]
   },
   {
     "id": "org-gippsland-critical-minerals",
@@ -27,7 +31,9 @@
     "parent_organization_id": null,
     "listing": null,
     "government_affiliation": null,
-    "aliases": ["GCM"]
+    "aliases": [
+      "GCM"
+    ]
   },
   {
     "id": "org-serra-verde",
@@ -47,9 +53,12 @@
     "parent_organization_id": null,
     "listing": null,
     "government_affiliation": null,
-    "aliases": ["USAR"]
+    "aliases": [
+      "USAR"
+    ]
   },
   {
+    "_commented_out": "operates only fac-less-common-metals, which is outside the subset",
     "id": "org-less-common-metals",
     "name": "Less Common Metals",
     "organization_type": "COMPANY",
@@ -57,7 +66,9 @@
     "parent_organization_id": "org-usa-rare-earth",
     "listing": null,
     "government_affiliation": null,
-    "aliases": ["LCM"]
+    "aliases": [
+      "LCM"
+    ]
   },
   {
     "id": "org-export-finance-australia",
@@ -68,18 +79,358 @@
     "listing": null,
     "government_affiliation": {
       "value": "Australian Government export credit agency; administers the A$2B Critical Minerals Facility",
-      "provenance": { "type": "REPORTED", "source_id": "src-iluka-eneabba-fid-2022", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+      "provenance": {
+        "type": "REPORTED",
+        "source_id": "src-iluka-eneabba-fid-2022",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-08-30"
+      }
     },
-    "aliases": ["EFA"]
+    "aliases": [
+      "EFA"
+    ]
   },
   {
     "id": "org-lindian-resources",
     "name": "Lindian Resources",
     "organization_type": "COMPANY",
-    "headquarters_country_id": null,
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:LIN",
+    "government_affiliation": null,
+    "aliases": [
+      "Lindian"
+    ]
+  },
+  {
+    "id": "org-lynas",
+    "name": "Lynas Rare Earths",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:LYC",
+    "government_affiliation": null,
+    "aliases": [
+      "Lynas",
+      "LYC",
+      "Lynas Malaysia"
+    ]
+  },
+  {
+    "id": "org-mp-materials",
+    "name": "MP Materials",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "US",
+    "parent_organization_id": null,
+    "listing": "NYSE:MP",
+    "government_affiliation": null,
+    "aliases": [
+      "MP"
+    ]
+  },
+  {
+    "id": "org-energy-fuels",
+    "name": "Energy Fuels",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "US",
+    "parent_organization_id": null,
+    "listing": "NYSE American:UUUU; TSX:EFR",
+    "government_affiliation": null,
+    "aliases": [
+      "UUUU"
+    ]
+  },
+  {
+    "id": "org-neo-performance-materials",
+    "name": "Neo Performance Materials",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "CA",
+    "parent_organization_id": null,
+    "listing": "TSX:NEO; OTCQX:NOPMF",
+    "government_affiliation": null,
+    "aliases": [
+      "Neo",
+      "NPM"
+    ]
+  },
+  {
+    "id": "org-solvay",
+    "name": "Solvay",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "BE",
+    "parent_organization_id": null,
+    "listing": "Euronext Brussels and Paris:SOLB",
+    "government_affiliation": null,
+    "aliases": []
+  },
+  {
+    "id": "org-carester",
+    "name": "Carester",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "FR",
     "parent_organization_id": null,
     "listing": null,
     "government_affiliation": null,
-    "aliases": ["Lindian"]
+    "aliases": []
+  },
+  {
+    "id": "org-caremag",
+    "name": "Caremag",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "FR",
+    "parent_organization_id": "org-carester",
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": [
+      "Caremag SAS"
+    ]
+  },
+  {
+    "id": "org-ucore",
+    "name": "Ucore Rare Metals",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "CA",
+    "parent_organization_id": null,
+    "listing": "TSXV:UCU; OTCQX:UURAF",
+    "government_affiliation": null,
+    "aliases": [
+      "Ucore"
+    ]
+  },
+  {
+    "id": "org-mkango",
+    "name": "Mkango Resources",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "CA",
+    "parent_organization_id": null,
+    "listing": "TSXV:MKA; AIM:MKA",
+    "government_affiliation": null,
+    "aliases": [
+      "Mkango"
+    ]
+  },
+  {
+    "_commented_out": "magnet manufacturer: downstream of refining",
+    "id": "org-vacuumschmelze",
+    "name": "Vacuumschmelze",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "DE",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": [
+      "VAC"
+    ]
+  },
+  {
+    "id": "org-australian-strategic-materials",
+    "name": "Australian Strategic Materials",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:ASM",
+    "government_affiliation": null,
+    "aliases": [
+      "ASM"
+    ]
+  },
+  {
+    "id": "org-us-dod",
+    "name": "United States Department of Defense",
+    "organization_type": "GOVERNMENT",
+    "headquarters_country_id": "US",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": {
+      "value": "United States federal executive department; counterparty to the MP Materials convertible preferred investment, NdPr price floor and 10X magnet offtake, and to Ucore's Phase 1/Phase 2 rare earth refining awards",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mp-materials-dod-partnership-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "aliases": [
+      "DoD",
+      "DOD"
+    ]
+  },
+  {
+    "id": "org-jogmec",
+    "name": "Japan Organization for Metals and Energy Security",
+    "organization_type": "GOVERNMENT",
+    "headquarters_country_id": "JP",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": {
+      "value": "Japanese government incorporated administrative agency; co-invested EUR 110 million with Iwatani Corporation in Caremag, securing long-term Japanese offtake of heavy rare earth oxides via the Japan France Rare Earth Company joint venture",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-carester-caremag-launch-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "aliases": [
+      "JOGMEC"
+    ]
+  },
+  {
+    "id": "org-aclara",
+    "name": "Aclara Resources",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "CA",
+    "parent_organization_id": null,
+    "listing": "TSX:ARA",
+    "government_affiliation": null,
+    "aliases": [
+      "Aclara"
+    ]
+  },
+  {
+    "id": "org-brazilian-rare-earths",
+    "name": "Brazilian Rare Earths",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:BRE",
+    "government_affiliation": null,
+    "aliases": [
+      "BRE"
+    ]
+  },
+  {
+    "id": "org-namibia-critical-metals",
+    "name": "Namibia Critical Metals",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "CA",
+    "parent_organization_id": null,
+    "listing": "TSXV:NMI",
+    "government_affiliation": null,
+    "aliases": [
+      "NMI",
+      "NCMI"
+    ]
+  },
+  {
+    "id": "org-toyota-tsusho",
+    "name": "Toyota Tsusho Corporation",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "JP",
+    "parent_organization_id": null,
+    "listing": "TSE:8015",
+    "government_affiliation": null,
+    "aliases": [
+      "TTC"
+    ]
+  },
+  {
+    "id": "org-meteoric-resources",
+    "name": "Meteoric Resources",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:MEI",
+    "government_affiliation": null,
+    "aliases": [
+      "Meteoric"
+    ]
+  },
+  {
+    "id": "org-ionic-rare-earths",
+    "name": "Ionic Rare Earths",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:IXR",
+    "government_affiliation": null,
+    "aliases": [
+      "IonicRE",
+      "IXR"
+    ]
+  },
+  {
+    "id": "org-posco-international",
+    "name": "POSCO International Corporation",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "KR",
+    "parent_organization_id": null,
+    "listing": "KRX:047050",
+    "government_affiliation": null,
+    "aliases": [
+      "POSCO"
+    ]
+  },
+  {
+    "id": "org-togni",
+    "name": "Togni",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "BR",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": null,
+    "aliases": [
+      "Togni parties"
+    ]
+  },
+  {
+    "id": "org-defense-metals",
+    "name": "Defense Metals Corp",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "CA",
+    "parent_organization_id": null,
+    "listing": "TSXV:DEFN",
+    "government_affiliation": null,
+    "aliases": [
+      "Defense Metals"
+    ]
+  },
+  {
+    "id": "org-us-siie",
+    "name": "US SIIE, LLC",
+    "organization_type": "INVESTOR",
+    "headquarters_country_id": "US",
+    "parent_organization_id": null,
+    "listing": null,
+    "government_affiliation": {
+      "value": "Special purpose vehicle capitalized by the U.S. government and private capital sources; the Department of War invested US$750 million through the Industrial Base Analysis and Sustainment programme inside a US$1.55 billion structure. What 'SIIE' stands for, the SPV's manager, its private capital sources, the participating bank and its state of formation are all undisclosed; it is not an SEC registrant and no federal award record appears on USASpending.",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-dow-serra-verde-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "aliases": [
+      "US SIIE"
+    ]
+  },
+  {
+    "id": "org-abx-group",
+    "name": "ABx Group",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:ABX",
+    "government_affiliation": null,
+    "aliases": [
+      "ABx"
+    ]
+  },
+  {
+    "id": "org-viridis",
+    "name": "Viridis Mining and Minerals",
+    "organization_type": "COMPANY",
+    "headquarters_country_id": "AU",
+    "parent_organization_id": null,
+    "listing": "ASX:VMM",
+    "government_affiliation": null,
+    "aliases": [
+      "Viridis",
+      "VMM"
+    ]
   }
 ]

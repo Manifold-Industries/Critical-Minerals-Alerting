@@ -41,6 +41,7 @@ class ProvenanceType(StrEnum):
     INFERRED = "INFERRED"
     JUDGMENT = "JUDGMENT"
     MODEL_ESTIMATE = "MODEL_ESTIMATE"
+    AUTOMATED = "AUTOMATED"
     UNKNOWN = "UNKNOWN"
 
 
@@ -79,6 +80,7 @@ class Provenance:
     """
 
     type: ProvenanceType
+    unverified_model_extraction: bool = True
     source_id: str | None = None
     #: Confidence in this specific conclusion, independent of the source's own confidence.
     assertion_confidence: Confidence | None = None

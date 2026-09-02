@@ -51,6 +51,7 @@
     "risk_score": null
   },
   {
+    "_commented_out": "no record inside the subset sits in or is headquartered in it",
     "id": "GB",
     "name": "United Kingdom",
     "iso_alpha2": "GB",
@@ -74,6 +75,241 @@
     "iso_alpha3": "MWI",
     "geometry_wkt": null,
     "alignment": null,
+    "risk_score": null
+  },
+  {
+    "id": "MY",
+    "name": "Malaysia",
+    "iso_alpha2": "MY",
+    "iso_alpha3": "MYS",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "PARTNER",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "FR",
+    "name": "France",
+    "iso_alpha2": "FR",
+    "iso_alpha3": "FRA",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "EE",
+    "name": "Estonia",
+    "iso_alpha2": "EE",
+    "iso_alpha3": "EST",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "PL",
+    "name": "Poland",
+    "iso_alpha2": "PL",
+    "iso_alpha3": "POL",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "CA",
+    "name": "Canada",
+    "iso_alpha2": "CA",
+    "iso_alpha3": "CAN",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "BE",
+    "name": "Belgium",
+    "iso_alpha2": "BE",
+    "iso_alpha3": "BEL",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "_commented_out": "no record inside the subset sits in or is headquartered in it",
+    "id": "DE",
+    "name": "Germany",
+    "iso_alpha2": "DE",
+    "iso_alpha3": "DEU",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "JP",
+    "name": "Japan",
+    "iso_alpha2": "JP",
+    "iso_alpha3": "JPN",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": null
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "NA",
+    "name": "Namibia",
+    "iso_alpha2": "NA",
+    "iso_alpha3": "NAM",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "PARTNER",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "UG",
+    "name": "Uganda",
+    "iso_alpha2": "UG",
+    "iso_alpha3": "UGA",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "NEUTRAL",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "CL",
+    "name": "Chile",
+    "iso_alpha2": "CL",
+    "iso_alpha3": "CHL",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "PARTNER",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "KZ",
+    "name": "Kazakhstan",
+    "iso_alpha2": "KZ",
+    "iso_alpha3": "KAZ",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "NEUTRAL",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "risk_score": null
+  },
+  {
+    "id": "KR",
+    "name": "South Korea",
+    "iso_alpha2": "KR",
+    "iso_alpha3": "KOR",
+    "geometry_wkt": null,
+    "alignment": {
+      "value": "ALLY",
+      "provenance": {
+        "type": "JUDGMENT",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
     "risk_score": null
   }
 ]

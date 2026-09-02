@@ -20,30 +20,10 @@
     "source_confidence": "HIGH"
   },
   {
-    "id": "src-iluka-wimmera-feed-scenarios",
-    "name": "Iluka Eneabba refinery feed scenarios citing ~15 ktpa Wimmera concentrate for 25+ years - DOCUMENT NOT YET IDENTIFIED (figure taken from the v0 supply-chain brief; not found in the 2025 Annual Report or the 2022 FID release)",
-    "source_type": "OTHER",
-    "publisher": "Iluka Resources Ltd (presumed)",
-    "published_on": null,
-    "url": null,
-    "locator": null,
-    "source_confidence": "LOW"
-  },
-  {
     "id": "src-gcm-fingerboards-disclosures",
     "name": "Gippsland Critical Minerals Fingerboards project disclosures",
     "source_type": "DOCUMENT",
     "publisher": "Gippsland Critical Minerals",
-    "published_on": null,
-    "url": null,
-    "locator": null,
-    "source_confidence": "HIGH"
-  },
-  {
-    "id": "src-serra-verde-disclosures",
-    "name": "Serra Verde Pela Ema operation and production disclosures",
-    "source_type": "DOCUMENT",
-    "publisher": "Serra Verde",
     "published_on": null,
     "url": null,
     "locator": null,
@@ -70,16 +50,6 @@
     "source_confidence": "HIGH"
   },
   {
-    "id": "src-usar-disclosures",
-    "name": "USA Rare Earth disclosures on the Serra Verde combination and offtake, Wheat Ridge separation, Less Common Metals and Stillwater magnet production",
-    "source_type": "DOCUMENT",
-    "publisher": "USA Rare Earth",
-    "published_on": null,
-    "url": null,
-    "locator": null,
-    "source_confidence": "HIGH"
-  },
-  {
     "id": "src-dod-ree-magnet-publications",
     "name": "U.S. Department of Defense publications identifying rare-earth permanent magnet dependencies in defense systems",
     "source_type": "DOCUMENT",
@@ -88,5 +58,725 @@
     "url": null,
     "locator": null,
     "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-q4-fy26-quarterly",
+    "name": "Lynas Rare Earths Quarterly Report for the period ended 30 June 2026",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Rare Earths Ltd (ASX:LYC)",
+    "published_on": "2026-07-22",
+    "url": "https://wcsecure.weblink.com.au/pdf/LYC/03113064.pdf",
+    "locator": "Highlights and CEO review pp.1-2 (Q4 FY26 total REO 3,481t / NdPr 1,857t / Dy+Tb 19t; HRE facility cost; JS Link). Sales & market development p.3: 'the only commercial producer of light and heavy rare earth oxides outside of China'; Towards 2030 strategy (Aug 2025); JS Link Malaysian magnet factory 3,000 tpa sintered NdFeB, A$50m Lynas equity, exclusive supply to Yesan (South Korea) and Kuantan until Jan 2038. Operations p.4: Mt Weld expansion ramp-up, Isamill due Q1 FY27, hybrid renewable power station 90% renewable content; quarterly Dy&Tb production table (Q1 FY26 9t, Q2 26t, Q3 8t, Q4 19t); Kalgoorlie continuous precipitation commissioned, produces MREC. Lynas Growth Projects pp.4-5: expanded HRE facility at Lynas Malaysia; first Dy and Tb oxide produced Q4 FY25; first Samarium oxide March 2026; Gadolinium early FY28, Yttrium early CY2028, then Lutetium; cost approximately A$180m to approximately A$294m including contingency. NOTE: this quarterly makes no mention of the Seadrift, Texas project.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-energy-fuels-hre-construction-2026",
+    "name": "Energy Fuels news release: Commercial-Scale 'Heavy' Rare Earth Plant Now Under Construction in Utah",
+    "source_type": "DOCUMENT",
+    "publisher": "Energy Fuels Inc. (NYSE American:UUUU; TSX:EFR)",
+    "published_on": "2026-07-29",
+    "url": "https://investors.energyfuels.com/2026-07-29-Commercial-Scale-Heavy-Rare-Earth-Plant-Now-Under-Construction-in-Utah",
+    "locator": "White Mesa Mill current commercial capacity up to 1,000 tpa separated NdPr oxide; planned expansion designed to add up to approximately 20 tpa Tb, 120 tpa Dy, 140 tpa Sm, 20 tpa Eu, 140 tpa Gd oxides (fn.2: maximum design quantities, dependent on feed distribution and recoveries). Tb and Dy circuits by end of 2027, Sm/Eu/Gd circuits by end of 2028 (fn.3 'depending on market needs'); Dy/Tb capacity 'expected to be commissioned in Q4 2027'. Donald Project JV (Astron, Energy Fuels earning up to 49%): FID anticipated Q3 2026 (fn.4: subject to A$220m EFA-led debt), approximately 8,500 to 9,500 t monazite concentrate annually beginning 2028. New MREC circuit to process heavy-rich third-party feedstocks alongside uranium. Total capex approximately US$104 million, debt via previously announced conditional US government loan commitment; working capital approximately US$0.96 billion as at 31 Mar 2026. 2029 second expansion to 6,294 tpa NdPr, 80 tpa Tb, 288 tpa Dy oxides, fed by Donald, Vara Mada (Madagascar) and Bahia (Brazil). Pending acquisitions of Australian Strategic Materials (metal/alloy, South Korea) and Vacuumschmelze (VAC, Sumter South Carolina, 2,000 t, 'the largest REPM facility in the United States'); integrated target 15,700 t REPM/yr (fn.5: subject to completion, financing, offtake, permitting).",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-carester-caremag-launch-2025",
+    "name": "Carester news release: Caremag, a subsidiary of Carester, has secured 216 million euros in financing to build its rare earth recycling and refining facility in France",
+    "source_type": "DOCUMENT",
+    "publisher": "Carester SAS",
+    "published_on": "2025-03-17",
+    "url": "https://www.carester.fr/en/caremag-launch/",
+    "locator": "Financing EUR 216 million total: EUR 110 million from Japanese investors (JOGMEC and Iwatani Corporation), EUR 106 million from the French State. Feed: 2,000 tonnes of end-of-life magnets and 5,000 tonnes of mining concentrates annually. Output at full ramp-up: 800 tonnes of Neodymium and Praseodymium oxides and 600 tonnes of Dysprosium and Terbium oxides. Site at Lacq, south-west France; operations expected by late 2026. Long-term supply of heavy rare earth oxides to Japan via the Japan France Rare Earth Company joint venture. NOTE: this release gives Dy and Tb as a single combined 600 t figure; this release does not split them. The 500 t Dy / 100 t Tb split is attested separately by src-usar-caremag-split-2026, not by this document.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-solvay-la-rochelle-inauguration-2025",
+    "name": "Solvay press release: Solvay advances European rare earths production through capacity expansion (La Rochelle inauguration)",
+    "source_type": "DOCUMENT",
+    "publisher": "Solvay SA (Euronext Brussels and Paris: SOLB)",
+    "published_on": "2025-04-08",
+    "url": "https://www.solvay.com/sites/g/files/srpend616/files/2025-04/20250408%20Inauguration%20La%20Rochelle%20PR%20-%20EN_0.pdf",
+    "locator": "p.1: inauguration of Solvay's rare earths production line for permanent magnets at La Rochelle; 'the biggest plant outside China capable of separating all rare earth materials'; commercial production of rare earths for permanent magnets begins 8 April 2025; 'first step toward meeting the objective of satisfying 30% of European demand by 2030'; feedstock sourced from a diverse range of suppliers, mining partners and recycled materials as mandated by the Critical Raw Materials Act; process reinvention to cut CO2 40% and halve water use by 2030. p.2 'About Solvay La Rochelle': founded 1948, 40-hectare site, over 300 employees. NOTE: this release states NO tonnage capacity figures and makes NO Dy- or Tb-specific claim; reports of industrial-scale Dy/Tb separation targeted for September 2026 are secondary trade press and are not attested here.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-neo-silmet-hree-commissioning-2026",
+    "name": "Neo Performance Materials news release: Neo Successfully Commissions Heavy Rare Earth Separation Production Line in Europe",
+    "source_type": "DOCUMENT",
+    "publisher": "Neo Performance Materials Inc. (TSX:NEO; OTCQX:NOPMF)",
+    "published_on": "2026-04-10",
+    "url": "https://www.neomaterials.com/neo-successfully-commissions-heavy-rare-earth-separation-small-scale-production-line-in-europe/",
+    "locator": "Commissioning of the HREE solvent extraction small-scale production line at the Silmet facility, Estonia; 'operating at nameplate capacity, with efforts now focused on delivering stable product purity prior to transitioning to routine production capacity'; first separated terbium and dysprosium process solutions ('pre-cursor products for metal making') from mixed rare earth carbonate feedstock, 'with all processing completed entirely in Europe'; complements Neo's European Permanent Magnet facility in Estonia, 'advancing through customer qualification milestones, with commercial production expected to ramp later in 2026'. NOTE: no tonnage capacity figure is disclosed; the line is explicitly small-scale.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ucore-dod-phase2-2025",
+    "name": "Ucore Rare Metals news release: Ucore Launches US Department of Defense Funded $18.4 Million Commercial Rare Earth Refining Project",
+    "source_type": "DOCUMENT",
+    "publisher": "Ucore Rare Metals Inc. (TSXV:UCU; OTCQX:UURAF)",
+    "published_on": "2025-07-14",
+    "url": "https://ucore.com/ucore-launches-us-department-of-defense-funded-18-4-million-commercial-rare-earth-refining-project/",
+    "locator": "US$18.4 million DoD Phase 2 Award formally kicked off, funding construction of Ucore's first commercial-scale RapidSX machine at the proposed Strategic Metals Complex (SMC), Alexandria, Louisiana, focused on HREEs; work culminates in commissioning, demonstration and 'Early Production' readiness of salable individual REE products. Phase 1 Award US$4 million: successful separation of terbium from dysprosium; payment of US$1,057,412 received, bringing Phase 1 payments to US$3,352,884 with US$647,116 remaining. Detailed design and engineering of commercial-scale RapidSX columns at the Kingston, Ontario Commercialization and Demonstration Facility; facility engineering field work and borehole drilling at Alexandria.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mp-materials-dod-partnership-2025",
+    "name": "MP Materials news release: MP Materials Announces Transformational Public-Private Partnership with the Department of Defense to Accelerate U.S. Rare Earth Magnet Independence",
+    "source_type": "DOCUMENT",
+    "publisher": "MP Materials Corp. (NYSE:MP)",
+    "published_on": "2025-07-10",
+    "url": "https://mpmaterials.com/news/mp-materials-announces-transformational-public-private-partnership-with-the-department-of-defense-to-accelerate-u-s-rare-earth-magnet-independence/",
+    "locator": "US$400 million DoD investment in a new series of convertible preferred stock, positioning DoD as largest shareholder at approximately 15% of common shares; US$1.0 billion of JPMorgan Chase and Goldman Sachs financing for construction of the 10X Facility (commissioning expected 2028, taking total US magnet capacity to an estimated 10,000 metric tons); US$150 million DoD loan in connection with the plan to expand heavy rare earth separation capabilities at Mountain Pass, California; 10-year price floor commitment of US$110/kg for NdPr stockpiled or sold; DoD commitment to purchase 100% of 10X Facility magnet output for 10 years after construction.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-hre-expansion-2025",
+    "name": "Lynas Rare Earths ASX announcement: Lynas announces expanded Heavy Rare Earths separation facility in Malaysia",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Rare Earths Ltd (ASX:LYC; OTC:LYSDY)",
+    "published_on": "2025-10-29",
+    "url": "https://wcsecure.weblink.com.au/pdf/LYC/03015215.pdf",
+    "locator": "p.1: new HRE separation facility at Lynas Malaysia with processing capacity to separate up to 5,000 tpa of HRE FEEDSTOCK (fn.1); feedstock from Mt Weld plus 'other sources to be developed, such as ionic clay rare earth deposits in Malaysia'; cost approximately A$180 million (MYR500 million), self-funded from the September 2025 equity raising; construction timeline subject to regulatory approvals; offtake discussions ongoing; phased construction, first Samarium from Mt Weld feedstock forecast April 2026, initial suite of separated HREs forecast available within 2 years; initial flowsheet Sm, Gd, Dy, Tb, Y, Lu. p.2 table 'Target HRE nameplate annual processing capacity': Sm 1,100 t, Gd 400 t, Tb 50 t, Dy 250 t, Y 1,100 t, Lu 10 t. CRITICAL CAVEAT (fn.1): these are nameplate PROCESSING capacities based on planned equipment configuration, expressly 'not... a production target for the purposes of Chapter 5 of the ASX Listing Rules or a projection or forecast'; production at nameplate is 'subject to sourcing other potential feedstock' beyond Mt Weld.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-aclara-carina-fs-2026",
+    "name": "Aclara Resources news release: Aclara Announces Filing and Results of Feasibility Study for Its Flagship Carina Project",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2026-04-13",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bf3/69dcb58ddcd7ecec5db628e7_Aclara%20Carina%20Module%20FS.pdf",
+    "locator": "p.1: FS titled 'NI 43-101 Technical Report & Feasibility Study on the Carina Project, Goias, Brazil', effective date 20 March 2026, by Hatch with named contributors, filed on SEDAR+; after-tax NPV8 approximately US$1.7 billion on Mineral Reserves. COO quote: 'the only company in the world to report heavy rare earth Mineral Reserves from ionic clays in accordance with NI 43-101'; metallurgy demonstrated via a continuously operated pilot plant; 'our path to market via our 100% owned separation facility that is planned to be built in Louisiana, USA'. Highlights: 18-year LOM; average annual production of 4,378 t REO contained in a mixed rare earth concentrate (MREC) with DyTb content 4.2% and NdPr content 27.2%; contained magnetic and strategic elements 156 t Dy, 27 t Tb, 1,191 t NdPr, 173 t Sm, 176 t Gd, 10 t Lu, 1,160 t Y; DyTb production 'equivalent to approximately 11.8% of China's 2024 estimated DyTb production'. Economics: after-tax IRR 26.9%, payback 2.9 years, construction capex US$678.2M plus US$102.7M contingency = US$780.9M (US$100.4M above PFS on FX, inflation and engineering accuracy); average annual commercial discount of US$314.4M, 34% of annual gross revenue, applied as a separation fee payable to Aclara's Louisiana separation project, whose NPV is EXCLUDED from the FS.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ucore-engineering-report-2026",
+    "name": "Ucore Rare Metals news release: Ucore Engineering Report Drives Optimized Commercial Deployment Plan for Louisiana Strategic Metals Complex",
+    "source_type": "DOCUMENT",
+    "publisher": "Ucore Rare Metals Inc. (TSXV:UCU; OTCQX:UURAF)",
+    "published_on": "2026-05-28",
+    "url": "https://ucore.com/ucore-engineering-report-drives-optimized-commercial-deployment-plan-for-louisiana-strategic-metals-complex/",
+    "locator": "Optimized Louisiana SMC configuration: an initial Machine A at approximately 600 tpa TREO plus three RapidSX Production Lines ('Trains') each capable of processing up to approximately 3,000 tpa TREO, for an overall SMC throughput capacity of approximately 9,600 tpa TREO; Machine A plus Production Line 1 gives approximately 3,600 tpa TREO. Enhanced Machine A capital cost US$60 million, of which US$18.4 million is Department of War (formerly DoD) funding. Installation, testing and commissioning of Machine A remains H1-2027. Framed as a move from a lowest initial build-cost concept toward a more robust commercial operating configuration. NOTE: all figures are TREO THROUGHPUT, not Dy/Tb product output; no per-element split is disclosed.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-bre-carester-offtake-2025",
+    "name": "Brazilian Rare Earths / Carester joint news release: BRE and Carester sign 10-year Heavy Rare Earth Offtake and Partnership to deliver BRE's Rare Earth Separation Plant",
+    "source_type": "DOCUMENT",
+    "publisher": "Brazilian Rare Earths Limited (ASX:BRE) and Carester SAS",
+    "published_on": "2025-10-09",
+    "url": "https://www.globenewswire.com/news-release/2025/10/09/3164137/0/en/BRE-and-Carester-sign-10-year-Heavy-Rare-Earth-Offtake-and-Partnership-to-deliver-BRE-s-Rare-Earth-Separation-Plant.html",
+    "locator": "Binding 10-year heavy rare earth offtake plus engineering and technical services agreement. Offtake: 'up to a maximum of 150 tpa of contained DyTb over an initial 10-year term', supplied as heavy rare earth concentrate (SEG+) from the Monte Alto Rare Earths Project in the Rocha da Rocha Rare Earth Province, for separation at Carester's Caremag plant at Lacq (approximately 600 tpa DyTb oxides at steady state, targeting late-2026 operations). Monte Alto positioned as 'the preferred heavy rare earth feedstock' for Carester's new operations. Services: Carester to provide specialised front-end engineering, process design, commissioning support, and ramp-up and optimisation through December 2031 for BRE's planned integrated separation plant at the Camacari Petrochemical Complex, Bahia (approximately 260 km from Monte Alto), producing separated NdPr oxide, heavy rare earth concentrate and uranium yellowcake. NOTE: no capacity or timeline is disclosed for the Camacari plant. Retrieved via the Yahoo Finance syndication of the GlobeNewswire release; globenewswire.com blocked direct fetch.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-iluka-investor-briefing-2025",
+    "name": "Iluka Resources (ASX:ILU) Investor Briefing, 5 May 2025",
+    "source_type": "DOCUMENT",
+    "publisher": "Iluka Resources Ltd (ASX:ILU)",
+    "published_on": "2025-05-05",
+    "url": "https://www.iluka.com/media/xyfjf0fr/iluka-investor-briefing.pdf",
+    "locator": "Eneabba refinery capacity, stated identically on two slides ('Max Rare Earth Capacity' schematic and the 'Refinery production capacity' summary): Max TREO Capacity 23,000 tpa, NdPr Oxide Capacity 5,500 tpa, Dy/Tb Oxide Capacity 750 tpa. Slide 41 'Longevity and future feed sources': Eneabba stockpile 1 Mt of material rich in light and heavy rare earths; Jacinth-Ambrosia and Cataby continue to supply the stockpile; 'Balranald (in execute); will supply ~4ktpa of rare earth concentrate'; 'Wimmera (DFS); WIM100 could supply ~15ktpa of rare earth concentrate with 25+ year life'; Northern Minerals partnership for concentrate containing 30,500 t REO; refinery 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates'. Refining cost slide (Scenario C, Eneabba stockpile + Balranald, steady-state LOM average, real 2024$): TREO production 15.1 ktpa, NdPr production 3.3 ktpa, refining costs A$175m, unit TREO refining cost US$8/kg, unit NdPr refining cost US$37/kg (US$20/kg net of non-NdPr REO revenue); costs 'ultimately dependent on feed mix and assemblage'. Wimmera WIM100 DFS production parameters slide: NdPr oxides ~180 tpa, Dy/Tb oxides shown as a dash (nil/not stated), 25+ year life, ~425k rare earth concentrate, DFS scheduled for completion late 2026.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mp-q3-2025-results",
+    "name": "MP Materials Reports Third Quarter 2025 Results (Form 8-K, Exhibit 99.1)",
+    "source_type": "DOCUMENT",
+    "publisher": "MP Materials Corp. (NYSE:MP)",
+    "published_on": "2025-11-06",
+    "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136825000052/mpmcq32025er.htm",
+    "locator": "p.1, section 'Heavy Rare Earth Production Update', para 1: 'The facility is designed to process approximately 3,000 MT of feedstock per year and will initially prioritize production of dysprosium (Dy) and terbium (Tb).' and 'The Dy/Tb circuit will have a nameplate capacity of 200 MT per year and support MP's planned production of 10,000 MT of high-performance NdFeB magnets per year.' Para 2: 'Since late 2023, MP has been producing and stockpiling heavy rare earth concentrate (SEG+) at Mountain Pass... In addition to processing its own SEG+ feedstock, MP's heavy rare earth facility will process third-party feedstocks from emerging sources.' Also: 'MP plans to begin commissioning its new heavy rare earth separation facility at Mountain Pass in mid-2026.' Filed as 8-K Items 2.02 and 9.01, accession 0001801368-25-000052. WARNING: the 200 MT and 3,000 MT figures appear ONLY in this document and have not been restated in the FY2025 10-K or any 2026 10-Q; the mid-2026 commissioning date in the same paragraph has since slipped to H2 2026.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mp-10k-fy2025",
+    "name": "MP Materials Corp. Annual Report on Form 10-K for the year ended 31 December 2025",
+    "source_type": "DOCUMENT",
+    "publisher": "MP Materials Corp. (NYSE:MP)",
+    "published_on": "2026-02-26",
+    "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000008/mp-20251231.htm",
+    "locator": "Item 1 p.3 (Midstream Operations): 'The Company is currently advancing the construction of the HREE Facility, with commissioning expected in 2026.' Item 7 MD&A p.41: 'In 2026, we expect to begin refining HREE with initial production of terbium and dysprosium.' Mountain Pass described as the only rare earth mining and processing site of scale in North America. FY2025 actuals: 50,692 MT REO in concentrate, 2,599 MT NdPr oxide. NOTE: MP's disclosed production KPIs are REO and NdPr volume only - there is no Dy, Tb or HREE production KPI in any filing.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mp-sk1300-trs-2025",
+    "name": "MP Materials SK-1300 Technical Report Summary, Mountain Pass (Exhibit 96.1 to the FY2025 Form 10-K)",
+    "source_type": "DOCUMENT",
+    "publisher": "MP Materials Corp. (NYSE:MP)",
+    "published_on": "2026-02-26",
+    "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000008/mpmcexhibit961123115.htm",
+    "locator": "Section 16.4.3 (approximately p.238): SEG+ heavy rare earth concentrate described as containing 'lesser amounts of heavy rare earth elements, including around 4% dysprosium and terbium'. NOTE: the exact exhibit filename should be re-checked against the EDGAR filing index for accession 0001801368-26-000008.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mp-10q-q2-2026",
+    "name": "MP Materials Corp. Quarterly Report on Form 10-Q for the quarter ended 30 June 2026",
+    "source_type": "DOCUMENT",
+    "publisher": "MP Materials Corp. (NYSE:MP)",
+    "published_on": "2026-08-07",
+    "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000048/mp-20260630.htm",
+    "locator": "Item 2 MD&A p.31: 'In the second half of 2026, we expect to begin refining HREE with initial production of terbium and dysprosium.' Future tense as at 7 Aug 2026 forecloses any prior Dy/Tb production. Current state of record: no 8-K or press release was filed between 6 Aug 2026 and 1 Sep 2026.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-neo-aif-2026",
+    "name": "Neo Performance Materials Annual Information Form 2026 (FY2025)",
+    "source_type": "DOCUMENT",
+    "publisher": "Neo Performance Materials Inc. (TSX:NEO)",
+    "published_on": "2026-03-31",
+    "url": "https://www.neomaterials.com/wp-content/uploads/2026/03/NPM-AIF-2026.pdf",
+    "locator": "p.24 'C&O Segment - Production Facilities' table: Silmet nameplate capacity 3,200 mT, typed 'Mid-stream rare earth separation / Producer of advanced mixed rare earth oxides' - a FACILITY TOTAL, predominantly light REE, unchanged from the 2025 AIF and therefore predating the HREE line. p.9: Narva 'Phase 1a has an initial capacity of 2,000 mT per year, with potential expansion to cumulatively 5,000 mT annually.' Section 'Heavy Rare Earth Demonstration Line at Silmet' (~p.11): 'The demonstration line represents an important step toward establishing localized heavy rare earth processing capability in Europe and serves as a precursor to a potential future commercial-scale expansion'; 'Production milestones are expected to be achieved in 2026, with the facility producing pre-cursor dysprosium and terbium'. NO tonnage is disclosed for the HREE line anywhere in Neo's public documents.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-neo-carester-2026",
+    "name": "Neo Performance Materials news release: Neo Performance Materials Partners with Carester to Advance its European Rare Earth Supply Chain",
+    "source_type": "DOCUMENT",
+    "publisher": "Neo Performance Materials Inc. (TSX:NEO)",
+    "published_on": "2026-08-31",
+    "url": "https://www.neomaterials.com/neo-performance-materials-partners-with-carester-to-advance-its-european-rare-earth-supply-chain/",
+    "locator": "Binding term sheet with Carester SAS. 'Neo will receive separated dysprosium and terbium oxides from Caremag, providing some of the critical heavy rare earth inputs needed for its European sintered magnet facility'. Tolling leg: 'Under a tolling arrangement, Neo will process Carester's mixed rare earth carbonate at its Silmet facility in Estonia, retaining the light rare earth output while returning the heavy rare earths to Carester.' NO tonnage, term or price is disclosed. Note this makes Silmet's role in the Carester relationship explicitly LIGHT rare earth.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mkango-pulawy-pfs-2026",
+    "name": "Mkango Resources news release: Results of Updated Feasibility Study for the Songwe Hill Rare Earths Project in Malawi and Pre-Feasibility Results for the Proposed Pulawy Rare Earth Separation Plant in Poland",
+    "source_type": "DOCUMENT",
+    "publisher": "Mkango Resources Ltd (TSXV:MKA; AIM:MKA)",
+    "published_on": "2026-03-19",
+    "url": "https://mkango.ca/site/assets/files/5123/20260319_mkango_-_final_embargoed_press_release_v16_19_03_2026_1_1.pdf",
+    "locator": "21pp. Pulawy PFS by PRODEO Consulting (Pty) Ltd, base date 25 Feb 2026, AACE Class 4 (+/-25%). Base case: 'expanded 30 000 t/a MREC (45% TREO, wet basis) feed with 100% NdPr separation option'; 'Initial feed for the plant at 13,430 t/a REO throughput capacity'. Capex US$212,354,912 including US$35.4M contingency. Opex 'US$2.142 per kilogram of TREO in MREC to produce the designated product suite', US$28,699,135/yr. NPV US$779.1M at 10% nominal, IRR 39.7% nominal / 36.3% real, payback 2.12 years. Milestones: engineering start April 2026, procurement September 2026, construction April 2027, commissioning October 2028, ramp-up Q2 2029 ending Q1 2030; 'Life of operations from the first year of full production is 29 years (2030 - 2058)'. CRITICAL - PRODUCT SUITE: the only definition is the payability assumption, 'Payability factors of Nd oxide, Pr oxide and NdPr oxide 100%; SEGH carbonate 75%; LaCe carbonate 100% at US$2/kg'. Dy and Tb are NOT separate products; they report to a mixed SEGH (Sm-Eu-Gd-Heavies) carbonate. The study frames options as NdPr split only (0%, 50%, 100%), with no HREE circuit variants. NO Dy/Tb tonnage is disclosed for Pulawy. Songwe Hill (Malawi, a separate asset): 'production averaging 5,954 tonnes per year total rare earth oxides (TREO) for the first full five years of production, including 1,953 tonnes per year of neodymium and praseodymium oxides, and 56 tonnes per year of dysprosium and terbium oxides, in a MREC grading 55% TREO (dry basis).'",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mkango-crma-2025",
+    "name": "Mkango Resources RNS: Mkango's Pulawy Rare Earth Separation Project Announced as a Strategic Project under EU Critical Raw Materials Act",
+    "source_type": "DOCUMENT",
+    "publisher": "Mkango Resources Ltd (TSXV:MKA; AIM:MKA)",
+    "published_on": "2025-03-25",
+    "url": "https://mkango.ca/site/assets/files/5052/mkango_resources_-_strategic_project_rns_-_final.pdf",
+    "locator": "p.2, section 'Pulawy Rare Earth Separation Project': 'The proposed plant will target production of 2,000 tonnes/year of neodymium and/or praseodymium oxides, and 50 tonnes/year of dysprosium and terbium oxides. Lanthanum cerium carbonate will also be produced at the site.' Designated one of 47 EU strategic projects under Regulation (EU) 2024/1252. CAUTION: this is the ORIGINAL non-expanded design and predates the 19 Mar 2026 PFS by a year; the PFS neither restates the 50 t/yr figure nor lists separated Dy/Tb oxide among the product suite.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-aclara-dynamo-scoping-2026",
+    "name": "Aclara Resources news release: Aclara Announces Results from Technical Reports on its Integrated Heavy Rare Earths Supply Chain (Project Dynamo scoping study)",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2026-04-13",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bf3/69dcb7caacc18dfdd52202e2_Aclara%20-%20Integrated%20Value%20Chain%20press%20release.pdf",
+    "locator": "Companion release issued the SAME DAY as the Carina FS release. p.1 defines study status: only Carina is NI 43-101; Project Dynamo is a SCOPING STUDY and the metals/alloys project is FEL-2 (pre-feasibility level). Lead engineers Hatch / L3 Process Development. Project Dynamo section, 'Annual Average Production': 'Dy oxide (>99.5%): 148 tonnes. Tb oxide (>99.5%): 25 tonnes. NdPr oxide (>99.5%): 1,131 tonnes.' Table 1 note 1: annual average excludes the first ramp-up year and last ramp-down year. Feed basis: 'Feedstock is assumed to be sourced exclusively from the Carina Project'. Byproducts as mixed carbonates (not separated oxides): ~173 t Sm, 8 t Eu, 177 t Gd, 1,160 t Y, 31 t Ho, 88 t Er, 12 t Tm, 73 t Yb, 10 t Lu. 'Strong Economics': after-tax NPV US$470M at 8.0%, IRR 25.2%, payback 3.3 years; 'Construction Capex of US$277 million, plus US$52 million in working capital'; 'Average annual net revenue of US$175 million and EBITDA of approximately US$117 million, supported by a processing fee of US$40 per kilogram of TREO processed, compared to low average Opex of US$12.6 per kilogram of TREO processed'; US$46.4M Louisiana incentives. Site: 82-acre LED Certified Site, Lake Charles corridor / Port of Vinton, ~80-year lease option, Entergy 34.5 kV, demand <5 MW of ~6 MW confirmed. Permitting: air quality, industrial wastewater, stormwater; 'Key approvals are targeted by October 2026 to enable groundbreaking currently slated for the end of 2026.' Path to production: Q3 2026 FEL-3 basic engineering, Q4 2026 long-lead award and site works, Q1 2027-Q1 2028 construction, Q2 2028 pre-commissioning and ramp-up. Phasing: Phase 1 NdPr/Dy/Tb; Phase 2 Y, Gd, Sm; Phase 3 Ho, Er, Tm, Yb, Lu.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-aclara-louisiana-site-2025",
+    "name": "Aclara Resources news release: Aclara to Build First Heavy Rare Earths Separation Facility in U.S. with a Secured Sustainable Ionic Clay Feed by Mid-2028",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2025-10-24",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bf3/68fa9eede93d2c1c0536da9e_Aclara%20selects%20Louisiana%20for%20HREE%20Separation%20Plant.pdf",
+    "locator": "'Key Project Highlights' bullet 5: 'Annual production upon the successful development of the Company's ionic clay deposits in Brazil and Chile is anticipated to be 200 tpy (Dy), 30 tpy (Tb) and 1,400 tpy (NdPr) of separated high-purity oxides, representing approximately 14% of China's official DyTb production.' CRITICAL: this is a CARINA + PENCO (Brazil + Chile) feed basis - a different and larger basis than the 148 t Dy / 25 t Tb Carina-only figure in the Apr 2026 Dynamo scoping study. The two are separate scenarios, not revisions of each other. 'Project Development': US$277M, 82-acre LED site at Port of Vinton; incentives ITEP US$29.3M, HIP US$11.6M, infrastructure grant US$3.0M, FastStart US$2.5M = US$46.4M.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-aclara-itep-2026",
+    "name": "Aclara Resources news release: Aclara Secures Tax Exemption Approval of Over US$20 Million for its U.S. Heavy Rare Earth Separation Facility in Louisiana",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2026-06-26",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bf3/6a3e275538669f0771f78261_Aclara%20Receives%20Final%20ITEP%20Approval%20vf.pdf",
+    "locator": "'the State of Louisiana has granted final approval under the Industrial Tax Exemption Program (ITEP) for the Company's planned heavy rare earth separation facility at the Port of Vinton, Louisiana.' ITEP contract executed by Governor Landry; 80% ad valorem exemption for 5 years plus a 5-year renewal option; approximately US$4.2M/yr and approximately US$20.8M over the initial term - LOWER than the US$29.3M estimated in the Oct 2025 release, so use this figure. Groundbreaking target Q4 2026. Pilot plant expected to provide approximately two years of operating data before production.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ucore-scaleup-2026",
+    "name": "Ucore Rare Metals news release: Ucore Verifies Louisiana RapidSX Equipment Scale-Up Configurations",
+    "source_type": "DOCUMENT",
+    "publisher": "Ucore Rare Metals Inc. (TSXV:UCU)",
+    "published_on": "2026-08-05",
+    "url": "https://ucore.com/ucore-verifies-louisiana-rapidsx-equipment-scale-up-configurations/",
+    "locator": "Most explicit statement of the capacity basis: 'Pending construction completion, commissioning, qualification, and receipt of all required funding and permits, Ucore's Louisiana SMC shall be capable of accepting mixed rare earth carbonate (\"MREC\") and mixed rare earth oxide (\"MREO\") from Western-friendly feedstock sources and processing up to approximately 9,600 tpa of contained TREOs.' Confirms every published SMC number is CONTAINED TREO IN FEEDSTOCK, not product output. The 28 May 2026 engineering report lists the product suite - 'NdPr, Pr, Nd, Sm, Gd, SmEuGd (\"SEG\"), Tb, Dy, rare earth oxide products, and intermediates' - with NO tonnage attached to any element.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ucore-caldeira-mou-2024",
+    "name": "Ucore Rare Metals news release: Ucore Rare Metals and Meteoric Resources Sign MOU for Offtake of Caldeira Project MREC in Brazil to USA Oxide Production Project",
+    "source_type": "DOCUMENT",
+    "publisher": "Ucore Rare Metals Inc. (TSXV:UCU)",
+    "published_on": "2024-08-21",
+    "url": "https://ucore.com/ucore-rare-metals-and-meteoric-resources-sign-mou-for-offtake-of-caldeira-project-mrec-in-brazil-to-usa-oxide-production-project/",
+    "locator": "'Key Provisions of the MOU', bullet 2: 'Once the Parties are in production they envision that Ucore will purchase a minimum quantity of 3,000MT of TREO annually from Caldeira. This could represent over 900MT of NdPr, approximately 6MT of Tb and 24MT of Dy.' CONTAINED-IN-CONCENTRATE under a NON-BINDING MOU, not SMC output capacity. Carried forward verbatim in Ucore's MD&A for the three months ended 31 Mar 2026 (prepared 29 May 2026), p.13. Covers roughly 31% of the SMC's 9,600 tpa nameplate throughput; never restated against the current configuration. Implies a Caldeira basket of ~0.8% Dy and ~0.2% Tb of TREO - that is Caldeira's assemblage, NOT a design-basis feed assemblage for the SMC.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-ar26-2026",
+    "name": "Lynas Rare Earths Limited 2026 Annual Report (lodged with Appendix 4E)",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Rare Earths Ltd (ASX:LYC)",
+    "published_on": "2026-08-26",
+    "url": "https://wcsecure.weblink.com.au/pdf/LYC/03126303.pdf",
+    "locator": "Directors' Report, Review of Operations, section 'Lynas USA', p.16: 'Lynas signed a binding Letter of Intent with the U.S. Government in March 2026 for the supply of approximately US$96 million of light and heavy rare earth oxides over a 4 year period... Funding for the supply agreement has been reallocated from funds previously intended for the construction of a HRE facility in Texas WHICH WILL NO LONGER PROCEED. The floor price for supply of NdPr oxide will be US$110/kg.' Note B.3 'Impairment of non-current assets', p.107: 'There was $1.7m of impairment expense recognised on specific assets at during FY26 (FY25: $1.0m)' - sits in the buildings/plant column of the Note B.1 PP&E table with NO US attribution. Note B.1 PP&E, p.102: 'Government grants received ... (6,925)' i.e. A$6.925m netted against assets under construction. Note A.1, p.92: single reportable segment under AASB 8, so there is no geographic non-current-asset breakdown and no US asset line. Note A.4.4, p.98: unrecognised deferred tax assets, gross revenue losses, United States A$3,911k (2025: A$3,545k). Note E.1: contingent liabilities list only the Malaysian licence bond - no clawback or repayment contingency disclosed; capital commitments at 30 June 2026 nil. 'Seadrift' appears ZERO times in this document; 'Texas' appears exactly once, in the sentence quoted above. There is no discontinued-operations, held-for-sale or derecognition note, and no standalone cancellation announcement was ever made.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-dow-loi-2026",
+    "name": "Lynas Rare Earths ASX announcement: Lynas and US DoW Sign Letter of Intent for Rare Earth Supply",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Rare Earths Ltd (ASX:LYC)",
+    "published_on": "2026-03-16",
+    "url": "https://wcsecure.weblink.com.au/pdf/LYC/03068512.pdf",
+    "locator": "p.1: 'This offtake agreement follows the mutual decision to modify the original agreement between Lynas and the DoW based on significant uncertainty as to whether the construction of the Heavy Rare Earth processing facility at Seadrift, Texas would proceed.' Counterparty is the US Department of War, contracting via subsidiary Lynas USA LLC. This is the pivot event; the definitive 'will no longer proceed' language appears five months later in the FY2026 Annual Report.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-ar25-2025",
+    "name": "Lynas Rare Earths Limited 2025 Annual Report",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Rare Earths Ltd (ASX:LYC)",
+    "published_on": "2025-08-28",
+    "url": "https://announcements.asx.com.au/asxpdf/20250828/pdf/06ngtkbmf2fb5g.pdf",
+    "locator": "Section 'Lynas USA', p.15: 'A contribution by the U.S. Department of Defence of approximately US$258m is currently allocated to the Seadrift facility.' and 'The contract is an expenditure-based contract under which all of Lynas' properly allocable construction costs in respect of the facility will be reimbursed.' Also: 'Lynas is yet to commence construction or operations in the USA and had no USA employees in FY25.' CORRECTS the widely-repeated trade-press figure of approximately US$288m 'received' - the disclosed figure is US$258m ALLOCATED under an expenditure-reimbursement contract, not received.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-usar-10k-fy2025",
+    "name": "USA Rare Earth, Inc. Annual Report on Form 10-K for the year ended 31 December 2025",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth, Inc. (Nasdaq:USAR)",
+    "published_on": "2026-03-30",
+    "url": "https://www.sec.gov/Archives/edgar/data/1970622/000197062226000021/usar-20251231.htm",
+    "locator": "Item 1 Business, 'Colorado Facility': 'We expect that this facility, with 500+ planned mixer/settlers should become one of the largest and most sophisticated solvent extraction (\"SX\") demo facilities in the nation.' and 'The Colorado Facility is not a commercial production facility, but rather develops and refines the technologies that, with success, would be applied at the Round Top Project.' Item 1A Risk Factors: 'The Colorado Facility is a development and demonstration facility, not a commercial production facility, and the technologies developed there may prove insufficient or prohibitively costly to scale.' Item 1 also: 'we are now beginning our work on individual separations including dysprosium and terbium... we are currently in the process of demonstrating our ability to recycle swarf'. Stillwater: 'We commissioned Phase 1a of our Stillwater Facility in the first quarter of 2026. At full production capacity, we expect this line will produce approximately 600 MTPA of sintered NdFeB permanent magnet blocks... we expect Phase 1b will produce approximately 600 MTPA'.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-usar-10q-q2-2026",
+    "name": "USA Rare Earth, Inc. Quarterly Report on Form 10-Q for the quarter ended 30 June 2026",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth, Inc. (Nasdaq:USAR)",
+    "published_on": "2026-08-10",
+    "url": "https://www.sec.gov/Archives/edgar/data/1970622/000197062226000057/usar-20260630.htm",
+    "locator": "MD&A 'Second Quarter 2026 Business Highlights', pp.29-30: 'On June 15, 2026, we commenced operations of our hydrometallurgical demonstration facility in Wheat Ridge, Colorado (the \"Wheat Ridge Facility\"), to validate processing flowsheets for feedstocks from the Round Top Project, third-party sources, and rare earth magnet scrap (swarf) recycling.' and 'On July 14, 2026, we announced that our Wheat Ridge Facility, produced commercial-grade dysprosium oxide and neodymium-praseodymium oxide SAMPLES from recycled swarf sourced from our magnet manufacturing facility at Stillwater, Oklahoma... This production validates our magnet swarf recycling flowsheet'. Notes, Leases: 'On December 17, 2025, the Company entered into a lease for office and warehouse space in Wheat Ridge, Colorado... The lease commenced on January 1, 2026 and expires on March 31, 2028. Total minimum lease payments over the lease term are $224 thousand'. Risk factors: Stillwater 'has recently been commissioned and has commenced commercial production; however, we have not begun generating revenue from... neo magnets'.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-usar-defm14a-2026",
+    "name": "USA Rare Earth, Inc. Definitive Merger Proxy Statement (Form DEFM14A) for the Serra Verde combination",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth, Inc. (Nasdaq:USAR)",
+    "published_on": "2026-07-24",
+    "url": "https://www.sec.gov/Archives/edgar/data/1970622/000121390026081091/ea0290028-06.htm",
+    "locator": "Definitive agreement dated 19 April 2026, amended 16 July 2026. 'Opinion of Moelis & Company LLC': consideration of $300,000,000 cash plus 126,849,307 USAR shares; 'Implied Equity Value Purchase Price is an amount equal to $2,831 million based on... USAR's closing share price of $19.95 as of April 17, 2026, plus... $300 million of cash'. 'Information about SVRE': 'Following ramp-up, production from Phase I is expected to average c. 6,400 metric tons of total rare earth oxides (\"TREO\") per year over the life of the mine'; product is MREC, not separated oxides; commercial operations expected 2027; as at 31 Dec 2025 'the Project remains in the development stage and has not yet achieved the milestones necessary to be considered operational'. DFC: 'On January 21, 2026, SVRE entered into a Finance Agreement with the DFC, which was amended on March 5, 2026... aggregate committed amount not to exceed $565 million, consisting of (i) an initial loan tranche... not to exceed $465 million and (ii) a second loan tranche... not to exceed $100 million... As of March 31, 2026, the aggregate outstanding principal amount... was approximately $325 million.' 15-year 100% offtake with per-element floor prices to US SIIE, LLC dated 20 April 2026. NO per-element Dy/Tb tonnage or grade split appears anywhere. Resource caveat: 'A qualified person has not done sufficient work to classify these estimates as current estimates of mineral resources or mineral reserves' - no S-K 1300-compliant Pela Ema resource exists in USAR filings yet. Shareholder approval obtained 28 Aug 2026 (Form 8-K Item 5.07, filed 2026-08-31, 108,248,297 for / 1,403,269 against); as at 1 Sep 2026 NO Item 2.01 8-K has been filed, so the transaction has NOT closed.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-nmi-lofdal-pfs-2026",
+    "name": "SGS Bateman: NI 43-101 Technical Report - Lofdal Heavy Rare Earths Project 2B-4 Preliminary Feasibility Study, Namibia",
+    "source_type": "DOCUMENT",
+    "publisher": "Namibia Critical Metals Inc. (TSXV:NMI)",
+    "published_on": "2026-01-13",
+    "url": "https://www.namibiacriticalmetals.com/wp-content/uploads/2026/01/SGS-Lofdal-NI43-101-PFS-Report.pdf",
+    "locator": "PFS grade, NI 43-101, QP Joseph Keane; Mineral Reserve effective 1 Dec 2025, filed SEDAR+ 13 Jan 2026. Table 144 'Summary of Financial Analysis' p.389: 'Average Annual Production | 1,478 tonnes TREO (ex La, Ce), including: 119 t Dy, 17.8 t Tb, 841 t Y'. Product is a MIXED carbonate, not separated oxide - section 1.9 p.33: 'The REE will be precipitated as a Mixed Rare Earths Carbonate and packaged for sale'; p.352 '99% grade TREO product'. Tables 4 p.30 and 63 p.217, Mineral Reserves as at 1 Dec 2025 at 0.100% TREO cut-off on a US$86.84/kg basket, strip ratio 6.8:1: Proved 6.19 Mt @ 0.211% TREO, Probable 25.81 Mt @ 0.168%, total 32.01 Mt @ 0.176% TREO for 56,340.9 t TREO. Tables 2-3 pp.29-30, Mineral Resource effective 5 Apr 2024 (MSA Group, 0.1% TREO cut-off within a Whittle shell): Area 4 M&I 55.8 Mt @ 0.16% TREO / 76 ppm Dy2O3, Inferred 10.5 Mt @ 0.14%; Area 2B Indicated 2.7 Mt @ 0.16% / 97 ppm Dy2O3, Inferred 4.4 Mt @ 0.15%. TREO and HREO both include Y2O3. Table 46 p.196 'Percentage of REO in TREO' (in-situ): Area 4 Tb2O3 0.8%, Dy2O3 5.1%, Y2O3 34.7%, total HREO 53.2%; Area 2B Tb2O3 0.9%, Dy2O3 5.6%, HREO 56.0%. Table 60 p.211 concentrate distribution: Tb4O7 0.9%, Dy2O3 6.2%. Economics: capex US$347.9M (pre-production US$273.4M + US$57.4M contingency), after-tax NPV5 US$275.5M base / US$747.9M divergent, IRR 19.0% / 34.8%, 13-year mine life, 1,482,000 t/y throughput, 24-month development before production. Coordinates section 1.2 p.32: 'The coordinates of the Lofdal mine site are 20 21'S 14 45'E. (WGS84)'. Title section 1.1: ML held by Namibia Rare Earths (Pty) Ltd, 95% NMI / 5% Philco 196 (Pty) Ltd; ML 200 granted 15 Jul 2021, valid to 10 May 2046. TWO DATA-QUALITY FLAGS: (1) Table 60 prints Lu2O3 42.4% and Y2O3 0.6%, which are transposed - p.35 states independently that the product 'contains about 40 to 50% Yttrium oxide'; do not ingest those two rows. (2) The company project page headlines 'Avg. Annual Production - 2,000 tpa TREO' against the report's 1,478 t ex-La,Ce; the technical report governs.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-nmi-lofdal-earnin-2026",
+    "name": "Namibia Critical Metals news release: TJ Namibia Rare Earths Corporation earn-in completion (Lofdal)",
+    "source_type": "DOCUMENT",
+    "publisher": "Namibia Critical Metals Inc. (TSXV:NMI)",
+    "published_on": "2026-07-30",
+    "url": "https://www.namibiacriticalmetals.com/wp-content/uploads/2026/07/260730-TJNRE-Earn-In-Completion-SEDAR.pdf",
+    "locator": "'JOGMEC provides C$3,000,000 in Term 1 and C$7,000,000 in Term 2 to earn a 40% interest in the Lofdal project. Term 3 calls for a further C$13,000,000 of expenditures to earn an additional 10% interest.' and 'To date, JOGMEC and TTC have completed Term 3 and earned a 50% interest by reaching the C$23 million expenditure requirement.' TJ Namibia Rare Earths Corporation (TJNREC) is the jointly owned SPC holding Japan's 50% participating interest; completion subject to TSXV and NCMI shareholder approval. JOGMEC's own release of the same date states it will invest up to C$47.668 million (approximately 5.5 billion yen) in TJ, initial investment made 23 Jul 2026; the JOGMEC:Toyota Tsusho equity split inside TJNREC is NOT disclosed. Further options: JOGMEC may buy another 1% for C$5,000,000, has a first right of refusal to fund to commercial production and to purchase all production at market prices; NCMI and HDN cannot be diluted below a 26% carried working interest; NMI may participate to a maximum 45%. DFS fully funded, target completion Q2 2027, with FID targeted during FY2026; the DFS will evaluate producing SEPARATE light and heavy rare earth carbonates in Namibia, a change from the PFS single mixed carbonate. SUPERSEDES the 13 Jan 2026 release, which stated Term 3 as C$10,000,000, total C$20,000,000 and maximum NMI participation 44%.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-mre-reserve-2024",
+    "name": "Lynas Rare Earths ASX announcement: 2024 Mineral Resource and Ore Reserve Update",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Rare Earths Ltd (ASX:LYC)",
+    "published_on": "2024-08-05",
+    "url": "https://wcsecure.weblink.com.au/pdf/LYC/02835257.pdf",
+    "locator": "JORC 2012. THE ONLY LYNAS DOCUMENT CARRYING A PER-ELEMENT Dy/Tb BREAKDOWN FOR MT WELD, and it is reserve-basis only. Table 7 (continued) p.23, 'Mt Weld Rare Earth Deposit Ore Reserve June 2024 at 2.8% TREO cut-off grade', ppm: Pit Proved 18.7 Mt @ 7.2% TREO, Tb4O7 80 ppm, Dy2O3 290 ppm; Pit Probable 10.8 Mt @ 4.5%, Tb4O7 120 ppm, Dy2O3 570 ppm; Stockpiles Proved 1.0 Mt @ 12.2%, Tb4O7 200, Dy2O3 870; Tailings Proved 1.6 Mt @ 7.3%, Tb4O7 50, Dy2O3 180; Total Proved 21.2 Mt @ 7.4%, Tb4O7 80, Dy2O3 310; Total Probable 10.8 Mt @ 4.5%, Tb4O7 120, Dy2O3 570; TOTAL 32.0 Mt @ 6.4% TREO, Tb4O7 100 ppm, Dy2O3 400 ppm, Y2O3 1,360 ppm. p.3: 'Contained Dy oxide has increased 92% from 6,660 tonnes to 12,790 tonnes.' p.2: 'All heavy rare earth element grades, including Terbium oxide, are now reported in the ore reserves statement' - flagged by Lynas as a first. p.10: 'The Mt Weld Rare Earth deposit mineral resource now contains 29,800 combined tonnes of terbium and dysprosium oxides' (combined, NOT split). p.10 mineralogy: heavy rare earths 'appear to be associated with churchite, a hydrated form of xenotime, and yttropyrochlore'; p.4 notes concentrations 'up to 4,300 ppm Dy2O3 to the north-west of the CLD'. p.34 JORC Table 1: grid 'MGA 94 - Zone 51'. p.20: mining leases M38/58, M38/59, M38/326, M38/327. NOT DISCLOSED anywhere: a resource-basis per-element assemblage, a Mt Weld CONCENTRATE assemblage, and any latitude/longitude.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-meteoric-caldeira-dfs-2026",
+    "name": "Meteoric Resources ASX announcement: Caldeira DFS Confirms Confidence in Project Fundamentals to Support Offtake and Financing",
+    "source_type": "DOCUMENT",
+    "publisher": "Meteoric Resources NL (ASX:MEI)",
+    "published_on": "2026-07-31",
+    "url": "https://wcsecure.weblink.com.au/pdf/MEI/03116166.pdf",
+    "locator": "DFS, engineering to AACE Class 3 (+/-10%, Ausenco), JORC 2012. SUPERSEDES the 21 Jul 2025 PFS. Production target underpinned ENTIRELY by Probable Ore Reserves converted from Measured and Indicated - no Inferred material, a material change from the PFS whose target contained ~11% Inferred. Highlights p.1: 'Total NdPr production of 88,829 tonnes with average annual production of 3,862 tonnes' and 'Total DyTb production of 2,926 tonnes with average annual production of 127 tonnes'. Table 1-17 Financial Summary (Exec Summary p.1-69), 23-year LOM: TREO 287,475 t; NdPr 88,829 t; Dysprosium (Dy) 2,408 t; Terbium (Tb) 519 t. Table 1 p.4: average annual TREO 12,500 t LOM / 12,181 t years 1-5; TREO recovery 54% LOM; MREO recovery 71% LOM; 'NdPr + DyTb % in TREO concentrate - 32%'. Table 3 pp.10-11, MRE at 1,000 ppm TREO cut-off: total 1,631 Mt @ 2,317 ppm TREO (Tb4O7 4 ppm, Dy2O3 21 ppm), M+I 703 Mt @ 2,617 ppm (Tb4O7 5, Dy2O3 24) - 'the largest ionic clay REE deposit outside China'. Table 4 pp.11-12: 'The updated Probable Ore Reserve estimated as part of the Caldeira Project DFS is 151Mt at 3,524ppm TREO, with 857ppm MREO'; total 151.1 Mt, Dy2O3 30 ppm, Tb4O7 6 ppm, contained TREO 532 kt; ALL Probable, zero Proved. Section 1.6: 'The Caldeira process plant has been designed to produce ~25,000dmt per year of MREC from 6Mtpa of ionic clay feed, operating year-round at 91.3% availability.' Capex US$498M incl 10% contingency; post-tax NPV8 US$847M, IRR 24%, 4-year payback. p.2: Preliminary Licence granted Dec 2025, Installation Licence expected Q4 2026. p.1-54: 'The implementation plan covers the path from DFS completion in July 2026 through to first MREC production in 2029.' p.17: 'Meteoric has executed non-binding offtake agreements with POSCO International Corporation (South Korea), Neo Performance Materials Inc. (Canada) and Ucore Rare Metals Inc. (Canada)' - NO volumes, prices or terms disclosed. PROVENANCE CAVEAT: the Dy/Tb rows are oxide-equivalent CONTAINED IN MREC per the equivalent PFS table footnote ('All references to Oxides are based on the contained level of those Oxides within the MREC product'), not separated oxide. Two document defects: Table 4's Dy column is mislabelled 'Dy6O3', and per-deposit Total rows show 0 for contained TREO/MREO (formatting artifact).",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ionicre-makuutu-mre-2024",
+    "name": "Ionic Rare Earths ASX announcement: Updated Makuutu Mineral Resource Estimate",
+    "source_type": "DOCUMENT",
+    "publisher": "Ionic Rare Earths Ltd (ASX:IXR)",
+    "published_on": "2024-05-15",
+    "url": "https://minedocs.com/27/Makuutu-MR-05152024.pdf",
+    "locator": "JORC, 200 ppm TREO-CeO2 cut-off. Table 1/Table 8: Indicated 517 Mt @ 650 ppm TREO, Inferred 99 Mt @ 560 ppm, TOTAL 617 Mt @ 630 ppm TREO (HREO 160 ppm, which INCLUDES Y2O3). p.1: 'The updated Makuutu MRE summarised in Table 1 is estimated at 617 million tonnes at 630ppm Total Rare Earth Oxide (TREO), above a cut-off grade of 200 parts per million (ppm) TREO minus CeO2'. Contained metal: 'Updated Makuutu MRE contains approximately 126,000 tonnes of magnet Rare Earth Oxides (REOs), including approximately; o 86,000 tonnes of NdPr oxide; o 7,400 tonnes of DyTb oxide' and 'approximately 99,000 tonnes of heavy REOs'. Table 7 per-element grades: Tb4O7 2 ppm, Dy2O3 10 ppm - with the printed caveat that Tb4O7 and other minor elements are 'immaterial to overall resource grade' and Dy is rounded to 10 ppm. SUPERSEDES the May 2022 MRE of 532 Mt @ 640 ppm that circulates in secondary sources. The Dy/Tb split of the 7,400 t DyTb is NOT DISCLOSED.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ionicre-makuutu-dfs-2023",
+    "name": "Ionic Rare Earths ASX announcement: Makuutu Stage 1 DFS Confirms Technical and Financial Viability, Maiden Ore Reserve Estimate",
+    "source_type": "DOCUMENT",
+    "publisher": "Ionic Rare Earths Ltd (ASX:IXR)",
+    "published_on": "2023-03-20",
+    "url": "https://wcsecure.weblink.com.au/pdf/IXR/02645488.pdf",
+    "locator": "Stage 1 DFS, JORC 2012, capex accuracy -10%/+15%. STILL THE LATEST STUDY as at Sep 2026 - nothing newer exists. Tables 10-11, maiden Ore Reserve over RL 1693: 172.9 Mt @ 848 ppm TREO / 584 ppm TREO-CeO2, Tb4O7 3 ppm, Dy2O3 18 ppm, DyTb 21 ppm, NdPr 192 ppm, HREO 219 ppm; 146,654 t contained TREO; ALL Probable, zero Proven, converted from Indicated only; 35-year mine life. p.1: 'Stage 1 TREO production of 40,090 tonnes (t) REO equivalent product, with 71% magnet plus heavy REO content' and 'Stage 1 Rare Earth Oxide (REO) anticipated production capacity is ~ 1,300 tpa REO over first 10 years, averaging ~1,160 tpa over 35-years of production'; Table 1 average REO production 1,156 t/a (note: body text p.6 gives 40,448 t against the p.1 figure of 40,090 t - an internal inconsistency). ANNUAL Dy2O3 and Tb4O7 TONNAGES ARE NOT DISCLOSED NUMERICALLY - they appear only as unlabelled bars in Figures 12 and 13. Individual recoveries ARE given (JORC Table 1, p.46): Dy2O3 49%, Tb4O7 45%. Figure 14 p.18, Stage 1 MREC PRODUCT BASKET (post-recovery, not in-ground): Dy2O3 3.82%, Tb4O7 0.62%, Y2O3 26.5%, Nd2O3 21.2%. p.18: 'Heavy REO fraction of approximately 45%'. Capex US$120.8M incl 10% contingency; 5.0 Mtpa ROM; heap desorption to MREC; 120 km east of Kampala. The DFS targeted 'first MREC production targeted for Q4 2024' - NOT achieved and never restated; as at the June 2026 quarter Makuutu is described only as 'shovel-ready', with a strategic review launched 31 Jul 2026 considering strategic or government-backed partners and alternative listings.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-tmrc-round-top-2019",
+    "name": "Texas Mineral Resources Corp Form 8-K Exhibit 99.1: Round Top 2019 Preliminary Economic Assessment results",
+    "source_type": "DOCUMENT",
+    "publisher": "Texas Mineral Resources Corp (SEC CIK 1445942)",
+    "published_on": "2019-12-19",
+    "url": "https://www.sec.gov/Archives/edgar/data/1445942/000158069519000478/ex99-1.htm",
+    "locator": "Accession 0001580695-19-000478. PEA-reported production: 'REO Production: Averaging 2,312 tonnes per year (TPY) total, including approximately 180 TPY of Neodymium (Nd) and 67 TPY of Praseodymium (Pr).' Dy and Tb are NOT broken out in that line. Resource: 'Mining and processing 146 million tonnes over a 20 year life, equivalent to only 13% of the total Measured, Indicated and Inferred Mineral Resource Estimate of 1.1 billion tonnes'. Economics: NPV US$1.56bn at 10% pre-tax, IRR 70%, payback 1.4 years, capex US$350.4M, 20,000 t/day. CRITICAL WARNING: the table 'Mineral Pricing and Marketing Considerations' contains a column 'Tonnes per year produced' listing Terbium 23 and Dysprosium 206 - these are the widely recirculated Round Top Dy/Tb figures, and the SAME DOCUMENT disclaims them immediately below the table: 'The projected production reflects the results of previous work and was not reported in the PEA.' They are NOT PEA output figures. Separately, USA Rare Earth's FY2025 10-K disclaims all three PEAs: 'Neither the 2012 PEA, the 2013 PEA, nor the 2019 PEA were prepared on the basis of compliance with Item 1300 and are not resource estimates of USARE under Item 1300.'",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-aclara-penco-pea-2021",
+    "name": "Ausenco Engineering Chile: Amended and Restated NI 43-101 Technical Report - Preliminary Economic Assessment for Penco Module Project, Penco, Biobio Region, Chile",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2021-12-02",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bce/67d5fa07d1a411f5bd2af7ab_Penco%20Module%20PEA%20-%20NI%2043-101%20Technical%20Report.pdf",
+    "locator": "PEA grade, NI 43-101, effective date 15 September 2021. Table 1-18 'Production REO' p.31 and Table 1-19 'Summary Results' p.32: Dy2O3 489 t and Tb4O7 66 t over a 12-year mine life, within total REO of 8,901 t; 'Total Average Annual Production REO (t) - 774'. Section 1.12 Recovery Methods: 'The facilities have been designed to treat 240 t / h of wet mineral and, through a leaching and precipitation process, obtain rare earth carbonate at a rate of 1,227 t/y.' NOTE: the PEA gives NO average-annual Dy or Tb line - any per-year split is derived, not disclosed. Its resource base (M&I 20,681,044 t @ 2,426 ppm REO) is SUPERSEDED by the December 2022 update and by the 27.5 Mt M&I figure in the 13 Apr 2026 release. Also note the aclara-re.com Penco page states 'Annual average production / 811 tonnes of total rare earth oxides' - the string 811 does not appear in the PEA, which says 774 t; treat the website figure as a derived recomputation. Separately beware that '811' also denotes NdPr METAL tonnes in Aclara's Metals and Alloys project table.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-aclara-presentation-2026",
+    "name": "Aclara Resources Corporate Presentation, 5 August 2026",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2026-08-05",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bf3/6a747c20dc18d86eaa585c20_20260805_Aclara_CorporatePresentation.pdf",
+    "locator": "p.9, Penco Module column: Life of Mine 17 years; DyTb production 52 tpa; Development Status FS (Q4 2026); Capex US$129 million; Start of Operation Mid-2028. Slide source line attributes these to the 2021 NI 43-101 PEA. TWO CAVEATS: the 52 tpa is COMBINED DyTb and is never split; and the slide's 17-year life contradicts the PEA's own 12-year mine life, an unexplained revision. p.12 declines to quantify the Penco contribution to the Louisiana plant: 'Penco Module as upside: its EBITDA will be assessed upon the completion of the feasibility study technical report under NI 43-101.'",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-aclara-q2-2026-mda",
+    "name": "Aclara Resources Management's Discussion and Analysis for the quarter ended 30 June 2026",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2026-08-06",
+    "url": "https://www.aclara-re.com/investors",
+    "locator": "Penco permitting, verbatim: 'successfully concluding the Penco Module's environmental assessment process covering the first six years of life-of-mine. The Company continues to advance the remaining sectoral permits required for project development while continuing preparatory work for the second environmental impact assessment (EIA 2), which is intended to cover the full life-of-mine of the Penco Module.' THIS SIX-YEAR LIMITATION IS DISCLOSED ONLY IN THE MD&A - none of the three Penco permitting press releases (ICE 29 May 2026, unanimous COEVA approval 8 Jun 2026, RCA published 22-23 Jun 2026) states it. NOTE: the exact MD&A document URL was not captured; re-anchor to the filed SEDAR+ document before relying on this.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-lynas-mt-weld-resource-2012",
+    "name": "Lynas Corporation ASX announcement: Increase in Mt Weld Resource Estimates",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Corporation Ltd (ASX:LYC)",
+    "published_on": "2012-01-17",
+    "url": "https://wcsecure.weblink.com.au/pdf/LYC/01260334.pdf",
+    "locator": "p.3 Table 5, 'REO DISTRIBUTION OF MINERAL RESOURCES', by deposit as a percentage of TREO. Central Lanthanide Deposit (CLD): Terbium Oxide 0.09%, Dysprosium Oxide 0.25%, Yttrium Oxide 0.76%. Duncan Deposit: Terbium Oxide 0.26%, Dysprosium Oxide 1.27%, Yttrium Oxide 5.17%. THIS IS THE LAST PER-ELEMENT MINERAL RESOURCE ASSEMBLAGE LYNAS EVER PUBLISHED - every resource statement from 2015 onward gives tonnes, TREO% and contained TREO only. Consistent earlier vintages: the 2003 Annual Report (ASX 20 Oct 2003, https://wcsecure.weblink.com.au/pdf/LYC/00391467.pdf, p.6 Table 1) gives Tb4O7 0.09% and Dy2O3 0.16% of TREO at grades of 0.015 wt% and 0.027 wt%; the 3 Mar 2008 resource announcement (.../00819169.pdf p.4 Table 3) gives Central Zone Tb 0.09% / Dy 0.16% and Southern Zone Tb 0.32% / Dy 1.56%; the 5 Sep 2010 announcement (.../01095422.pdf p.5 Table 5, a raster image that does not extract with pdftotext) gives CLD Tb 0.13% / Dy 0.31% and Duncan Tb 0.29% / Dy 1.36%. The 13 Jun 2012 Duncan update (.../01305353.pdf p.2 Table 3) additionally gives indicative annual production of Terbium Oxide 62 tpa and Dysprosium Oxide 300 tpa. THE KEY STRUCTURAL FACT: the CLD, which is the main ore source, is LREE-dominant at ~0.25-0.31% Dy2O3 of TREO, while the separate Duncan deposit is four to five times heavier at ~1.27-1.36%.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lindian-sareco-2026",
+    "name": "Lindian Resources news release: Lindian Acquires Remaining 49% Interest for 100% Ownership in SARECO Operating Hydromet Facility",
+    "source_type": "DOCUMENT",
+    "publisher": "Lindian Resources Ltd (ASX:LIN)",
+    "published_on": "2026-08-10",
+    "url": "https://www.prnewswire.com/news-releases/lindian-acquires-remaining-49-interest-for-100-ownership-in-sareco-operating-hydromet-facility-302846797.html",
+    "locator": "Lindian increases its interest from 51% to 100% in the SARECO mixed rare earths carbonate (MREC) hydrometallurgical processing facility at Stepnogorsk, Kazakhstan, for US$20 million cash, including two warehouses of approximately 15,500 sq m, land and associated assets; total consideration reported elsewhere as up to US$42 million combining cash with equity and performance rights. The March 2026 structure was a 51/49 incorporated joint venture with local partner RA-Group; Lindian elected to take 100% after legal, tax, technical and environmental due diligence. PREVIOUSLY OWNED AND OPERATED BY SUMITOMO CORPORATION AND KAZATOMPROM. Key claim, verbatim: 'SARECO is the only constructed and operational MREC/CLP Processing Facility of commercial scale outside of China, MP Materials Inc., Serra Verde and Lynas Rare Earths Ltd.' Performance: '96% overall NdPr recovery from Kangankunde concentrate to MREC'. MREC processing targeted for Q4 2026, aligned with Kangankunde first production. Funded from a A$100 million institutional raising. NAMEPLATE CAPACITY IS NOT STATED in this release. NOTE ON PROVENANCE: retrieved via the PR Newswire carriage of Lindian's own release; the corresponding ASX announcement should be substituted when its document id is known.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-lindian-kangankunde-project-page",
+    "name": "Lindian Resources project pages: Kangankunde (Malawi) and Kazakhstan / SARECO",
+    "source_type": "DOCUMENT",
+    "publisher": "Lindian Resources Ltd (ASX:LIN)",
+    "published_on": null,
+    "url": "https://lindianresources.com.au/projects/kangankunde/",
+    "locator": "Kangankunde page: Stage 1 development plan '20,000 tpa concentrate produced'; Stage 1 mine life '45+ years', Stage 2 '~300 years'. Mineral Resource (May 2024) 261 Mt @ 2.14% TREO - Indicated 61 Mt @ 2.43%, Inferred 200 Mt @ 2.05% - containing 1,132 kt NdPr at an NdPr:TREO ratio of 20.3%. Ore Reserve (July 2024) 23.7 Mt @ 2.9% TREO, Probable only, containing 676 kt NdPr at 19.7% of TREO. NO per-element Dy or Tb distribution is published - only NdPr ratios, consistent with Kangankunde being a light rare earth source. Kazakhstan page: SARECO at Stepnogorsk converts rare earth concentrate to MREC at a '~92% TREO / ~97% NdPr Recovery Profile'; 'Approximately 12,500 tonnes per annum of monazite concentrate from Stage 1 of the Kangankunde Rare Earths Project is expected to feed the facility'; target production Q4 2026. UNRECONCILED: secondary reporting of the July 2024 Stage 1 Feasibility Study gives 15,300 tpa of 55% TREO concentrate against this page's 20,000 tpa. Anchor to the FS announcement before relying on either.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-usar-carester-definitive-2026",
+    "name": "USA Rare Earth Form 8-K: Share Purchase and Investment Agreement with Carester SAS (and Exhibit 99.1 press release)",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth, Inc. (Nasdaq:USAR)",
+    "published_on": "2026-07-23",
+    "url": "https://www.sec.gov/Archives/edgar/data/1970622/000121390026080645/ea0299001-8k_usarare.htm",
+    "locator": "Accession 0001213900-26-080645, Items 3.02/7.01/8.01/9.01. Item 8.01: 'On July 22, 2026, USA Rare Earth, Inc. ... entered into a Share Purchase and Investment Agreement ... by and among (i) Frederic Carencotte (the Founder), (ii) CareInvest, (iii) USAR, (iv) InfraVia CMF Invest S.a r.l., and (v) Carester SAS'. Total New Investor subscription EUR 45,000,225 in Preferred Shares RR; USAR subscribes 48,149 shares for EUR 10,833,525 cash plus a Contribution in Kind of 51,852 shares for EUR 11,666,700 paid in USAR common stock; Secondary Transaction 22,222 shares for EUR 4,999,950; RHODIA EXIT - USAR takes 55,555 shares for EUR 12,499,875 'resulting in the full exit of Solvay as a shareholder of Carester'. 'Upon completion ... USAR will hold 177,778 Preferred Shares RR, representing approximately 13.6% of Carester's share capital' (up from the 12.5% contemplated in the 9 Apr 2026 term sheet). Completion expected Q3 2026, conditional on the Rhodia share purchase agreement; NOT CLOSED as at the latest EDGAR filing of 31 Aug 2026. Q2 2026 10-Q totals it as EUR 40.0m (~US$45.7m). FEEDSTOCK CLAIM - Exhibit 99.1 press release subheadline: 'Gives Carester Access to USA Rare Earth Feedstock from Serra Verde and Round Top', and body: 'In turn, Carester will have access to USA Rare Earth feedstock sources, including Serra Verde and the Round Top deposit in Texas.' The April 2026 investor deck adds '15-year supply: excess concentrate from Round Top or other USAR sources to Caremag / 15-year offtake: USAR takes oxides produced from its contributed concentrate'. FOUR CRITICAL QUALIFICATIONS: (1) the feedstock language appears ONLY in furnished press releases and decks, never in the filed Item 8.01 description of what was actually signed - no supply, offtake or technology agreement is filed as an exhibit; (2) Serra Verde was not USAR's asset when the claim was made and the merger had not closed as at 1 Sep 2026; (3) Serra Verde Phase 1 output is 100% committed to a US-government-backed SPV under a separate 15-year offtake, and no primary document reconciles how Carester obtains it; (4) Round Top is pre-production, expected 'late 2028'. NO TONNAGE is given for the USAR-to-Caremag supply in any primary document.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-meteoric-posco-mou-2026",
+    "name": "Meteoric Resources ASX announcement: POSCO and Meteoric Strategic Partnership to Advance Brazil-Korea Rare Earth Supply Chain",
+    "source_type": "DOCUMENT",
+    "publisher": "Meteoric Resources NL (ASX:MEI)",
+    "published_on": "2026-07-29",
+    "url": "https://wcsecure.weblink.com.au/pdf/MEI/03115315.pdf",
+    "locator": "Memorandum of Strategic Partnership signed 28 Jul 2026. p.2 Key Terms: 'POSCO and Meteoric have agreed that the proposed partnership would represent approximately 30% of rare earth material sourced from Caldeira for a period of up to seven years.' Product is MREC ('proposed MREC pricing structure'), priced on 'an independent pricing mechanism, initially referenced to the Asian Metal Index', with floors and upside sharing to be negotiated. p.3: 'The MOU is non-binding and subject to further commercial negotiation, due diligence, internal approvals and execution of definitive documentation.' NO TONNAGE AND NO PER-ELEMENT Dy/Tb SPLIT is disclosed by either party - POSCO's own newsroom release of 28 Jul 2026 discloses less than Meteoric's.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-meteoric-neo-mou-2024",
+    "name": "Meteoric Resources / Neo Performance Materials joint announcement: MOU for offtake of Caldeira Project in Brazil",
+    "source_type": "DOCUMENT",
+    "publisher": "Meteoric Resources NL (ASX:MEI) and Neo Performance Materials Inc. (TSX:NEO)",
+    "published_on": "2024-05-02",
+    "url": "https://wcsecure.weblink.com.au/pdf/MEI/02802501.pdf",
+    "locator": "p.1: 'non-binding Memorandum of Understanding (MOU) with Neo Performance Materials Inc. ... for offtake of 3,000 metric tonnes (MT) total rare earth oxide (TREO) per year from its Caldeira Project'. Destination named: 'NPM Silmet OU (Silmet), Neo's rare earth separation facility in Sillamae, Estonia, is expected to purchase 3,000 MT TREO per year from the Caldeira Project's initial production, and hold a right of first refusal to purchase additional material when the Caldeira Project produces more than 6,000 MT TREO per year.' PER-ELEMENT SPLIT DISCLOSED: 'Annual offtake of 3,000 MT TREO from the Caldeira Project could supply Neo with as much as 900 MT of Nd-Pr oxide and 30 MT of Dy-Tb oxide, combined, to supply Neo's sintered rare earth permanent magnet manufacturing plant under development in nearby Narva, Estonia.' Term: 'until Neo has purchased a total of 30,000 MT TREO, with a customary renewal provision'. Still NON-BINDING as at Meteoric's half-year report of 1 Sep 2026.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-meteoric-togni-option-2026",
+    "name": "Meteoric Resources ASX announcement: Caldeira Project Tenement Assignments and Offtake Option",
+    "source_type": "DOCUMENT",
+    "publisher": "Meteoric Resources NL (ASX:MEI)",
+    "published_on": "2026-04-28",
+    "url": "https://wcsecure.weblink.com.au/pdf/MEI/03083695.pdf",
+    "locator": "'As consideration for this transfer, Togni has been granted the right to nominate a Director to the Meteoric Board, together with a conditional Offtake Option for up to 30% of MREC produced at the Caldeira Project' and 'The Offtake Option allows Togni to acquire up to 30% of the annual production from the Caldeira Project by providing five (5) years advance notice. The Offtake Option will be based on market pricing, on a take or pay basis and provides that use of the MREC may not compete with Meteoric's interests.' A FOURTH claim on Caldeira output, separate from the three offtake MOUs, and the one that tips total potential claims past production.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ucore-wicheeda-qualification-2024",
+    "name": "Ucore Rare Metals news release: Ucore Qualifies Wicheeda Mixed Rare Earth Carbonate for RapidSX Technology Processing at Commercial-Scale Facilities",
+    "source_type": "DOCUMENT",
+    "publisher": "Ucore Rare Metals Inc. (TSXV:UCU)",
+    "published_on": "2024-04-29",
+    "url": "https://ucore.com/ucore-qualifies-wicheeda-mixed-rare-earth-carbonate-for-rapidsx-technology-processing-at-commercial-scale-facilities/",
+    "locator": "THE ONLY NAMED THIRD-PARTY DEPOSIT UCORE HAS EVER PHYSICALLY PROCESSED. MREC from Defense Metals Corp's Wicheeda property, British Columbia, out of 2023 SGS Lakefield hydromet piloting on a 26 t bulk sample. No tonnage, recovery or purity is disclosed and it was a sample test, not a tonnage campaign. Context from a sweep of all 91 Ucore posts (Jan 2023 - Aug 2026): every other Kingston campaign discloses feedstock only by deposit type and/or geopolitical class - 'a US-friendly ionic clay mineralization source', 'Vietnamese mixed rare earth oxide derived from ionic clay source material', 'North American bastnaesite', 'a third-party Western ionic clay source'. Aclara, Ionic Rare Earths, Namibia Critical Metals and Northern Minerals have ZERO mentions in the entire corpus. TRAP: the approximately 5 t 'North American bastnaesite' MREC campaign of Aug 2026 is NOT stated to be Wicheeda material despite Wicheeda being a North American bastnaesite carbonatite - treat any link as unconfirmed inference.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-ucore-yangibana-hoa-2025",
+    "name": "Ucore Rare Metals: Heads of Agreement with Wyloo / Hastings for Yangibana concentrate, and the Q1 2026 MD&A qualification gate",
+    "source_type": "DOCUMENT",
+    "publisher": "Ucore Rare Metals Inc. (TSXV:UCU)",
+    "published_on": "2025-10-31",
+    "url": "https://ucore.com/",
+    "locator": "Establishes Ucore's hard FORM constraint: the parties will 'jointly complete a Gap Analysis and techno-economic assessment of a new Hydromet facility in Louisiana, or a qualified third-party U.S. facility, to convert concentrate into mixed rare earth carbonate (MREC) suitable for downstream separation at Ucore's SMC' - mineral CONCENTRATE cannot enter the SMC as-is. Up to 37,000 tpa concentrate at approximately 37% NdPr:TREO; no Dy/Tb figures. Ucore's own qualification gate, Q1 2026 MD&A long-term objectives item 1: 'Demonstrate the successful process qualification of any feedstock destined for an SMC at the Demo Plant over hundreds of runtime hours for each planned RapidSX production circuit.' NO NUMERIC FEED SPECIFICATION EXISTS: grep of the Q1 2024, Q4 2025 and Q1 2026 MD&As returns zero hits for thorium, uranium, radionuclide, impurity, ppm or grade in a feed context. NOTE: exact release URL not captured - re-anchor before relying on the tonnage.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-lindian-kangankunde-fs-2024",
+    "name": "Lindian Resources ASX announcements: Kangankunde Stage 1 Feasibility Study (1 Jul 2024) and Optimised Process Plant (17 Dec 2025)",
+    "source_type": "DOCUMENT",
+    "publisher": "Lindian Resources Ltd (ASX:LIN)",
+    "published_on": "2024-07-01",
+    "url": "https://wcsecure.weblink.com.au/clients/lindianresources/headline.aspx?headlineid=61213742",
+    "locator": "FS (1 Jul 2024): 'Maiden Ore Reserves of 23.7 million tonnes at 2.9% TREO supporting a Stage 1 life-of-mine of 45 years'; 'Stage 1 to produce an average annual ~15,300 tpa premium concentrate with 55% TREO grade, with low levels of radionuclides (thorium and uranium)... The premium concentrate will contain ~8,400 tpa of REO and ~1,640 tpa of NdPr.' Optimisation (17 Dec 2025, headlineid 61303806): 'Optimised Process Plant based on a 25% increase in ore processing providing capacity to increase production from 15,300 tonnes per annum to 20,000tpa of Monazite Concentrate.' CRITICAL DISTINCTION: 15,300 tpa is the JORC-compliant PRODUCTION TARGET underpinned by Ore Reserves; 20,000 tpa is described only as plant CAPACITY and the JORC production target has NOT been restated. Lindian's own 10 Aug 2026 SARECO announcement, footnote 5, still sources Stage 1 concentrate production to the 2024 FS and states the material assumptions 'continue to apply and have not materially changed'. The conceptual 75,000-100,000 tpa Stage 2 range was formally RETRACTED (ASX 18 Aug 2025); there is no JORC Stage 2 production target.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-iluka-lindian-supply-2025",
+    "name": "Iluka Resources ASX announcement: Rare Earth Concentrate Supply Feedstock Agreement with Lindian Resources",
+    "source_type": "DOCUMENT",
+    "publisher": "Iluka Resources Ltd (ASX:ILU)",
+    "published_on": "2025-08-06",
+    "url": "https://www.iluka.com/media/txcoydi0/rare-earth-concentrate-supply-agreement-lindian-resources.pdf",
+    "locator": "'Under the agreement, Lindian is to supply Iluka with 6ktpa of rare earth concentrate for 15 years... and would represent approximately 10% of Eneabba's capacity.' Appendix A Quantity: 'The total quantity to be supplied is a volume of monazite concentrate containing 9,600dmt of NdPr, being 90,000dmt of monazite concentrate. Annual volumes will be 6,000dmt of product (+/-5%)... over a period of approximately 15 years.' Plus a US$20m loan facility at SOFR+11%, five-year term. RIGHTS OF FIRST REFUSAL: 'should Lindian proceed with an expansion of Kangankunde beyond its initial capacity of up to 18,000dmt per annum, Lindian will offer either 33% or 80% of the incremental production to Iluka for 15 years, up to a maximum Iluka annual entitlement of 31,000dmt concentrate', and a further ROFR 'where Lindian proposes to sell product on less favourable terms than the terms on which Lindian is selling to Iluka'. IMPORTANT: the '10% of the refinery's capacity feedstock for 15 years' line in the AR25 remuneration scorecard (p.55) is a characterisation of THIS SAME 6,000 tpa contract, not a separate commitment - do not double-count. 6,000 dmt at 55% TREO is 3,300 t contained REO, i.e. 14.3% of the 23 ktpa plant capacity; Iluka's 'approximately 10%' uses a different denominator.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-dow-serra-verde-2026",
+    "name": "U.S. Department of War news release: Department of War Announces a $750 Million Investment as Part of a $1.55 Billion Initiative to Secure Critical Rare-Earth Elements From Serra Verde",
+    "source_type": "DOCUMENT",
+    "publisher": "U.S. Department of War",
+    "published_on": "2026-08-24",
+    "url": "https://www.war.gov/News/Releases/Release/Article/4581110/department-of-war-announces-a-750-million-investment-as-part-of-a-155-billion-i/",
+    "locator": "IDENTIFIES US SIIE, LLC. 'The Department of War's (DoW) Economic Defense Unit (EDU), in partnership with the Office of the Assistant Secretary of War for Industrial Base Policy (IBP) announced today a $750 million investment with US SIIE, LLC through the Industrial Base Analysis and Sustainment (IBAS) program. These funds will be utilized to support an offtake agreement for mixed rare-earth carbonates (MREC) produced at Serra Verde's Pela Ema Project in central Brazil.' And: 'This $750 million is part of a broader $1.55 billion total investment structure mobilized by EDU, which includes a $300 million purchase commitment from the Defense Logistics Agency (DLA) and a $500 million commitment from a money-center bank.' NOT DISCLOSED anywhere: what 'SIIE' stands for, the SPV's manager, its private capital sources, the bank's identity, or its state of formation. US SIIE is not an SEC registrant and no federal award record for it appears on USASpending.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-usar-siie-offtake-live-2026",
+    "name": "USA Rare Earth Form 8-K and Serra Verde press release: satisfaction of the US SIIE offtake conditions precedent",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth, Inc. (Nasdaq:USAR)",
+    "published_on": "2026-08-24",
+    "url": "https://www.sec.gov/Archives/edgar/data/1970622/000121390026092810/ea0302924-8k_usarare.htm",
+    "locator": "Offtake dated 20 Apr 2026 between SV Management Switzerland AG and US SIIE, LLC, 'a special purpose vehicle capitalized by the U.S. government and private capital sources' (DEFM14A risk factors). CONDITIONS PRECEDENT SATISFIED 21-24 Aug 2026 - Serra Verde: the SPV 'has put in place its capitalization arrangements and it is now required to start accepting deliveries which the Company expects to make early in fourth quarter of 2026'; the agreement is 'now in force and in full effect'. SCOPE: '100% of Phase I production from the Pela Ema facility of Nd, Pr, Dy and Tb ... on a take-or-pay basis', subject to unspecified 'limited carve-outs'. CARVE-OUTS THAT MATTER: 'The Company also has the ability to monetize elements that do not currently form part of the Products, including Yttrium' - and yttrium is 42% of LOM basket VALUE. A potential Phase 2 (approximately +6,400 tpa TREO) is NOT covered. FLOOR PRICES: 'Terbium US$2,050 per kg; Dysprosium US$575 per kg; Neodymium US$110 per kg; Praseodymium US$110 per kg', escalated 2% annually, with 70% of any excess of the market index over the floor payable to the seller. TERM - CONFLICTING CHARACTERISATIONS: the legal formulation is 'the earlier of (i) the date on which deliveries ... equal the rare earth products produced from 198,000,000 metric tons of run-of-mine ore and (ii) the date that is 20 years after ... the Commercial Operations Date', which has NOT yet occurred; the universal '15-year' framing in USAR and Serra Verde marketing is not reconciled to it in any primary document and should be treated as shorthand. ENFORCEMENT: US SIIE holds a call option over ALL equity interests in SVRE, triggered by events including breach of the offtake's change-of-control provisions. RESIDUAL RISK: the US$500m senior debt facility funding the SPV's purchases 'has not been documented, closed or funded' and its commitment expires 31 Dec 2026. The offtake agreement itself has never been filed as an exhibit - all detail is narrative summary.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lindian-ansto-2026",
+    "name": "Lindian Resources ASX announcement: ANSTO Confirms High 98% NdPr Extraction and Non-Radioactive MREC",
+    "source_type": "DOCUMENT",
+    "publisher": "Lindian Resources Ltd (ASX:LIN)",
+    "published_on": "2026-07-15",
+    "url": "https://wcsecure.weblink.com.au/clients/lindianresources/headline.aspx?headlineid=61333885",
+    "locator": "ANSTO 'has completed the downstream hydrometallurgical testwork program on Kangankunde monazite concentrate, independently validating the complete sulphuric acid bake flowsheet from concentrate through to specification mixed rare earth carbonate', achieving '98% NdPr extraction and 96% TREY extraction in the largest acid bake test' and '96% overall NdPr recovery ... from concentrate through to final MREC'. Radionuclides: the final MREC is 'independently certified exempt from radioactive transport and handling under IAEA standards, with uranium, thorium and all associated decay-chain radionuclides below analytical detection limits', actinium-227 included. This is the testwork that qualifies the Kangankunde-to-SARECO route.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mkango-f4a-2026",
+    "name": "Mkango Rare Earths Ltd Form F-4/A registration statement (Crown PropTech merger)",
+    "source_type": "DOCUMENT",
+    "publisher": "Mkango Rare Earths Ltd (SEC CIK 0002052373)",
+    "published_on": "2026-06-08",
+    "url": "https://www.sec.gov/Archives/edgar/data/2052373/000121390026066389/ea0271516-07.htm",
+    "locator": "THE PULAWY FEED ENVELOPE, and it is in the SEC record rather than on mkango.ca or SEDAR+. Business-Overview: 'Mixed rare earth carbonate (MREC) produced at our Songwe Hill rare earths project will serve as the initial Feedstock ... To the extent the Proposed Pulawy Separation Plant has additional capacity, we plan to source MREC from other rare earth projects and market suppliers for processing and separation into rare earth oxides.' Business-Competition: 'Because the Proposed Pulawy Separation Plant is expected to rely on third-party carbonate feed in addition to the MREC sourced from Songwe Hill, we face competition from other processing companies seeking to secure comparable feedstock streams.' QUANTIFIED in the 19 Mar 2026 PFS release p.16: Songwe supplies 45% of throughput in the first five years 'with the remaining 55% sourced from market', priced at a 15% discount to contained REO value for Songwe carbonate versus 25% for market-sourced. NO FEED SPECIFICATION IS PUBLISHED anywhere - zero occurrences of impurity, radionuclide, Th/U, moisture or elemental limits across the F-4/A, the 489-page S-K 1300 technical report summary, the PFS release or the June 2026 deck; the Pulawy PFS itself was never filed and is not required to be, since Pulawy is not a mineral project. Mkango concedes the gap in a risk factor: 'third-party Feedstock may differ materially in chemical composition, impurity levels, and physical characteristics from Songwe Hill MREC. Variability in Feedstock quality could create metallurgical challenges, require process adjustments, increase reagent consumption, and reduce recovery rates.' NO third-party feed agreement exists: 'There can be no assurance that we will be able to identify, negotiate, and secure long-term supply agreements with third-party Feedstock providers on commercially acceptable terms, or at all.'",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-aclara-aif-2026",
+    "name": "Aclara Resources Annual Information Form FY2025 and 2026 MD&As (Project Dynamo feed basis)",
+    "source_type": "DOCUMENT",
+    "publisher": "Aclara Resources Inc. (TSX:ARA)",
+    "published_on": "2026-03-18",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bf3/6a057c34d9dec4ad2405c55d_AIF%202026.pdf",
+    "locator": "PROJECT DYNAMO IS CAPTIVE BY DESIGN. AIF Item 3.1: 'Aclara Technologies intends to source high-purity mixed MREC from the Company's mining projects', repeated at Item 4.1; Q2 2026 MD&A: 'Aclara Technologies aims to source SPREC from Aclara's mining projects'; identical boilerplate closes every 2025-26 release - 'This facility will process mixed rare earth carbonates sourced from Aclara's mineral resource projects'. AIF Item 3.2: 'The pilot plant has been specifically designed based on the characteristics of the Carina Project MREC production.' STRUCTURAL TELL: the 13 Apr 2026 integrated release has Dynamo paying outsiders to separate its own by-products - 'fees assumed payable to Aclara's Louisiana separation project for permanent magnet rare earths, as well as to third parties for the separation of by-products' - which is not how a merchant separator behaves. THE ONLY third-party statement in the entire corpus is one unfiled marketing bullet, corporate presentation 5 Aug 2026 slide 12, under 'Above figures without including the growth avenues announced': 'Third-party compatible MREC processing' - no tonnage, spec, timeline or capacity, excluded from NPV, and it says MREC not SPREC. The Oct 2025 site release is broader but still bounded and future-conditional: capacity expansion 'to process material from other ionic clay deposits or compatible feedstocks in the future'. NO FEED SPEC of any kind is published. FALSE POSITIVE TO DISCOUNT: the DOE award 'AI-Enabled Process Optimization for Multi-Feed Rare Earth Separation' - Aclara defines multi-feed as 'Simulation of multiple feedstocks beyond the Carina Project, such as the Penco Module MREC', i.e. both feeds are Aclara-owned.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-neo-presentation-2026",
+    "name": "Neo Performance Materials Investor Presentation, September 2026, and 2026 AIF (Silmet feed basis)",
+    "source_type": "DOCUMENT",
+    "publisher": "Neo Performance Materials Inc. (TSX:NEO)",
+    "published_on": "2026-09-01",
+    "url": "https://www.neomaterials.com/wp-content/uploads/2026/09/NPM-Investor-Presentation-Q2-2026-Sep-1.pdf",
+    "locator": "SILMET IS THE ONLY GENUINE MERCHANT SEPARATOR OF THE THREE EUROPEAN PLANTS. Slide 19 'European Rare Earth Separation Capabilities': 'One of the only non-captive operators of a large-scale light rare earth separation facility, strengthening Western supply chains'. NO class-level 'capable of processing X' sentence exists; the 2026 AIF offers only a source-GEOGRAPHY envelope - inputs 'can be purchased from a number of suppliers in Australia (via Malaysia), United States, Myanmar, Russia and China'. The de facto envelope is documented instead by an accumulation of NAMED feeds: monazite-derived RE carbonate from Energy Fuels' White Mesa (definitive supply agreement and commercial shipments, 2021, 'successfully processed trial quantities'); rare earth ore or mineral concentrate from Sarfartoq, Greenland (binding offtake, 2023); concentrate from Hastings Yangibana (non-binding HoA, 2023); ionic-clay MREC from Meteoric Caldeira (non-binding MOU, 2024, 3,000 t TREO/yr); and MREC tolling for Carester (binding term sheet, 31 Aug 2026, no volume, term, pricing or specification disclosed). TWO CORRECTIONS TO CIRCULATING CLAIMS: (1) LOPARITE IS REFUTED - the word appears zero times in the 2025 AIF, 2026 AIF, Q2 2026 MD&A and Sept 2026 deck; Neo describes the Russian supply only as 'rare earth feedstock from a Russian supplier'. (2) 'Ionic clay' appears zero times in those same documents. LIVE CONTRADICTION TO FLAG: the 2026 AIF Environmental Matters section states 'Silmet no longer processes feedstock that contains naturally occurring radioactive materials (NORM) but does produce tantalum and niobium using alternative feedstocks that it is permitted to process' - worded as a facility-level assertion, it cuts directly against monazite-derived MREC, which carries Th/U, and against the Energy Fuels history.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-malaysia-licence-2026",
+    "name": "Lynas Malaysia operating licence conditions: MOSTI media release (2 Mar 2026), and the 2023 licence renewal and variation announcements",
+    "source_type": "DOCUMENT",
+    "publisher": "Kementerian Sains, Teknologi dan Inovasi (MOSTI) Malaysia; Lynas Rare Earths Ltd (ASX:LYC)",
+    "published_on": "2026-03-02",
+    "url": "https://www.mosti.gov.my/wp-content/uploads/2026/04/SIARAN-MEDIA-2-MAC-2026-PERMOHONAN-LESEN-OPERASI-LYNAS-MALAYSIA-SDN.-BHD.pdf",
+    "locator": "THE REGULATORY FEED CONSTRAINT, AND IT HAS CHANGED SHAPE. PRECEDENT that the AELB can bar an entire feed class - ASX 14 Feb 2023: 'The operating licence has been renewed with no change to the licence conditions ... These conditions prohibit the import and processing of lanthanide concentrate after 1 July 2023.' PERMISSION WAS THEN ORIGIN-SPECIFIC - ASX 24 Oct 2023: 'Lynas Malaysia has been issued with a variation to its operating licence which allows the continued importation and processing of Lanthanide Concentrate from Lynas' Mt Weld mine in Western Australia ... valid until 2 March 2026.' THE CURRENT LICENCE (3 Mar 2026 to 2 Mar 2036) CONTAINS NO FEEDSTOCK-ORIGIN OR IMPORT RESTRICTION - the Mt-Weld-only wording is gone from the FY2026 Annual Report section 2.4. That is a LOOSENING. The binding constraint has moved from feed ORIGIN to RESIDUE: per MOSTI, no new permanent disposal facility may be built for Water Leach Purification residue above control limits, and after the first five years the production of radioactive residue must cease entirely, with residue neutralised via thorium extraction to below 1 Bq/g. Lynas's rendering, FY2026 Annual Report Directors' Report p.16 and section 2.4 p.24: 'Lynas Malaysia is required to implement an alternative cracking process so that the facility no longer produces WLP residue with an activity concentration above 1 Bq/g after 2 March 2031, with the modification to commence based on an agreed plan by March 2028.' INFERENCE, NOT DISCLOSURE: WLP arises from sulphuric-acid cracking and leaching of thorium-bearing rare earth MINERAL CONCENTRATE, so a hard post-2031 ban on >1 Bq/g WLP is functionally a constraint on monazite-class concentrate feed at Kuantan unless the alternative cracking process succeeds - while MREC and ionic-clay carbonate feeds enter downstream of cracking and leaching and carry little NORM. That is consistent with Lynas pointing at Malaysian ionic clay. A further gate is open: on 23 Jun 2026 the Department of Environment requested an updated EIA for the proposed Malaysian expansion.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lynas-mb-inc-mou-2025",
+    "name": "Lynas Rare Earths ASX announcement: Lynas Inks Agreement for Malaysian Ionic Clay Feedstock (Menteri Besar Inc, Kelantan)",
+    "source_type": "DOCUMENT",
+    "publisher": "Lynas Rare Earths Ltd (ASX:LYC)",
+    "published_on": "2025-05-30",
+    "url": "https://wcsecure.weblink.com.au/pdf/LYC/02952070.pdf",
+    "locator": "THE ONLY NAMED THIRD-PARTY FEED COUNTERPARTY LYNAS MALAYSIA HAS EVER DISCLOSED. Non-binding MoU 'for the supply of mixed rare earths carbonate (MREC) from Menteri Besar (MB) Inc., the strategic investment arm of the Kelantan State Government', providing 'a framework for MB Inc. and Lynas to negotiate a definitive agreement for the supply MREC feedstock to the Lynas Malaysia advanced materials plant in Kuantan once the project commences production'. CEO Lacaze: 'Malaysia's ionic clay deposits have excellent potential as future feedstocks for Lynas Malaysia, particularly given their high proportion of Heavy Rare Earths' and 'We look forward to working with MB Inc. to ensure that the MREC it produces meets the high environmental and technical standards required by Lynas' - i.e. Lynas reserved a quality gate. Structure is PURCHASE of MREC, not tolling. STALENESS FLAG: 'Kelantan', 'Menteri Besar' and 'MB Inc' appear NOWHERE in the FY2026 Annual Report or any FY26 quarterly or results presentation; FY26 language has reverted to generic 'identification of potential new feedstock sources'. The MoU never reached definitive agreement and has dropped out of disclosure.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mp-q3-2025-earnings-call",
+    "name": "MP Materials Q3 2025 earnings call - COO remarks on third-party feedstock classes (TRANSCRIPT, NOT A FILING)",
+    "source_type": "OTHER",
+    "publisher": "MP Materials Corp. (NYSE:MP) - machine-generated transcript, publisher not MP",
+    "published_on": "2025-11-06",
+    "url": "https://stockanalysis.com/stocks/mp/transcripts/372572-q3-2025/",
+    "locator": "THE ONLY MATERIAL-CLASS FEED ENVELOPE MP HAS EVER GIVEN, and it exists only on an earnings call. Michael Rosenthal, Founder and COO, answering an analyst who asked whether there are concentrates the heavy circuit cannot process: 'Certainly, to the extent we got an SEG+, that would be easier than processing a full mixed rare earth carbonate with lights and heavies. Our circuit can handle, because we have all of the capabilities, either one of those. We will look at the economics and the distribution and compare those to other alternatives.' Prepared remarks add: 'we are actively engaged with a number of different and different types of potential feedstock providers to supplement our own contained HRE content.' PROVENANCE CAVEAT - THIS IS WHY THE SOURCE IS TYPED 'OTHER' AND CITED AT LOW CONFIDENCE: the quote comes from a machine-generated third-party transcript, not from MP. MP does not publish transcripts. Verify against MP's own Q3 2025 webcast replay before treating the wording as verbatim. NOTHING MORE SPECIFIC HAS BEEN SAID SINCE: the Q2 2026 call reverted to 'a site that is capable of handling feedstocks of different type and purity', naming no class. POSITIVE NULLS across MP's whole EDGAR corpus: 'monazite concentrate' 0 hits, 'ionic clay' 0 hits, MREO/MREC 0 hits in any 2025-26 filing, 'recycled feedstock' 0, 'feed agreement' 0; no named inbound feed counterparty, supply agreement, MOU, LOI or testwork announcement exists anywhere. WORDING REGRESSION WORTH WATCHING: the Q3 2025 10-Q described Upstream 60K as including 'the ability to process alternative feedstocks and upgrade lower-grade feedstocks'; the FY2025 10-K and both 2026 10-Qs DROPPED 'alternative feedstocks', replacing it with better usage of lower-grade Mountain Pass ore - a narrowing to own ore. The Q2 2026 gadolinium offtake was purely OUTBOUND and sourced from MP's own SEG stream; no inbound feed deal accompanied it.",
+    "source_confidence": "LOW"
+  },
+  {
+    "id": "src-ucore-mda-campaigns-2026",
+    "name": "Ucore Rare Metals MD&A for the three months ended 31 March 2026, and Defense Metals MD&A series FY2024-FY2025",
+    "source_type": "DOCUMENT",
+    "publisher": "Ucore Rare Metals Inc. (TSXV:UCU); Defense Metals Corp (TSXV:DEFN)",
+    "published_on": "2026-05-29",
+    "url": "https://ucore.com/FinancialStatements/Ucore_MDA_Q1_2026.pdf",
+    "locator": "THIS SOURCE EXISTS TO RECORD A CONTRADICTION WITH UCORE'S OWN WICHEEDA QUALIFICATION NEWS RELEASE. p.19, immediately above the seven-campaign table: 'Seven demonstration campaigns were completed as follows, all starting with nearly two tonnes of a heavy mixed rare earth oxide feed source containing both heavy and light REEs' - SX-1 through SX-7, 18 Dec 2023 to 24 Jan 2026, 5,717 hours, 1.76 t REO equivalent processed. Ucore's entire two-year DoD demonstration programme therefore ran on a SINGLE heavy MREO feed source, and Wicheeda material is not identified as having been processed in any campaign. Ucore's MD&A series says only that Defense Metals 'sent a mixed rare earth carbonate sample to the Company's RapidSX Demo Plant' - unchanged boilerplate carried for over two years, with NO date, mass, TREO grade, impurity or radionuclide content, and NO RESULT EVER REPORTED. The tense shifted from 'will send' (Q1 2024) to 'sent' (FY2024 MD&A, Apr 2025) and has not changed since. DEFENSE METALS' OWN FILINGS NEVER MENTION A SAMPLE TO UCORE AT ALL: every MD&A from Feb 2024 to Jul 2025 carries one boilerplate sentence about the MOU and nothing more. Its only sample-shipment disclosure is an OCTOBER 2023 multi-recipient distribution to UNNAMED 'select major processors, refiners, and metals traders located in Europe, Asia and North America' - which predates the January 2024 Ucore MOU and is never linked to it - and its FY2025 MD&A still reads 'Discussions with the sample recipients regarding their individual test results and their assessments of the samples are ongoing', 21 months on, with no results ever reported. UNRESOLVED: Ucore's Aug 2026 release describes a campaign on 'approximately five tonnes of mixed rare earth carbonate derived from North American bastnaesite source material'; Wicheeda is a bastnaesite carbonatite, but Ucore does not name the source and 5 t is an order of magnitude above a sample. Do not assert the link. NOTE: the Defense Metals NI 43-101 PFS technical report (effective 28 Feb 2025), the most likely home for Wicheeda MREC impurity and Th/U assays, is on SEDAR+ only and was unreachable (HTTP 403).",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-abx-deep-leads-mrec-2026",
+    "name": "ABx Group ASX announcements: maiden Deep Leads mixed rare earth carbonate, assay, and distribution to Ucore",
+    "source_type": "DOCUMENT",
+    "publisher": "ABx Group Ltd (ASX:ABX)",
+    "published_on": "2026-03-02",
+    "url": "https://announcements.asx.com.au/asxpdf/20260302/pdf/06wyrfz5m5xrc1.pdf",
+    "locator": "THE BEST-CHARACTERISED THIRD-PARTY MATERIAL SENT TO UCORE IN THIS GRAPH. 2 Mar 2026, 'Evaluation of Maiden MREC Sample by Customers': 'Samples of the maiden MREC have been dispatched to multiple prospective customers. This includes Ucore Rare Metals Inc. ... ABx and Ucore have a Memorandum of Understanding (MoU) to develop a collaborative pathway for the supply of mixed rare earth carbonates from Australia to Ucore.' QUANTITY (17 Jun 2026): '10 gram samples of the maiden MREC distributed to six potential customers in Australia and North America for evaluation' - ten grams, to six recipients. FULL ASSAY (2 Dec 2025, Table 4, normalised): TREO 96.53%, NdPr 26.71%, DyTb 4.54%, Y2O3 26.11%; impurities Al2O3 0.43%, CaO 0.50%, Fe2O3 0.20%, SiO2 0.64%, U3O8 0.0053%, ThO2 below 0.002%, total impurities 3.47%. Source material a 100 kg bulk sample from trial pit DLP002, processed by ammonium sulfate leach, impurity removal and precipitation to yield 72 g of MREC. Radioactivity (ANSTO gamma spectrometry): every radionuclide below 0.5 Bq/g, within the IAEA bulk exemption limit of 1.0 Bq/g. MOU TERMS (4 Sep 2024): 'The intent is for Ucore to obtain first right of refusal for 50% of ABx annual volume for a minimum period of five years, subject to the agreement of commercial terms.' A presentation slide notes 'Ucore favours ABx's REE project because it is enriched in Tb & Dy'. RESULTS ARE QUALITATIVE ONLY: 'ABx received highly favourable feedback on its maiden MREC from Ucore' - no recoveries, purities or separated products, and ABx NEVER STATES WHICH UCORE FACILITY received the sample. Contrast a different customer, where ABx did report a finding: 'RETi advised that the Deep Leads MREC is of high purity and is suitable for the RETi process.'",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-meteoric-pilot-mrec-2026",
+    "name": "Meteoric Resources ASX announcements: Caldeira pilot plant MREC distribution for separation testwork",
+    "source_type": "DOCUMENT",
+    "publisher": "Meteoric Resources NL (ASX:MEI)",
+    "published_on": "2026-06-11",
+    "url": "https://announcements.asx.com.au/asxpdf/20260611/pdf/070j034md44zsp.pdf",
+    "locator": "p.2: 'Bulk MREC samples have been provided to a range of groups for separation testwork and product qualification, including existing partners Neo Performance Materials in Europe, Ucore and MTM in the United States. Other potential offtake partners in these regions and Asia have also received samples of MREC for product qualification.' Restated in the half-year report of 2 Sep 2026: 'More than 200kg of MREC has been produced to date, with bulk MREC samples distributed to a range of groups'. MASS TO UCORE SPECIFICALLY IS NOT DISCLOSED - only the aggregate. Pilot MREC quality: impurities below 2%, uranium and thorium 'well below legislated levels of 10Bq/g', NdPr and DyTb recoveries averaging 71%; the DFS gives 213.8 kg of MREC from 43 t of ore at 62.2% TREO with no radioactive transport classification. CRITICAL DISTINCTION FOR TIERING: Meteoric's disclosed SEPARATION TESTWORK partner is MTM Critical Metals / Metallium, NOT Ucore. The PFS presentation sets out three MOUs in three columns - MTM 'PROCESS MOU / MREC separation test work', Ucore 'OFFTAKE MOU / 3ktpa TREO inc. 900t NdPr', Neo 'OFFTAKE MOU / 3ktpa TREO inc. 900t NdPr'. RESULTS FROM UCORE ARE NOT DISCLOSED: only an aggregate, unattributed 'Feedback received from these groups supports the results which Meteoric has received from its independent technical analysis'. Meteoric describes 'Ucore ... in the United States' while Ucore's operating demo plant is in Kingston, Ontario - the receiving facility is NOT DISCLOSED.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-usar-caremag-split-2026",
+    "name": "USA Rare Earth news release: Caremag per-element Dy and Tb output at full ramp - DOCUMENT NOT YET ANCHORED",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth, Inc.",
+    "published_on": "2026-07-23",
+    "url": null,
+    "locator": "PLACEHOLDER - the release has not been retrieved and read. Cited for the per-element split of Caremag's combined 600 tpa Dy/Tb capacity: '800 tonnes per annum (tpa) of neodymium-praseodymium (NdPr) oxide, 500 tpa of dysprosium (Dy) oxide and 100 tpa of terbium (Tb) oxide', described there as approximately 15% of current world Dy/Tb oxide production. The quotation is carried in fac-caremag-lacq's capacity note; anchor this source before relying on the split.",
+    "source_confidence": "LOW"
+  },
+  {
+    "id": "src-energy-fuels-donald-jv-2024",
+    "name": "Energy Fuels / Astron news release: Definitive Agreements to Jointly Develop the Donald Rare Earth and Mineral Sands Project",
+    "source_type": "DOCUMENT",
+    "publisher": "Energy Fuels Inc.",
+    "published_on": "2024-06-03",
+    "url": "https://www.prnewswire.com/news-releases/energy-fuels-and-astron-corporation-limited-execute-definitive-agreements-to-jointly-develop-the-donald-rare-earth-and-mineral-sands-project-in-australia-uranium-production-from-the-companys-us-mines-and-alternate-feed-materia-302162578.html",
+    "locator": "Phase 1: 'approximately 7,000 to 8,000 metric tons of REEC per year'; '8,000 tonnes of REEC from the Donald Project would contain approximately 4,700 tonnes of total REE oxides (TREO), including roughly 990 tonnes of neodymium-praseodymium (NdPr) oxide, 84 tonnes of dysprosium (Dy) oxide, and 14 tonnes of terbium oxide'. Phase 2: '14,000 tonnes of REEC ... would contain up to 8,200 tonnes of TREO per year, including 1,700 tonnes of NdPr oxide, 140 tonnes of Dy oxide and 25 tonnes of Tb oxide'.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-iluka-wimmera-reserve-2023",
+    "name": "Iluka Resources ASX Notice: Wimmera Development Progress - WIM100 Ore Reserve Estimate and Updated Mineral Resource Estimate (revised)",
+    "source_type": "DOCUMENT",
+    "publisher": "Iluka Resources Limited",
+    "published_on": "2023-02-22",
+    "url": "https://www.iluka.com/media/ir1f0dtt/wimmera-release.pdf",
+    "locator": "Table 2 (p.5) average REO proportions as % of total REO: Dy2O3 2.7%, Tb4O7 0.4%, Nd2O3 14.5%, Pr6O11 4.0%, Y2O3 14.9%, CeO2 34.8%, La2O3 16.5%. Table 6 Ore Reserve: 180 Mt @ 5.4% HM, Probable. Table 7 Key Physicals: 20-year life, rare earth concentrate internally processed 280 kt, Product Sold NdPr oxide 21.3 kt, Terbium oxide 0.4 kt, Dysprosium oxide 2.5 kt. Table 8 Recoveries: Dysprosium 70.9%, Terbium 69.5%, Neodymium 76.6%, Praseodymium 75.8%.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-usar-serra-verde-8k-2026",
+    "name": "USA Rare Earth investor presentation, Exhibit 99.3 to Form 8-K (Serra Verde acquisition)",
+    "source_type": "DOCUMENT",
+    "publisher": "USA Rare Earth, Inc.",
+    "published_on": "2026-04-20",
+    "url": "https://www.sec.gov/Archives/edgar/data/1970622/000121390026045339/ea028691001ex99-3.htm",
+    "locator": "Slide 5 chart (image ea028691001_ex99-3img5.jpg), '2027E, in metric tons of REOs': Dy - non-China supply 281 t, Serra Verde 164 t (58%); Tb - 74 t, 29 t (39%); Y - 1,674 t, 1,534 t (92%). Footnote 3: 'Assumes 95% recovery yield from MREC to separated oxides.' Footnote 4: 'Average annual TREO production during LOM (from 2026 to 2047).' Footnote 5: 'Basket composition represents LOM average mineral ore produced weighted by ex-China spot prices' - the NdPr 22 / Dy 19 / Tb 13 / Y 42 split is % of VALUE, not mass. Slide 7: '~4,400 metric tpa after Lanthanum removal'. FIGURES ARE IN A CHART IMAGE, NOT THE TEXT LAYER - EDGAR full-text search returns 0 hits for Dy2O3 / Tb4O7 across all USAR filings.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-serra-verde-cetem-2015",
+    "name": "Mineracao Serra Verde: 'Serra Verde Project' presentation, III Simposio Brasileiro de Terras Raras (hosted by CETEM/MCTI)",
+    "source_type": "DOCUMENT",
+    "publisher": "Mineracao Serra Verde / CETEM",
+    "published_on": "2015-11-30",
+    "url": "https://www.cetem.gov.br/antigo/images/palestras/2015/iiisbtr/05-denilson-fonseca.pdf",
+    "locator": "Slide 7, XRF assay of a 4 kg pilot rare earth oxalate product, 'REO Distribution (%)' column: Dy2O3 3.23%, Tb4O7 0.53%, La2O3 32.01%, Nd2O3 23.10%, Y2O3 19.76%, CeO2 3.01%; TREO 96.92%, HREO 27.61%. Slide 4 'REE CONCENTRATE DISTRIBUTION' pie corroborates at Dy 3.2% / Tb 0.5%. PILOT PRODUCT BASIS, not in-situ ore.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-viridis-colossus-pfs-2025",
+    "name": "Viridis Mining and Minerals: 'Colossus PFS Unlocks World-Class Project Economics' (Pre-Feasibility Study)",
+    "source_type": "DOCUMENT",
+    "publisher": "Viridis Mining and Minerals Limited (ASX:VMM)",
+    "published_on": "2025-07-09",
+    "url": "https://wcsecure.weblink.com.au/pdf/VMM/02965946.pdf",
+    "locator": "66pp. p.2 headline production profile and footnote B defining MREO as Dy2O3 + Nd2O3 + Pr6O11 + Tb4O7; p.3 'current JORC resource of 493Mt @ 2,508ppm TREO and 601ppm MREO', only 13% of the landholding, production targeted for 2028; p.4 PFS uses M+I from Northern Concessions and Cupim South only, 12.8% of tenement area and 20% of the resource; p.6 Table 3 'Colossus Project Key Production, Costs and Financial Summary' - LOM 20 years, 5 Mtpa dry nameplate, Mineral Resource considered 98.5 Mt, average feed 3,380 ppm TREO / 936 ppm MREO, MREO:TREO feed ratio 28%, TREO recovery 57%, MREO recovery 76%, Annual Production (REO) 9,448 t, Total Production (REO) 188,954 t, Annual Production (MREO: Nd, Pr, Dy, Tb) 3,518 t, NdPr % in TREO Concentrate 36%, CAPEX US$358M incl. 25% contingency, C1 US$6.2/kg TREO, AISC US$9.3/kg TREO; p.15 Table 6 ANSTO Northern Concessions resource-to-MREC recoveries and MREC TREO composition (La2O3 44.5%, Nd2O3 29.1%, Pr6O11 8.3%, Dy2O3 1.2%, Tb4O7 0.3%, Y2O3 6.9%, CeO2 2.4%; TREO recovery 64%, MREO recovery 76%, MREO 39% of MREC TREO); p.16 Table 7 same for Southern Complex (La2O3 48.2%, Nd2O3 27.9%, Pr6O11 8.7%, Dy2O3 1.1%, Tb4O7 0.2%, Y2O3 6.7%, CeO2 0.6%; TREO recovery 66%, MREO recovery 78%, MREO 38%). READ IN FULL 2026-09-02.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-viridis-funding-2026",
+    "name": "Viridis Mining and Minerals: 'Viridis Secures Up to US$120M Strategic Equity Funding to Deliver Colossus'",
+    "source_type": "DOCUMENT",
+    "publisher": "Viridis Mining and Minerals Limited (ASX:VMM)",
+    "published_on": "2026-08-20",
+    "url": "https://announcements.asx.com.au/asxpdf/20260820/pdf/072znl4kwlvsk4.pdf",
+    "locator": "9pp. Confirms the DFS is complete and the Project is transitioning 'from DFS into execution'. p.3 'US$449 million development capital estimate outlined in the DFS', targeted ~70% senior debt / 30% equity implying ~US$135M equity; ~US$120M new strategic equity (OneIM up to US$75M, ORE/Regia US$5M, ~US$40M from existing institutions) plus ~US$14M cash at 30 Jun 2026 and US$20M remaining under the ORE/Regia arrangement. p.3 'clear pathway toward FID in Q4 2026 and commencement of construction'; Goldman Sachs and Cutfield Freeman appointed debt advisers; non-binding support from Export Finance Australia (up to US$50M), Export Development Canada (up to US$100M), Bpifrance and BNDES/FINEP. Immediate priorities include 'finalising binding offtake' - NO separation or offtake counterparty is named. MREC Demonstration Plant operating in Brazil. p.9 Reference 3 identifies the DFS results announcement: 'VMM ASX announcement dated 20 August 2026 Colossus DFS Confirms Project Bankability and Execution'. READ IN FULL 2026-09-02.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-viridis-colossus-dfs-2026",
+    "name": "Viridis Mining and Minerals: 'Colossus DFS Confirms Project Bankability and Execution' - DOCUMENT IDENTIFIED BUT NOT YET RETRIEVED",
+    "source_type": "DOCUMENT",
+    "publisher": "Viridis Mining and Minerals Limited (ASX:VMM)",
+    "published_on": "2026-08-20",
+    "url": null,
+    "locator": "PLACEHOLDER. The document is definitively identified - it is cited as Reference 3 of the 20 Aug 2026 funding release (src-viridis-funding-2026), by exact title and date - but the PDF was not retrieved and NO claim citing this source has been checked against the primary. Every DFS figure in the graph came from secondary outlets reporting the announcement: MREO 2,967 tpa and the 200.1 Mt @ 2,894 ppm Ore Reserve, 5 Mtpa ROM, 25-year mine life, US$405M ex-contingency / US$449M total pre-production capital and first production H2 2028 from mining.com.au; NdPr 2,843 tpa from news.metal.com; after-tax NPV8 US$1,196M, IRR 36.4%, payback 2.7 years from both. ANCHOR THIS FIRST: it is the single highest-value open item on this node, because the Dy+Tb figure is a subtraction of two of these secondary numbers.",
+    "source_confidence": "LOW"
   }
 ]

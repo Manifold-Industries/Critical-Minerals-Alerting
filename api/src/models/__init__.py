@@ -6,12 +6,12 @@ them, and the provenance of the assertions made about them.
 
 from src.models.component import Component
 from src.models.deposit import Deposit, ResourceClassification, ResourceEstimate
-from src.models.facility import Capacity, FacilityType, ProcessingFacility
+from src.models.facility import Capacity, FacilityType, FeedSpec, ProcessingFacility
 from src.models.geography import Coordinates, Country
 from src.models.lifecycle import DevelopmentStage, OperatingStatus
-from src.models.material import Material, MaterialCategory
+from src.models.material import HostMineral, Material, MaterialCategory
 from src.models.organization import Organization, OrganizationType
-from src.models.project import ProductionFigure, ProductionPeriod, Project
+from src.models.project import ProductForm, ProductionFigure, ProductionPeriod, Project
 from src.models.provenance import (
     Attested,
     Confidence,
@@ -20,7 +20,12 @@ from src.models.provenance import (
     Source,
     SourceType,
 )
-from src.models.relationship import Relationship, RelationshipStatus, RelationshipType
+from src.models.relationship import (
+    QualificationTier,
+    Relationship,
+    RelationshipStatus,
+    RelationshipType,
+)
 from src.models.system import System
 
 __all__ = [
@@ -32,18 +37,22 @@ __all__ = [
     "Country",
     "Deposit",
     "DevelopmentStage",
+    "HostMineral",
     "FacilityType",
+    "FeedSpec",
     "Material",
     "MaterialCategory",
     "OperatingStatus",
     "Organization",
     "OrganizationType",
     "ProcessingFacility",
+    "ProductForm",
     "ProductionFigure",
     "ProductionPeriod",
     "Project",
     "Provenance",
     "ProvenanceType",
+    "QualificationTier",
     "Relationship",
     "RelationshipStatus",
     "RelationshipType",
