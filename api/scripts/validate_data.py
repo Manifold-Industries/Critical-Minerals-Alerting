@@ -30,6 +30,8 @@ from src.models import (  # noqa: E402
     OperatingStatus,
     Organization,
     OrganizationType,
+    Platform,
+    PlatformKind,
     ProcessingFacility,
     ProductForm,
     ProductionFigure,
@@ -45,7 +47,6 @@ from src.models import (  # noqa: E402
     ResourceEstimate,
     Source,
     SourceType,
-    System,
 )
 
 DATA = Path(__file__).resolve().parents[1] / "src" / "data"
@@ -109,7 +110,7 @@ def build() -> dict[str, list]:
         "facilities": [ProcessingFacility(**{**r, "facility_type": FacilityType(r["facility_type"]), "operating_status": attested(r["operating_status"], OperatingStatus), "coordinates": attested(r["coordinates"], lambda v: Coordinates(**v)), "expected_start": attested(r["expected_start"]), "accepted_feeds": tuple(attested(x, feed) for x in r["accepted_feeds"]), "products": tuple(attested(x, product) for x in r["products"]), "capacities": tuple(attested(c, lambda v: Capacity(**v)) for c in r["capacities"]), "aliases": tuple(r["aliases"])}) for r in load("facilities")],
         "materials": [Material(**{**r, "category": MaterialCategory(r["category"]), "elements": tuple(r["elements"])}) for r in load("materials")],
         "components": [Component(**{**r, "requires": tuple(attested(a) for a in r["requires"])}) for r in load("components")],
-        "systems": [System(**{**r, "requires": tuple(attested(a) for a in r["requires"])}) for r in load("systems")],
+        "platforms": [Platform(**{**r, "kind": PlatformKind(r["kind"]), "requires": tuple(attested(a) for a in r["requires"])}) for r in load("platforms")],
         "relationships": [relationship(r) for r in load("relationships")],
         "relationships_inferred": [relationship(r) for r in load("relationships_inferred")],
     }
@@ -167,11 +168,13 @@ def check(data: dict[str, list]) -> tuple[list[str], list[str]]:
             cite(c.id, a)
             if a.value not in ids["materials"]:
                 errors.append(f"{c.id}: unknown material {a.value}")
-    for s in data["systems"]:
-        for a in s.requires:
-            cite(s.id, a)
+    for p in data["platforms"]:
+        for a in p.requires:
+            cite(p.id, a)
             if a.value not in ids["components"]:
-                errors.append(f"{s.id}: unknown component {a.value}")
+                errors.append(f"{p.id}: unknown component {a.value}")
+        if p.parent_id and p.parent_id not in ids["platforms"]:
+            errors.append(f"{p.id}: unknown parent platform {p.parent_id}")
     for r in (*data["relationships"], *data["relationships_inferred"]):
         cite(r.id, r)
         if r.from_id not in node_ids:

@@ -1,0 +1,165 @@
+[
+  {
+    "id": "plat-f35",
+    "name": "F-35 Lightning II",
+    "category": "Aircraft",
+    "kind": "PLATFORM",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-f22",
+    "name": "F-22 Raptor",
+    "category": "Aircraft",
+    "kind": "PLATFORM",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-finabel-ree-f35-supply-chain", "assertion_confidence": "MEDIUM", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-virginia-class",
+    "name": "Virginia-class submarine",
+    "category": "Submarine",
+    "kind": "PLATFORM",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-virginia-class-sonar",
+    "name": "Virginia-class submarine sonar",
+    "category": "Sonar",
+    "kind": "SUBSYSTEM",
+    "requires": [
+      { "value": "cmp-terfenol-d-transducer", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-terfenol-d-submarine-mapping", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
+    ],
+    "parent_id": "plat-virginia-class",
+    "operator": null
+  },
+  {
+    "id": "plat-columbia-class",
+    "name": "Columbia-class submarine",
+    "category": "Submarine",
+    "kind": "PLATFORM",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-ohio-class",
+    "name": "Ohio-class SSBN",
+    "category": "Submarine",
+    "kind": "PLATFORM",
+    "requires": [],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-ohio-class-sonar",
+    "name": "Ohio-class SSBN sonar",
+    "category": "Sonar",
+    "kind": "SUBSYSTEM",
+    "requires": [
+      { "value": "cmp-terfenol-d-transducer", "provenance": { "type": "REPORTED", "source_id": "src-terfenol-d-wikipedia", "assertion_confidence": "MEDIUM", "last_verified": null } }
+    ],
+    "parent_id": "plat-ohio-class",
+    "operator": null
+  },
+  {
+    "id": "plat-submarine-sonar",
+    "name": "Submarine sonar systems",
+    "category": "Sonar",
+    "kind": "CATEGORY",
+    "requires": [
+      { "value": "cmp-terfenol-d-transducer", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-terfenol-d-sonar-transducer", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-tomahawk",
+    "name": "Tomahawk missile",
+    "category": "Missile",
+    "kind": "PLATFORM",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-hypersonic-missiles",
+    "name": "Hypersonic missile systems",
+    "category": "Missile",
+    "kind": "CATEGORY",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-sfa-oxford-critical-minerals-defence", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-jdam",
+    "name": "JDAM family",
+    "category": "Munition",
+    "kind": "PLATFORM",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-predator",
+    "name": "Predator UAV",
+    "category": "UAV",
+    "kind": "PLATFORM",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-radar-systems",
+    "name": "Radar systems",
+    "category": "Radar",
+    "kind": "CATEGORY",
+    "requires": [
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-naval-reactor-control",
+    "name": "Naval nuclear reactor control",
+    "category": "Reactor control",
+    "kind": "CATEGORY",
+    "requires": [
+      { "value": "cmp-dy-cermet-control-rod", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-kns-dy-titanate-control-rods", "assertion_confidence": "MEDIUM", "last_verified": "2026-03-12" } }
+    ],
+    "parent_id": null,
+    "operator": null
+  },
+  {
+    "id": "plat-nvg-displays",
+    "name": "Military night-vision and display systems",
+    "category": "Optronics",
+    "kind": "CATEGORY",
+    "requires": [
+      { "value": "cmp-tb-green-phosphor", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-ree-nvg-rare-earth-exchanges", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
+    ],
+    "parent_id": null,
+    "operator": null
+  }
+]
