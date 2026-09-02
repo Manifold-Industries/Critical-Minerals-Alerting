@@ -2,7 +2,6 @@
 
 import json
 import shutil
-from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
@@ -13,14 +12,6 @@ from src.data_loader import DataLoadError
 from src.main import app
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "src" / "data"
-
-
-@pytest.fixture
-def client() -> Iterator[TestClient]:
-    get_settings.cache_clear()
-    with TestClient(app) as test_client:
-        yield test_client
-    get_settings.cache_clear()
 
 
 def test_get_entity_returns_success_envelope_with_nested_fields(client: TestClient) -> None:

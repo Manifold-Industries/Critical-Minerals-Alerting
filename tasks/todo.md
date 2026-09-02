@@ -12,7 +12,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
   - Acceptance: round-trip over all 73 records; 200/404 envelope shapes; startup fails loudly on bad data
   - Verify: `pytest tests/test_serialization.py tests/test_entity_endpoints.py`; `ruff check`
   - Files: `api/src/serialization/encode.py`, `api/src/routers/{entities,envelope}.py`, `api/src/{main,config}.py`, `api/pyproject.toml`, tests
-- [ ] Task 3: Derived edges + `GET /graph` (+ `context`); update SPEC.md contract
+- [x] Task 3: Derived edges + `GET /graph` (+ `context`); update SPEC.md contract
   - Acceptance: 43 nodes / 49 edges (16 + 33 by rule); all ids resolve; per-rule unit tests
   - Verify: `pytest --cov=src` ≥ 80%
   - Files: `api/src/graph/{derive_edges,build,types}.py`, `api/src/routers/graph.py`, `api/src/main.py`, tests, `SPEC.md`

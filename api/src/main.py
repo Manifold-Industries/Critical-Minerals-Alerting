@@ -11,6 +11,7 @@ from src.config import get_settings
 from src.data_loader import DataLoadError, GraphRepository
 from src.routers.entities import router as entities_router
 from src.routers.envelope import install_error_handlers
+from src.routers.graph import router as graph_router
 
 logger = logging.getLogger(__name__)
 
@@ -51,4 +52,5 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+app.include_router(graph_router)
 app.include_router(entities_router)

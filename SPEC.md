@@ -179,7 +179,14 @@ All responses use the envelope `{ "success": bool, "data": T | null, "error": st
       // (b) structural edges derived from entity fields:
       { "id": "drv-proj-browns-range-develops-dep-browns-range", "type": "DEVELOPS", "from_id": "proj-browns-range", "to_id": "dep-browns-range",
         "status": "OBSERVED", "provenance": null, "material_ids": [], "derived": true }
-    ]
+    ],
+    // Non-node records the views need on every load (added at plan review, 2026-09-01):
+    // full country records for the Geography view, full source records so the Evidence
+    // panel can resolve names/urls without per-click round-trips.
+    "context": {
+      "countries": [ /* 5 serialized Country records */ ],
+      "sources": [ /* 9 serialized Source records */ ]
+    }
   },
   "error": null
 }
