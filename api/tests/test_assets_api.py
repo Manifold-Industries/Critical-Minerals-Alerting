@@ -83,3 +83,104 @@ def test_mine_resolves_coordinates_through_its_deposit(client: TestClient) -> No
     body = client.get("/assets/proj-mount-weld").json()
     assert body["coordinates"] is not None
     assert body["kind"] == "MINE"
+
+
+# ── Source attribution ──────────────────────────────────────────────────────
+#
+# A bare source_id is not attribution: nothing downstream can turn
+# "src-iluka-ar25-2025" into a document a reader can check. These pin that the
+# response resolves what it cites, cites only what a row rests on, and keeps
+# the two confidences apart.
+
+
+def _provenances(body: dict) -> list[dict]:
+    """Every provenance on the response, in the order sources are collected."""
+    return [
+        p
+        for p in (
+            body["operating_status_provenance"],
+            body["development_stage_provenance"],
+            body["expected_start_provenance"],
+            *(f["provenance"] for f in body["figures"]),
+            *(f["provenance"] for f in body["accepted_feeds"]),
+            *(p["provenance"] for p in body["products"]),
+            *(link["provenance"] for link in body["supplied_by"]),
+            *(link["provenance"] for link in body["supplies_to"]),
+        )
+        if p is not None
+    ]
+
+
+def test_every_cited_source_is_resolved_to_a_document(client: TestClient) -> None:
+    body = client.get("/assets/fac-lynas-malaysia").json()
+    cited = {p["source_id"] for p in _provenances(body) if p["source_id"]}
+    resolved = {s["id"] for s in body["sources"]}
+    assert cited and cited == resolved
+    assert all(s["name"] and s["source_type"] for s in body["sources"])
+
+
+def test_no_source_appears_that_no_row_points_at(client: TestClient) -> None:
+    """Padding the list with documents merely mentioning the asset would imply
+    support no row is claiming."""
+    body = client.get("/assets/fac-lynas-malaysia").json()
+    cited = {p["source_id"] for p in _provenances(body) if p["source_id"]}
+    assert [s["id"] for s in body["sources"] if s["id"] not in cited] == []
+
+
+def test_sources_are_in_order_of_first_citation(client: TestClient) -> None:
+    """The order is the only thing tying a row to its entry, so it is the contract."""
+    body = client.get("/assets/fac-lynas-malaysia").json()
+    first_seen: list[str] = []
+    for prov in _provenances(body):
+        sid = prov["source_id"]
+        if sid and sid not in first_seen:
+            first_seen.append(sid)
+    assert [s["id"] for s in body["sources"]] == first_seen
+
+
+def test_an_assertion_needing_no_document_contributes_no_source(
+    client: TestClient,
+) -> None:
+    """Lynas Malaysia carries a JUDGMENT edge with no source behind it."""
+    body = client.get("/assets/fac-lynas-malaysia").json()
+    links = body["supplied_by"] + body["supplies_to"]
+    judgments = [l for l in links if l["provenance"]["type"] == "JUDGMENT"]
+    assert judgments and all(l["provenance"]["source_id"] is None for l in judgments)
+    assert len(body["sources"]) < len(_provenances(body))
+
+
+def test_an_unanchored_source_is_returned_with_a_null_url(client: TestClient) -> None:
+    """Fingerboards cites disclosures with no retrievable location.
+
+    Returned rather than dropped - the claim does rest on something - but a
+    client must not render a link for it.
+    """
+    body = client.get("/assets/proj-fingerboards").json()
+    by_id = {s["id"]: s for s in body["sources"]}
+    assert by_id["src-gcm-fingerboards-disclosures"]["url"] is None
+
+
+def test_source_confidence_is_kept_apart_from_assertion_confidence(
+    client: TestClient,
+) -> None:
+    """A high-confidence reading of a weak document is not a strong claim."""
+    body = client.get("/assets/fac-lynas-malaysia").json()
+    assert all("source_confidence" in s for s in body["sources"])
+    assert all("assertion_confidence" in p for p in _provenances(body))
+
+
+def test_citations_say_that_nobody_has_checked_them(client: TestClient) -> None:
+    """Every assertion in the seed data is an unverified model extraction.
+
+    Presenting a citation without this implies a verification that has not
+    happened, so the flag has to survive the API rather than default in.
+    """
+    body = client.get("/assets/fac-lynas-malaysia").json()
+    assert all(p["unverified_model_extraction"] is True for p in _provenances(body))
+
+
+def test_the_locator_survives_so_a_long_report_stays_checkable(
+    client: TestClient,
+) -> None:
+    body = client.get("/assets/proj-donald").json()
+    assert any(s["locator"] for s in body["sources"])

@@ -23,7 +23,14 @@ class Coordinates(BaseModel):
 class Provenance(BaseModel):
     type: str
     source_id: str | None = None
+    #: Confidence in this specific conclusion, not in the source behind it.
+    #: ``Source.source_confidence`` is the other one, and they differ.
     assertion_confidence: str | None = None
+    #: True where the value was pulled out of the source by a model and nobody
+    #: has since checked it against the document. Every assertion in the current
+    #: seed data is in that state, so a client presenting a citation without
+    #: this is implying a verification that has not happened.
+    unverified_model_extraction: bool = True
 
 
 class FeedQuantity(BaseModel):

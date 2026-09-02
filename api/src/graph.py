@@ -25,6 +25,7 @@ from src.models import (
     Project,
     Relationship,
     RelationshipType,
+    Source,
 )
 
 #: Elements this graph is scoped to. A material counts as a dedicated Dy/Tb
@@ -61,6 +62,11 @@ class SupplyGraph:
     #: below - see ``src/service/exposure.py`` for the traversal that uses them.
     components: dict[str, Component]
     platforms: dict[str, Platform]
+    #: The evidence a provenance cites. Held so a response can return the source
+    #: itself rather than a bare id no reader can resolve. Distinct from the
+    #: confidence on a ``Provenance``: this carries confidence in the *source*,
+    #: that one confidence in the specific conclusion drawn from it.
+    sources: dict[str, Source]
     curated: tuple[Relationship, ...]
     inferred: tuple[Relationship, ...]
     #: Edges dropped for naming a node this graph does not hold. See ``from_data``.
@@ -110,6 +116,7 @@ class SupplyGraph:
             materials={m.id: m for m in data["materials"]},
             components={c.id: c for c in data["components"]},
             platforms={p.id: p for p in data["platforms"]},
+            sources={s.id: s for s in data["sources"]},
             curated=curated,
             inferred=inferred,
             dangling=tuple(r for r in both if not resolved(r)),
