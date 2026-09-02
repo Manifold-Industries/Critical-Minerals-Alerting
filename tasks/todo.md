@@ -59,7 +59,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
   - Acceptance: 1 marker (Browns Range), notice "7 of 8 assets…" with names; marker opens panel; build has no SSR errors; icon renders
   - Verify: lint/typecheck/build; hard-reload and client-navigate; attribution visible
   - Files: `web/src/app/map/page.tsx`, `web/src/components/map/{AssetMap,UnlocatedNotice}.tsx`, `web/src/lib/map/markers.ts`, `globals.css`
-- [ ] Task 10: `CountryList` with provenance; nav (Flow | Map); metadata
+- [x] Task 10: `CountryList` with provenance; nav (Flow | Map); metadata
   - Acceptance: 5 countries; AU = ALLY/JUDGMENT/HIGH, risk "not attested"; nav client-side with active state; tab title set
   - Verify: lint/typecheck/build; SPEC Geography checklist
   - Files: `web/src/components/map/CountryList.tsx`, `web/src/components/ui/Nav.tsx`, `web/src/app/layout.tsx`, `web/src/app/map/page.tsx`

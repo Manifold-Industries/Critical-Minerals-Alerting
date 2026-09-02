@@ -25,7 +25,7 @@ export default function FlowPage() {
     );
   }
   return (
-    <main className="flex h-dvh w-full">
+    <main className="flex min-h-0 w-full flex-1">
       <div className="min-w-0 flex-1">
         <SupplyChainGraph
           graph={state.graph}
