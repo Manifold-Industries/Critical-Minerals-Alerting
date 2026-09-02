@@ -55,7 +55,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
 
 ## Phase 4: Geography view
 
-- [ ] Task 9: `/map` route, client-only `AssetMap`, markers, `UnlocatedNotice`, leaflet CSS
+- [x] Task 9: `/map` route, client-only `AssetMap`, markers, `UnlocatedNotice`, leaflet CSS (imported in AssetMap alongside the component, like React Flow's)
   - Acceptance: 1 marker (Browns Range), notice "7 of 8 assets…" with names; marker opens panel; build has no SSR errors; icon renders
   - Verify: lint/typecheck/build; hard-reload and client-navigate; attribution visible
   - Files: `web/src/app/map/page.tsx`, `web/src/components/map/{AssetMap,UnlocatedNotice}.tsx`, `web/src/lib/map/markers.ts`, `globals.css`
