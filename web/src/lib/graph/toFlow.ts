@@ -16,41 +16,64 @@ export interface FlowGraph {
   edges: Edge[];
 }
 
-export function toFlow(graph: GraphData): FlowGraph {
-  return { nodes: toFlowNodes(graph), edges: toFlowEdges(graph.edges) };
+export interface ToFlowOptions {
+  includeAlternatives?: boolean;
 }
 
-export function toFlowNodes(graph: GraphData): Node[] {
+export function toFlow(graph: GraphData, options: ToFlowOptions = {}): FlowGraph {
+  const includeAlternatives = options.includeAlternatives ?? true;
+  const edges = includeAlternatives
+    ? graph.edges
+    : graph.edges.filter((edge) => edge.type !== "ALTERNATIVE_TO");
+  return {
+    nodes: toFlowNodes(graph.nodes, edges),
+    edges: toFlowEdges(edges, materialNamesById(graph.nodes)),
+  };
+}
+
+export function toFlowNodes(nodes: readonly GraphNode[], edges: readonly GraphEdge[]): Node[] {
   const connectedIds = new Set(
-    graph.edges.flatMap((edge) => (edge.to_id === null ? [edge.from_id] : [edge.from_id, edge.to_id])),
+    edges.flatMap((edge) => (edge.to_id === null ? [edge.from_id] : [edge.from_id, edge.to_id])),
   );
-  const visible = graph.nodes.filter((node) => node.kind !== "material" || connectedIds.has(node.id));
+  const visible = nodes.filter((node) => node.kind !== "material" || connectedIds.has(node.id));
   const entityNodes = visible.map(entityNode);
-  const placeholders = graph.edges.filter((edge) => edge.to_id === null).map(placeholderNode);
+  const placeholders = edges.filter((edge) => edge.to_id === null).map(placeholderNode);
   return [...entityNodes, ...placeholders];
 }
 
-export function toFlowEdges(edges: readonly GraphEdge[]): Edge[] {
+export function toFlowEdges(edges: readonly GraphEdge[], materialNames: ReadonlyMap<string, string>): Edge[] {
   return edges.map((edge) => ({
     id: edge.id,
     source: edge.from_id,
     target: edge.to_id ?? `${UNRESOLVED_TARGET_PREFIX}${edge.id}`,
-    data: { edge },
+    type: "status",
+    data: { edge, label: edgeLabel(edge, materialNames) },
   }));
+}
+
+function materialNamesById(nodes: readonly GraphNode[]): Map<string, string> {
+  return new Map(nodes.filter((node) => node.kind === "material").map((node) => [node.id, node.name]));
+}
+
+function edgeLabel(edge: GraphEdge, materialNames: ReadonlyMap<string, string>): string | null {
+  if (edge.type !== "SUPPLIES" || edge.material_ids.length === 0) return null;
+  return edge.material_ids.map((id) => materialNames.get(id) ?? id).join(" · ");
 }
 
 function entityNode(node: GraphNode): Node {
   return {
     id: node.id,
+    type: "entity",
     position: { x: 0, y: 0 },
-    data: { label: node.name, kind: node.kind, graphNode: node },
+    data: { kind: node.kind, graphNode: node },
   };
 }
 
 function placeholderNode(edge: GraphEdge): Node {
   return {
     id: `${UNRESOLVED_TARGET_PREFIX}${edge.id}`,
+    type: "unresolved",
     position: { x: 0, y: 0 },
-    data: { label: "?", kind: "unresolved", unresolvedEdgeId: edge.id },
+    data: { kind: "unresolved", unresolvedEdgeId: edge.id },
   };
 }

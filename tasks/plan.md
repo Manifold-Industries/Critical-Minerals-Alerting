@@ -242,7 +242,7 @@ edges before layout.
 
 **Acceptance criteria:**
 - [ ] Without hovering, `OBSERVED`/`CONTRACTED` (solid), `PLANNED`/`POTENTIAL` (dashed), `HISTORICAL` (muted), `UNRESOLVED` (dashed → hollow "?") are distinguishable; `LOW` confidence edges are visibly fainter than `HIGH`
-- [ ] Toggling alternatives off removes the 3 `ALTERNATIVE_TO` edges and re-lays out; toggling on restores them
+- [ ] Toggling alternatives off removes the 4 `ALTERNATIVE_TO` edges (verified against the data; the plan originally said 3) and re-lays out; toggling on restores them
 - [ ] Legend lists every encoding in use and nothing that is not; no colour/dash literal exists outside `styles.ts`
 
 **Verification:**

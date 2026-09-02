@@ -32,8 +32,8 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
   - Acceptance: 36 + 2 placeholder nodes, left-to-right stage order, no overlaps; pure lib modules
   - Verify: lint/typecheck/build; screenshot at 1280px
   - Files: `web/src/lib/graph/{toFlow,layout}.ts`, `web/src/components/graph/SupplyChainGraph.tsx`, `web/src/app/page.tsx`, `globals.css`
-- [ ] Task 6: `styles.ts` tokens, custom nodes per kind, `UnresolvedNode`, `StatusEdge`, `Legend`, alternatives toggle
-  - Acceptance: status/confidence distinguishable unaided; toggle removes/restores 3 edges; no style literals outside `styles.ts`
+- [x] Task 6: `styles.ts` tokens, generic `EntityNode` (one file, kind-driven — simpler than 8 near-identical files), `UnresolvedNode`, `StatusEdge`, `Legend`, alternatives toggle
+  - Acceptance: status/confidence distinguishable unaided; toggle removes/restores the 4 ALTERNATIVE_TO edges; no style literals outside `styles.ts`
   - Verify: lint/typecheck/build; grep for hex/dasharray literals; SPEC Flow checklist
   - Files: `web/src/lib/graph/styles.ts`, `web/src/components/graph/{nodes/*,edges/StatusEdge,Legend,SupplyChainGraph}.tsx`
 
