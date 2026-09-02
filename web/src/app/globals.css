@@ -158,3 +158,33 @@ body {
   transform-origin: center;
   animation: map-ping 1.8s ease-out infinite;
 }
+
+/* Ranking-method disclosure. The marker is replaced rather than styled: the
+   native triangle does not match the console's type, and the two summary
+   labels swap so the control reads as its own state. */
+.ranking-detail > summary {
+  list-style: none;
+}
+
+.ranking-detail > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ranking-caret {
+  display: inline-block;
+  transition: transform 150ms ease;
+}
+
+/* Down when collapsed, up when expanded. */
+.ranking-detail[open] .ranking-caret {
+  transform: rotate(180deg);
+}
+
+.ranking-detail > summary .when-open,
+.ranking-detail[open] > summary .when-closed {
+  display: none;
+}
+
+.ranking-detail[open] > summary .when-open {
+  display: inline;
+}

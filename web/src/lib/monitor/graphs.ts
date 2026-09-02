@@ -1,5 +1,9 @@
 // Geographic dependency graphs backing the globe, one per alert id.
-// Placeholder seed data — edit GRAPHS to change what the globe shows.
+//
+// Placeholder seed data for alerts with no engine behind them. An alert that
+// carries a `mineId` is not in here: its graph is fetched from the disruption
+// API and adapted by `toAlertGraph`, so it follows the supply graph instead of
+// going stale against it.
 
 export type ImpactLevel = "high" | "medium" | "low";
 
@@ -14,6 +18,19 @@ export interface GeoNode {
 
 export interface DownstreamNode extends GeoNode {
   readonly impact: ImpactLevel;
+  /**
+   * Live-graph detail. Optional because the placeholder fixtures below have no
+   * engine behind them and cannot honestly claim any of it.
+   */
+  readonly soleSource?: boolean;
+  /** Suppliers still feeding this plant once the disrupted mine is removed. */
+  readonly remainingSupplies?: number;
+  readonly operatingStatus?: string;
+  /** Lost tonnage over this plant's nameplate. Upper bound: the two figures
+   *  are struck at different points in the chain. */
+  readonly shareOfNameplate?: number;
+  /** This plant's nameplate over all *disclosed* Dy+Tb separation capacity. */
+  readonly shareOfModelledCapacity?: number;
 }
 
 export interface DependencyEdge {
@@ -32,9 +49,27 @@ export interface AlternativeSource {
   readonly lat: number;
   /** Node id (asset or downstream) this source would feed. */
   readonly feedsNodeId: string;
+  /** 0 curated, 1 inferred. The inferred layer calls itself "not evidence". */
+  readonly evidenceClass?: number;
+  /** RankingKey field that put this row below the one above it. */
+  readonly decisiveFactor?: string | null;
+  /** Only the id tiebreak separates this row from the one above. */
+  readonly tiedWithPrevious?: boolean;
+}
+
+/** Systemic weight of the plants that lost feed. Live graphs only. */
+export interface CapacityContext {
+  readonly as_of_year: number;
+  readonly total_tpa: number;
+  readonly refiners_disclosing: number;
+  readonly refiners_total: number;
+  readonly affected_tpa: number | null;
+  readonly affected_share: number | null;
+  readonly undisclosed_facility_ids: readonly string[];
 }
 
 export interface AlertGraph {
+  readonly capacity?: CapacityContext;
   readonly asset: GeoNode;
   readonly downstream: readonly DownstreamNode[];
   readonly edges: readonly DependencyEdge[];
@@ -42,212 +77,6 @@ export interface AlertGraph {
 }
 
 export const GRAPHS: Readonly<Record<string, AlertGraph>> = {
-  "SA-047": {
-    asset: {
-      id: "proj-mount-weld",
-      name: "Mt Weld Mine and Concentration Plant",
-      role: "Heavy rare earth mine",
-      place: "Laverton, Australia",
-      lon: 122.547,
-      lat: -28.862,
-    },
-    downstream: [
-      {
-        id: "fac-lynas-kalgoorlie",
-        name: "Kalgoorlie Rare Earths Processing Facility",
-        role: "Cracking and leaching",
-        place: "Kalgoorlie, Australia",
-        lon: 121.409,
-        lat: -30.788,
-        impact: "high",
-      },
-      {
-        id: "fac-lynas-malaysia",
-        name: "Lynas Malaysia Advanced Materials Plant",
-        role: "Dy/Tb separation",
-        place: "Gebeng, Malaysia",
-        lon: 103.377,
-        lat: 4.004,
-        impact: "high",
-      }
-    ],
-    edges: [
-      { from: "proj-mount-weld", to: "fac-lynas-kalgoorlie" },
-      { from: "fac-lynas-kalgoorlie", to: "fac-lynas-malaysia" }
-    ],
-    alternatives: [
-      {
-        id: "proj-mountain-pass",
-        rank: 1,
-        name: "Mountain Pass Rare Earth Mine",
-        country: "United States",
-        lon: -115.532,
-        lat: 35.482,
-        feedsNodeId: "fac-lynas-malaysia",
-      },
-      {
-        id: "proj-round-top",
-        rank: 2,
-        name: "Round Top Project",
-        country: "United States",
-        lon: -105.474,
-        lat: 31.277,
-        feedsNodeId: "fac-lynas-malaysia",
-      },
-      {
-        id: "proj-fingerboards",
-        rank: 3,
-        name: "Fingerboards Critical Minerals Project",
-        country: "Australia",
-        lon: 147.332,
-        lat: -37.804,
-        feedsNodeId: "fac-lynas-malaysia",
-      }
-    ],
-  },
-  "SA-045": {
-    asset: {
-      id: "proj-mountain-pass",
-      name: "Mountain Pass Rare Earth Mine",
-      role: "Heavy rare earth mine",
-      place: "Mountain Pass, United States",
-      lon: -115.532,
-      lat: 35.482,
-    },
-    downstream: [
-      {
-        id: "fac-mountain-pass-refinery",
-        name: "Mountain Pass Refinery and Separation Complex",
-        role: "Integrated refining",
-        place: "Mountain Pass, United States",
-        lon: -115.532,
-        lat: 35.482,
-        impact: "high",
-      }
-    ],
-    edges: [
-      { from: "proj-mountain-pass", to: "fac-mountain-pass-refinery" }
-    ],
-    alternatives: [
-      {
-        id: "proj-caldeira",
-        rank: 1,
-        name: "Caldeira Project",
-        country: "Brazil",
-        lon: -46.489,
-        lat: -21.986,
-        feedsNodeId: "fac-mountain-pass-refinery",
-      },
-      {
-        id: "proj-serra-verde",
-        rank: 2,
-        name: "Serra Verde Pela Ema Operation",
-        country: "Brazil",
-        lon: -48.471,
-        lat: -13.514,
-        feedsNodeId: "fac-mountain-pass-refinery",
-      },
-      {
-        id: "fac-sareco",
-        rank: 3,
-        name: "SARECO / Summit Atom Rare Earth Company (Stepnogorsk)",
-        country: "Kazakhstan",
-        lon: 71.883,
-        lat: 52.342,
-        feedsNodeId: "fac-mountain-pass-refinery",
-      }
-    ],
-  },
-  "SA-043": {
-    asset: {
-      id: "proj-caldeira",
-      name: "Caldeira Project",
-      role: "Heavy rare earth mine",
-      place: "Pocos de Caldas, Brazil",
-      lon: -46.489,
-      lat: -21.986,
-    },
-    downstream: [
-      {
-        id: "fac-neo-silmet",
-        name: "Neo Silmet Rare Earth Separation Facility",
-        role: "Dy/Tb separation",
-        place: "Sillamae, Estonia",
-        lon: 27.745,
-        lat: 59.401,
-        impact: "medium",
-      },
-      {
-        id: "fac-ucore-louisiana",
-        name: "Ucore Strategic Metals Complex",
-        role: "Dy/Tb separation",
-        place: "Alexandria, United States",
-        lon: -92.529,
-        lat: 31.342,
-        impact: "high",
-      }
-    ],
-    edges: [
-      { from: "proj-caldeira", to: "fac-neo-silmet" },
-      { from: "proj-caldeira", to: "fac-ucore-louisiana" }
-    ],
-    alternatives: [
-      {
-        id: "proj-serra-verde",
-        rank: 1,
-        name: "Serra Verde Pela Ema Operation",
-        country: "Brazil",
-        lon: -48.471,
-        lat: -13.514,
-        feedsNodeId: "fac-neo-silmet",
-      },
-      {
-        id: "proj-colossus",
-        rank: 2,
-        name: "Colossus Rare Earth Project",
-        country: "Brazil",
-        lon: -46.515,
-        lat: -21.883,
-        feedsNodeId: "fac-neo-silmet",
-      },
-      {
-        id: "proj-penco",
-        rank: 3,
-        name: "Penco Module",
-        country: "Chile",
-        lon: -72.948,
-        lat: -36.743,
-        feedsNodeId: "fac-neo-silmet",
-      },
-      {
-        id: "fac-sareco",
-        rank: 4,
-        name: "SARECO / Summit Atom Rare Earth Company (Stepnogorsk)",
-        country: "Kazakhstan",
-        lon: 71.883,
-        lat: 52.342,
-        feedsNodeId: "fac-ucore-louisiana",
-      },
-      {
-        id: "proj-browns-range",
-        rank: 5,
-        name: "Browns Range Heavy Rare Earths Project",
-        country: "Australia",
-        lon: 128.94,
-        lat: -18.86,
-        feedsNodeId: "fac-ucore-louisiana",
-      },
-      {
-        id: "proj-lofdal",
-        rank: 6,
-        name: "Lofdal Heavy Rare Earths Project",
-        country: "Namibia",
-        lon: 14.75,
-        lat: -20.35,
-        feedsNodeId: "fac-ucore-louisiana",
-      }
-    ],
-  },
   "SA-041": {
     asset: {
       id: "ga-refinery",
