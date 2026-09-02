@@ -44,7 +44,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
 
 ## Phase 3: Evidence panel
 
-- [ ] Task 7: `provenance/fields.ts` + `EntityPanel` + `ProvenanceRow` + `SourceLink`; node selection
+- [x] Task 7: `provenance/fields.ts` + `EntityPanel` + `ProvenanceRow` + `SourceLink`; node selection
   - Acceptance: Eneabba fields with source/HIGH/date/link; Fingerboards shows "document not yet identified"; nulls → "not attested"
   - Verify: lint/typecheck/build; click all 36 nodes
   - Files: `web/src/lib/provenance/fields.ts`, `web/src/components/entity/{EntityPanel,ProvenanceRow,SourceLink}.tsx`, `web/src/app/page.tsx`

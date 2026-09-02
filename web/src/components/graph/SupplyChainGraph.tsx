@@ -3,7 +3,7 @@
 import "@xyflow/react/dist/style.css";
 import { useEffect, useState } from "react";
 import { Background, Controls, Panel, ReactFlow } from "@xyflow/react";
-import type { GraphData } from "@/lib/api/types";
+import type { GraphData, GraphNode } from "@/lib/api/types";
 import { toFlow, type FlowGraph } from "@/lib/graph/toFlow";
 import { layoutWithElk } from "@/lib/graph/layout";
 import { EntityNode } from "@/components/graph/nodes/EntityNode";
@@ -16,9 +16,11 @@ const edgeTypes = { status: StatusEdge };
 
 interface SupplyChainGraphProps {
   graph: GraphData;
+  onSelectNode?: (node: GraphNode) => void;
+  onClearSelection?: () => void;
 }
 
-export function SupplyChainGraph({ graph }: SupplyChainGraphProps) {
+export function SupplyChainGraph({ graph, onSelectNode, onClearSelection }: SupplyChainGraphProps) {
   const [showAlternatives, setShowAlternatives] = useState(true);
   const [flow, setFlow] = useState<FlowGraph | null>(null);
   const alternativeCount = graph.edges.filter((edge) => edge.type === "ALTERNATIVE_TO").length;
@@ -55,6 +57,11 @@ export function SupplyChainGraph({ graph }: SupplyChainGraphProps) {
       fitView
       nodesConnectable={false}
       minZoom={0.2}
+      onNodeClick={(_, node) => {
+        const graphNode = node.data.graphNode as GraphNode | undefined;
+        if (graphNode) onSelectNode?.(graphNode);
+      }}
+      onPaneClick={() => onClearSelection?.()}
     >
       <Background />
       <Controls showInteractive={false} />
