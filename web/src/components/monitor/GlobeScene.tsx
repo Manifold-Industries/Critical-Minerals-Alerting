@@ -148,14 +148,13 @@ function NodeDot({
   if (!at.visible) return null;
   return (
     <g
-      onClick={
-        onClick
-          ? (event) => {
-              event.stopPropagation();
-              onClick();
-            }
-          : undefined
-      }
+      // Activation hangs off pointerdown, not click. The globe captures the
+      // pointer on the <svg> to drag-pan, which retargets pointerup — and with
+      // it the synthesised click — away from this node to the svg, so an
+      // onClick here never fires. Propagation is deliberately NOT stopped: the
+      // svg still needs the event to arm its drag, and it is the matching
+      // pointerup that decides whether this was a click or a drag.
+      onPointerDown={onClick ? () => onClick() : undefined}
       onPointerEnter={
         hover && onHover
           ? () => onHover({ ...hover, x: at.x, y: at.y })
