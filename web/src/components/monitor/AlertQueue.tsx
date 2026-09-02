@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
-import type { Alert, Confidence, Severity } from "@/lib/monitor/alerts";
+import type { Alert, Confidence } from "@/lib/monitor/alerts";
+import { SEVERITY_COLOR } from "@/lib/monitor/colors";
 
 interface AlertQueueProps {
   readonly alerts: readonly Alert[];
@@ -11,14 +12,6 @@ const CONFIDENCE_LABEL: Record<Confidence, string> = {
   HIGH: "Conf high",
   MEDIUM: "Conf med",
   LOW: "Conf low",
-};
-
-// Severity reads as a wash of color across the whole card rather than a tag.
-const SEVERITY_COLOR: Record<Severity, string> = {
-  critical: "#b91c1c",
-  high: "#ff5d52",
-  elevated: "#ffa028",
-  moderate: "#ffd24d",
 };
 
 export default function AlertQueue({
