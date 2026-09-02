@@ -4,7 +4,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
 
 ## Phase 1: API
 
-- [ ] Task 1: `data_loader` package + `GraphRepository`; `validate_data.py` re-pointed
+- [x] Task 1: `data_loader` package + `GraphRepository`; `validate_data.py` re-pointed
   - Acceptance: exact seed counts; `find_by_id` returns `None` for unknowns; `DataLoadError` names the file
   - Verify: `pytest tests/test_data_loader.py`; `scripts/validate_data.py` → `OK`
   - Files: `api/src/data_loader/{__init__,parse,repository}.py`, `api/scripts/validate_data.py`, `api/tests/test_data_loader.py`

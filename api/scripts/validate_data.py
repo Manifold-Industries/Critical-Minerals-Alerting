@@ -1,92 +1,23 @@
-"""Load every seed-data file into its dataclass and check cross-references.
+"""Load every seed-data file and check cross-references.
 
 Run from ``api/``:  .venv/bin/python scripts/validate_data.py
 Exits non-zero if any record fails to construct or any reference dangles.
+Parsing lives in ``src.data_loader``; this script owns only the checks.
 """
 
-import json
 import sys
 from collections import Counter
-from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.models import (  # noqa: E402
-    Attested,
-    Capacity,
-    Component,
-    Confidence,
-    Coordinates,
-    Country,
-    Deposit,
-    DevelopmentStage,
-    FacilityType,
-    Material,
-    MaterialCategory,
-    OperatingStatus,
-    Organization,
-    OrganizationType,
-    ProcessingFacility,
-    ProductionFigure,
-    ProductionPeriod,
-    Project,
-    Provenance,
-    ProvenanceType,
-    Relationship,
-    RelationshipStatus,
-    RelationshipType,
-    ResourceClassification,
-    ResourceEstimate,
-    Source,
-    SourceType,
-    System,
-)
+from src.data_loader import DataLoadError, load_all  # noqa: E402
+from src.models import RelationshipType  # noqa: E402
 
 DATA = Path(__file__).resolve().parents[1] / "src" / "data"
 
 
-def load(name: str) -> list[dict]:
-    return json.loads((DATA / f"{name}.json").read_text())
-
-
-def parse_date(value: str | None) -> date | None:
-    return date.fromisoformat(value) if value else None
-
-
-def parse_prov(raw: dict) -> Provenance:
-    conf = Confidence(raw["assertion_confidence"]) if raw["assertion_confidence"] else None
-    return Provenance(ProvenanceType(raw["type"]), raw["source_id"], conf, parse_date(raw["last_verified"]))
-
-
-def attested(raw: dict | None, cast=lambda v: v) -> Attested | None:
-    return None if raw is None else Attested(cast(raw["value"]), parse_prov(raw["provenance"]))
-
-
-def estimate(raw: dict) -> ResourceEstimate:
-    return ResourceEstimate(**{**raw, "classification": ResourceClassification(raw["classification"]), "provenance": parse_prov(raw["provenance"])})
-
-
-def figure(raw: dict) -> ProductionFigure:
-    return ProductionFigure(**{**raw, "period": ProductionPeriod(raw["period"])})
-
-
-def build() -> dict[str, list]:
-    return {
-        "sources": [Source(**{**r, "source_type": SourceType(r["source_type"]), "published_on": parse_date(r["published_on"]), "source_confidence": Confidence(r["source_confidence"]) if r["source_confidence"] else None}) for r in load("sources")],
-        "countries": [Country(**{**r, "alignment": attested(r["alignment"]), "risk_score": attested(r["risk_score"])}) for r in load("countries")],
-        "deposits": [Deposit(**{**r, "commodities": tuple(r["commodities"]), "aliases": tuple(r["aliases"]), "coordinates": attested(r["coordinates"], lambda v: Coordinates(**v)), "resource_estimates": tuple(estimate(e) for e in r["resource_estimates"])}) for r in load("deposits")],
-        "organizations": [Organization(**{**r, "organization_type": OrganizationType(r["organization_type"]), "government_affiliation": attested(r["government_affiliation"]), "aliases": tuple(r["aliases"])}) for r in load("organizations")],
-        "projects": [Project(**{**r, "development_stage": attested(r["development_stage"], DevelopmentStage), "operating_status": attested(r["operating_status"], OperatingStatus), "expected_production_start": attested(r["expected_production_start"]), "planned_production": tuple(attested(f, figure) for f in r["planned_production"]), "resource_estimates": tuple(estimate(e) for e in r["resource_estimates"]), "aliases": tuple(r["aliases"])}) for r in load("projects")],
-        "facilities": [ProcessingFacility(**{**r, "facility_type": FacilityType(r["facility_type"]), "operating_status": attested(r["operating_status"], OperatingStatus), "coordinates": attested(r["coordinates"], lambda v: Coordinates(**v)), "expected_start": attested(r["expected_start"]), "input_material_ids": tuple(r["input_material_ids"]), "output_material_ids": tuple(r["output_material_ids"]), "capacities": tuple(attested(c, lambda v: Capacity(**v)) for c in r["capacities"]), "aliases": tuple(r["aliases"])}) for r in load("facilities")],
-        "materials": [Material(**{**r, "category": MaterialCategory(r["category"]), "elements": tuple(r["elements"])}) for r in load("materials")],
-        "components": [Component(**{**r, "requires": tuple(attested(a) for a in r["requires"])}) for r in load("components")],
-        "systems": [System(**{**r, "requires": tuple(attested(a) for a in r["requires"])}) for r in load("systems")],
-        "relationships": [Relationship(**{**r, "type": RelationshipType(r["type"]), "status": RelationshipStatus(r["status"]), "provenance": parse_prov(r["provenance"]), "material_ids": tuple(r["material_ids"])}) for r in load("relationships")],
-    }
-
-
-def check(data: dict[str, list]) -> tuple[list[str], list[str]]:
+def check(data: dict[str, tuple]) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     ids = {k: {x.id for x in v} for k, v in data.items()}
     node_ids = set().union(*(ids[k] for k in data if k not in ("sources", "relationships")))
@@ -159,8 +90,8 @@ def check(data: dict[str, list]) -> tuple[list[str], list[str]]:
 
 def main() -> int:
     try:
-        data = build()
-    except (ValueError, TypeError, KeyError) as exc:
+        data = load_all(DATA)
+    except DataLoadError as exc:
         print(f"FAILED to construct records: {exc}")
         return 1
     errors, warnings = check(data)
