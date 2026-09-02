@@ -32,11 +32,12 @@ settings = get_settings()
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
+# Read-only, credential-less API: allow only what it actually serves.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_credentials=False,
+    allow_methods=["GET"],
     allow_headers=["*"],
 )
 install_error_handlers(app)

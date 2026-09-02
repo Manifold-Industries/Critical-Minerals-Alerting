@@ -3,6 +3,7 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { Facility, GraphNode, Project } from "@/lib/api/types";
 import { KIND_STYLE } from "@/lib/graph/styles";
+import { pretty } from "@/lib/provenance/fields";
 
 function statusFor(node: GraphNode): string | null {
   if (node.kind === "project") {
@@ -18,10 +19,6 @@ function countryFor(node: GraphNode): string | null {
   if ("country_id" in node.entity) return node.entity.country_id;
   if ("headquarters_country_id" in node.entity) return node.entity.headquarters_country_id;
   return null;
-}
-
-function prettify(value: string): string {
-  return value.toLowerCase().replaceAll("_", " ");
 }
 
 export function EntityNode(props: NodeProps) {
@@ -43,7 +40,7 @@ export function EntityNode(props: NodeProps) {
       <p className="flex items-center gap-1 text-[10px] leading-4">
         <span className={`rounded px-1 ${style.badge}`}>{style.label}</span>
         {country && <span className="text-zinc-500 dark:text-zinc-400">{country}</span>}
-        {status && <span className="truncate text-zinc-500 dark:text-zinc-400">{prettify(status)}</span>}
+        {status && <span className="truncate text-zinc-500 dark:text-zinc-400">{pretty(status)}</span>}
       </p>
       <Handle type="source" position={Position.Right} className="!h-1 !w-1 !border-0 !bg-transparent" />
     </div>

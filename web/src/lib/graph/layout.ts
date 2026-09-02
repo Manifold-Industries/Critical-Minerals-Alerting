@@ -10,14 +10,16 @@ import type { Edge, Node } from "@xyflow/react";
 const NODE_WIDTH = 180;
 const NODE_HEIGHT = 48;
 
-/** Column per kind; organizations are left free for ELK to place. */
+/** Column per kind; organizations get their own leftmost column rather
+ * than interleaving with the supply-chain stages (review finding). */
 const STAGE_PARTITION: Record<string, number> = {
-  deposit: 0,
-  project: 1,
-  facility: 2,
-  material: 3,
-  component: 4,
-  system: 5,
+  organization: 0,
+  deposit: 1,
+  project: 2,
+  facility: 3,
+  material: 4,
+  component: 5,
+  system: 6,
 };
 
 const LAST_PARTITION = Math.max(...Object.values(STAGE_PARTITION));

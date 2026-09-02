@@ -25,7 +25,8 @@ export const sourceSchema = z.object({
   source_type: z.enum(["DOCUMENT", "DATABASE", "TABLE", "CABLE", "NEWS", "API", "OTHER"]),
   publisher: z.string().nullable(),
   published_on: z.string().nullable(),
-  url: z.string().nullable(),
+  // http(s) only — a javascript: URL in a source record must never become an href.
+  url: z.url({ protocol: /^https?$/ }).nullable(),
   locator: z.string().nullable(),
   source_confidence: confidenceSchema.nullable(),
 });
