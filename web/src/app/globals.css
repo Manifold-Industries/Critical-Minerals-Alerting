@@ -1,26 +1,160 @@
 @import "tailwindcss";
 
+/* ── Terminal palette (app frame) ──────────────────────────────────────────
+   Bloomberg-terminal-meets-DoD, per the Decomposition Prototype guidelines:
+   near-black ground, amber command accents, hairline keylines, monospace
+   chrome. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #050505;
+  --foreground: #e9e7e0;
+  --surface-0: #050505;
+  --surface-1: #0d0d0f;
+  --surface-2: #212126;
+  --ghost-hover: #17171a;
+  --text-secondary: #a3a29a;
+  --text-tertiary: #6f6e66;
+  --accent: #ffa028;
+  --accent-tint: #2a1b05;
+  --positive: #35d97b;
+  --caution: #ff5d52;
+  --negative: #ff5d52;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-ghost-hover: var(--ghost-hover);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-accent: var(--accent);
+  --color-accent-tint: var(--accent-tint);
+  --color-positive: var(--positive);
+  --color-caution: var(--caution);
+  --color-negative: var(--negative);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Blueprint frame ───────────────────────────────────────────────────────
+   Hairline panel with short amber corner ticks, drawn as eight background
+   gradients on an overlay pseudo-element so any element can carry the frame
+   without extra markup. Layered under `components` so Tailwind utilities can
+   override fills/borders per state (hover, selected). */
+@layer components {
+  .blueprint {
+    position: relative;
+    background: var(--surface-1);
+    border: 1px solid var(--surface-2);
+  }
+
+  /* ── Tags ──────────────────────────────────────────────────────────────── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    font-family: var(--font-plex-mono), ui-monospace, monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .tag-accent {
+    background: var(--accent-tint);
+    color: var(--accent);
+  }
+
+  .tag-neutral {
+    background: var(--surface-2);
+    color: var(--text-secondary);
+  }
+
+  .tag-outline {
+    border: 1px solid var(--surface-2);
+    color: var(--text-tertiary);
+  }
+}
+
+.blueprint::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background-image: linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size:
+    7px 1.5px,
+    1.5px 7px,
+    7px 1.5px,
+    1.5px 7px,
+    7px 1.5px,
+    1.5px 7px,
+    7px 1.5px,
+    1.5px 7px;
+  background-position:
+    top left,
+    top left,
+    top right,
+    top right,
+    bottom left,
+    bottom left,
+    bottom right,
+    bottom right;
+}
+
+/* ── Live-feed indicator ─────────────────────────────────────────────────── */
+@keyframes ping-square {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 160 40 / 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgb(255 160 40 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 160 40 / 0);
+  }
+}
+
+.live-square {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  animation: ping-square 1.8s ease-out infinite;
+}
+
+/* Expanding ring on the globe's affected-asset node. */
+@keyframes map-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.map-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-ping 1.8s ease-out infinite;
 }
