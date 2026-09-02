@@ -106,6 +106,7 @@ export default function MonitorConsole() {
         selectedNodeId={selectedNodeId}
         onSelectNode={setSelectedNodeId}
         onSelectAlert={selectAlert}
+        onClearNode={() => setSelectedNodeId(null)}
       />
       <DecisionPanel
         alert={selectedAlert}

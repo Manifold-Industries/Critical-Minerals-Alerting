@@ -296,3 +296,86 @@ export function toAlertGraph(res: DisruptionResponse): AlertGraph | undefined {
   };
 }
 
+// ── Per-asset reference detail ─────────────────────────────────────────────
+
+export interface ApiMaterialFigure {
+  readonly material_id: string;
+  readonly material_name: string | null;
+  readonly elements: readonly string[];
+  readonly tonnes: number;
+  readonly period: string | null;
+  readonly target_year: number | null;
+  /** Non-null means a later entry has replaced this one; do not sum it. */
+  readonly superseded_by: number | null;
+  readonly note: string | null;
+  readonly provenance: ApiProvenance;
+}
+
+export interface ApiFeedSpec {
+  readonly material_id: string;
+  readonly material_name: string | null;
+  readonly accepted_hosts: readonly string[];
+  readonly note: string | null;
+}
+
+export interface ApiProductForm {
+  readonly material_id: string;
+  readonly material_name: string | null;
+  readonly host_mineral: string;
+  readonly grade_pct_treo: number | null;
+  readonly note: string | null;
+}
+
+export interface ApiLinkedAsset {
+  readonly id: string | null;
+  readonly name: string | null;
+  readonly relationship_id: string;
+  readonly type: string;
+  readonly status: string;
+  readonly inferred: boolean;
+  readonly qualification: string | null;
+  readonly note: string | null;
+}
+
+export interface ApiDepositSummary {
+  readonly id: string;
+  readonly name: string;
+  readonly deposit_type: string | null;
+  readonly commodities: readonly string[];
+  readonly location_description: string | null;
+}
+
+export interface AssetDetail {
+  readonly id: string;
+  readonly kind: "MINE" | "FACILITY";
+  readonly name: string;
+  readonly country_id: string | null;
+  readonly country_name: string | null;
+  readonly coordinates: ApiCoordinates | null;
+  readonly operating_status: string;
+  readonly development_stage: string | null;
+  readonly facility_type: string | null;
+  readonly expected_start: number | null;
+  readonly operator_id: string | null;
+  readonly operator_name: string | null;
+  readonly deposit: ApiDepositSummary | null;
+  readonly figures: readonly ApiMaterialFigure[];
+  readonly accepted_feeds: readonly ApiFeedSpec[];
+  readonly products: readonly ApiProductForm[];
+  readonly supplied_by: readonly ApiLinkedAsset[];
+  readonly supplies_to: readonly ApiLinkedAsset[];
+  readonly is_dytb_refiner: boolean;
+  readonly location_description: string | null;
+  readonly description: string | null;
+  readonly aliases: readonly string[];
+}
+
+/** Reference detail for one mine or plant. Rejects with 404 for a fixture id. */
+export async function fetchAsset(
+  assetId: string,
+  options: { readonly signal?: AbortSignal } = {},
+): Promise<AssetDetail> {
+  const res = await fetch(`${BASE}/assets/${assetId}`, { signal: options.signal });
+  if (!res.ok) throw new Error(`Asset request failed for ${assetId}: ${res.status}`);
+  return (await res.json()) as AssetDetail;
+}
