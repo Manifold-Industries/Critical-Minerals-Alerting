@@ -24,7 +24,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
 
 ## Phase 2: Flow view
 
-- [ ] Task 4: Web deps + zod schemas + `client.ts` + `useGraph` + loading/error/retry shell
+- [x] Task 4: Web deps + zod schemas + `client.ts` + `useGraph` + loading/error/retry shell
   - Acceptance: "43 nodes · 49 edges" with API up; Retry recovers; zod failure → error state
   - Verify: `npm run lint && npm run typecheck && npm run build`; manual stop/start API
   - Files: `web/package.json`, `web/src/lib/api/{schemas,types,client,useGraph}.ts`, `web/src/app/{page,layout}.tsx`, `web/src/components/ui/ErrorState.tsx`
