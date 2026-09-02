@@ -33,10 +33,10 @@ export default function NavRail() {
                 key={href}
                 aria-label={name}
                 aria-disabled="true"
-                className="box-border flex h-10 w-10 cursor-not-allowed flex-col items-center justify-center text-text-tertiary opacity-50"
+                className="box-border flex h-10 w-14 cursor-not-allowed flex-col items-center justify-center text-text-tertiary opacity-50"
               >
                 <Icon size={18} aria-hidden="true" />
-                <span className="mt-0.5 font-mono text-[9px] uppercase leading-none tracking-wide text-text-tertiary">
+                <span className="mt-0.5 font-mono text-[8px] uppercase leading-none tracking-wide text-text-tertiary">
                   {name}
                 </span>
               </span>
@@ -48,7 +48,7 @@ export default function NavRail() {
               href={href}
               aria-label={name}
               aria-current={isActive ? "page" : undefined}
-              className={`box-border flex h-10 w-10 flex-col items-center justify-center transition-colors duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+              className={`box-border flex h-10 w-14 flex-col items-center justify-center transition-colors duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
                 isActive
                   ? "border border-accent bg-accent-tint text-accent"
                   : "text-text-secondary hover:bg-ghost-hover"
@@ -56,7 +56,7 @@ export default function NavRail() {
             >
               <Icon size={18} aria-hidden="true" />
               <span
-                className={`mt-0.5 font-mono text-[9px] uppercase leading-none tracking-wide ${
+                className={`mt-0.5 font-mono text-[8px] uppercase leading-none tracking-wide ${
                   isActive ? "text-accent" : "text-text-tertiary"
                 }`}
               >

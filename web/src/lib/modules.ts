@@ -1,8 +1,8 @@
 import {
-  IconAffiliate,
   IconBell,
+  IconFileText,
   IconGlobe,
-  IconNews,
+  IconTriangle,
   type Icon,
 } from "@tabler/icons-react";
 
@@ -13,13 +13,20 @@ export interface ModuleDefinition {
   readonly disabled: boolean;
 }
 
-// Alerts is the only live module; the rest are staged placeholders until
-// their screens land.
+// Workflow order per spec: Explore → Monitor → Strategize → Brief, fusing the
+// Decomposition Prototype modules (Atlas, Cascade, Prism, Forge) with the
+// critical-minerals alerting workflow. Monitor is the only live module; the
+// rest are staged placeholders until their screens land.
 export const MODULES: readonly ModuleDefinition[] = [
-  { name: "Alerts", href: "/alerts", icon: IconBell, disabled: false },
-  { name: "Atlas", href: "/atlas", icon: IconGlobe, disabled: true },
-  { name: "Supply", href: "/supply", icon: IconAffiliate, disabled: true },
-  { name: "Sources", href: "/sources", icon: IconNews, disabled: true },
+  { name: "Explore", href: "/explore", icon: IconGlobe, disabled: true },
+  { name: "Monitor", href: "/monitor", icon: IconBell, disabled: false },
+  {
+    name: "Strategize",
+    href: "/strategize",
+    icon: IconTriangle,
+    disabled: true,
+  },
+  { name: "Brief", href: "/brief", icon: IconFileText, disabled: true },
 ];
 
-export const DEFAULT_MODULE_HREF = "/alerts";
+export const DEFAULT_MODULE_HREF = "/monitor";
