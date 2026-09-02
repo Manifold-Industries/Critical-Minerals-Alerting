@@ -44,6 +44,57 @@ class FeedQuantity(BaseModel):
     caveats: list[str] = []
 
 
+class FactorScore(BaseModel):
+    """One factor's part of a candidate's score, with everything needed to check it."""
+
+    factor: str
+    #: The ordinal or measure the normalisation was taken from. ``None`` where the
+    #: graph disclosed nothing to take it from.
+    raw: float | None = None
+    #: Display form of ``raw`` - "PARTNER", "WITHIN_12M", "PARTIAL".
+    raw_label: str
+    #: [0, 1], 1 is best, on every factor. A client never has to know which way a
+    #: particular axis runs.
+    normalized: float
+    weight: float
+    #: Points of the final score. Contributions sum to ``CandidateScore.value``,
+    #: so a bar chart of these is the whole score with nothing left over.
+    contribution: float
+    #: Points this factor would have contributed at ``normalized`` 1.0.
+    max_contribution: float
+    #: False where a fallback stood in for data the graph does not hold. A client
+    #: that hides this presents a guess with the same authority as a disclosure.
+    known: bool
+    detail: str | None = None
+    #: True where the caller excluded this factor. Reported rather than dropped,
+    #: because excluded and never-computed are different statements.
+    excluded: bool
+
+
+class CandidateScore(BaseModel):
+    """The composite a candidate was ranked on, and the factors behind it."""
+
+    #: 0-100, higher is better. Renormalised over the weights actually in play,
+    #: so it is on the same scale whatever was excluded - but read
+    #: ``ScoringPolicy`` before comparing across two different policies.
+    value: float
+    factors: list[FactorScore] = []
+    policy_version: str
+
+
+class ScoringPolicy(BaseModel):
+    """The weights a response was computed under.
+
+    Weights are an input, and an invented one: there is no principled exchange
+    rate between a qualification tier, a month and a tonne. A stored response is
+    not reproducible or comparable without this block, so it is always returned.
+    """
+
+    version: str
+    weights: dict[str, float] = {}
+    excluded_factors: list[str] = []
+
+
 class AlternativeFeed(BaseModel):
     """One candidate source for a plant that lost feed, with why it ranked where it did."""
 
@@ -83,14 +134,26 @@ class AlternativeFeed(BaseModel):
     coverage: str
     #: Fraction of the gap this source covers, on PARTIAL only.
     covered_fraction: float | None = None
-    #: Why this row sorts below the one above it, within the same facility - the
-    #: first ``RankingKey`` field on which the two differ. ``None`` on the top
-    #: row. The key is lexicographic, so this is the whole reason for the order,
-    #: not a contributing factor among several.
+    #: The composite this row was ranked on. ``rank`` is its position; this is
+    #: the number and the reasons for it.
+    score: CandidateScore
+    #: Why this row sorts below the one above it, within the same facility.
+    #: ``None`` on the top row. Read with ``decisive_basis``: a composite has no
+    #: single reason for an order, so on SCORE this is the largest one, not the
+    #: whole of it.
     decisive_factor: str | None = None
-    #: True where the only field separating this row from the one above is the
-    #: deterministic id tiebreak: the two are indistinguishable on every
-    #: substantive axis, and presenting them as ranked invents a distinction.
+    #: SCORE where the two rows scored differently and ``decisive_factor`` names
+    #: the ``ScoreFactor`` that gave away the most points. TIEBREAK where they
+    #: scored exactly the same and the lexicographic ``RankingKey`` had to
+    #: separate them, in which case ``decisive_factor`` names a key field.
+    #: ``None`` on the top row.
+    decisive_basis: str | None = None
+    #: Points of score the decisive factor was worth, on SCORE only. A margin of
+    #: 0.4 and a margin of 30 are both "ranked lower" and should not read alike.
+    decisive_margin: float | None = None
+    #: True where the score could not separate this row from the one above at
+    #: all. The ordering instrument called them equal and the tiebreak decided,
+    #: so presenting them as ranked invents a distinction.
     tied_with_previous: bool = False
     #: The row ``decisive_factor`` was measured against. A client that reorders,
     #: filters or deduplicates these rows must check this still names the row it
@@ -188,6 +251,8 @@ class DisruptionResponse(BaseModel):
     impacted: list[FacilityImpact] = []
     #: Systemic weight of the plants that lost feed. See ``CapacityContext``.
     capacity_context: CapacityContext | None = None
+    #: The weights every score in ``impacted`` was computed under.
+    scoring: ScoringPolicy
     #: Conditions the caller should surface rather than swallow.
     warnings: list[str] = []
 
