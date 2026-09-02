@@ -169,6 +169,7 @@ export default function GlobePanel({
   const flyTo = useCallback(
     (target: Camera, animate: boolean) => {
       stopAnim();
+      setHover(null);
       if (!animate) {
         setCamera(target);
         return;
@@ -197,7 +198,6 @@ export default function GlobePanel({
   // Fly (or jump, on first layout) whenever the alert or mode changes.
   useEffect(() => {
     if (size.w === 0 || size.h === 0) return;
-    setHover(null);
     flyTo(fitCamera(mode, graph, { w: size.w, h: size.h }), initializedRef.current);
     initializedRef.current = true;
   }, [selectedAlert.id, mode, graph, size.w, size.h, flyTo]);
