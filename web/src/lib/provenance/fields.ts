@@ -5,7 +5,7 @@
  * Attested-capable fields that are null become "not attested"; plain
  * optional descriptive fields are omitted when absent.
  */
-import type { GraphNode, Provenance } from "@/lib/api/types";
+import type { EdgeType, GraphEdge, GraphNode, Provenance } from "@/lib/api/types";
 
 export interface FieldRow {
   label: string;
@@ -188,4 +188,34 @@ function tonnes(value: number): string {
 
 export function pretty(value: string): string {
   return value.toLowerCase().replaceAll("_", " ");
+}
+
+/** Which entity field produced a derived edge (SPEC API-contract table). */
+const DERIVED_RULE: Record<EdgeType, string> = {
+  SUPPLIES: "relationship record",
+  INVESTED_IN: "relationship record",
+  ALTERNATIVE_TO: "relationship record",
+  DEVELOPS: "the project's deposit field",
+  OPERATES: "the asset's operator field",
+  SUBSIDIARY_OF: "the organization's parent field",
+  PRODUCES: "the facility's output materials",
+  REQUIRES: "the owner's requires field",
+};
+
+export function edgeRowsFor(edge: GraphEdge, resolveName: ResolveName): FieldRow[] {
+  const period =
+    edge.start_year !== null || edge.end_year !== null
+      ? `${edge.start_year ?? "…"} – ${edge.end_year ?? "ongoing"}`
+      : null;
+  return [
+    row("From", resolveName(edge.from_id)),
+    row("To", edge.to_id ? resolveName(edge.to_id) : "unknown — counterparty not established"),
+    row("Status", pretty(edge.status), edge.provenance),
+    ...listRow("Materials", edge.material_ids, resolveName),
+    ...optional("Annual tonnes", edge.annual_tonnes !== null ? tonnes(edge.annual_tonnes) : null),
+    ...optional("Total tonnes", edge.total_tonnes !== null ? tonnes(edge.total_tonnes) : null),
+    ...optional("Period", period),
+    ...(edge.derived ? [row("Derived from", DERIVED_RULE[edge.type])] : []),
+    ...optional("Note", edge.note),
+  ];
 }

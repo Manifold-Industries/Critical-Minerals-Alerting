@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import type { GraphNode } from "@/lib/api/types";
 import { useGraph } from "@/lib/api/useGraph";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { SupplyChainGraph } from "@/components/graph/SupplyChainGraph";
-import { EntityPanel } from "@/components/entity/EntityPanel";
+import { EntityPanel, type Selection } from "@/components/entity/EntityPanel";
 
 export default function FlowPage() {
   const { state, retry } = useGraph();
-  const [selected, setSelected] = useState<GraphNode | null>(null);
+  const [selection, setSelection] = useState<Selection | null>(null);
 
   if (state.status === "loading") {
     return (
@@ -30,12 +29,13 @@ export default function FlowPage() {
       <div className="min-w-0 flex-1">
         <SupplyChainGraph
           graph={state.graph}
-          onSelectNode={setSelected}
-          onClearSelection={() => setSelected(null)}
+          onSelectNode={(node) => setSelection({ kind: "node", node })}
+          onSelectEdge={(edge) => setSelection({ kind: "edge", edge })}
+          onClearSelection={() => setSelection(null)}
         />
       </div>
-      {selected && (
-        <EntityPanel node={selected} graph={state.graph} onClose={() => setSelected(null)} />
+      {selection && (
+        <EntityPanel selection={selection} graph={state.graph} onClose={() => setSelection(null)} />
       )}
     </main>
   );

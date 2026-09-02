@@ -48,7 +48,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
   - Acceptance: Eneabba fields with source/HIGH/date/link; Fingerboards shows "document not yet identified"; nulls → "not attested"
   - Verify: lint/typecheck/build; click all 36 nodes
   - Files: `web/src/lib/provenance/fields.ts`, `web/src/components/entity/{EntityPanel,ProvenanceRow,SourceLink}.tsx`, `web/src/app/page.tsx`
-- [ ] Task 8: Edge selection → relationship details (note, tonnes, years, material names, derived-rule label)
+- [x] Task 8: Edge selection → relationship details (note, tonnes, years, material names, derived-rule label; folded into EntityPanel's selection union — no separate RelationshipDetails file)
   - Acceptance: Browns Range→Eneabba shows CONTRACTED / 30 500 t / 2028 / note; derived edge shows rule; unresolved shows "unknown"
   - Verify: lint/typecheck/build; click all 49 edges
   - Files: `fields.ts`, `EntityPanel.tsx`, `RelationshipDetails.tsx`, `SupplyChainGraph.tsx`
