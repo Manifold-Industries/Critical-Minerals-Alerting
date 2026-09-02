@@ -12,8 +12,18 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.3",
+    "pytest-cov>=6.0",
     "httpx>=0.28",
+    "ruff>=0.9",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

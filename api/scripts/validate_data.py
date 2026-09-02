@@ -51,9 +51,19 @@ def check(data: dict[str, tuple]) -> tuple[list[str], list[str]]:
             errors.append(f"{p.id}: unknown deposit {p.deposit_id}")
         if p.operator_id and p.operator_id not in ids["organizations"]:
             errors.append(f"{p.id}: unknown operator {p.operator_id}")
-        for a in (p.development_stage, p.operating_status, p.expected_production_start, *p.planned_production, *p.resource_estimates):
+        for a in (
+            p.development_stage,
+            p.operating_status,
+            p.expected_production_start,
+            *p.planned_production,
+            *p.resource_estimates,
+        ):
             cite(p.id, a)
-        errors += [f"{p.id}: unknown material {f.value.material_id}" for f in p.planned_production if f.value.material_id not in ids["materials"]]
+        errors += [
+            f"{p.id}: unknown material {f.value.material_id}"
+            for f in p.planned_production
+            if f.value.material_id not in ids["materials"]
+        ]
     for f in data["facilities"]:
         if f.country_id not in ids["countries"]:
             errors.append(f"{f.id}: unknown country {f.country_id}")

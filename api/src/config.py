@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -8,6 +9,7 @@ class Settings(BaseSettings):
 
     app_name: str = "Critical Minerals Alerting API"
     cors_origins: list[str] = ["http://localhost:3000"]
+    data_dir: Path = Path(__file__).resolve().parent / "data"
 
     model_config = SettingsConfigDict(env_prefix="API_")
 

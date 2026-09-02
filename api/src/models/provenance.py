@@ -45,9 +45,7 @@ class ProvenanceType(StrEnum):
 
 
 # Provenance types that must cite a Source: they are direct readings of evidence.
-EVIDENCE_BACKED_TYPES: frozenset[ProvenanceType] = frozenset(
-    {ProvenanceType.MEASURED, ProvenanceType.REPORTED}
-)
+EVIDENCE_BACKED_TYPES: frozenset[ProvenanceType] = frozenset({ProvenanceType.MEASURED, ProvenanceType.REPORTED})
 
 
 @dataclass(frozen=True)

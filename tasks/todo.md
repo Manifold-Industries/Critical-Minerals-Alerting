@@ -8,7 +8,7 @@ Detailed acceptance criteria and verification steps: [plan.md](plan.md). Spec: [
   - Acceptance: exact seed counts; `find_by_id` returns `None` for unknowns; `DataLoadError` names the file
   - Verify: `pytest tests/test_data_loader.py`; `scripts/validate_data.py` → `OK`
   - Files: `api/src/data_loader/{__init__,parse,repository}.py`, `api/scripts/validate_data.py`, `api/tests/test_data_loader.py`
-- [ ] Task 2: Serialization + envelope + lifespan + `GET /{kind}/{id}`, `GET /sources/{id}`; add ruff + pytest-cov
+- [x] Task 2: Serialization + envelope + lifespan + `GET /{kind}/{id}`, `GET /sources/{id}`; add ruff + pytest-cov
   - Acceptance: round-trip over all 73 records; 200/404 envelope shapes; startup fails loudly on bad data
   - Verify: `pytest tests/test_serialization.py tests/test_entity_endpoints.py`; `ruff check`
   - Files: `api/src/serialization/encode.py`, `api/src/routers/{entities,envelope}.py`, `api/src/{main,config}.py`, `api/pyproject.toml`, tests
