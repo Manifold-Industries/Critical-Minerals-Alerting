@@ -1,9 +1,14 @@
 import type { CSSProperties } from "react";
 import type { Alert, Confidence } from "@/lib/monitor/alerts";
+import type { MineExposure } from "@/lib/monitor/api";
 import { SEVERITY_COLOR } from "@/lib/monitor/colors";
 
 interface AlertQueueProps {
   readonly alerts: readonly Alert[];
+  /** End-use exposure by mine id. Mine-backed alerts read their affected
+   *  systems from here rather than carrying a list of their own. */
+  readonly exposures: Readonly<Record<string, MineExposure>>;
+  readonly exposureState?: "idle" | "loading" | "error";
   readonly selectedId: string;
   readonly onSelect: (id: string) => void;
 }
@@ -14,8 +19,28 @@ const CONFIDENCE_LABEL: Record<Confidence, string> = {
   LOW: "Conf low",
 };
 
+/**
+ * Systems at risk for one alert, or null while there is nothing honest to show.
+ *
+ * A mine-backed alert has no list of its own: it is derived from the component
+ * and platform layers, in the order the API ranked them, so it cannot drift
+ * away from the graph the rest of the panel is describing. An alert with no
+ * engine behind it still renders its placeholder prose. Null is deliberate —
+ * a pending or failed fetch must read as "not yet known", never as a short list.
+ */
+function systemsFor(
+  alert: Alert,
+  exposures: Readonly<Record<string, MineExposure>>,
+): readonly string[] | null {
+  if (!alert.mineId) return alert.affectedSystems ?? null;
+  const exposure = exposures[alert.mineId];
+  return exposure ? exposure.platforms.map((p) => p.name) : null;
+}
+
 export default function AlertQueue({
   alerts,
+  exposures,
+  exposureState = "idle",
   selectedId,
   onSelect,
 }: AlertQueueProps) {
@@ -32,6 +57,7 @@ export default function AlertQueue({
       <ul className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
         {alerts.map((alert, index) => {
           const selected = alert.id === selectedId;
+          const systems = systemsFor(alert, exposures);
           return (
             <li key={alert.id}>
               <button
@@ -69,8 +95,18 @@ export default function AlertQueue({
                   </span>
                 </div>
                 <p className="text-[11.5px] text-text-secondary">
-                  Affected systems ({alert.affectedSystems.length}) ·{" "}
-                  {alert.affectedSystems.slice(0, 2).join(", ")}
+                  {systems ? (
+                    <>
+                      Affected systems ({systems.length}) ·{" "}
+                      {systems.slice(0, 2).join(", ")}
+                    </>
+                  ) : (
+                    <span className="text-text-tertiary">
+                      {exposureState === "error"
+                        ? "Affected systems unavailable"
+                        : "Resolving affected systems…"}
+                    </span>
+                  )}
                 </p>
                 <p className="font-mono text-[10px] text-text-tertiary">
                   via {alert.source.name}

@@ -1,6 +1,10 @@
 // Alert data model for the Strategic Alerts console. Placeholder seed data
 // lives here until a real feed lands — edit ALERTS to change what the
 // console shows.
+//
+// Alerts carrying a `mineId` are half-derived: the narrative fields are seeded
+// here, but the dependency graph and the affected systems are both read from
+// the API, so neither can drift away from the supply graph they describe.
 
 /** DIMEFIL instruments of national power. */
 export type Domain =
@@ -35,12 +39,18 @@ export interface Alert {
   readonly severity: Severity;
   readonly confidence: Confidence;
   readonly source: AlertSource;
-  /** Downstream systems at risk, most consequential first. */
-  readonly affectedSystems: readonly string[];
+  /**
+   * Downstream systems at risk, most consequential first. Placeholder prose,
+   * and only for alerts with no engine behind them: an alert carrying a
+   * `mineId` derives this from `/exposure/{mineId}` instead, so what it claims
+   * follows the component and platform layers rather than going stale against
+   * them. Absent on those alerts precisely so a stale list cannot be shown.
+   */
+  readonly affectedSystems?: readonly string[];
   /**
    * Project id to simulate, for alerts backed by the disruption engine.
-   * Present means the console fetches its graph live; absent means it falls
-   * back to the placeholder fixture in `graphs.ts`.
+   * Present means the console fetches its graph and its end-use exposure live;
+   * absent means it falls back to the placeholder fixture in `graphs.ts`.
    */
   readonly mineId?: string;
 }
@@ -57,11 +67,6 @@ export const ALERTS: readonly Alert[] = [
     severity: "critical",
     confidence: "HIGH",
     source: { kind: "Cable", name: "Consulate cable 26-0311" },
-    affectedSystems: [
-      "F-35 Lightning II",
-      "Virginia-class submarine",
-      "Radar systems",
-    ],
   },
   {
     id: "SA-045",
@@ -74,7 +79,6 @@ export const ALERTS: readonly Alert[] = [
     severity: "critical",
     confidence: "MEDIUM",
     source: { kind: "Report", name: "Field office incident report" },
-    affectedSystems: ["Tomahawk missile", "JDAM family", "Radar systems"],
   },
   {
     id: "SA-043",
@@ -87,11 +91,6 @@ export const ALERTS: readonly Alert[] = [
     severity: "critical",
     confidence: "MEDIUM",
     source: { kind: "Website", name: "State environmental agency notice" },
-    affectedSystems: [
-      "Submarine sonar systems",
-      "Military night-vision and display systems",
-      "Hypersonic missile systems",
-    ],
   },
   {
     id: "SA-041",

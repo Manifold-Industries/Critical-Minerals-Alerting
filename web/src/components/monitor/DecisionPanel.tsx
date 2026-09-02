@@ -1,4 +1,5 @@
 import type { Alert, Confidence } from "@/lib/monitor/alerts";
+import type { MineExposure } from "@/lib/monitor/api";
 import {
   graphForAlert,
   nodesById,
@@ -10,6 +11,11 @@ interface DecisionPanelProps {
   readonly alert: Alert;
   /** Graph fetched from the disruption API, when this alert has one. */
   readonly liveGraph?: AlertGraph;
+  /** End uses this mine's Dy/Tb reaches, from `/exposure/{mineId}`. */
+  readonly exposure?: MineExposure;
+  /** Fetch state for the exposure request, kept apart from the graph's: the
+   *  two are separate calls and either can fail without the other. */
+  readonly exposureState?: "idle" | "loading" | "error";
   /** Fetch state for a live alert, so an empty panel says which kind of empty. */
   readonly loadState?: "idle" | "loading" | "error";
   readonly selectedNodeId: string | null;
@@ -163,6 +169,11 @@ function pct(value: number): string {
 // Systemic weight of what just lost feed. Every figure here is against
 // *disclosed* capacity only, so it overstates the true share — the wording has
 // to carry that, and an undisclosed plant must never read as zero.
+//
+// The year is printed alongside the tonnages because capacities are staged and
+// supersede one another, so these figures move with it. There is no longer a
+// year control implying which one is in force, and a share with no year on it
+// is not a readable number.
 function CapacityContext({ graph }: { readonly graph: AlertGraph }) {
   const ctx = graph.capacity;
   if (!ctx) return null;
@@ -180,9 +191,10 @@ function CapacityContext({ graph }: { readonly graph: AlertGraph }) {
           </p>
           <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
             {ctx.affected_tpa.toLocaleString()} of {ctx.total_tpa.toLocaleString()} tpa
-            disclosed, across {ctx.refiners_disclosing} of {ctx.refiners_total} Dy/Tb
-            refiners. Upper bound: the {ctx.refiners_total - ctx.refiners_disclosing}{" "}
-            plants disclosing no nameplate are absent from the denominator.
+            disclosed at {ctx.as_of_year}, across {ctx.refiners_disclosing} of{" "}
+            {ctx.refiners_total} Dy/Tb refiners. Upper bound: the{" "}
+            {ctx.refiners_total - ctx.refiners_disclosing} plants disclosing no
+            nameplate are absent from the denominator.
           </p>
         </>
       ) : (
@@ -237,16 +249,170 @@ function Kicker({ children }: { readonly children: string }) {
   );
 }
 
-// Placeholder for the quantitative internals Chris owns.
-function ChrisStub({ planned }: { readonly planned: string }) {
+// How many end uses to show before the rest go behind a disclosure. The panel
+// is a decision aid, not a catalogue: at the current Dy/Tb scope a mine reaches
+// fourteen platforms, which would push everything below "Why it matters" off
+// the first screen.
+const SYSTEMS_SHOWN = 5;
+
+// Only the kinds a reader could over-read are labelled. A PLATFORM is the most
+// specific claim the source can make and needs no qualifier; a CATEGORY names
+// no single hull or airframe, and a SUBSYSTEM is a part of one, so both say so.
+const KIND_LABEL: Record<string, string> = {
+  SUBSYSTEM: "Subsystem",
+  CATEGORY: "Class",
+};
+
+/** One end use, with the components that carry the mine's elements into it. */
+function SystemRow({
+  platform,
+}: {
+  readonly platform: MineExposure["platforms"][number];
+}) {
+  const kind = KIND_LABEL[platform.kind];
+  // Not the platform's own name: the parent is named only so a subsystem does
+  // not read as a whole hull. The graph carries no claim that losing the
+  // subsystem stops the parent, so the parent is not itself listed as at risk.
+  const parent =
+    platform.kind === "SUBSYSTEM" && platform.parent_name
+      ? `of ${platform.parent_name}`
+      : null;
+
   return (
-    <div className="border border-dashed border-surface-2 px-3 py-2.5">
-      <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
-        For Chris to implement
+    <li className="flex flex-col gap-0.5 border-t border-surface-2 px-1 py-2">
+      <span className="flex items-baseline gap-1.5">
+        <span className="text-xs font-semibold text-foreground">
+          {platform.name}
+        </span>
+        {kind && <span className="tag tag-outline">{kind}</span>}
+      </span>
+      <span className="text-[10.5px] leading-snug text-text-secondary">
+        via {platform.via_components.map((c) => c.name).join(", ")}
+      </span>
+      <span className="mt-0.5 flex flex-wrap items-center gap-1 font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+        {parent && <span>{parent}</span>}
+        {parent && <span>·</span>}
+        {/* Exempt from the row's uppercase: element symbols are case-significant,
+            and "DY" is not how dysprosium is written. */}
+        <span className="normal-case">{platform.elements.join("/")}</span>
+        <span>·</span>
+        <span
+          title="Weakest assertion on the two-edge path actually used — not a joint probability"
+          className={platform.confidence === "HIGH" ? undefined : "text-accent"}
+        >
+          {platform.confidence ? `Conf ${platform.confidence}` : "Conf unrated"}
+        </span>
+      </span>
+    </li>
+  );
+}
+
+/**
+ * End uses reached by the elements this mine puts into the chain.
+ *
+ * Replaces a stub, and deliberately does not replace it with a consequence
+ * figure: sizing a shortfall needs a demand side, and the graph has none. What
+ * it can say is which components cannot be built without this element and which
+ * platform classes are asserted to need them — a statement about what is at
+ * stake, not about how much.
+ *
+ * Two things the wording has to keep carrying. These are functional dependency
+ * claims about *classes*: bills of material are classified, and nothing here
+ * says metal from this mine reached a particular airframe. And it is not a
+ * routed path — whether this mine's Dy ever reaches a separator is what the
+ * disruption graph above answers, not this.
+ */
+function AffectedSystems({
+  exposure,
+  state,
+}: {
+  readonly exposure?: MineExposure;
+  readonly state: "idle" | "loading" | "error";
+}) {
+  if (!exposure) {
+    return (
+      <p className="text-xs text-text-tertiary">
+        {state === "loading"
+          ? "Resolving end-use exposure…"
+          : state === "error"
+            ? "Could not reach the exposure API."
+            : "No mine behind this alert, so no end use can be derived."}
       </p>
-      <p className="mt-0.5 font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
-        {planned}
+    );
+  }
+
+  const { platforms } = exposure;
+  const shipped = exposure.source_materials.filter((m) => m.shipped);
+  const shown = platforms.slice(0, SYSTEMS_SHOWN);
+  const rest = platforms.slice(SYSTEMS_SHOWN);
+
+  return (
+    <div className="flex flex-col gap-1.5 border border-surface-2 px-3 py-2.5">
+      <p className="text-xs leading-relaxed text-foreground">
+        <span className="font-mono text-sm font-semibold text-accent tabular-nums">
+          {platforms.length}
+        </span>{" "}
+        weapons system{platforms.length === 1 ? "" : "s"} depend on{" "}
+        {exposure.elements.join(" and ")}
       </p>
+      {shipped.length > 0 && (
+        <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+          Carried in {shipped.map((m) => m.material_name ?? m.material_id).join(", ")}.
+        </p>
+      )}
+
+      {platforms.length === 0 ? (
+        <p className="text-[10.5px] leading-relaxed text-text-secondary">
+          No modelled component requires what this mine carries. The end-use
+          layer is incomplete, not empty.
+        </p>
+      ) : (
+        <>
+          <ul className="flex flex-col">
+            {shown.map((platform) => (
+              <SystemRow key={platform.platform_id} platform={platform} />
+            ))}
+          </ul>
+          {rest.length > 0 && (
+            <details className="ranking-detail flex flex-col">
+              <summary className="flex cursor-pointer items-center justify-between gap-2 border-t border-surface-2 pt-2 font-mono text-[9px] tracking-[0.15em] text-text-tertiary uppercase transition-colors hover:text-accent">
+                <span aria-hidden className="ranking-caret text-[15px] leading-none text-accent">
+                  ▼
+                </span>
+                <span className="when-closed">
+                  The other {rest.length}, less specific
+                </span>
+                <span className="when-open">Hide the other {rest.length}</span>
+                <span aria-hidden className="ranking-caret text-[15px] leading-none text-accent">
+                  ▼
+                </span>
+              </summary>
+              <ul className="flex flex-col">
+                {rest.map((platform) => (
+                  <SystemRow key={platform.platform_id} platform={platform} />
+                ))}
+              </ul>
+            </details>
+          )}
+        </>
+      )}
+
+      <p className="border-t border-surface-2 pt-1.5 text-[10px] leading-relaxed text-text-tertiary">
+        <span className="text-text-secondary">What this is.</span> Open-source
+        claims that a system <em>class</em> uses a component class — bills of
+        material are classified, so nothing here says metal from this mine
+        reached a particular airframe. Nor is it a routed path: whether this
+        mine&rsquo;s output reaches a separator is what the dependency graph
+        below answers.
+      </p>
+      {exposure.warnings.map((warning) => (
+        <p
+          key={warning}
+          className="text-[10px] leading-relaxed text-text-tertiary"
+        >
+          <span className="text-accent">Note.</span> {warning}
+        </p>
+      ))}
     </div>
   );
 }
@@ -256,6 +422,8 @@ function ChrisStub({ planned }: { readonly planned: string }) {
 export default function DecisionPanel({
   alert,
   liveGraph,
+  exposure,
+  exposureState = "idle",
   loadState = "idle",
   selectedNodeId,
   onSelectNode,
@@ -317,11 +485,11 @@ export default function DecisionPanel({
           </p>
         </div>
 
-        {/* Why it matters — quantitative stat row is Chris's */}
+        {/* Why it matters — systemic weight, then what depends on the element */}
         <div className="flex flex-col gap-1.5">
           <Kicker>Why it matters</Kicker>
           {graph?.capacity && <CapacityContext graph={graph} />}
-          <ChrisStub planned="Consequence · time to impact" />
+          <AffectedSystems exposure={exposure} state={exposureState} />
         </div>
 
         {/* What is at risk */}
