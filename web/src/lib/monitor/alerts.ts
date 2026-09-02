@@ -41,6 +41,50 @@ export interface Alert {
 
 export const ALERTS: readonly Alert[] = [
   {
+    id: "SA-047",
+    title: "Haul road washout halts Mt Weld concentrate to Kalgoorlie",
+    summary:
+      "Sustained flooding severed the haul route out of Mt Weld, suspending concentrate deliveries to the Kalgoorlie cracking and leaching plant and cutting the only feed reaching Lynas Malaysia's Dy/Tb separation circuit.",
+    domain: "Economic",
+    subdomain: "Critical Minerals",
+    severity: "critical",
+    confidence: "HIGH",
+    source: { kind: "Cable", name: "Consulate cable 26-0311" },
+    affectedSystems: [
+      "F-35 Lightning II",
+      "Virginia-class submarine",
+      "Radar systems",
+    ],
+  },
+  {
+    id: "SA-045",
+    title: "Mountain Pass mill fire cuts domestic heavy rare earth feed",
+    summary:
+      "A fire in the Mountain Pass concentrator has suspended mine output, leaving the co-located refinery and separation circuit without feed and removing the only domestic source of contained Dy/Tb.",
+    domain: "Economic",
+    subdomain: "Critical Minerals",
+    severity: "critical",
+    confidence: "MEDIUM",
+    source: { kind: "Report", name: "Field office incident report" },
+    affectedSystems: ["Tomahawk missile", "JDAM family", "Radar systems"],
+  },
+  {
+    id: "SA-043",
+    title: "Caldeira licence suspension halts ionic clay MREC exports",
+    summary:
+      "A state environmental court suspended operating licences at the Caldeira project, halting mixed rare earth carbonate shipments to separation plants in Estonia and Louisiana.",
+    domain: "Economic",
+    subdomain: "Critical Minerals",
+    severity: "critical",
+    confidence: "MEDIUM",
+    source: { kind: "Website", name: "State environmental agency notice" },
+    affectedSystems: [
+      "Submarine sonar systems",
+      "Military night-vision and display systems",
+      "Hypersonic missile systems",
+    ],
+  },
+  {
     id: "SA-041",
     title: "Gallium export licensing halt cuts refined supply",
     summary:

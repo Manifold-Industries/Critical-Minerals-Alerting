@@ -93,7 +93,19 @@
       "Tb",
       "Zr"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -36.941,
+        "longitude": 141.963
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Fine-grained heavy mineral sands (monazite / xenotime, zircon)",
     "resource_estimates": [],
@@ -112,7 +124,19 @@
       "Nd",
       "Pr"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -37.804,
+        "longitude": 147.332
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Mineral sands (monazite / xenotime)",
     "resource_estimates": [],
@@ -131,7 +155,19 @@
       "Nd",
       "Pr"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -13.5145,
+        "longitude": -48.4705
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Ionic clay",
     "resource_estimates": [
@@ -398,7 +434,19 @@
       "Sm",
       "Gd"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -13.6274,
+        "longitude": -46.9808
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-carina-pea-2024",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Ion-adsorption clay",
     "resource_estimates": [],
@@ -418,7 +466,19 @@
       "Pr",
       "U"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -13.349,
+        "longitude": -39.6202
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-bre-monte-alto-drilling-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": null,
     "resource_estimates": [],
@@ -554,7 +614,19 @@
       "Tb",
       "Y"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -21.986,
+        "longitude": -46.489
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Ion-adsorption clay (Pocos de Caldas Alkaline Complex)",
     "resource_estimates": [
@@ -632,7 +704,19 @@
       "Y",
       "Sc"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 0.5213,
+        "longitude": 33.5863
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-ionicre-makuutu-mre-2024",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Ion-adsorption clay",
     "resource_estimates": [
@@ -699,7 +783,19 @@
       "Dy",
       "Tb"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 35.48222,
+        "longitude": -115.53167
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mp-sk1300-trs-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Bastnaesite-bearing carbonatite",
     "resource_estimates": [],
@@ -767,7 +863,19 @@
       "Nd",
       "Pr"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -36.7434,
+        "longitude": -72.9484
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-penco-pea-2021",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Ion-adsorption clay",
     "resource_estimates": [
@@ -873,7 +981,19 @@
       "La",
       "Y"
     ],
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -21.8828,
+        "longitude": -46.5147
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "geometry_wkt": null,
     "deposit_type": "Ion-adsorption clay (Pocos de Caldas Alkaline Complex)",
     "resource_estimates": [
@@ -923,6 +1043,95 @@
     "location_description": "Pocos de Caldas, Minas Gerais, Brazil - a 228 km2 tenement package over the Pocos de Caldas Alkaline Complex, the same complex that hosts dep-caldeira roughly 30 km away. True ion-adsorption clay with a 0.3M ammonium sulfate (AMSUL) leach and low radionuclides (1.04% total impurity in the Northern Concessions composite, 0.7% in the Southern Complex, with negligible U and Th). ASSEMBLAGE, MREC PRODUCT BASIS (PFS Tables 6 and 7, ANSTO resource-to-MREC testwork) - Northern Concessions: La2O3 44.5%, Nd2O3 29.1%, Pr6O11 8.3%, Y2O3 6.9%, Sm2O3 3.2%, CeO2 2.4%, Gd2O3 2.1%, Dy2O3 1.2%, Tb4O7 0.3%; Southern Complex: La2O3 48.2%, Nd2O3 27.9%, Pr6O11 8.7%, Y2O3 6.7%, Sm2O3 3.1%, Gd2O3 1.9%, Dy2O3 1.1%, Tb4O7 0.2%, CeO2 0.6%. This is a LANTHANUM-DOMINATED, Ce-depleted basket: Dy+Tb is only 1.3-1.5% of product TREO, against 3.8% at Serra Verde and 4.44% at Makuutu. DEPOSIT TYPE MATTERS MORE THAN 'IONIC CLAY': the implied Dy:Tb is 4.0 (Northern) and 5.5 (Southern), and sister deposit Caldeira in the same alkaline complex discloses 4.64 - all below the 6.2-7.9 band the README attributes to ionic clay, which is drawn from GRANITE-derived clays (Serra Verde 5.8, Makuutu 6.3, Carina 5.8, Penco 7.4). Alkaline-complex-derived clays in Pocos de Caldas are a distinct population near 4.6. Both ratios here are quoted from percentages rounded to one decimal, so treat them as a band, not a point. IN-SITU IS NOT THE SAME AS PRODUCT and must not be substituted: per-element recoveries differ sharply (Dy2O3 65-67%, Tb4O7 69-71%, La2O3 75-78%, CeO2 3-9%), so Ce collapses and everything else enriches between resource and MREC, exactly as at Pela Ema.",
     "aliases": [
       "Colossus Rare Earth Project"
+    ]
+  },
+  {
+    "id": "dep-kangankunde",
+    "name": "Kangankunde",
+    "country_id": "MW",
+    "commodities": [
+      "Nd",
+      "Pr"
+    ],
+    "coordinates": {
+      "value": {
+        "latitude": -15.1241,
+        "longitude": 34.9106
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lindian-kangankunde-mre-2024",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
+    "geometry_wkt": null,
+    "deposit_type": "Carbonatite (monazite-hosted)",
+    "resource_estimates": [],
+    "location_description": "Balaka District, southern Malawi. Coordinate is the centroid of the drilled area (approximately 550 m by 650 m) from the collar table, not a licence or pit centroid.",
+    "aliases": [
+      "Kangankunde Hill"
+    ]
+  },
+  {
+    "id": "dep-songwe-hill",
+    "name": "Songwe Hill",
+    "country_id": "MW",
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Nd",
+      "Pr"
+    ],
+    "coordinates": {
+      "value": {
+        "latitude": -15.6889,
+        "longitude": 35.8158
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mkango-songwe-ni43101-2019",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
+    "geometry_wkt": null,
+    "deposit_type": "Carbonatite",
+    "resource_estimates": [],
+    "location_description": "Phalombe District, southern Malawi. Coordinate derived from the NI 43-101 block model origin plus half the stated model extent, taking the origin as the minimum corner; the report prints no deposit centroid or collar table.",
+    "aliases": []
+  },
+  {
+    "id": "dep-donald",
+    "name": "Donald",
+    "country_id": "AU",
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Nd",
+      "Pr"
+    ],
+    "coordinates": {
+      "value": {
+        "latitude": -36.478,
+        "longitude": 142.781
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
+    "geometry_wkt": null,
+    "deposit_type": "Mineral sands (monazite-bearing)",
+    "resource_estimates": [],
+    "location_description": "Wimmera region, western Victoria, Australia (Murray Basin). Coordinate is the centroid of Mining Licence MIN5532 (2,778 ha) digitised from a company tenement plan; that licence is Phase 1 only and holds roughly 17% of the total Donald Project Mineral Resource.",
+    "aliases": [
+      "Donald Mineral Sands"
     ]
   }
 ]
