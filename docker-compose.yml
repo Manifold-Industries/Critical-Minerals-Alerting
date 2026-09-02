@@ -7,11 +7,14 @@ services:
       - API_CORS_ORIGINS=["http://localhost:3000"]
 
   web:
-    build: ./web
+    build:
+      context: ./web
+      args:
+        # Baked into the browser bundle at image build time; the browser on
+        # the host reaches the api container via the published 8000 port.
+        NEXT_PUBLIC_API_URL: http://localhost:8000
     ports:
       - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8000
     depends_on:
       api:
         condition: service_healthy
