@@ -28,6 +28,8 @@ export interface AlertSource {
 export interface Alert {
   readonly id: string;
   readonly title: string;
+  /** One-sentence qualitative account of what happened. */
+  readonly summary: string;
   readonly domain: Domain;
   readonly subdomain: string;
   readonly severity: Severity;
@@ -41,6 +43,8 @@ export const ALERTS: readonly Alert[] = [
   {
     id: "SA-041",
     title: "Gallium export licensing halt cuts refined supply",
+    summary:
+      "Export licensing for refined gallium was halted at the primary refinery, constraining supply to downstream electronics producers.",
     domain: "Economic",
     subdomain: "Critical Minerals",
     severity: "critical",
@@ -55,6 +59,8 @@ export const ALERTS: readonly Alert[] = [
   {
     id: "SA-038",
     title: "Cobalt rail corridor closure strands mined output",
+    summary:
+      "A closure of the Lobito rail corridor has stranded mined cobalt output inland, delaying export shipments to refiners.",
     domain: "Economic",
     subdomain: "Critical Minerals",
     severity: "critical",
@@ -65,6 +71,8 @@ export const ALERTS: readonly Alert[] = [
   {
     id: "SA-036",
     title: "NdPr magnet alloy plant fire curtails output",
+    summary:
+      "A fire at the Baotou alloy plant curtailed NdPr magnet alloy output, leaving magnet producers facing feedstock shortfalls.",
     domain: "Economic",
     subdomain: "Critical Minerals",
     severity: "high",
@@ -79,6 +87,8 @@ export const ALERTS: readonly Alert[] = [
   {
     id: "SA-033",
     title: "Anode-grade graphite export quota tightened",
+    summary:
+      "Export quotas for anode-grade graphite were tightened, restricting feedstock available to battery anode producers.",
     domain: "Economic",
     subdomain: "Critical Minerals",
     severity: "high",
@@ -89,6 +99,8 @@ export const ALERTS: readonly Alert[] = [
   {
     id: "SA-029",
     title: "Lithium brine expansion delayed by permit dispute",
+    summary:
+      "A permitting dispute delayed the salar brine expansion, pushing back planned growth in lithium output.",
     domain: "Economic",
     subdomain: "Critical Minerals",
     severity: "elevated",
@@ -99,6 +111,8 @@ export const ALERTS: readonly Alert[] = [
   {
     id: "SA-027",
     title: "Class 1 nickel refinery maintenance overrun",
+    summary:
+      "Scheduled maintenance at the class 1 nickel refinery overran, tightening battery-grade nickel availability.",
     domain: "Economic",
     subdomain: "Critical Minerals",
     severity: "moderate",

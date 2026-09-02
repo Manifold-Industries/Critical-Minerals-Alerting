@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { ALERTS, sortBySeverity } from "@/lib/monitor/alerts";
 import AlertQueue from "./AlertQueue";
+import DecisionPanel from "./DecisionPanel";
 import GlobePanel from "./GlobePanel";
 
 // Client shell for the three-column console: owns which alert and which map
@@ -36,20 +37,11 @@ export default function MonitorConsole() {
         onSelectNode={setSelectedNodeId}
         onSelectAlert={selectAlert}
       />
-      {/* FOR CHRIS TO IMPLEMENT — planned sections: title block w/ tags,
-          "What happened", affected-systems rows (click → highlight globe
-          node), ranked alternatives. */}
-      <section className="blueprint flex min-h-0 flex-col items-center justify-center gap-2 p-4">
-        <h2 className="font-mono text-xs font-semibold tracking-[0.2em] text-text-secondary uppercase">
-          Decision panel
-        </h2>
-        <p className="font-mono text-[10px] tracking-[0.15em] text-accent uppercase">
-          For Chris to implement
-        </p>
-        <p className="max-w-[240px] text-center font-mono text-[10px] leading-relaxed tracking-[0.1em] text-text-tertiary uppercase">
-          Title block · what happened · affected systems · ranked alternatives
-        </p>
-      </section>
+      <DecisionPanel
+        alert={selectedAlert}
+        selectedNodeId={selectedNodeId}
+        onSelectNode={setSelectedNodeId}
+      />
     </div>
   );
 }
