@@ -17,7 +17,7 @@ import {
 import type { Alert } from "@/lib/monitor/alerts";
 import { graphForAlert, type AlertGraph } from "@/lib/monitor/graphs";
 import { IMPACT_COLOR, SAFE_COLOR } from "@/lib/monitor/colors";
-import GlobeScene, { type MapMode } from "./GlobeScene";
+import GlobeScene, { type MapMode, type NodeHover } from "./GlobeScene";
 
 interface GlobePanelProps {
   readonly alerts: readonly Alert[];
@@ -127,6 +127,7 @@ export default function GlobePanel({
   const [size, setSize] = useState<Size>({ w: 0, h: 0 });
   const [mode, setMode] = useState<MapMode>("impact");
   const [camera, setCamera] = useState<Camera>({ rotate: [0, -20], scale: 200 });
+  const [hover, setHover] = useState<NodeHover | null>(null);
 
   const cameraRef = useRef(camera);
   const sizeRef = useRef(size);
@@ -196,6 +197,7 @@ export default function GlobePanel({
   // Fly (or jump, on first layout) whenever the alert or mode changes.
   useEffect(() => {
     if (size.w === 0 || size.h === 0) return;
+    setHover(null);
     flyTo(fitCamera(mode, graph, { w: size.w, h: size.h }), initializedRef.current);
     initializedRef.current = true;
   }, [selectedAlert.id, mode, graph, size.w, size.h, flyTo]);
@@ -208,6 +210,7 @@ export default function GlobePanel({
   const zoomBy = useCallback(
     (factor: number) => {
       stopAnim();
+      setHover(null);
       setCamera((prev) => ({
         ...prev,
         scale: clampScale(prev.scale * factor, sizeRef.current),
@@ -244,7 +247,10 @@ export default function GlobePanel({
     if (!drag) return;
     const dx = event.clientX - drag.x;
     const dy = event.clientY - drag.y;
-    if (Math.abs(dx) + Math.abs(dy) > 3) dragMovedRef.current = true;
+    if (Math.abs(dx) + Math.abs(dy) > 3) {
+      dragMovedRef.current = true;
+      setHover(null);
+    }
     const degPerPx = 57.3 / cameraRef.current.scale;
     setCamera((prev) => ({
       ...prev,
@@ -305,8 +311,27 @@ export default function GlobePanel({
             selectedNodeId={selectedNodeId}
             onSelectNode={guardClick(onSelectNode)}
             onSelectAlert={guardClick(onSelectAlert)}
+            onHoverNode={setHover}
           />
         </svg>
+      )}
+
+      {/* Hover tooltip: node info from the graph, positioned above the node */}
+      {hover && (
+        <div
+          className="pointer-events-none absolute z-10 max-w-[260px] -translate-x-1/2 -translate-y-full border border-surface-2 bg-surface-1 px-2.5 py-1.5 shadow-lg shadow-black/50"
+          style={{ left: hover.x, top: hover.y - 12 }}
+        >
+          {hover.detail && (
+            <p className="font-mono text-[9px] tracking-[0.12em] text-accent uppercase">
+              {hover.detail}
+            </p>
+          )}
+          <p className="text-xs font-semibold text-foreground">{hover.name}</p>
+          {hover.sub && (
+            <p className="text-[10.5px] text-text-secondary">{hover.sub}</p>
+          )}
+        </div>
       )}
 
       {/* Top-left: mode switch + hint */}

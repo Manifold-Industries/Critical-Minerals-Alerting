@@ -18,6 +18,17 @@ import { IMPACT_COLOR, SAFE_COLOR } from "@/lib/monitor/colors";
 
 export type MapMode = "impact" | "alternatives" | "context";
 
+/** Tooltip payload for a hovered node, positioned in panel pixels. */
+export interface NodeHover {
+  readonly x: number;
+  readonly y: number;
+  readonly name: string;
+  readonly sub?: string;
+  readonly detail?: string;
+}
+
+type HoverHandler = (hover: NodeHover | null) => void;
+
 // Terminal palette, restated as literals because SVG attributes cannot
 // resolve CSS variables.
 const ACCENT = "#ffa028";
@@ -42,6 +53,7 @@ interface GlobeSceneProps {
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
   readonly onSelectAlert: (id: string) => void;
+  readonly onHoverNode: HoverHandler;
 }
 
 interface Projected {
@@ -117,6 +129,8 @@ function NodeDot({
   selected = false,
   ping = false,
   onClick,
+  hover,
+  onHover,
 }: {
   readonly at: Projected;
   readonly r: number;
@@ -126,6 +140,8 @@ function NodeDot({
   readonly selected?: boolean;
   readonly ping?: boolean;
   readonly onClick?: () => void;
+  readonly hover?: Omit<NodeHover, "x" | "y">;
+  readonly onHover?: HoverHandler;
 }) {
   if (!at.visible) return null;
   return (
@@ -138,6 +154,12 @@ function NodeDot({
             }
           : undefined
       }
+      onPointerEnter={
+        hover && onHover
+          ? () => onHover({ ...hover, x: at.x, y: at.y })
+          : undefined
+      }
+      onPointerLeave={onHover ? () => onHover(null) : undefined}
       className={onClick ? "cursor-pointer" : undefined}
     >
       {ping && (
@@ -180,12 +202,14 @@ function ImpactLayer({
   showLabels,
   selectedNodeId,
   onSelectNode,
+  onHoverNode,
 }: {
   readonly projection: GeoProjection;
   readonly graph: AlertGraph;
   readonly showLabels: boolean;
   readonly selectedNodeId: string | null;
   readonly onSelectNode?: (id: string) => void;
+  readonly onHoverNode?: HoverHandler;
 }) {
   const path = geoPath(projection);
   const lookup = nodesById(graph);
@@ -220,6 +244,12 @@ function ImpactLayer({
               fill={IMPACT_COLOR[node.impact]}
               selected={node.id === selectedNodeId}
               onClick={onSelectNode ? () => onSelectNode(node.id) : undefined}
+              hover={{
+                name: node.name,
+                sub: `${node.role} · ${node.place}`,
+                detail: `${node.impact} impact`,
+              }}
+              onHover={onHoverNode}
             />
             {showLabels && <NodeLabel at={at} text={node.name} />}
           </g>
@@ -232,6 +262,12 @@ function ImpactLayer({
         ping
         selected={graph.asset.id === selectedNodeId}
         onClick={onSelectNode ? () => onSelectNode(graph.asset.id) : undefined}
+        hover={{
+          name: graph.asset.name,
+          sub: `${graph.asset.role} · ${graph.asset.place}`,
+          detail: "Affected asset",
+        }}
+        onHover={onHoverNode}
       />
       {showLabels && (
         <NodeLabel at={assetAt} text={graph.asset.name} color="#e9e7e0" />
@@ -245,11 +281,13 @@ function AlternativesLayer({
   graph,
   selectedNodeId,
   onSelectNode,
+  onHoverNode,
 }: {
   readonly projection: GeoProjection;
   readonly graph: AlertGraph;
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
+  readonly onHoverNode: HoverHandler;
 }) {
   const path = geoPath(projection);
   const lookup = nodesById(graph);
@@ -267,6 +305,12 @@ function AlternativesLayer({
               fill={MUTED}
               selected={node.id === selectedNodeId}
               onClick={() => onSelectNode(node.id)}
+              hover={{
+                name: node.name,
+                sub: `${node.role} · ${node.place}`,
+                detail: "Dependent system",
+              }}
+              onHover={onHoverNode}
             />
             <NodeLabel at={at} text={node.name} size={10} />
           </g>
@@ -296,6 +340,14 @@ function AlternativesLayer({
               strokeWidth={1.5}
               selected={alt.id === selectedNodeId}
               onClick={() => onSelectNode(alt.id)}
+              hover={{
+                name: alt.name,
+                sub: alt.country,
+                detail: `Alternative source · rank ${alt.rank}${
+                  feeds ? ` · feeds ${feeds.name}` : ""
+                }`,
+              }}
+              onHover={onHoverNode}
             />
             <NodeLabel at={at} text={`${alt.rank} · ${alt.name}`} />
           </g>
@@ -307,6 +359,12 @@ function AlternativesLayer({
         fill={ACCENT}
         selected={graph.asset.id === selectedNodeId}
         onClick={() => onSelectNode(graph.asset.id)}
+        hover={{
+          name: graph.asset.name,
+          sub: `${graph.asset.role} · ${graph.asset.place}`,
+          detail: "Affected asset",
+        }}
+        onHover={onHoverNode}
       />
       <NodeLabel at={assetAt} text={graph.asset.name} color="#e9e7e0" />
     </g>
@@ -321,6 +379,7 @@ function ContextLayer({
   selectedNodeId,
   onSelectNode,
   onSelectAlert,
+  onHoverNode,
 }: {
   readonly projection: GeoProjection;
   readonly graph?: AlertGraph;
@@ -329,6 +388,7 @@ function ContextLayer({
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
   readonly onSelectAlert: (id: string) => void;
+  readonly onHoverNode: HoverHandler;
 }) {
   return (
     <g>
@@ -340,6 +400,7 @@ function ContextLayer({
             showLabels={false}
             selectedNodeId={selectedNodeId}
             onSelectNode={onSelectNode}
+            onHoverNode={onHoverNode}
           />
         </g>
       )}
@@ -358,6 +419,12 @@ function ContextLayer({
                 stroke={GROUND}
                 strokeWidth={1}
                 onClick={() => onSelectAlert(alert.id)}
+                hover={{
+                  name: other.asset.name,
+                  sub: `${other.asset.role} · ${other.asset.place}`,
+                  detail: `Queued alert · ${alert.title}`,
+                }}
+                onHover={onHoverNode}
               />
               <NodeLabel at={at} text={other.asset.name} size={10} />
             </g>
@@ -383,6 +450,7 @@ export default function GlobeScene({
   selectedNodeId,
   onSelectNode,
   onSelectAlert,
+  onHoverNode,
 }: GlobeSceneProps) {
   const path = geoPath(projection);
 
@@ -414,6 +482,7 @@ export default function GlobeScene({
           showLabels
           selectedNodeId={selectedNodeId}
           onSelectNode={onSelectNode}
+          onHoverNode={onHoverNode}
         />
       )}
       {mode === "alternatives" && graph && (
@@ -422,6 +491,7 @@ export default function GlobeScene({
           graph={graph}
           selectedNodeId={selectedNodeId}
           onSelectNode={onSelectNode}
+          onHoverNode={onHoverNode}
         />
       )}
       {mode === "context" && (
@@ -433,6 +503,7 @@ export default function GlobeScene({
           selectedNodeId={selectedNodeId}
           onSelectNode={onSelectNode}
           onSelectAlert={onSelectAlert}
+          onHoverNode={onHoverNode}
         />
       )}
     </>
