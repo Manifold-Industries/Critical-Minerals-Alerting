@@ -45,3 +45,67 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
+
+/* ── Blueprint frame ───────────────────────────────────────────────────────
+   Hairline panel with short amber corner ticks, drawn as eight background
+   gradients on an overlay pseudo-element so any element can carry the frame
+   without extra markup. */
+.blueprint {
+  position: relative;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-2);
+}
+
+.blueprint::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background-image: linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent)),
+    linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size:
+    7px 1.5px,
+    1.5px 7px,
+    7px 1.5px,
+    1.5px 7px,
+    7px 1.5px,
+    1.5px 7px,
+    7px 1.5px,
+    1.5px 7px;
+  background-position:
+    top left,
+    top left,
+    top right,
+    top right,
+    bottom left,
+    bottom left,
+    bottom right,
+    bottom right;
+}
+
+/* ── Live-feed indicator ─────────────────────────────────────────────────── */
+@keyframes ping-square {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 160 40 / 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgb(255 160 40 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 160 40 / 0);
+  }
+}
+
+.live-square {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  animation: ping-square 1.8s ease-out infinite;
+}
