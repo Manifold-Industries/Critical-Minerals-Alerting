@@ -154,6 +154,10 @@ export default function GlobePanel({
     rotate: readonly [number, number];
   } | null>(null);
   const dragMovedRef = useRef(false);
+  const pendingSelectRef = useRef<{
+    readonly handler: (id: string) => void;
+    readonly id: string;
+  } | null>(null);
   const initializedRef = useRef(false);
 
   // A live alert's graph comes from the API; the placeholder alerts still
@@ -275,11 +279,17 @@ export default function GlobePanel({
 
   const onPointerUp = () => {
     dragRef.current = null;
+    const pending = pendingSelectRef.current;
+    pendingSelectRef.current = null;
+    // A pointerdown on a node is only an intent to select. It becomes one on
+    // pointerup, and only if the pointer never travelled far enough to count as
+    // a drag — otherwise panning that happens to start on a node would select it.
+    if (pending && !dragMovedRef.current) pending.handler(pending.id);
   };
 
   const guardClick = useCallback(
     (handler: (id: string) => void) => (id: string) => {
-      if (!dragMovedRef.current) handler(id);
+      pendingSelectRef.current = { handler, id };
     },
     [],
   );
