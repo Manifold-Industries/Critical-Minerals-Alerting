@@ -40,6 +40,21 @@ export interface DependencyEdge {
   readonly transport?: boolean;
 }
 
+/** One factor's part of a candidate's score. */
+export interface ScoreFactorBreakdown {
+  readonly factor: string;
+  /** Display form of the underlying value: "PARTNER", "WITHIN_12M", "PARTIAL". */
+  readonly label: string;
+  /** Points of the score. Contributions sum to the score itself. */
+  readonly contribution: number;
+  /** Points this factor could have contributed. Zero where it was excluded. */
+  readonly maxContribution: number;
+  /** False where a fallback stood in for data the graph does not hold. Hiding
+   *  this presents a guess with the same authority as a disclosure. */
+  readonly known: boolean;
+  readonly detail: string | null;
+}
+
 export interface AlternativeSource {
   readonly id: string;
   readonly rank: number;
@@ -51,10 +66,28 @@ export interface AlternativeSource {
   readonly feedsNodeId: string;
   /** 0 curated, 1 inferred. The inferred layer calls itself "not evidence". */
   readonly evidenceClass?: number;
-  /** RankingKey field that put this row below the one above it. */
+  /** Composite score, 0-100, higher is better. Absent on the static seed
+   *  graphs, which predate scoring and carry an order without a number. */
+  readonly score?: number;
+  /** The factors behind `score`. Their contributions sum to it. */
+  readonly scoreFactors?: readonly ScoreFactorBreakdown[];
+  /** What put this row below the one above. A ScoreFactor where `decisiveBasis`
+   *  is SCORE, a RankingKey field where it is TIEBREAK. */
   readonly decisiveFactor?: string | null;
-  /** Only the id tiebreak separates this row from the one above. */
+  /** SCORE where the two rows scored differently, TIEBREAK where they did not. */
+  readonly decisiveBasis?: string | null;
+  /** Points the decisive factor was worth, on SCORE only. A 0.4 gap and a 30
+   *  gap are both "ranked lower" and must not read alike. */
+  readonly decisiveMargin?: number | null;
+  /** The score could not separate this row from the one above at all. */
   readonly tiedWithPrevious?: boolean;
+}
+
+/** The weights a live graph's scores were computed under. */
+export interface ScoringPolicy {
+  readonly version: string;
+  readonly weights: Readonly<Record<string, number>>;
+  readonly excludedFactors: readonly string[];
 }
 
 /** Systemic weight of the plants that lost feed. Live graphs only. */
@@ -70,6 +103,9 @@ export interface CapacityContext {
 
 export interface AlertGraph {
   readonly capacity?: CapacityContext;
+  /** Live graphs only. Weights are an input, so the panel cannot explain a
+   *  score without them. */
+  readonly scoring?: ScoringPolicy;
   readonly asset: GeoNode;
   readonly downstream: readonly DownstreamNode[];
   readonly edges: readonly DependencyEdge[];

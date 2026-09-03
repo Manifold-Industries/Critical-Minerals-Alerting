@@ -4,6 +4,8 @@ import {
   graphForAlert,
   nodesById,
   type AlertGraph,
+  type ScoreFactorBreakdown,
+  type ScoringPolicy,
 } from "@/lib/monitor/graphs";
 import { IMPACT_COLOR, SEVERITY_COLOR } from "@/lib/monitor/colors";
 
@@ -22,96 +24,200 @@ interface DecisionPanelProps {
   readonly onSelectNode: (id: string) => void;
 }
 
-// The criteria the disruption simulator sorts on, in the order it applies them.
-// Mirrors RankingKey in api/src/disruption.py: comparison is lexicographic, so
-// the first criterion on which two candidates differ decides the order outright
-// and the ones below it are never consulted. Both the info panel and the
-// per-row "↓ reason" labels read from this, so they cannot drift apart.
-const RANKING_CRITERIA: readonly {
-  readonly field: string;
+// The factors the disruption simulator scores on. Mirrors ScoreFactor and
+// DEFAULT_WEIGHTS in api/src/disruption.py: each is normalised to [0, 1] with 1
+// as best, weighted, and renormalised over the weights actually in play, so the
+// score is 0-100 whatever was excluded. Listed in default-weight order. Both the
+// info panel and the per-row labels read from this, so they cannot drift apart.
+const SCORE_FACTORS: readonly {
+  readonly factor: string;
   readonly name: string;
   readonly gloss: string;
-  /** Short phrase for the row that fell below its neighbour on this criterion. */
+  /** Short phrase for the row that gave away the most points here. */
   readonly demotion: string;
 }[] = [
   {
-    field: "evidence_class",
-    name: "Evidence class",
-    gloss:
-      "Curated edges outrank inferred ones. The inferred layer is five times the size of the curated one and states that it is not evidence.",
-    demotion: "inferred route, not evidence",
-  },
-  {
-    field: "time_bucket",
+    factor: "time_to_flow",
     name: "Time to flow",
     gloss:
-      "Readiness gap plus qualification lead, bucketed at 0 / 6 / 12 / 24 months. Bucketed rather than sorted directly, because the lead months are a modelling heuristic, not a disclosed lead time. No stated start year sorts last, as unknown rather than immediate.",
+      "Readiness gap plus qualification lead, bucketed at 0 / 6 / 12 / 24 months. Bucketed rather than scored on the raw months, because the lead months are a modelling heuristic, not a disclosed lead time. No stated start year scores below every known bucket, as unknown rather than immediate.",
     demotion: "slower to flow",
   },
   {
-    field: "alignment_rank",
-    name: "Country alignment",
-    gloss:
-      "Domestic, ally, partner, neutral, adversary. A preference, so it ranks below both feasibility criteria — above them it would float an exploration-stage project over a route that can flow now. An unassessed country sorts with neutral, not below it.",
-    demotion: "less aligned",
-  },
-  {
-    field: "coverage_rank",
+    factor: "coverage",
     name: "Coverage of the gap",
     gloss:
-      "Covers it, then unsized, then known to fall short. Unsized sits in the middle rather than last: a life-of-mine-only disclosure is missing a rate, not missing volume.",
-    demotion: "weaker coverage",
-  },
-  {
-    field: "shortfall",
-    name: "Size of the shortfall",
-    gloss: "Applied only among candidates already known to fall short.",
+      "Full marks for covering it, half for unsized, and a known partial scores under both in proportion to what it covers. Unsized sits in the middle rather than at zero: a life-of-mine-only disclosure is missing a rate, not missing volume.",
     demotion: "covers less of the gap",
   },
   {
-    field: "committed",
+    factor: "evidence",
+    name: "Evidence class",
+    gloss:
+      "Full marks for a curated edge, none for an inferred one. The inferred layer is five times the size of the curated one and states that it is not evidence — but this is weighted now, not absolute, so a strong inferred route can outrank a weak curated one.",
+    demotion: "inferred route, not evidence",
+  },
+  {
+    factor: "alignment",
+    name: "Country alignment",
+    gloss:
+      "Domestic, ally, partner, neutral, adversary. A preference rather than a feasibility fact, which is why it carries less weight than either. An unassessed country scores with neutral, not below it.",
+    demotion: "less aligned",
+  },
+  {
+    factor: "commitment",
     name: "Prior commitment",
     gloss:
-      "Uncommitted before already contracted elsewhere. Ordinal, not a volume: edges carry no allocated tonnage, so free capacity cannot be computed.",
+      "Uncommitted scores above already contracted elsewhere. All or nothing, not a volume: edges carry no allocated tonnage, so free capacity cannot be computed.",
     demotion: "already committed elsewhere",
   },
   {
-    field: "confidence",
+    factor: "confidence",
     name: "Assertion confidence",
     gloss: "Confidence recorded on the edge itself.",
     demotion: "lower confidence",
   },
-  {
-    field: "source_id",
-    name: "Asset id",
-    gloss:
-      "A deterministic tiebreak so orderings stay stable and testable. Rows separated only by this are tied, not ranked.",
-    demotion: "tied — ordered by id",
-  },
 ];
 
-const DECISIVE_LABEL: Record<string, string> = Object.fromEntries(
-  RANKING_CRITERIA.map((c) => [c.field, c.demotion]),
+const FACTOR_NAME: Record<string, string> = Object.fromEntries(
+  SCORE_FACTORS.map((f) => [f.factor, f.name]),
 );
 
-// Reference block replacing the ranking stub. Deliberately not "weights and
-// score bars": the key is lexicographic and five of its seven substantive
-// fields are ordinal, so there is no exchange rate between a qualification
-// tier, a month and a tonne. A composite score would have to invent one, and
-// would hide which criterion actually decided each pair.
-function RankingMethod() {
+const DECISIVE_LABEL: Record<string, string> = Object.fromEntries(
+  SCORE_FACTORS.map((f) => [f.factor, f.demotion]),
+);
+
+// RankingKey fields, used only where two rows scored exactly the same and the
+// lexicographic tiebreak had to separate them. Not a scoring vocabulary: these
+// name what broke a tie, never what won points.
+const TIEBREAK_LABEL: Record<string, string> = {
+  evidence_class: "evidence class",
+  time_bucket: "time to flow",
+  alignment_rank: "country alignment",
+  coverage_rank: "coverage",
+  shortfall: "size of the shortfall",
+  committed: "prior commitment",
+  confidence: "assertion confidence",
+  source_id: "id",
+};
+
+/** The chip under a row saying why it sits below the one above it. */
+function decisiveLabel(alt: {
+  readonly decisiveBasis?: string | null;
+  readonly decisiveFactor?: string | null;
+  readonly decisiveMargin?: number | null;
+}): string | null {
+  if (!alt.decisiveFactor) return null;
+  if (alt.decisiveBasis === "TIEBREAK") {
+    return alt.decisiveFactor === "source_id"
+      ? "tied — ordered by id"
+      : `tied on score — ordered by ${TIEBREAK_LABEL[alt.decisiveFactor] ?? alt.decisiveFactor}`;
+  }
+  const name = DECISIVE_LABEL[alt.decisiveFactor] ?? alt.decisiveFactor;
+  // The margin is the point of showing a score at all: 0.4 points behind and 30
+  // points behind are both "ranked lower" and must not read alike.
+  return alt.decisiveMargin != null
+    ? `↓ ${alt.decisiveMargin.toFixed(1)} pts · ${name}`
+    : `↓ ${name}`;
+}
+
+/** Per-factor breakdown for the selected row. Rendered outside the row button,
+ *  which cannot legally contain another interactive element. */
+function ScoreBreakdown({
+  factors,
+}: {
+  readonly factors: readonly ScoreFactorBreakdown[];
+}) {
+  // Track widths are proportional to what each factor could contribute, so a
+  // low-weight factor does not read as a failed high-weight one.
+  const widest = Math.max(...factors.map((f) => f.maxContribution), 1);
+  return (
+    <ul className="flex flex-col gap-1 border-t border-surface-2 bg-surface-1 px-2 py-2">
+      {factors.map((f) => {
+        const earned = f.maxContribution > 0 ? f.contribution / f.maxContribution : 0;
+        return (
+          <li
+            key={f.factor}
+            // The bar gets a fixed cell rather than sharing flex space with the
+            // label: the widest track would otherwise squeeze the label out
+            // entirely, and the "?" that marks a fallback with it.
+            className="grid grid-cols-[70px_52px_1fr_26px] items-center gap-2"
+            title={
+              f.detail ??
+              `${f.contribution.toFixed(1)} of ${f.maxContribution.toFixed(1)} available points`
+            }
+          >
+            <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+              {FACTOR_NAME[f.factor] ?? f.factor}
+            </span>
+            <span aria-hidden className="block">
+              {/* Track width is proportional to what the factor could contribute,
+                  so a low-weight factor does not read as a failed high-weight one. */}
+              <span
+                className="block h-[3px] bg-surface-2"
+                style={{ width: `${(f.maxContribution / widest) * 100}%` }}
+              >
+                {/* Grey rather than accent where the value is a fallback, so a
+                    guess never renders with the authority of a disclosure. */}
+                <span
+                  className={`block h-full ${f.known ? "bg-accent" : "bg-text-tertiary"}`}
+                  style={{ width: `${earned * 100}%` }}
+                />
+              </span>
+            </span>
+            <span
+              className={`truncate font-mono text-[9px] ${
+                f.known ? "text-text-tertiary" : "text-text-secondary"
+              }`}
+              title={f.known ? undefined : (f.detail ?? undefined)}
+            >
+              {f.maxContribution > 0 ? f.label : "excluded"}
+              {f.known ? "" : " ?"}
+            </span>
+            <span className="text-right font-mono text-[9px] text-text-secondary tabular-nums">
+              {f.contribution.toFixed(1)}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+// Reference block for the scoring method. The weights are the load-bearing
+// disclosure here: there is no exchange rate between a qualification tier, a
+// month and a tonne, so the API invents one and says so. Read from
+// `graph.scoring` rather than hardcoded, or this block can quietly describe a
+// policy the response was not computed under.
+function RankingMethod({ scoring }: { readonly scoring: ScoringPolicy }) {
+  const excluded = scoring.excludedFactors;
+  const total = Object.values(scoring.weights).reduce((sum, w) => sum + w, 0);
   return (
     <div className="flex flex-col gap-2 border border-surface-2 px-3 py-2.5">
       <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
         How this is ranked
       </p>
       <p className="text-[10.5px] leading-relaxed text-text-secondary">
-        Candidates are compared criterion by criterion in a fixed order. The
-        first one on which two differ settles the order between them, and the
-        rest are never consulted. There is no weighted score — no exchange rate
-        exists between a qualification tier, a month and a tonne, so any
-        weighting would be invented.
+        Each candidate scores out of 100. Six factors are normalised so that 1 is
+        always best, weighted, and renormalised over whatever is in play, so a
+        strong showing on one factor can outweigh a weak one on another. The
+        points below every row are the whole of the score, not a summary of it.
       </p>
+      <p className="text-[10.5px] leading-relaxed text-text-tertiary">
+        <span className="text-text-secondary">The weights are invented.</span> No
+        exchange rate exists between a qualification tier, a month and a tonne,
+        so they are a stated position rather than a derived result (
+        {scoring.version}). That is also why every factor is shown separately:
+        the ordering can be disagreed with, factor by factor.
+      </p>
+      {excluded.length > 0 && (
+        <p className="text-[10.5px] leading-relaxed text-caution">
+          {excluded.map((f) => FACTOR_NAME[f] ?? f).join(" and ")}{" "}
+          {excluded.length === 1 ? "is" : "are"} excluded from these scores. The
+          remaining weights were renormalised, so the numbers are still out of
+          100 but are not the same measurement as a default run.
+        </p>
+      )}
       {/* Native <details>: collapses without hydration and is keyboard
           accessible without a role or handler of our own. */}
       <details className="ranking-detail flex flex-col gap-2">
@@ -122,40 +228,53 @@ function RankingMethod() {
             ▼
           </span>
           <span className="when-closed">
-            The {RANKING_CRITERIA.length} criteria, in order
+            The {SCORE_FACTORS.length} factors, and their weights
           </span>
-          <span className="when-open">Hide the criteria</span>
+          <span className="when-open">Hide the factors</span>
           <span aria-hidden className="ranking-caret text-[15px] leading-none text-accent">
             ▼
           </span>
         </summary>
         <ol className="mt-2 flex flex-col gap-1.5">
-          {RANKING_CRITERIA.map((criterion, index) => (
-            <li
-              key={criterion.field}
-              className="grid grid-cols-[12px_1fr] gap-1.5 border-t border-surface-2 pt-1.5"
-            >
-              <span className="font-mono text-[9px] text-accent tabular-nums">
-                {index + 1}
-              </span>
-              <span className="flex flex-col gap-0.5">
-                <span className="font-mono text-[9px] tracking-[0.1em] text-foreground uppercase">
-                  {criterion.name}
+          {SCORE_FACTORS.map((factor) => {
+            const weight = scoring.weights[factor.factor];
+            const share = weight != null && total > 0 ? weight / total : null;
+            const dropped = excluded.includes(factor.factor);
+            return (
+              <li
+                key={factor.factor}
+                className="grid grid-cols-[30px_1fr] gap-1.5 border-t border-surface-2 pt-1.5"
+              >
+                {/* The weight, not a position: order no longer decides anything
+                    on its own, so numbering the list would misdescribe it. */}
+                <span
+                  className={`font-mono text-[9px] tabular-nums ${
+                    dropped ? "text-text-tertiary line-through" : "text-accent"
+                  }`}
+                >
+                  {share != null ? `${Math.round(share * 100)}pts` : "—"}
                 </span>
-                <span className="text-[10px] leading-relaxed text-text-tertiary">
-                  {criterion.gloss}
+                <span className="flex flex-col gap-0.5">
+                  <span className="font-mono text-[9px] tracking-[0.1em] text-foreground uppercase">
+                    {factor.name}
+                  </span>
+                  <span className="text-[10px] leading-relaxed text-text-tertiary">
+                    {factor.gloss}
+                  </span>
                 </span>
-              </span>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ol>
         <p className="mt-2 border-t border-surface-2 pt-1.5 text-[10px] leading-relaxed text-text-tertiary">
-          <span className="text-text-secondary">Two limits.</span> Commercial
-          foreclosure is invisible to the sort — a right of first refusal lives
-          in edge prose, so an encumbered source can still rank highly; read the
-          note on each row. And tonnages struck at different points in the chain
-          are not comparable without a recovery factor the graph does not carry,
-          so any coverage figure is an upper bound.
+          <span className="text-text-secondary">Three limits.</span> Commercial
+          foreclosure is invisible to the score — a right of first refusal lives
+          in edge prose, so an encumbered source can still score highly; read the
+          note on each row. Tonnages struck at different points in the chain are
+          not comparable without a recovery factor the graph does not carry, so
+          any coverage figure is an upper bound. And a factor marked{" "}
+          <span className="font-mono">?</span> scored on a fallback rather than a
+          disclosure: the points are real, the basis for them is not.
         </p>
       </details>
     </div>
@@ -582,13 +701,18 @@ export default function DecisionPanel({
               {graph.alternatives.map((alt) => {
                 const feeds = lookup?.get(alt.feedsNodeId);
                 const active = alt.id === selectedNodeId;
+                const decisive = decisiveLabel(alt);
                 return (
                   <li key={alt.id} className="border-t border-surface-2">
                     <button
                       type="button"
                       onClick={() => onSelectNode(alt.id)}
-                      title="Show on globe (Alternatives mode)"
-                      className={`grid w-full cursor-pointer grid-cols-[18px_1fr] items-baseline gap-2 px-1 py-2 text-left transition-colors ${
+                      title={
+                        alt.score != null
+                          ? `Score ${alt.score.toFixed(1)} of 100. Select to see the factors behind it.`
+                          : "Show on globe (Alternatives mode)"
+                      }
+                      className={`grid w-full cursor-pointer grid-cols-[18px_1fr_auto] items-baseline gap-2 px-1 py-2 text-left transition-colors ${
                         active ? "bg-accent-tint" : "hover:bg-ghost-hover"
                       }`}
                     >
@@ -603,8 +727,18 @@ export default function DecisionPanel({
                           {alt.country}
                           {feeds ? ` · feeds ${feeds.name}` : ""}
                         </span>
-                        {(alt.evidenceClass !== undefined ||
-                          alt.decisiveFactor) && (
+                        {alt.score != null && (
+                          <span
+                            aria-hidden
+                            className="mt-0.5 h-[2px] w-full bg-surface-2"
+                          >
+                            <span
+                              className="block h-full bg-accent"
+                              style={{ width: `${alt.score}%` }}
+                            />
+                          </span>
+                        )}
+                        {(alt.evidenceClass !== undefined || decisive) && (
                           <span className="mt-0.5 flex flex-wrap items-center gap-1.5">
                             {alt.evidenceClass !== undefined && (
                               <span
@@ -622,24 +756,35 @@ export default function DecisionPanel({
                                 {alt.evidenceClass === 0 ? "Curated" : "Inferred"}
                               </span>
                             )}
-                            {alt.tiedWithPrevious ? (
+                            {decisive && (
                               <span
                                 className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase"
-                                title="Equal to the row above on every substantive field; only the deterministic id tiebreak separates them"
+                                title={
+                                  alt.tiedWithPrevious
+                                    ? "The score could not separate this row from the one above; a deterministic tiebreak did, so the two are tied rather than ranked"
+                                    : "The factor that gave away the most points against the row above. A composite has no single reason for an order, so this is the largest one, not all of it."
+                                }
                               >
-                                tied — ordered by id
+                                {decisive}
                               </span>
-                            ) : (
-                              alt.decisiveFactor && (
-                                <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
-                                  ↓ {DECISIVE_LABEL[alt.decisiveFactor] ?? alt.decisiveFactor}
-                                </span>
-                              )
                             )}
                           </span>
                         )}
                       </span>
+                      {alt.score != null && (
+                        <span
+                          className="self-center font-mono text-[11px] font-semibold text-foreground tabular-nums"
+                          title="Score out of 100, higher is better"
+                        >
+                          {alt.score.toFixed(0)}
+                        </span>
+                      )}
                     </button>
+                    {/* Outside the button: a row cannot legally contain another
+                        interactive element, and this carries titled detail. */}
+                    {active && alt.scoreFactors && (
+                      <ScoreBreakdown factors={alt.scoreFactors} />
+                    )}
                   </li>
                 );
               })}
@@ -649,7 +794,9 @@ export default function DecisionPanel({
               {emptyReason ?? "No alternatives identified yet."}
             </p>
           )}
-          {graph && graph.alternatives.length > 0 && <RankingMethod />}
+          {graph && graph.alternatives.length > 0 && graph.scoring && (
+            <RankingMethod scoring={graph.scoring} />
+          )}
         </div>
       </div>
 

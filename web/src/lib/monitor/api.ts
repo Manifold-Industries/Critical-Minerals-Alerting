@@ -46,6 +46,35 @@ export interface ApiFeedQuantity {
   readonly caveats: readonly string[];
 }
 
+export interface ApiFactorScore {
+  readonly factor: string;
+  readonly raw: number | null;
+  readonly raw_label: string;
+  /** [0, 1], 1 is best, on every factor. */
+  readonly normalized: number;
+  readonly weight: number;
+  /** Points of the score. These sum to `ApiCandidateScore.value`. */
+  readonly contribution: number;
+  readonly max_contribution: number;
+  /** False where a fallback stood in for data the graph does not hold. */
+  readonly known: boolean;
+  readonly detail: string | null;
+  readonly excluded: boolean;
+}
+
+export interface ApiCandidateScore {
+  /** 0-100, higher is better. */
+  readonly value: number;
+  readonly factors: readonly ApiFactorScore[];
+  readonly policy_version: string;
+}
+
+export interface ApiScoringPolicy {
+  readonly version: string;
+  readonly weights: Readonly<Record<string, number>>;
+  readonly excluded_factors: readonly string[];
+}
+
 export interface ApiAlternativeFeed {
   readonly rank: number;
   readonly source_id: string;
@@ -69,7 +98,14 @@ export interface ApiAlternativeFeed {
   readonly note: string | null;
   readonly coverage: string;
   readonly covered_fraction: number | null;
+  /** The composite this row was ranked on, and the factors behind it. */
+  readonly score: ApiCandidateScore;
+  /** The factor that gave away the most points, or — where `decisive_basis` is
+   *  TIEBREAK — the RankingKey field that separated two equal scores. */
   readonly decisive_factor: string | null;
+  readonly decisive_basis: string | null;
+  /** Points the decisive factor was worth, on SCORE only. */
+  readonly decisive_margin: number | null;
   readonly tied_with_previous: boolean;
   readonly decisive_against: string | null;
 }
@@ -145,6 +181,8 @@ export interface DisruptionResponse {
   readonly lost_feed: ApiFeedQuantity | null;
   readonly impacted: readonly ApiFacilityImpact[];
   readonly capacity_context: ApiCapacityContext | null;
+  /** The weights every score in `impacted` was computed under. */
+  readonly scoring: ApiScoringPolicy;
   readonly warnings: readonly string[];
 }
 
@@ -281,7 +319,9 @@ export function toAlertGraph(res: DisruptionResponse): AlertGraph | undefined {
   }
 
   // Rank is sequential across the whole panel, but the engine's ordering within
-  // each plant is preserved — it is a lexicographic key, not a score to re-sort.
+  // each plant is preserved. Scores are on one scale across plants, so they
+  // could be re-sorted here — they are not, because the engine breaks exact ties
+  // on a key that is not serialised, and re-sorting would drop it.
   const alternatives: AlternativeSource[] = [];
   const usedSources = new Set<string>();
   for (const facility of res.impacted) {
@@ -304,7 +344,18 @@ export function toAlertGraph(res: DisruptionResponse): AlertGraph | undefined {
         lat: alt.coordinates.lat,
         feedsNodeId: facility.facility_id,
         evidenceClass: alt.evidence_class,
+        score: alt.score.value,
+        scoreFactors: alt.score.factors.map((f) => ({
+          factor: f.factor,
+          label: f.raw_label,
+          contribution: f.contribution,
+          maxContribution: f.max_contribution,
+          known: f.known,
+          detail: f.detail,
+        })),
         decisiveFactor: pairingHolds ? alt.decisive_factor : null,
+        decisiveBasis: pairingHolds ? alt.decisive_basis : null,
+        decisiveMargin: pairingHolds ? alt.decisive_margin : null,
         tiedWithPrevious: pairingHolds && alt.tied_with_previous,
       });
     }
@@ -312,6 +363,11 @@ export function toAlertGraph(res: DisruptionResponse): AlertGraph | undefined {
 
   return {
     capacity: res.capacity_context ?? undefined,
+    scoring: {
+      version: res.scoring.version,
+      weights: res.scoring.weights,
+      excludedFactors: res.scoring.excluded_factors,
+    },
     asset: {
       id: res.mine_id,
       name: res.mine_name ?? res.mine_id,
