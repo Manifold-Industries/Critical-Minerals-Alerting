@@ -153,26 +153,108 @@ def test_first_row_has_no_decisive_factor(client: TestClient) -> None:
     assert top["tied_with_previous"] is False
 
 
-def test_decisive_factor_names_a_real_ranking_key_field(client: TestClient) -> None:
-    """It must be a field of RankingKey, not free text, so a client can map it."""
-    from src.disruption import RankingKey
+def test_decisive_factor_names_a_real_field_for_its_basis(client: TestClient) -> None:
+    """Never free text, so a client can map it - but which vocabulary depends
+    on whether the score or the tiebreak decided."""
+    from src.disruption import RankingKey, ScoreFactor
 
-    valid = {f.name for f in RankingKey.__dataclass_fields__.values()}
+    key_fields = {f.name for f in RankingKey.__dataclass_fields__.values()}
+    factors = {f.value for f in ScoreFactor}
     body = client.get("/disruption/proj-caldeira", params={"as_of_year": 2029}).json()
     seen = set()
     for impact in body["impacted"]:
         for alt in impact["alternatives"][1:]:
-            assert alt["decisive_factor"] in valid
-            seen.add(alt["decisive_factor"])
-    assert seen, "no adjacent pair differed, so nothing was exercised"
+            basis = alt["decisive_basis"]
+            assert basis in {"SCORE", "TIEBREAK"}
+            assert alt["decisive_factor"] in (factors if basis == "SCORE" else key_fields)
+            seen.add(basis)
+    assert seen == {"SCORE", "TIEBREAK"}, f"only exercised {seen}"
 
 
-def test_source_id_as_decisive_factor_reads_as_a_tie(client: TestClient) -> None:
-    """Falling through to the id tiebreak means indistinguishable, not ranked."""
+def test_an_equal_score_reads_as_a_tie_not_a_ranking(client: TestClient) -> None:
+    """The score is the ordering instrument. Where it cannot separate two rows,
+    the tiebreak did, and presenting that as ranked invents a distinction."""
     body = client.get("/disruption/proj-caldeira", params={"as_of_year": 2029}).json()
+    for impact in body["impacted"]:
+        rows = impact["alternatives"]
+        for above, below in zip(rows, rows[1:]):
+            tied = above["score"]["value"] == below["score"]["value"]
+            assert below["tied_with_previous"] is tied
+            assert below["decisive_basis"] == ("TIEBREAK" if tied else "SCORE")
+            assert (below["decisive_margin"] is None) is tied
+
+
+def test_first_row_carries_a_score_but_no_comparison(client: TestClient) -> None:
+    body = client.get("/disruption/proj-donald", params={"as_of_year": 2027}).json()
+    top = body["impacted"][0]["alternatives"][0]
+    assert top["decisive_basis"] is None and top["decisive_margin"] is None
+    assert 0.0 <= top["score"]["value"] <= 100.0
+
+
+def test_score_breakdown_survives_serialisation(client: TestClient) -> None:
+    """A bar chart of the contributions must be the whole score, not most of it."""
+    body = client.get("/disruption/proj-monte-alto", params={"as_of_year": 2027}).json()
     rows = [a for i in body["impacted"] for a in i["alternatives"]]
+    assert rows
     for alt in rows:
-        assert alt["tied_with_previous"] is (alt["decisive_factor"] == "source_id")
+        score = alt["score"]
+        assert len(score["factors"]) == 6
+        assert sum(f["contribution"] for f in score["factors"]) == pytest.approx(
+            score["value"], abs=1e-6
+        )
+        assert all(f["raw_label"] for f in score["factors"])
+
+
+def test_rows_come_back_in_descending_score_order(client: TestClient) -> None:
+    body = client.get("/disruption/proj-browns-range", params={"as_of_year": 2028}).json()
+    for impact in body["impacted"]:
+        values = [a["score"]["value"] for a in impact["alternatives"]]
+        assert values == sorted(values, reverse=True)
+        assert [a["rank"] for a in impact["alternatives"]] == list(range(1, len(values) + 1))
+
+
+def test_the_policy_is_echoed_so_a_stored_response_is_readable(client: TestClient) -> None:
+    """Weights are an input now. Without them the numbers cannot be checked."""
+    body = client.get("/disruption/proj-donald", params={"as_of_year": 2027}).json()
+    scoring = body["scoring"]
+    assert scoring["excluded_factors"] == []
+    assert sum(scoring["weights"].values()) == pytest.approx(1.0)
+    assert body["impacted"][0]["alternatives"][0]["score"]["policy_version"] == scoring["version"]
+
+
+def test_excluding_a_factor_zeroes_it_and_renormalises_the_rest(client: TestClient) -> None:
+    body = client.get(
+        "/disruption/proj-monte-alto",
+        params={"as_of_year": 2027, "exclude_factor": ["alignment", "confidence"]},
+    ).json()
+    assert body["scoring"]["excluded_factors"] == ["alignment", "confidence"]
+    assert any("scores exclude" in w for w in body["warnings"])
+    for alt in (a for i in body["impacted"] for a in i["alternatives"]):
+        dropped = [f for f in alt["score"]["factors"] if f["excluded"]]
+        assert {f["factor"] for f in dropped} == {"alignment", "confidence"}
+        assert all(f["contribution"] == 0.0 for f in dropped)
+        # Still on the wire: excluded and never-computed are different statements.
+        assert len(alt["score"]["factors"]) == 6
+        assert sum(f["max_contribution"] for f in alt["score"]["factors"]) == pytest.approx(
+            100.0, abs=1e-4
+        )
+
+
+def test_excluding_every_factor_is_422(client: TestClient) -> None:
+    from src.disruption import ScoreFactor
+
+    response = client.get(
+        "/disruption/proj-donald",
+        params={"as_of_year": 2027, "exclude_factor": [f.value for f in ScoreFactor]},
+    )
+    assert response.status_code == 422
+
+
+def test_an_unknown_factor_is_rejected(client: TestClient) -> None:
+    response = client.get(
+        "/disruption/proj-donald", params={"as_of_year": 2027, "exclude_factor": ["reputation"]}
+    )
+    assert response.status_code == 422
 
 
 def test_coverage_is_labelled_and_fraction_only_on_partial(client: TestClient) -> None:

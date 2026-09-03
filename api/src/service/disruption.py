@@ -5,17 +5,23 @@ coordinates too, and neither is on the dataclasses. Resolving that here keeps
 ``simulate_disruption`` free of presentation concerns and keeps the router thin.
 
 Nothing is computed here that the engine does not already decide. ``rank`` is
-the index of an already-sorted tuple, not a re-sort: ``RankingKey`` is
-lexicographic over six ordinal fields, and re-deriving an order from the
-serialised row would silently drop that.
+the index of an already-sorted tuple, not a re-sort: the engine orders on
+``CandidateScore`` and breaks exact ties on ``RankingKey``, and re-deriving an
+order from the serialised row would silently drop the tiebreak.
 """
 
+from collections.abc import Collection, Mapping
+
 from src.disruption import (
+    COVERAGE_LABEL,
     AlternativeFeed,
+    CandidateScore,
     _facility_capacity,
     DisruptionImpact,
     FacilityImpact,
     FeedQuantity,
+    ScoreFactor,
+    ScoringPolicy,
     simulate_disruption,
 )
 from src.graph import SupplyGraph
@@ -114,13 +120,8 @@ def _feed(feed: FeedQuantity | None) -> schemas.FeedQuantity | None:
     )
 
 
-#: Coverage rank as the schema names it. ``_coverage`` in the engine returns 0
-#: where the candidate covers the gap, 1 where it cannot be sized at all, and 2
-#: where it is known to fall short.
-_COVERAGE_LABEL = {0: "COVERS", 1: "UNSIZED", 2: "PARTIAL"}
-
-#: RankingKey fields in their declared (lexicographic) order. Comparing two
-#: keys left to right, the first that differs is the one that decided the order.
+#: RankingKey fields in their declared (lexicographic) order, used only where
+#: two rows score exactly the same and the key had to separate them.
 _KEY_FIELDS = (
     "evidence_class",
     "time_bucket",
@@ -133,21 +134,69 @@ _KEY_FIELDS = (
 )
 
 
-def _decisive_factor(previous: AlternativeFeed | None, current: AlternativeFeed) -> str | None:
-    """Which key field put ``current`` below ``previous``.
+def _decisive(
+    previous: AlternativeFeed | None, current: AlternativeFeed
+) -> tuple[str | None, str | None, float | None]:
+    """What put ``current`` below ``previous``: the factor, the basis, the margin.
 
-    The key is lexicographic, so the first field where the two differ is the
-    whole reason for the order - there is no weighting to unpick. Falling
-    through to ``source_id`` means the pair is tied on everything substantive
-    and only the deterministic tiebreak separates them, which is a materially
-    different statement from being ranked lower.
+    A composite has no single reason for an order, so where the scores differ
+    this reports the factor that gave away the most points and what that gap was
+    worth. Ties within that go to the earlier-declared factor, so the answer is
+    stable across runs.
+
+    Where the scores are exactly equal, the ordering instrument could not
+    separate the two at all and the lexicographic key did. That is a materially
+    different statement from being outscored, which is what ``basis`` carries.
     """
     if previous is None:
-        return None
+        return None, None, None
+    if previous.score.value != current.score.value:
+        margin, factor = max(
+            (
+                (
+                    previous.score.factor(f).contribution
+                    - current.score.factor(f).contribution,
+                    f,
+                )
+                for f in ScoreFactor
+            ),
+            key=lambda gap: gap[0],
+        )
+        return factor.value, "SCORE", round(margin, 6)
     for field in _KEY_FIELDS:
         if getattr(previous.key, field) != getattr(current.key, field):
-            return field
-    return None
+            return field, "TIEBREAK", None
+    return None, None, None
+
+
+def _score(score: CandidateScore) -> schemas.CandidateScore:
+    return schemas.CandidateScore(
+        value=score.value,
+        policy_version=score.policy_version,
+        factors=[
+            schemas.FactorScore(
+                factor=f.factor.value,
+                raw=f.raw,
+                raw_label=f.raw_label,
+                normalized=f.normalized,
+                weight=f.weight,
+                contribution=f.contribution,
+                max_contribution=f.max_contribution,
+                known=f.known,
+                detail=f.detail,
+                excluded=f.excluded,
+            )
+            for f in score.factors
+        ],
+    )
+
+
+def _scoring(policy: ScoringPolicy) -> schemas.ScoringPolicy:
+    return schemas.ScoringPolicy(
+        version=policy.version,
+        weights={f.value: w for f, w in policy.weights},
+        excluded_factors=[f.value for f in policy.excluded],
+    )
 
 
 def _alternative(
@@ -156,7 +205,7 @@ def _alternative(
     rank: int,
     previous: AlternativeFeed | None = None,
 ) -> schemas.AlternativeFeed:
-    decisive = _decisive_factor(previous, alt)
+    decisive_factor, decisive_basis, decisive_margin = _decisive(previous, alt)
     return schemas.AlternativeFeed(
         rank=rank,
         source_id=alt.source_id,
@@ -177,13 +226,16 @@ def _alternative(
         basis_comparable=alt.basis_comparable,
         already_committed_to=list(alt.already_committed_to),
         note=alt.note,
-        coverage=_COVERAGE_LABEL[alt.key.coverage_rank],
+        coverage=COVERAGE_LABEL[alt.key.coverage_rank],
         # shortfall is 1 - coverage, and carries a value only on PARTIAL.
         covered_fraction=(
             1.0 - alt.key.shortfall if alt.key.coverage_rank == 2 else None
         ),
-        decisive_factor=decisive,
-        tied_with_previous=decisive == "source_id",
+        score=_score(alt.score),
+        decisive_factor=decisive_factor,
+        decisive_basis=decisive_basis,
+        decisive_margin=decisive_margin,
+        tied_with_previous=decisive_basis == "TIEBREAK",
         decisive_against=previous.source_id if previous is not None else None,
     )
 
@@ -315,6 +367,7 @@ def _response(graph: SupplyGraph, result: DisruptionImpact, limit: int | None) -
             for i in result.impacted
         ],
         capacity_context=_capacity_context(graph, result, modelled),
+        scoring=_scoring(result.scoring),
         warnings=warnings,
     )
 
@@ -328,11 +381,14 @@ def get_disruption(
     max_hops: int = 3,
     min_qualification: QualificationTier = QualificationTier.PLAUSIBLE,
     limit: int | None = None,
+    exclude_factors: Collection[ScoreFactor | str] = (),
+    weights: Mapping[ScoreFactor | str, float] | None = None,
 ) -> schemas.DisruptionResponse:
     """Simulate ``mine_id`` going down and shape the result for the API.
 
     Raises ``KeyError`` for an unknown mine and ``ValueError`` for a severity
-    outside [0, 1]; the router turns both into HTTP status codes.
+    outside [0, 1] or a scoring policy left with nothing to score on; the router
+    turns both into HTTP status codes.
     """
     result = simulate_disruption(
         graph,
@@ -341,6 +397,8 @@ def get_disruption(
         severity=severity,
         max_hops=max_hops,
         min_qualification=min_qualification,
+        exclude_factors=exclude_factors,
+        weights=weights,
     )
     return _response(graph, result, limit)
 
