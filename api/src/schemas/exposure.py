@@ -24,6 +24,8 @@ class Provenance(BaseModel):
     type: str
     source_id: str | None = None
     assertion_confidence: str | None = None
+    #: See ``schemas.disruption.Provenance`` - nothing here is human-verified.
+    unverified_model_extraction: bool = True
 
 
 class MaterialLink(BaseModel):

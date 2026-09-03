@@ -67,6 +67,7 @@ def _provenance(prov: Provenance) -> schemas.Provenance:
         assertion_confidence=(
             prov.assertion_confidence.value if prov.assertion_confidence else None
         ),
+        unverified_model_extraction=prov.unverified_model_extraction,
     )
 
 

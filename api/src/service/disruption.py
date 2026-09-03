@@ -108,6 +108,7 @@ def _feed(feed: FeedQuantity | None) -> schemas.FeedQuantity | None:
                 if feed.provenance.assertion_confidence
                 else None
             ),
+            unverified_model_extraction=feed.provenance.unverified_model_extraction,
         ),
         caveats=list(feed.caveats),
     )

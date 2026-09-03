@@ -25,8 +25,17 @@ export interface ApiCoordinates {
 
 export interface ApiProvenance {
   readonly type: string;
+  /** Resolve against `AssetDetail.sources`. Null on a judgment, an inference or
+   *  a model estimate — assertions that rest on no document. */
   readonly source_id: string | null;
+  /** Confidence in this conclusion. Not `SourceRef.source_confidence`, which
+   *  rates the document; a confident reading of a weak source is not a strong
+   *  claim, and showing one for the other says it is. */
   readonly assertion_confidence: string | null;
+  /** True where a model pulled the value out of the source and nobody has
+   *  checked it. Rendering a citation without this implies a verification that
+   *  has not happened. */
+  readonly unverified_model_extraction: boolean;
 }
 
 export interface ApiFeedQuantity {
@@ -337,6 +346,7 @@ export interface ApiFeedSpec {
   readonly material_name: string | null;
   readonly accepted_hosts: readonly string[];
   readonly note: string | null;
+  readonly provenance: ApiProvenance;
 }
 
 export interface ApiProductForm {
@@ -345,6 +355,7 @@ export interface ApiProductForm {
   readonly host_mineral: string;
   readonly grade_pct_treo: number | null;
   readonly note: string | null;
+  readonly provenance: ApiProvenance;
 }
 
 export interface ApiLinkedAsset {
@@ -356,6 +367,22 @@ export interface ApiLinkedAsset {
   readonly inferred: boolean;
   readonly qualification: string | null;
   readonly note: string | null;
+  readonly provenance: ApiProvenance;
+}
+
+/** A document something in the response rests on. */
+export interface ApiSourceRef {
+  readonly id: string;
+  readonly name: string;
+  readonly source_type: string;
+  readonly publisher: string | null;
+  readonly published_on: string | null;
+  /** Null on an unanchored source — render the name as text, never as a link. */
+  readonly url: string | null;
+  /** Page, table or section. What makes a 200-page report checkable. */
+  readonly locator: string | null;
+  /** Confidence in the document itself. See `ApiProvenance.assertion_confidence`. */
+  readonly source_confidence: string | null;
 }
 
 export interface ApiDepositSummary {
@@ -374,9 +401,12 @@ export interface AssetDetail {
   readonly country_name: string | null;
   readonly coordinates: ApiCoordinates | null;
   readonly operating_status: string;
+  readonly operating_status_provenance: ApiProvenance | null;
   readonly development_stage: string | null;
+  readonly development_stage_provenance: ApiProvenance | null;
   readonly facility_type: string | null;
   readonly expected_start: number | null;
+  readonly expected_start_provenance: ApiProvenance | null;
   readonly operator_id: string | null;
   readonly operator_name: string | null;
   readonly deposit: ApiDepositSummary | null;
@@ -389,6 +419,9 @@ export interface AssetDetail {
   readonly location_description: string | null;
   readonly description: string | null;
   readonly aliases: readonly string[];
+  /** Documents cited above, in order of first citation. That order is what ties
+   *  a row to its entry, so it must not be re-sorted. */
+  readonly sources: readonly ApiSourceRef[];
 }
 
 /** Reference detail for one mine or plant. Rejects with 404 for a fixture id. */
