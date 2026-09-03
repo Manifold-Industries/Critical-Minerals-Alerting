@@ -332,11 +332,11 @@ function AffectedSystems({
             ))}
           </ul>
           {rest.length > 0 && (
-            <details className="ranking-detail flex flex-col">
+            <details className="disclosure flex flex-col">
               <summary className="flex cursor-pointer items-center justify-between gap-2 border-t border-surface-2 pt-2 font-mono text-[9px] tracking-[0.15em] text-text-tertiary uppercase transition-colors hover:text-accent">
                 <span
                   aria-hidden
-                  className="ranking-caret text-[15px] leading-none text-accent"
+                  className="disclosure-caret text-[15px] leading-none text-accent"
                 >
                   ▼
                 </span>
@@ -346,7 +346,7 @@ function AffectedSystems({
                 <span className="when-open">Hide the other {rest.length}</span>
                 <span
                   aria-hidden
-                  className="ranking-caret text-[15px] leading-none text-accent"
+                  className="disclosure-caret text-[15px] leading-none text-accent"
                 >
                   ▼
                 </span>
@@ -614,7 +614,7 @@ export default function DecisionPanel({
                           {alt.score.toFixed(0)}
                           <span
                             aria-hidden
-                            className="ranking-caret text-[9px] leading-none text-accent"
+                            className="disclosure-caret text-[9px] leading-none text-accent"
                             style={{
                               transform: explained
                                 ? "rotate(180deg)"
