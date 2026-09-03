@@ -14,7 +14,9 @@ provenance. Merging them here would quietly discard the distinction that
 from dataclasses import dataclass, field
 
 from src.models import (
+    Coordinates,
     Country,
+    Deposit,
     Material,
     Organization,
     ProcessingFacility,
@@ -44,6 +46,9 @@ class SupplyGraph:
 
     projects: dict[str, Project]
     facilities: dict[str, ProcessingFacility]
+    #: Held for location only: a Project has no coordinates of its own and
+    #: reaches one through ``deposit_id``. See ``coordinates_of``.
+    deposits: dict[str, Deposit]
     organizations: dict[str, Organization]
     countries: dict[str, Country]
     materials: dict[str, Material]
@@ -74,6 +79,7 @@ class SupplyGraph:
         """
         projects = {p.id: p for p in data["projects"]}
         facilities = {f.id: f for f in data["facilities"]}
+        deposits = {d.id: d for d in data["deposits"]}
         organizations = {o.id: o for o in data["organizations"]}
         loaded = projects.keys() | facilities.keys() | organizations.keys()
 
@@ -89,6 +95,7 @@ class SupplyGraph:
         return cls(
             projects=projects,
             facilities=facilities,
+            deposits=deposits,
             organizations=organizations,
             countries={c.id: c for c in data["countries"]},
             materials={m.id: m for m in data["materials"]},
@@ -104,6 +111,28 @@ class SupplyGraph:
     def is_asset(self, node_id: str | None) -> bool:
         """Whether an id names a physical asset rather than an organization."""
         return node_id in self.projects or node_id in self.facilities
+
+    def coordinates_of(self, node_id: str) -> Coordinates | None:
+        """Point location for an asset, or ``None`` where none is recorded.
+
+        A facility carries its own coordinates. A project does not - ``Project``
+        has no such field, so location is reached through ``deposit_id``, and a
+        project with no deposit has no location at all. Callers that plot this
+        must handle the null rather than substituting a country centroid, which
+        would put two plants in one country on the same point.
+        """
+        facility = self.facilities.get(node_id)
+        if facility is not None:
+            return facility.coordinates.value if facility.coordinates else None
+        project = self.projects.get(node_id)
+        if project is None or project.deposit_id is None:
+            return None
+        deposit = self.deposits.get(project.deposit_id)
+        return deposit.coordinates.value if deposit and deposit.coordinates else None
+
+    def name_of(self, node_id: str) -> str | None:
+        node = self.projects.get(node_id) or self.facilities.get(node_id)
+        return node.name if node else None
 
     def country_of(self, node_id: str) -> str | None:
         node = self.projects.get(node_id) or self.facilities.get(node_id)

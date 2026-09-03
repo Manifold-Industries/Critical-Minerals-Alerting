@@ -8,7 +8,10 @@ WORKDIR /app
 COPY pyproject.toml ./
 RUN uv pip install --system --no-cache -r pyproject.toml
 
+# scripts/ ships too: src/dependencies.py builds the graph through
+# scripts.validate_data.build at startup, so it is a runtime import.
 COPY src ./src
+COPY scripts ./scripts
 
 RUN useradd --create-home appuser
 USER appuser
