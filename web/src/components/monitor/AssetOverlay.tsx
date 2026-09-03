@@ -9,6 +9,8 @@ import {
   type ApiProvenance,
   type ApiSourceRef,
 } from "@/lib/monitor/api";
+import { humanise } from "@/lib/monitor/provenance";
+import ProvenanceDot from "./ProvenanceDot";
 
 interface AssetOverlayProps {
   /** Asset to describe. Null closes the overlay. */
@@ -16,41 +18,47 @@ interface AssetOverlayProps {
   readonly onClose: () => void;
 }
 
-function humanise(value: string): string {
-  const s = value.replace(/_/g, " ").toLowerCase();
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
+/** source_id -> the document and its position in `sources`, which is the
+ *  citation number. */
+type SourceIndex = ReadonlyMap<
+  string,
+  { readonly n: number; readonly source: ApiSourceRef }
+>;
 
-/** source_id -> its position in `sources`, which is the citation number. */
-type CitationIndex = ReadonlyMap<string, { readonly n: number; readonly name: string }>;
-
-function citationIndex(sources: readonly ApiSourceRef[]): CitationIndex {
-  return new Map(sources.map((s, i) => [s.id, { n: i + 1, name: s.name }]));
+function sourceIndex(sources: readonly ApiSourceRef[]): SourceIndex {
+  return new Map(sources.map((source, i) => [source.id, { n: i + 1, source }]));
 }
 
 /**
- * Footnote marker pointing at the document a claim rests on.
+ * How far to trust a claim, and where to go and check it.
  *
- * Renders nothing where the provenance names no source. That is not a gap to
- * paper over: a judgment, an inference and a model estimate rest on no
- * document, and giving them a marker would invent one. The row's own
- * provenance type already says which it is.
+ * Two marks, because they answer two questions and often have different
+ * answers. The dot grades the assertion and always appears. The footnote points
+ * at a document and appears only where there is one: a judgment, an inference
+ * and a model estimate rest on no document, and giving them a number would
+ * invent one. The dot's popover says which of those a bare dot is.
  */
-function Cite({
+function Attribution({
   provenance,
   index,
+  subject,
 }: {
   readonly provenance: ApiProvenance | null;
-  readonly index: CitationIndex;
+  readonly index: SourceIndex;
+  readonly subject: string;
 }) {
   const entry = provenance?.source_id ? index.get(provenance.source_id) : undefined;
-  if (!entry) return null;
   return (
-    <span
-      title={entry.name}
-      className="ml-0.5 cursor-help font-mono text-[9px] text-accent"
-    >
-      [{entry.n}]
+    <span className="ml-1 inline-flex items-center gap-1 align-middle">
+      <ProvenanceDot
+        provenance={provenance}
+        source={entry?.source}
+        citation={entry?.n}
+        subject={subject}
+      />
+      {entry && (
+        <span className="font-mono text-[9px] text-accent">[{entry.n}]</span>
+      )}
     </span>
   );
 }
@@ -82,9 +90,12 @@ function FigureRow({
   index,
 }: {
   readonly figure: ApiMaterialFigure;
-  readonly index: CitationIndex;
+  readonly index: SourceIndex;
 }) {
   const replaced = figure.superseded_by != null;
+  const amount = `${figure.tonnes.toLocaleString()} t${
+    figure.period === "LIFE_OF_MINE" ? " LOM" : "/yr"
+  }`;
   return (
     <li className="flex flex-col gap-0.5 py-1">
       <span className="flex items-baseline justify-between gap-2">
@@ -98,17 +109,18 @@ function FigureRow({
             replaced ? "text-text-tertiary line-through" : "text-foreground"
           }`}
         >
-          {figure.tonnes.toLocaleString()} t
-          {figure.period === "LIFE_OF_MINE" ? " LOM" : "/yr"}
+          {amount}
         </span>
       </span>
       <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
         {figure.target_year ? `by ${figure.target_year}` : "no target year"}
         {replaced && ` · superseded by ${figure.superseded_by}`}
         {` · ${figure.provenance.type.toLowerCase()}`}
-        {figure.provenance.assertion_confidence &&
-          ` · conf ${figure.provenance.assertion_confidence.toLowerCase()}`}
-        <Cite provenance={figure.provenance} index={index} />
+        <Attribution
+          provenance={figure.provenance}
+          index={index}
+          subject={`${figure.material_name ?? figure.material_id} · ${amount}`}
+        />
       </span>
       {figure.note && (
         <span className="text-[9.5px] leading-relaxed text-text-tertiary">
@@ -198,8 +210,9 @@ function Sources({
       <p className="mt-1 text-[9.5px] leading-relaxed text-text-tertiary">
         <span className="text-accent">Unverified.</span> {unverified} of {cited}{" "}
         cited claims were read out of these documents by a model and checked by
-        nobody. Confidence above rates the reading; source confidence here rates
-        the document.
+        nobody. The dot on each row above grades it on the weaker of two
+        ratings: confidence in the reading, and the source confidence listed
+        here for the document it was read from.
       </p>
     </Section>
   );
@@ -235,7 +248,7 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
   if (current?.failed) return null;
   const asset = current?.asset;
 
-  const index = citationIndex(asset?.sources ?? []);
+  const index = sourceIndex(asset?.sources ?? []);
   // Same walk the API uses to collect sources, so the counts describe exactly
   // the claims the markers point at.
   const provenances = asset
@@ -266,7 +279,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
               {asset.kind === "MINE" ? "Mine" : humanise(asset.facility_type ?? "Facility")}
               {" · "}
               {humanise(asset.operating_status)}
-              <Cite provenance={asset.operating_status_provenance} index={index} />
+              <Attribution
+                provenance={asset.operating_status_provenance}
+                index={index}
+                subject={`Operating status · ${humanise(asset.operating_status)}`}
+              />
               {asset.country_name ? ` · ${asset.country_name}` : ""}
             </p>
           )}
@@ -295,7 +312,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                 <dt className="text-text-tertiary uppercase">Stage</dt>
                 <dd className="text-text-secondary">
                   {humanise(asset.development_stage)}
-                  <Cite provenance={asset.development_stage_provenance} index={index} />
+                  <Attribution
+                    provenance={asset.development_stage_provenance}
+                    index={index}
+                    subject={`Development stage · ${humanise(asset.development_stage)}`}
+                  />
                 </dd>
               </>
             )}
@@ -304,7 +325,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                 <dt className="text-text-tertiary uppercase">Start</dt>
                 <dd className="text-text-secondary">
                   {asset.expected_start}
-                  <Cite provenance={asset.expected_start_provenance} index={index} />
+                  <Attribution
+                    provenance={asset.expected_start_provenance}
+                    index={index}
+                    subject={`Expected start · ${asset.expected_start}`}
+                  />
                 </dd>
               </>
             )}
@@ -357,7 +382,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                         ? feed.accepted_hosts.map(humanise).join(", ")
                         : "any host / undisclosed"}
                     </span>
-                    <Cite provenance={feed.provenance} index={index} />
+                    <Attribution
+                      provenance={feed.provenance}
+                      index={index}
+                      subject={`Accepts ${feed.material_name ?? feed.material_id}`}
+                    />
                   </li>
                 ))}
               </ul>
@@ -375,7 +404,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                       {humanise(product.host_mineral)}
                       {product.grade_pct_treo != null && ` · ${product.grade_pct_treo}% TREO`}
                     </span>
-                    <Cite provenance={product.provenance} index={index} />
+                    <Attribution
+                      provenance={product.provenance}
+                      index={index}
+                      subject={`Ships ${product.material_name ?? product.material_id}`}
+                    />
                   </li>
                 ))}
               </ul>
@@ -393,7 +426,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                       {" · "}
                       {humanise(link.status)}
                     </span>
-                    <Cite provenance={link.provenance} index={index} />
+                    <Attribution
+                      provenance={link.provenance}
+                      index={index}
+                      subject={`Supplied by ${link.name ?? link.id} · ${humanise(link.status)}`}
+                    />
                   </li>
                 ))}
                 {asset.supplies_to.map((link) => (
@@ -404,7 +441,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                       {" · "}
                       {humanise(link.status)}
                     </span>
-                    <Cite provenance={link.provenance} index={index} />
+                    <Attribution
+                      provenance={link.provenance}
+                      index={index}
+                      subject={`Supplies ${link.name ?? link.id} · ${humanise(link.status)}`}
+                    />
                   </li>
                 ))}
               </ul>

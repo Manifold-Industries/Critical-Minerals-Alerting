@@ -19,6 +19,16 @@
   --positive: #35d97b;
   --caution: #ff5d52;
   --negative: #ff5d52;
+  /* Confidence ramp. Deliberately its own family: on the decision panel a red
+     severity square means "bad and important" while a red confidence dot means
+     "weakly supported", so the ramp is muted and the shapes differ (square for
+     severity, circle for confidence) to keep the two from reading alike. The
+     mid tone is ochre rather than --accent amber so a dot never reads as an
+     interactive control. */
+  --confidence-high: #35d97b;
+  --confidence-med: #c9a227;
+  --confidence-low: #ff5d52;
+  --confidence-none: #6f6e66;
 }
 
 @theme inline {
@@ -35,6 +45,10 @@
   --color-positive: var(--positive);
   --color-caution: var(--caution);
   --color-negative: var(--negative);
+  --color-confidence-high: var(--confidence-high);
+  --color-confidence-med: var(--confidence-med);
+  --color-confidence-low: var(--confidence-low);
+  --color-confidence-none: var(--confidence-none);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
