@@ -16,12 +16,95 @@
     },
     "location_description": "Eneabba, Western Australia (brownfields site at Iluka's existing Eneabba operation)",
     "coordinates": null,
-    "input_material_ids": ["mat-hre-concentrate", "mat-re-concentrate"],
-    "output_material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
     "capacities": [
       {
-        "value": { "material_id": "mat-separated-reo", "tonnes_per_year": 16000 },
-        "provenance": { "type": "REPORTED", "source_id": "src-iluka-ar25-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+        "value": {
+          "material_id": "mat-separated-reo",
+          "tonnes_per_year": 16000,
+          "target_year": 2027,
+          "note": "REO output on Eneabba stockpile feed (AR25 p.57); max 18 ktpa contained REO feed. Superseded by the 23,000 tpa max-capacity entry for the all-circuits blended-feed case."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-iluka-ar25-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-separated-reo",
+          "tonnes_per_year": 23000,
+          "target_year": 2027,
+          "note": "Max TREO capacity with all circuits running on blended feed. SUPERSEDES the 16,000 tpa stockpile-feed figure - do not sum."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "tonnes_per_year": 5500,
+          "target_year": 2027,
+          "note": "NdPr oxide capacity at the 23,000 tpa max-TREO configuration."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes_per_year": 750,
+          "target_year": 2027,
+          "note": "Dy/Tb OXIDE CAPACITY, stated by Iluka on two separate slides of the 5 May 2025 Investor Briefing. Combined Dy+Tb; no per-element split is disclosed. This is the capacity at the 23,000 tpa max-TREO blended-feed configuration, NOT on stockpile-only feed - realising it requires heavy-rich third-party concentrate, principally Browns Range xenotime (assemblage 9.4% Dy, 1.4% Tb of TREO). At 750 tpa this is the single largest ex-China Dy/Tb capacity in this graph, ahead of Caremag's 600 tpa."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes_per_year": 642,
+          "target_year": 2027,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 750 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. This is the capacity at the 23,000 tpa max-TREO blended-feed configuration, not on stockpile-only feed. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes_per_year": 108,
+          "target_year": 2027,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 750 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. This is the capacity at the 23,000 tpa max-TREO blended-feed configuration, not on stockpile-only feed. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
       }
     ],
     "expected_start": {
@@ -33,34 +116,199 @@
         "last_verified": "2026-08-30"
       }
     },
-    "description": "Australia's first fully integrated rare-earths refinery (Eneabba Phase 3): roasting, leaching, purification, solvent extraction and product finishing, producing separated Nd, Pr, Dy and Tb oxides - 'one of the few rare earths refineries operating outside of China' on commissioning. Capacity (AR25 p.57): 16.0 ktpa REO output on Eneabba stockpile feed (max 18 ktpa contained REO feed); 23 ktpa total REO capacity with all circuits on blended feed; FID (2022) modelled 17.5 ktpa. Owned and operated via Iluka wholly-owned SPE Iluka Eneabba Pty Ltd ('RefineryCo'). FID 3 Apr 2022 at A$1,000-1,200M and 2025 start; AR25: capital estimate now A$1.7-1.8B with >A$1B spent or committed (A$1,134M to date, A$443M in 2025), engineering >95% complete, civil works substantially complete, all major equipment ordered (roaster kiln due H1 2026), SMPEI contracts to be awarded H1 2026; commissioning 2027. Feedstock: Eneabba stockpile initially; Wimmera as potential future feed; third-party concentrates under contract from Northern Minerals (Browns Range) and Lindian (Kangankunde, 10% of capacity for 15 years). Offtake: binding customer agreements still being negotiated (A$400M EFA tranche conditional on offtake). Metallisation feasibility study to conclude in 2026; magnet-waste recycling at the refinery assessed as technically viable (2025 desktop study).",
-    "aliases": ["Eneabba", "Eneabba Phase 3", "RefineryCo", "ERER"]
+    "description": "Australia's first fully integrated rare-earths refinery (Eneabba Phase 3): roasting, leaching, purification, solvent extraction and product finishing, producing separated Nd, Pr, Dy and Tb oxides - 'one of the few rare earths refineries operating outside of China' on commissioning. Capacity (AR25 p.57): 16.0 ktpa REO output on Eneabba stockpile feed (max 18 ktpa contained REO feed); 23 ktpa total REO capacity with all circuits on blended feed; FID (2022) modelled 17.5 ktpa. Owned and operated via Iluka wholly-owned SPE Iluka Eneabba Pty Ltd ('RefineryCo'). FID 3 Apr 2022 at A$1,000-1,200M and 2025 start; AR25: capital estimate now A$1.7-1.8B with >A$1B spent or committed (A$1,134M to date, A$443M in 2025), engineering >95% complete, civil works substantially complete, all major equipment ordered (roaster kiln due H1 2026), SMPEI contracts to be awarded H1 2026; commissioning 2027. Feedstock: Eneabba stockpile initially; Wimmera as potential future feed; third-party concentrates under contract from Northern Minerals (Browns Range) and Lindian (Kangankunde, 10% of capacity for 15 years). Offtake: binding customer agreements still being negotiated (A$400M EFA tranche conditional on offtake). Metallisation feasibility study to conclude in 2026; magnet-waste recycling at the refinery assessed as technically viable (2025 desktop study). CAPACITY SPLIT (added from the 5 May 2025 Investor Briefing, which the AR25 does not carry): Max TREO 23,000 tpa, NdPr oxide 5,500 tpa, Dy/Tb oxide 750 tpa. Under the Scenario C financing case (Eneabba stockpile + Balranald only) steady-state output is 15.1 ktpa TREO and 3.3 ktpa NdPr, so the 750 tpa Dy/Tb figure belongs to the fully-blended max case and not to owned feed alone.",
+    "aliases": ["Eneabba", "Eneabba Phase 3", "RefineryCo", "ERER"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "accepted_hosts": ["XENOTIME", "MONAZITE", "MIXED_PHOSPHATE"],
+          "note": "Iluka, 5 May 2025: 'capable of processing a broad range of feedstocks including mineral sands concentrates, hard rock concentrates and ionic clay carbonates'. Front end is built for conventional mineral concentrate."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-monazite-concentrate",
+          "accepted_hosts": ["MONAZITE"],
+          "note": "Binding 6,000 dmt/yr Kangankunde monazite supply agreement."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-lindian-supply-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "accepted_hosts": ["XENOTIME"],
+          "note": "Browns Range xenotime concentrate is the contracted heavy feed."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "The 'ionic clay carbonates' limb of the same sentence. No specific carbonate source is contracted."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hreo",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
   },
   {
     "id": "fac-usar-wheat-ridge",
-    "name": "USA Rare Earth Wheat Ridge Separation Facility",
-    "facility_type": "SEPARATION",
+    "name": "USA Rare Earth Wheat Ridge Hydrometallurgical Demonstration Facility",
+    "facility_type": "OTHER",
     "country_id": "US",
     "operator_id": "org-usa-rare-earth",
     "operating_status": {
       "value": "OPERATING",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-usar-disclosures",
-        "assertion_confidence": "MEDIUM",
-        "last_verified": null
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10q-q2-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
       }
     },
-    "location_description": "Wheat Ridge, Colorado",
+    "location_description": "Wheat Ridge, Colorado - leased office and warehouse space, lease commenced 1 Jan 2026 and expires 31 Mar 2028, total minimum lease payments US$224 thousand",
     "coordinates": null,
-    "input_material_ids": ["mat-mrec"],
-    "output_material_ids": ["mat-dy-oxide", "mat-ndpr-oxide"],
     "capacities": [],
     "expected_start": null,
-    "description": "Separation capability that has demonstrated production of commercial-grade Dy and NdPr oxide from recycled feed. Future Serra Verde concentrates are described as part of the planned oxide-production feedstock base; commercial scale not established from public disclosures.",
-    "aliases": ["Wheat Ridge"]
+    "description": "RECLASSIFIED. This is NOT a commercial separation plant. USAR's FY2025 10-K states it twice: 'The Colorado Facility is not a commercial production facility, but rather develops and refines the technologies that, with success, would be applied at the Round Top Project', and in risk factors 'a development and demonstration facility, not a commercial production facility, and the technologies developed there may prove insufficient or prohibitively costly to scale.' Scale is given only as equipment count - '500+ planned mixer/settlers... one of the largest and most sophisticated solvent extraction demo facilities in the nation' - and the site is leased warehouse space with US$224k of total minimum lease payments to Mar 2028. Operations commenced 15 June 2026 to validate flowsheets for Round Top, third-party feedstock and magnet swarf recycling. On 14 July 2026 it produced commercial-grade dysprosium oxide and NdPr oxide SAMPLES from recycled Stillwater swarf - samples, at demonstration scale, with no tonnage and no revenue. The earlier claim held here of 'demonstrated production of commercial-grade Dy and NdPr oxide' was directionally right but overstated the node: it is a flowsheet validation, not capacity. CAPACITY NOT DISCLOSED and none should be inferred. The commercial nodes USAR describes are separate and unbuilt: 'the planned on-site Round Top processing facility and the Company's anticipated third-party MREC processing and magnet swarf recycling facility'.",
+    "aliases": ["Wheat Ridge", "Colorado Facility"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "accepted_hosts": [],
+          "note": "Demonstration facility, not a separation plant: operations 'validate processing flowsheets for feedstocks from the Round Top Project, third-party sources, and rare earth magnet scrap'. Host deliberately unconstrained - validating Round Top's leach-derived stream is the stated purpose."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10q-q2-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "Third-party feedstock limb of the same sentence."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-defm14a-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-sintered-ndfeb-magnet",
+          "accepted_hosts": ["RECYCLED_MAGNET"],
+          "note": "Magnet swarf recycling limb."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": []
   },
   {
+    "_commented_out": "metallization and alloying: downstream of refining",
     "id": "fac-less-common-metals",
     "name": "Less Common Metals",
     "facility_type": "METALLIZATION_AND_ALLOYING",
@@ -70,21 +318,113 @@
       "value": "OPERATING",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-usar-disclosures",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10k-fy2025",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-09-01"
       }
     },
     "location_description": "United Kingdom",
     "coordinates": null,
-    "input_material_ids": ["mat-ndpr-oxide", "mat-dy-oxide", "mat-tb-oxide"],
-    "output_material_ids": ["mat-re-metals", "mat-ndfeb-alloy"],
-    "capacities": [],
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-ndfeb-alloy",
+          "tonnes_per_year": 2500,
+          "target_year": null,
+          "note": "Current metal and alloy capacity at Cheshire, UK. USAR separately reports a Lacq, France metal/alloy facility at 3,750 MTPA, not modelled here."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
     "expected_start": null,
     "description": "Rare-earth metal and alloy producer through which USA Rare Earth operates its metallization capability.",
-    "aliases": ["LCM"]
+    "aliases": ["LCM"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-re-metals",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndfeb-alloy",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
   },
   {
+    "_commented_out": "magnet manufacturing: downstream of refining",
     "id": "fac-usar-stillwater",
     "name": "USA Rare Earth Stillwater Magnet Facility",
     "facility_type": "MAGNET_MANUFACTURING",
@@ -94,26 +434,1804 @@
       "value": "OPERATING",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-usar-disclosures",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10k-fy2025",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-09-01"
       }
     },
     "location_description": "Stillwater, Oklahoma",
     "coordinates": null,
-    "input_material_ids": ["mat-ndfeb-alloy"],
-    "output_material_ids": ["mat-sintered-ndfeb-magnet"],
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-sintered-ndfeb-magnet",
+          "tonnes_per_year": 600,
+          "target_year": 2026,
+          "note": "Phase 1a at full production capacity, commissioned Q1 2026; a further approximately 600 MTPA is expected from Phase 1b. Q2 2026 target was to reach 600 MTPA RUN-RATE by Q4 2026. As at the Q2 2026 10-Q, Stillwater 'has commenced commercial production; however, we have not begun generating revenue from... neo magnets'."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2026,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10k-fy2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "First commercial sintered NdFeB magnet line, commissioned Q1 2026 with Phase 1a capacity of approximately 600 MTPA and a further ~600 MTPA planned under Phase 1b; the Q2 2026 target was to reach 600 MTPA run-rate by Q4 2026. Commercial production has commenced but no magnet revenue had been recognised as at the Q2 2026 10-Q. Its swarf is the feedstock USAR recycled at Wheat Ridge to produce the July 2026 Dy oxide samples, making Stillwater both a Dy/Tb consumer and, via swarf, a secondary Dy source. Aerospace and defence are among the stated target markets. Separately announced but not modelled: a Blacksburg, South Carolina plant (announced 2 Jun 2026, 6,400 tpa NdFeB plus 5,000 tpa strip-cast, commissioning 2028) toward a ~10,000 tpa US target.",
+    "aliases": ["Stillwater"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-ndfeb-alloy",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-sintered-ndfeb-magnet",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-lynas-kalgoorlie",
+    "name": "Kalgoorlie Rare Earths Processing Facility",
+    "facility_type": "BENEFICIATION",
+    "country_id": "AU",
+    "operator_id": "org-lynas",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lynas-q4-fy26-quarterly",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Kalgoorlie, Western Australia",
+    "coordinates": null,
+    "capacities": [],
+    "expected_start": null,
+    "description": "Cracking and leaching of Mt Weld concentrate into mixed rare earth carbonate for onward separation at Lynas Malaysia. A continuous precipitation process was completed and commissioned in the June 2026 quarter, enabling design precipitation capacity and MREC quality improvements. Identified in the Q4 FY26 CEO review as a bottleneck being addressed following the A$1.5 billion Lynas 2025 growth investment; cracking-and-leaching productivity was reduced during the quarter by Mt Weld concentrate quality variation. No capacity figure is recorded: the quarterly states none.",
+    "aliases": ["Kalgoorlie", "Kalgoorlie REPF"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "accepted_hosts": ["MIXED_PHOSPHATE", "MONAZITE"],
+          "note": "Cracking and leaching of Mt Weld flotation concentrate only; no third-party feed is disclosed."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-q4-fy26-quarterly",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-q4-fy26-quarterly",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-lynas-malaysia",
+    "name": "Lynas Malaysia Advanced Materials Plant",
+    "facility_type": "SEPARATION",
+    "country_id": "MY",
+    "operator_id": "org-lynas",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lynas-malaysia-licence-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Gebeng industrial estate, Kuantan, Pahang, Malaysia",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes_per_year": 250,
+          "target_year": 2027,
+          "note": "Target NAMEPLATE annual PROCESSING capacity of the expanded HRE facility, expressly not a production target under ASX Chapter 5 and not a forecast; production at nameplate is subject to sourcing feedstock beyond Mt Weld. Against FY26 actual output of 62 t Dy+Tb combined, this is roughly a 5x step."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes_per_year": 50,
+          "target_year": 2027,
+          "note": "Target nameplate processing capacity - see the Dy entry for the ASX Chapter 5 caveat and the feedstock condition."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-sm-oxide",
+          "tonnes_per_year": 1100,
+          "target_year": 2027,
+          "note": "Target nameplate processing capacity. First Sm oxide was produced March 2026, so this element is proven at the plant."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-gd-oxide",
+          "tonnes_per_year": 400,
+          "target_year": 2028,
+          "note": "Target nameplate processing capacity; first Gd expected early FY28 per the Q4 FY26 quarterly."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2027,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lynas-hre-expansion-2025",
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "The single most important node in the ex-China Dy/Tb chain: Lynas describes itself in the Q4 FY26 quarterly as 'the only commercial producer of light and heavy rare earth oxides outside of China'. Separates Kalgoorlie MREC into NdPr and, since the June 2025 quarter (Q4 FY25), Dy and Tb oxides - the first large-scale commercial Dy/Tb separation outside China. Quarterly Dy+Tb output remains small and volatile: 9 t (Q1 FY26), 26 t (Q2), 8 t (Q3), 19 t (Q4 FY26); the Q4 rise reflects both work-in-progress carried over from March and genuine recovery improvements. First samarium oxide produced March 2026 with customer qualification underway. The expanded HRE facility is staged product-by-product: gadolinium expected early FY28, yttrium early CY2028, then lutetium. RISK: the estimated cost of the expanded HRE facility rose from approximately A$180 million to approximately A$294 million including contingency, attributed to customer-specific purity and physical requirements, the higher cost of sourcing equipment outside China, and geopolitical cost escalation. No nameplate Dy/Tb capacity is disclosed. CAPACITY (added from the 29 Oct 2025 expansion announcement): the expanded HRE facility has processing capacity for up to 5,000 tpa of HRE FEEDSTOCK, with target nameplate annual processing capacity of Dy 250 t, Tb 50 t, Sm 1,100 t, Gd 400 t, Y 1,100 t and Lu 10 t (Y and Lu not recorded as capacities - no material node exists). Cost approximately A$180 million, self-funded from the September 2025 equity raising; the Q4 FY26 quarterly later revised this to approximately A$294 million. TREAT THESE NUMBERS WITH CARE: Lynas expressly states they are nameplate processing capacities on the planned equipment configuration, NOT production targets under ASX Chapter 5 and not forecasts, and that production at nameplate is subject to sourcing feedstock beyond Mt Weld - candidate sources named are Malaysian ionic clay deposits that do not yet exist as producing assets. Against FY26 actual output of 62 t Dy+Tb, the 300 t Dy+Tb nameplate is a roughly 5x step that depends on feedstock Lynas does not currently control. expected_start 2027 is INFERRED at LOW confidence from 'initial suite of separated HREs forecast to be available within 2 years' of Oct 2025, against a timeline expressly subject to regulatory approvals. FEED ENVELOPE: A HARD NULL, POSITIVELY VERIFIED. Lynas has NEVER published a class-level feed envelope for Kuantan. A sweep of the FY2023-FY2026 annual reports, FY25 and FY26 results presentations, the 2025 AGM presentation, Diggers & Dealers 2024/2025, all 2024-2026 quarterlies and the FY26 half-year found no mention of monazite, xenotime, mineral sands or bastnaesite as acceptable Kuantan feed, no mention of MREO, magnet swarf or any recycled feed, no tolling language, and no commercial terms for third-party feed. The strongest statements are class-less: 'Both Lynas Malaysia and the planned U.S. Rare Earths Processing Facility have been designed to accept third party feedstocks as they come online' (Jun 2024), and - now a STATED DEPENDENCY rather than an ambition - 'The HRE expansion project is required to process various kinds of HRE feedstock in addition to Mt Weld feedstock in order to produce target volumes of the suite of separated HRE products' (FY2026 Annual Report p.15). That independently confirms the arithmetic here: Mt Weld alone cannot fill the 300 tpa Dy+Tb nameplate. TWO PHYSICAL FRONT DOORS: the plant 'processes Mt Weld concentrate and mixed rare earth carbonate (MREC)' through cracking and leaching, solvent extraction and product finishing, with MREC receival facilities delivered as a Lynas 2025 capex item - so it can take either mineral concentrate or MREC. ONLY NAMED THIRD-PARTY COUNTERPARTY: a non-binding May 2025 MoU with Menteri Besar Inc of Kelantan for Malaysian ionic-clay MREC, which never reached definitive agreement and has since vanished from disclosure. REGULATORY FEED CONSTRAINT - THE MOST IMPORTANT NON-TECHNICAL FACT ABOUT THIS NODE: Malaysia's AELB has previously barred an entire feed class (lanthanide concentrate import and processing prohibited after 1 Jul 2023) and then re-permitted it ORIGIN-SPECIFICALLY (Oct 2023 variation, Mt Weld only, valid to 2 Mar 2026). The current licence, 3 Mar 2026 to 2 Mar 2036, carries NO feedstock-origin restriction - a loosening - but replaces it with a residue constraint: no WLP residue above 1 Bq/g after 2 March 2031, with an alternative cracking process to commence on an agreed plan by March 2028. Since WLP arises from acid cracking of thorium-bearing mineral concentrate, that is functionally a constraint on monazite-class concentrate feed unless the new process works, while MREC and ionic-clay carbonate enter downstream and carry little NORM - which is exactly where Lynas has been pointing. Treat that last step as inference.",
+    "aliases": ["LAMP", "Lynas Advanced Materials Plant", "Kuantan"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-q4-fy26-quarterly",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "accepted_hosts": ["MIXED_PHOSPHATE", "MONAZITE"],
+          "note": "Radionuclide content is the binding constraint here after 2031, not mineralogy."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-malaysia-licence-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-sm-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-hre-expansion-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-lynas-seadrift",
+    "name": "Lynas US Rare Earths Processing Facility (Seadrift) - will no longer proceed",
+    "facility_type": "SEPARATION",
+    "country_id": "US",
+    "operator_id": "org-lynas",
+    "operating_status": {
+      "value": "CLOSED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lynas-ar26-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Seadrift, Calhoun County, Texas (149-acre greenfield site acquired from Union Carbide, 2023)",
+    "coordinates": null,
+    "capacities": [],
+    "expected_start": null,
+    "description": "CANCELLED. Lynas FY2026 Annual Report (26 Aug 2026), 'Lynas USA', p.16: funding for a new US supply agreement 'has been reallocated from funds previously intended for the construction of a HRE facility in Texas which will no longer proceed.' The pivot was announced five months earlier (ASX, 16 Mar 2026), which names the site explicitly: a binding Letter of Intent with the US Department of War to supply approximately US$96 million of light and heavy rare earth oxides over four years at a US$110/kg NdPr floor price, following 'the mutual decision to modify the original agreement... based on significant uncertainty as to whether the construction of the Heavy Rare Earth processing facility at Seadrift, Texas would proceed.' WORDING CAVEAT: Lynas never says 'cancelled', 'terminated' or 'abandoned' - the operative language is 'will no longer proceed', disclosed inside annual report narrative with no standalone announcement. NO IMPAIRMENT was attributable: FY26 impairment was A$1.7m on unrelated specific assets with no US attribution, and 'Seadrift' appears zero times in the FY26 annual report while 'Texas' appears once. Consistent with an expenditure-reimbursement contract under which little Lynas capital was at risk - FY26 government grants received were A$6.925m, netted against assets under construction. CORRECTION TO A FIGURE PREVIOUSLY HELD HERE: the DoD contribution was approximately US$258m ALLOCATED (FY2025 Annual Report p.15), not the ~US$288m 'received' reported in trade press. CAPACITY WAS NEVER DISCLOSED: no tpa figure for Seadrift appears in any Lynas document across FY2023-FY2026 annual reports, all FY26 quarterlies, the HY FY26 accounts or the 2022 and 2023 DoD award announcements. The secondary '2,500-3,000 tpa HREO' claim appears to be a conflation of two MALAYSIAN numbers - the 5,000 tpa HRE feedstock expansion at Lynas Malaysia and the 3,000 tpa JS Link magnet plant at Kuantan. Retained as a node for historical continuity and because the DoW funds were redirected rather than withdrawn; contributes zero capacity.",
+    "aliases": ["Seadrift", "Lynas USA", "Lynas USA LLC"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "Recorded for completeness only: FY2026 Annual Report p.16 says the facility 'will no longer proceed'."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-ar26-2026",
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": []
+  },
+  {
+    "id": "fac-mountain-pass-refinery",
+    "name": "Mountain Pass Refinery and Separation Complex",
+    "facility_type": "REFINERY",
+    "country_id": "US",
+    "operator_id": "org-mp-materials",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mp-materials-dod-partnership-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Mountain Pass, San Bernardino County, California",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes_per_year": 200,
+          "target_year": 2026,
+          "note": "Nameplate capacity of the Dy/Tb circuit, COMBINED Dy+Tb - MP does not split it per element and does not state the product basis (oxide vs contained metal). STALE AND SINGLE-SOURCE: disclosed only in the Q3 2025 earnings release (6 Nov 2025) and never restated in the FY2025 10-K or any 2026 10-Q, while the commissioning date in the same paragraph has since slipped from mid-2026 to H2 2026. Re-check at the Q3 2026 earnings release (expected early Nov 2026)."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-q3-2025-results",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-seg-plus",
+          "tonnes_per_year": 3000,
+          "target_year": 2026,
+          "note": "Design FEEDSTOCK THROUGHPUT of the heavy rare earth facility, not product output. DO NOT CONFLATE with the separate '3,000 metric tons of magnets annually' figure MP uses for the Independence Facility at Fort Worth under its Department of War covenant - they are different assets."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-q3-2025-results",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes_per_year": 120,
+          "target_year": 2026,
+          "note": "DERIVED, NOT DISCLOSED: 3,000 t/yr of SEG+ feedstock at the ~4% dysprosium and terbium content stated in MP's SK-1300 Technical Report Summary implies roughly 120 t of contained Dy+Tb from MP's own stockpiled concentrate. This sits BELOW the 200 t circuit nameplate, quantifying MP's stated reliance on richer third-party feedstock. Recorded as MODEL_ESTIMATE - it is arithmetic on two separate MP disclosures, not a figure MP publishes. Superseded by the 200 t nameplate entry for capacity queries; use this one to reason about self-sufficiency."
+        },
+        "provenance": {
+          "type": "MODEL_ESTIMATE",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-sk1300-trs-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes_per_year": 171,
+          "target_year": 2026,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 200 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Split applied to the 200 t nameplate only; the 120 t SEG+-feed entry is itself a MODEL_ESTIMATE and is deliberately left unsplit rather than compounding two estimates. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes_per_year": 29,
+          "target_year": 2026,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 200 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Split applied to the 200 t nameplate only; the 120 t SEG+-feed entry is itself a MODEL_ESTIMATE and is deliberately left unsplit rather than compounding two estimates. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2026,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mp-10q-q2-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "MP Materials' co-located separation complex at Mountain Pass, historically NdPr-focused. A heavy rare earth separation facility prioritising dysprosium and terbium is being added under a US$150 million DoD loan announced 10 July 2025, alongside a US$400 million DoD convertible preferred investment (DoD to become largest shareholder at approximately 15%), a 10-year US$110/kg NdPr price floor, and DoD offtake of 100% of the separate 10X magnet facility's output. CAPACITY: the Dy/Tb circuit has a stated nameplate of 200 MT/yr combined Dy+Tb, on approximately 3,000 MT/yr of feedstock throughput. FEED: MP has been producing and stockpiling its own SEG+ heavy rare earth concentrate at Mountain Pass since late 2023, and will also process third-party feedstocks; MP's SK-1300 technical report puts SEG+ at around 4% dysprosium and terbium, which on 3,000 MT/yr implies roughly 120 MT of contained Dy+Tb - BELOW the 200 MT nameplate, consistent with a plan to blend in richer third-party feed. TIMING HAS SLIPPED: commissioning was 'mid-2026' (Nov 2025), then 'expected in 2026' (FY2025 10-K), and is now 'in the second half of 2026' (Q2 2026 10-Q, 7 Aug 2026). PRODUCTION TO DATE IS ZERO: the Q2 2026 10-Q still speaks in the future tense, and MP publishes no Dy, Tb or HREE production KPI in any filing - only REO and NdPr volume (FY2025: 50,692 MT REO in concentrate, 2,599 MT NdPr oxide). MP separately signed a long-term offtake for separated gadolinium with an aerospace and defence customer (Q2 2026), with no volume or term disclosed. FEED ENVELOPE: the Q3 2025 'third-party feedstocks from emerging sources' line is the HIGH-WATER MARK for mineral feed and is never restated or elaborated in the FY2025 10-K or any 2026 filing - no material class is ever named for it. The ONLY third-party feed class MP does name for heavy separation is RECYCLED MAGNET MATERIAL: the FY2025 10-K describes midstream operations processing 'third-party feedstock, including recycled materials' and 'a commercial-scale, dedicated recycling line ... sourced from post-industrial and end-of-life magnets', and the Apple agreement covers 'scaled recycling capabilities at Mountain Pass' with, per the Q2 2026 10-Q, 'dedicated capacity for both NdPr and heavy rare earth separation'. NO named inbound feed supplier or feed agreement exists; the DoW commitment is assistance in procuring HREE feedstock, not supply. The Q2 2026 gadolinium offtake was OUTBOUND only. A market note by Adamas inside MP's own SK-1300 technical report explains the trade class MP is likely buying - 'Typical light rare earth separation facilities have too little Dy and Tb in their feedstock to economically justify ... heavy rare earth separation lines thus they precipitate these elements into a mixed SEG+ chemical concentrate for sale to plants with HREE separation capacity' - but that is third-party market analysis, not an MP statement about its own plant, and should not be tiered on. FEED ENVELOPE FOUND, BUT ONLY ON AN EARNINGS CALL. MP's COO named exactly two acceptable third-party classes in Q3 2025 Q&A: SEG+, and 'a full mixed rare earth carbonate with lights and heavies' - 'Our circuit can handle, because we have all of the capabilities, either one of those.' That is a genuine material-class envelope and it tiers MREC and SEG+ producers into this node. IT IS ALSO THE WEAKEST-SOURCED ENVELOPE IN THE GRAPH: MP publishes no transcripts, so the quote comes from a machine-generated third-party transcript and needs checking against MP's webcast replay. Nothing more specific has been said since - the Q2 2026 call reverted to 'feedstocks of different type and purity'. Positive nulls across MP's entire EDGAR corpus: monazite concentrate, ionic clay, MREO and MREC all return zero hits, and no named inbound feed counterparty or agreement exists anywhere. Watch a wording regression: 'the ability to process alternative feedstocks' appeared in the Q3 2025 10-Q and was DROPPED from the FY2025 10-K and both 2026 10-Qs.",
+    "aliases": ["Mountain Pass separation", "MP heavy circuit"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "accepted_hosts": ["BASTNAESITE"],
+          "note": "Own-mine bastnaesite. Roast/leach front end, not a phosphate cracking circuit."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-sk1300-trs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-seg-plus",
+          "accepted_hosts": [],
+          "note": "One of exactly two third-party classes the COO named. Mineral host not narrowed by MP, so left unconstrained."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-q3-2025-earnings-call",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "The other named class: a full MREC carrying lights and heavies."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-q3-2025-earnings-call",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-sintered-ndfeb-magnet",
+          "accepted_hosts": ["RECYCLED_MAGNET"],
+          "note": "Magnet recycling feed."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-10k-fy2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-materials-dod-partnership-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-materials-dod-partnership-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-materials-dod-partnership-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-white-mesa",
+    "name": "White Mesa Mill",
+    "facility_type": "REFINERY",
+    "country_id": "US",
+    "operator_id": "org-energy-fuels",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-energy-fuels-hre-construction-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Blanding, San Juan County, Utah",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "tonnes_per_year": 1000,
+          "target_year": null,
+          "note": "Current commercial capacity of the mill as at July 2026, already built."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes_per_year": 120,
+          "target_year": 2027,
+          "note": "Phase 1 heavy rare earth expansion, maximum DESIGN quantity dependent on feed distribution and recoveries (release fn.2); Dy/Tb circuits targeted for completion end-2027 with commissioning Q4 2027."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes_per_year": 20,
+          "target_year": 2027,
+          "note": "Phase 1 heavy rare earth expansion, maximum DESIGN quantity dependent on feed distribution and recoveries (release fn.2); Dy/Tb circuits targeted for completion end-2027 with commissioning Q4 2027."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-sm-oxide",
+          "tonnes_per_year": 140,
+          "target_year": 2027,
+          "note": "Phase 1 heavy rare earth expansion, maximum DESIGN quantity dependent on feed distribution and recoveries (release fn.2); Dy/Tb circuits targeted for completion end-2027 with commissioning Q4 2027. Sm/Eu/Gd circuits are targeted for end-2028, not 2027."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-eu-oxide",
+          "tonnes_per_year": 20,
+          "target_year": 2027,
+          "note": "Phase 1 heavy rare earth expansion, maximum DESIGN quantity dependent on feed distribution and recoveries (release fn.2); Dy/Tb circuits targeted for completion end-2027 with commissioning Q4 2027. Sm/Eu/Gd circuits are targeted for end-2028, not 2027."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-gd-oxide",
+          "tonnes_per_year": 140,
+          "target_year": 2027,
+          "note": "Phase 1 heavy rare earth expansion, maximum DESIGN quantity dependent on feed distribution and recoveries (release fn.2); Dy/Tb circuits targeted for completion end-2027 with commissioning Q4 2027. Sm/Eu/Gd circuits are targeted for end-2028, not 2027."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes_per_year": 288,
+          "target_year": 2029,
+          "note": "OVERALL capacity after the planned 2029 second expansion - this SUPERSEDES rather than adds to the 2027 Phase 1 figure for the same material. Feed assumed from all phases of Donald plus Vara Mada (Madagascar) and Bahia (Brazil) plus third-party monazite and MRECs."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes_per_year": 80,
+          "target_year": 2029,
+          "note": "OVERALL capacity after the planned 2029 second expansion - this SUPERSEDES rather than adds to the 2027 Phase 1 figure for the same material. Feed assumed from all phases of Donald plus Vara Mada (Madagascar) and Bahia (Brazil) plus third-party monazite and MRECs."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "tonnes_per_year": 6294,
+          "target_year": 2029,
+          "note": "OVERALL capacity after the planned 2029 second expansion - this SUPERSEDES rather than adds to the 2027 Phase 1 figure for the same material. Feed assumed from all phases of Donald plus Vara Mada (Madagascar) and Bahia (Brazil) plus third-party monazite and MRECs."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2027,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-energy-fuels-hre-construction-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "The only fully licensed and operating conventional uranium mill in the US, and now the largest planned US Dy/Tb capacity. Current commercial capacity is up to 1,000 tpa separated NdPr oxide. Construction began July 2026 on a commercial-scale heavy rare earth expansion (capex approximately US$104 million, debt covered by a conditional US government loan commitment) adding up to approximately 120 tpa Dy and 20 tpa Tb oxide, plus 140 tpa Sm, 20 tpa Eu and 140 tpa Gd. The recorded capacities are the expansion's MAXIMUM DESIGN quantities, explicitly dependent on feed distribution and recoveries (release fn.2), and the Sm/Eu/Gd figures are not yet built. Dy and Tb circuits are targeted for completion by end 2027 with commissioning in Q4 2027; Sm/Eu/Gd circuits by end 2028, both 'depending on market needs'. A new MREC circuit will let the mill take heavy-rich third-party feedstocks and produce rare earth oxides and uranium simultaneously. A 2029 second expansion would raise capacity to 6,294 tpa NdPr, 80 tpa Tb and 288 tpa Dy, fed by all phases of Donald plus Vara Mada (Madagascar) and Bahia (Brazil). Downstream, output is intended to feed Energy Fuels' pending acquisitions - Australian Strategic Materials (metal/alloy, South Korea) and Vacuumschmelze (magnets, Sumter South Carolina, 2,000 t) - for an integrated 15,700 tpa REPM target.",
+    "aliases": ["White Mesa", "the Mill"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-monazite-concentrate",
+          "accepted_hosts": ["MONAZITE"],
+          "note": "Monazite cracking circuit; the heavy expansion is sized and timed around Donald monazite."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-sm-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-eu-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-gd-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-caremag-lacq",
+    "name": "Caremag Rare Earth Recycling and Refining Facility",
+    "facility_type": "REFINERY",
+    "country_id": "FR",
+    "operator_id": "org-caremag",
+    "operating_status": {
+      "value": "UNDER_CONSTRUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-carester-caremag-launch-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Lacq, Pyrenees-Atlantiques, south-west France",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes_per_year": 600,
+          "target_year": 2026,
+          "note": "Combined Dy AND Tb oxide at full ramp-up. THE PER-ELEMENT SPLIT IS NOW ATTESTED: USA Rare Earth's 23 Jul 2026 release states Caremag at full ramp will produce '800 tonnes per annum (tpa) of neodymium-praseodymium (NdPr) oxide, 500 tpa of dysprosium (Dy) oxide and 100 tpa of terbium (Tb) oxide', approximately 15% of current world Dy/Tb oxide production. Carester's own release gives only the combined 600 t, which is why this entry stays on mat-hreo; the 500/100 split now has a primary source and is no longer trade-press inference. Conditional on sourcing 5,000 t/yr of mined concentrate and 2,000 t/yr of end-of-life magnets."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-carester-caremag-launch-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "tonnes_per_year": 800,
+          "target_year": 2026,
+          "note": "At full ramp-up, on the same feed assumptions as the DyTb figure."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-carester-caremag-launch-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes_per_year": 500,
+          "target_year": 2026,
+          "note": "PER-ELEMENT SPLIT of the combined 600 tpa entry, attested by USA Rare Earth's 23 Jul 2026 release (see src-usar-caremag-split-2026, which is NOT YET ANCHORED). Carester's own release gives only the combined 600 t. DO NOT SUM with the mat-dytb-combined entry. Conditional on sourcing 5,000 t/yr of mined concentrate and 2,000 t/yr of end-of-life magnets."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-caremag-split-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes_per_year": 100,
+          "target_year": 2026,
+          "note": "PER-ELEMENT SPLIT of the combined 600 tpa entry, attested by USA Rare Earth's 23 Jul 2026 release (see src-usar-caremag-split-2026, which is NOT YET ANCHORED). Carester's own release gives only the combined 600 t. DO NOT SUM with the mat-dytb-combined entry. Conditional on sourcing 5,000 t/yr of mined concentrate and 2,000 t/yr of end-of-life magnets."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-caremag-split-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2026,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-carester-caremag-launch-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "Europe's first large-scale dedicated rare earth separation plant, and structurally unusual in this graph: a refinery with no captive mine, designed around a dual feed of 2,000 t/yr of end-of-life magnets and 5,000 t/yr of mining concentrates. Financed in March 2025 with EUR 216 million - EUR 110 million from JOGMEC and Iwatani, EUR 106 million from the French State - in exchange for long-term Japanese offtake of heavy rare earth oxides through the Japan France Rare Earth Company joint venture. Designated a Strategic Project under the EU Critical Raw Materials Act. Full-ramp output: 800 t/yr NdPr oxides and 600 t/yr Dy and Tb oxides. NOTE: Carester states Dy and Tb only as a COMBINED 600 t figure; the 500 t Dy / 100 t Tb split circulating in trade press is not attested. Operations expected by late 2026; treat that date as at risk given the March 2025 vintage of the only primary source read. DY/TB SPLIT RESOLVED: USA Rare Earth's 23 Jul 2026 Carester investment release gives 800 tpa NdPr oxide, 500 tpa Dy oxide and 100 tpa Tb oxide at full ramp - approximately 15% of current world Dy/Tb oxide production. Earlier in this graph the 500/100 split was flagged as unattested trade press; it now has a primary source, though from the investor rather than the operator. FEED REMAINS THE OPEN QUESTION: Monte Alto is contracted for up to 150 tpa contained DyTb, roughly a quarter of the 600 t. The USAR arrangement adds 'access to USA Rare Earth feedstock sources, including Serra Verde and the Round Top deposit' - but no supply agreement was filed, Round Top does not operate until late 2028, and Serra Verde's Phase 1 magnet elements are 100% take-or-pay to US SIIE for 20 years, so that access cannot mean Serra Verde MREC without US SIIE's consent. USAR and Carester have not reconciled the two disclosures in any filing.",
+    "aliases": ["Caremag", "Lacq"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "accepted_hosts": ["XENOTIME", "MONAZITE", "MIXED_PHOSPHATE"],
+          "note": "Carester: dual feed of end-of-life magnets and 5,000 t/yr of 'mining concentrates' containing heavy rare earths."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-carester-caremag-launch-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "accepted_hosts": ["XENOTIME", "MONAZITE", "MIXED_PHOSPHATE"],
+          "note": "Same stated class; the mining-concentrate limb is not restricted to xenotime."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-carester-caremag-launch-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-sintered-ndfeb-magnet",
+          "accepted_hosts": ["RECYCLED_MAGNET"],
+          "note": "2,000 t/yr of end-of-life magnets. Note this feedstock has no upstream node in the graph."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-carester-caremag-launch-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-carester-caremag-launch-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-caremag-split-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-caremag-split-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-solvay-la-rochelle",
+    "name": "Solvay La Rochelle Rare Earths Plant",
+    "facility_type": "SEPARATION",
+    "country_id": "FR",
+    "operator_id": "org-solvay",
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-solvay-la-rochelle-inauguration-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Chef de Baie industrial zone, La Rochelle, France (40-hectare site, 300+ employees, founded 1948)",
+    "coordinates": null,
+    "capacities": [],
+    "expected_start": null,
+    "description": "Described by Solvay as 'the biggest plant outside China capable of separating all rare earth materials'. A new production line for permanent-magnet rare earths was inaugurated 8 April 2025, starting commercial NdPr production and targeting 30% of European demand by 2030, with feedstock from a diverse range of suppliers, mining partners and recycled materials. IMPORTANT: the inauguration release states NO tonnage capacity and makes NO Dy- or Tb-specific claim. Reports of a few hundred tonnes per year of NdPr and of industrial-scale Dy/Tb separation targeted for September 2026 are secondary trade press only, and are deliberately NOT recorded as attested values or as output materials here. Anchor to a Solvay capacity disclosure before treating La Rochelle as ex-China Dy/Tb capacity.",
+    "aliases": ["La Rochelle"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "accepted_hosts": [],
+          "note": "Long-established concentrate and carbonate separation train; mineral host not narrowed publicly."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-solvay-la-rochelle-inauguration-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-solvay-la-rochelle-inauguration-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-solvay-la-rochelle-inauguration-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-neo-silmet",
+    "name": "Neo Silmet Rare Earth Separation Facility",
+    "facility_type": "SEPARATION",
+    "country_id": "EE",
+    "operator_id": "org-neo-performance-materials",
+    "operating_status": {
+      "value": "COMMISSIONING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-neo-silmet-hree-commissioning-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Sillamae, Estonia",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-separated-reo",
+          "tonnes_per_year": 3200,
+          "target_year": null,
+          "note": "FACILITY-TOTAL nameplate for Silmet, predominantly light rare earth - NOT the HREE line. Unchanged from the 2025 AIF, so it predates the heavy line entirely. Neo discloses NO tonnage for the HREE solvent-extraction line in any public document."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-aif-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": null,
+    "description": "Long-established European light rare earth separator that added heavy rare earth capability in April 2026: an HREE solvent extraction SMALL-SCALE production line, commissioned and running at nameplate, which produced its first separated terbium and dysprosium process solutions - precursors for metal making, not finished oxides - from mixed rare earth carbonate, with all processing completed entirely in Europe. Focus at announcement was on stabilising product purity before transitioning to routine production. Feeds Neo's European permanent magnet facility in Estonia, which was advancing through customer qualification with commercial production expected to ramp later in 2026. NOTE: no tonnage capacity is disclosed and the line is explicitly small-scale - this is a proven-capability node, not yet a volume node. CAPACITY: Neo discloses no tonnage for the HREE line - only a facility-total Silmet nameplate of 3,200 mT (2026 AIF p.24), which is predominantly light REE and predates the heavy line. Scale-up is described qualitatively only ('a precursor to a potential future commercial-scale expansion'), with no capacity and no date. PRODUCT BASIS CONFIRMED: Neo consistently says 'pre-cursor dysprosium and terbium' and 'process solutions', never finished oxide; secondary outlets describing this as a Dy/Tb OXIDE line contradict Neo's own wording. NEW 31 Aug 2026: under a binding term sheet with Carester, Silmet's role is explicitly LIGHT rare earth - Neo will toll-process Carester's MREC at Silmet, retain the light REE output and return the heavies to Carester, while separately RECEIVING separated Dy/Tb oxides from Caremag for its Narva magnet plant. On that deal Neo is a Dy/Tb consumer, not a producer. THE ONLY GENUINE MERCHANT SEPARATOR IN THE EUROPEAN SET: 'One of the only non-captive operators of a large-scale light rare earth separation facility'. No class-level envelope sentence exists, but the de facto range is unusually broad and documented by named feeds - monazite-derived carbonate from Energy Fuels (definitive agreement, commercial shipments), ore and mineral concentrate from Sarfartoq in Greenland (binding offtake), Yangibana concentrate (HoA), Caldeira ionic-clay MREC (MOU), and Carester MREC tolling (binding term sheet). TWO CIRCULATING CLAIMS REFUTED: Silmet processing Russian LOPARITE is not in any Neo filing - the word appears zero times, and Neo says only 'rare earth feedstock from a Russian supplier'; and 'ionic clay' likewise appears zero times. LIVE CONTRADICTION: the 2026 AIF states 'Silmet no longer processes feedstock that contains naturally occurring radioactive materials (NORM)', which cuts against monazite-derived MREC carrying Th/U and against its own Energy Fuels history. If that assertion is facility-wide it is a hard constraint on which MRECs Silmet can take, and it should be resolved before any monazite-sourced feed is routed here.",
+    "aliases": ["Silmet", "Sillamae"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "MREC only. NORM assertion makes radionuclide content the binding constraint."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-silmet-hree-commissioning-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-silmet-hree-commissioning-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-solution",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-silmet-hree-commissioning-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-ucore-louisiana",
+    "name": "Ucore Strategic Metals Complex",
+    "facility_type": "SEPARATION",
+    "country_id": "US",
+    "operator_id": "org-ucore",
+    "operating_status": {
+      "value": "UNDER_CONSTRUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-ucore-dod-phase2-2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Alexandria, Louisiana",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-separated-reo",
+          "tonnes_per_year": 600,
+          "target_year": 2027,
+          "note": "Machine A alone. CONTAINED TREO IN FEEDSTOCK (Ucore's own wording: 'processing up to approximately 9,600 tpa of contained TREOs'), not Dy/Tb product output - no per-element split is disclosed. Enhanced Machine A capital cost US$60M including US$18.4M of Department of War funding; installation, testing and commissioning remains H1-2027."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-engineering-report-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-separated-reo",
+          "tonnes_per_year": 3600,
+          "target_year": null,
+          "note": "Machine A (600 tpa) plus RapidSX Production Line 1 (3,000 tpa). TREO throughput; SUPERSEDES the 600 tpa figure, not additive. No date disclosed for Line 1."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-engineering-report-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-separated-reo",
+          "tonnes_per_year": 9600,
+          "target_year": null,
+          "note": "Full build: Machine A plus three RapidSX Production Lines of approximately 3,000 tpa TREO each. TREO throughput; supersedes the other two figures. No date disclosed."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-scaleup-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2027,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-ucore-engineering-report-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "HREE-focused refining complex built around Ucore's proprietary column-based RapidSX solvent extraction. A US$18.4 million DoD Phase 2 Award, formally kicked off 14 July 2025, funds construction of the first commercial-scale RapidSX machine at the site, running through commissioning, demonstration and 'Early Production' readiness of salable individual REE products. Under the preceding US$4 million Phase 1 Award, Ucore successfully separated terbium from dysprosium; US$3,352,884 of Phase 1 payments had been received with US$647,116 outstanding. Detailed design of the commercial columns is done at Ucore's Kingston, Ontario demonstration facility. No capacity or start date is recorded: the release states neither. CAPACITY (added from the 28 May 2026 engineering report): optimized configuration is an initial Machine A at approximately 600 tpa TREO plus three RapidSX Production Lines each up to approximately 3,000 tpa TREO, for approximately 9,600 tpa TREO overall; Machine A plus Line 1 gives approximately 3,600 tpa. All three recorded capacities are TREO THROUGHPUT on the same plant and SUPERSEDE one another - do not sum them. Ucore discloses no per-element Dy/Tb split, so this node still contributes zero to any attested Dy/Tb capacity total despite being an HREE-dedicated plant. PER-ELEMENT Dy/Tb CAPACITY: NOT DISCLOSED, and deliberately so. All 46 Ucore releases from Jan 2025 to Aug 2026 were enumerated; every capacity number is contained TREO in feedstock. The 28 May 2026 release lists the product suite as 'NdPr, Pr, Nd, Sm, Gd, SmEuGd (SEG), Tb, Dy, rare earth oxide products, and intermediates' with no tonnage against any element. The SMC is explicitly multi-feed and variable, which is why no split exists: the only Dy/Tb-bearing basket Ucore has quantified is the non-binding Aug 2024 Meteoric Caldeira MOU - 3,000 t TREO/yr containing over 900 t NdPr, approximately 6 t Tb and 24 t Dy (i.e. ~0.8% Dy, ~0.2% Tb of TREO), covering ~31% of nameplate and never restated against the current configuration. That is Caldeira's assemblage, not a design basis, and Aclara's much richer ionic-clay ratios must NOT be cross-applied. There is no NI 43-101 for the SMC (it is a processing facility, not a mineral project) and the Department of War techno-economic assessment that would contain a split is proprietary and withheld. STALE-DATA WARNING: the ucore.com/smc/ page still shows an obsolete '2,000 tpa 2026 / 5,000 tpa 2027 / 7,500 tpa 2028' staging superseded by the 28 May 2026 configuration - do not ingest it. QUALIFICATION EVIDENCE IS WEAKER THAN UCORE'S NEWS RELEASES SUGGEST. Ucore's Q1 2026 MD&A states that all seven DoD demonstration campaigns - SX-1 to SX-7, Dec 2023 to Jan 2026, 5,717 hours, 1.76 t REO equivalent - ran on a SINGLE heavy MREO feed source. No named third-party deposit is identified as having been processed in any campaign. The Wicheeda 'qualification' exists only in an April 2024 news release; Ucore's MD&A says merely that a sample was 'sent', in boilerplate unchanged for two years with no result, and Defense Metals' own filings never mention sending Ucore anything. On Ucore's own stated gate - process qualification 'over hundreds of runtime hours' - no third-party feed in this graph has been qualified. Treat every edge into this node as FEED_ENVELOPE at best. TWO NAMED PROJECTS HAVE PHYSICALLY SENT MATERIAL: ABx Deep Leads (a 10 g MREC sample, one of six recipients, Mar 2026) and Meteoric Caldeira (bulk pilot MREC for 'separation testwork and product qualification', Jun 2026). Neither counterparty discloses which Ucore facility received it, and neither reports any recovery, purity or separated product - only 'highly favourable feedback'. Meteoric moreover names MTM Critical Metals, not Ucore, as its separation testwork partner. Hastings/Wyloo sent nothing: their Yangibana HoA expressly contemplates building a hydromet plant to convert concentrate to MREC first, and UCORE HAS DISAPPEARED FROM HASTINGS DISCLOSURE after 13 Mar 2026, over which period Hastings pivoted to a 49%-owned Thai hydromet plant on African monazite - no filing says whether the HoA lapsed, was extended, or stands.",
+    "aliases": ["SMC", "Louisiana SMC", "Alexandria"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "Declared envelope is 'mixed rare earth carbonate (MREC) and mixed rare earth oxide (MREO) from Western-friendly feedstock sources' - explicitly NOT mineral concentrate, and no cracking circuit is disclosed."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-engineering-report-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-scaleup-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-scaleup-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-scaleup-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-mkango-pulawy",
+    "name": "Pulawy Rare Earth Separation Plant",
+    "facility_type": "SEPARATION",
+    "country_id": "PL",
+    "operator_id": "org-mkango",
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mkango-pulawy-pfs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Grupa Azoty Pulawy site, Pulawy, Poland",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes_per_year": 30000,
+          "target_year": 2029,
+          "note": "Expanded base-case MREC FEED (45% TREO, wet basis) with the 100% NdPr separation option. Feedstock throughput, not product."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-separated-reo",
+          "tonnes_per_year": 13430,
+          "target_year": 2029,
+          "note": "Initial REO throughput capacity of the plant. Contained REO in feed, not separated product."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes_per_year": 50,
+          "target_year": null,
+          "note": "CONFLICTED - DO NOT RELY ON. 50 t/yr of 'dysprosium and terbium oxides' comes from the 25 Mar 2025 EU CRMA designation RNS, describing the ORIGINAL non-expanded design. The 19 Mar 2026 PFS neither restates it nor lists separated Dy/Tb among the product suite: its only product definition is the payability line (Nd oxide, Pr oxide, NdPr oxide, SEGH carbonate, LaCe carbonate), under which Dy and Tb report to a MIXED SEGH carbonate intermediate. On the current design Pulawy is an NdPr plant that ships heavies as a mixed carbonate for someone else to separate. Held at LOW pending reconciliation."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-crma-2025",
+          "assertion_confidence": "LOW",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2029,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mkango-pulawy-pfs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "Proposed separation plant on leased land at the Grupa Azoty Pulawy chemical complex, designated one of 47 EU CRMA Strategic Projects on 25 Mar 2025. PFS (19 Mar 2026, PRODEO Consulting, base date 25 Feb 2026, AACE Class 4 +/-25%): expanded base case of 30,000 t/a MREC feed at 45% TREO wet basis with 100% NdPr separation, 13,430 t/a REO throughput, capex US$212.4M including US$35.4M contingency, opex US$2.142/kg TREO in MREC, NPV US$779.1M at 10% nominal, IRR 39.7% nominal, payback 2.12 years. Schedule: engineering from April 2026, procurement September 2026, construction April 2027, commissioning October 2028, ramp-up from Q2 2029, full production 2030, 29-year life to 2058. KEY FINDING FOR Dy/Tb: this is most likely NOT a Dy/Tb node. The PFS product suite is Nd oxide, Pr oxide, NdPr oxide, SEGH carbonate and LaCe carbonate - dysprosium and terbium are not separated products but report to a mixed SEGH (Sm-Eu-Gd-heavies) carbonate, and the study's only optionality is the NdPr split (0/50/100%), with no HREE circuit variants. The 50 t/yr Dy/Tb oxide figure survives only in the year-earlier CRMA release for the smaller original design and is recorded at LOW confidence as an unreconciled conflict between two primary Mkango documents. FEED ENVELOPE CONFIRMED, and the arithmetic hypothesis was right: Pulawy is DESIGNED around third-party feed. Mkango's SEC F-4/A states it plans 'to source MREC from other rare earth projects and market suppliers', and that the plant 'is expected to rely on third-party carbonate feed in addition to the MREC sourced from Songwe Hill'. The PFS quantifies it - Songwe supplies only 45% of throughput in the first five years, with 55% market-sourced, priced at a 25% discount to contained REO value against 15% for Songwe. BUT NO IMPURITY SPECIFICATION IS PUBLISHED and Mkango itself flags off-Songwe chemistry as unresolved metallurgical risk, and there is NO third-party feed agreement - 'or at all'. So the route in is stated but unpriced and unproven.",
+    "aliases": ["Pulawy", "Puawy"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "PFS design splits Songwe MREC; heavies leave as a mixed SEGH carbonate rather than separated Dy/Tb oxide."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-segh-carbonate",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hreo",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-aclara-louisiana",
+    "name": "Project Dynamo Heavy Rare Earths Separation Facility (Port of Vinton)",
+    "facility_type": "SEPARATION",
+    "country_id": "US",
+    "operator_id": "org-aclara",
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-aif-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "82-acre LED Certified Site, Port of Vinton, Lake Charles industrial corridor, Louisiana; approximately 80-year lease option",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes_per_year": 148,
+          "target_year": 2028,
+          "note": "Annual average Dy oxide at >99.5% purity, excluding the first ramp-up and last ramp-down years. SCOPING STUDY only - Project Dynamo is NOT NI 43-101 (only Carina is). Feed basis is Carina-only, which is why 148 t sits just below Carina's 156 t contained Dy. CORRECTED: the 200 t Dy / 30 t Tb figure in the Oct 2025 site-selection release is NOT a study scenario. It predates the scoping study by six months, carries no study grade, uses aspirational wording ('anticipated to be', 'upon the successful development'), never mentions Dynamo, and has not been reaffirmed since - its companion NdPr figure was later revised down from 1,400 to 1,131 t. Aclara's Aug 2026 presentation declines to quantify Penco's contribution at all, pending the Penco feasibility study."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes_per_year": 25,
+          "target_year": 2028,
+          "note": "Annual average Tb oxide at >99.5% purity, Carina-only feed, scoping-study level. See the Dy entry for the Carina+Penco alternative scenario."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "tonnes_per_year": 1131,
+          "target_year": 2028,
+          "note": "Annual average NdPr oxide at >99.5% purity, Carina-only feed, scoping-study level."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": {
+      "value": 2028,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-itep-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "description": "Aclara's 100%-owned US separation plant, named Project Dynamo, at the Port of Vinton, Louisiana - the step that turns Carina from a concentrate producer into an integrated Dy/Tb supplier. Scoping study released 13 Apr 2026 as a COMPANION to the Carina FS on the same day (which is why it appeared absent when only the FS release was read). Annual average output at >99.5% purity: 148 t Dy oxide, 25 t Tb oxide, 1,131 t NdPr oxide, on Carina-only feed; heavier elements (Y, Ho, Er, Tm, Yb, Lu) and Sm/Eu/Gd leave as mixed carbonates in Phase 1. Phasing: Phase 1 NdPr/Dy/Tb; Phase 2 Y, Gd, Sm; Phase 3 the remaining heavies, market-dependent. Economics: construction capex US$277M plus US$52M working capital, after-tax NPV US$470M at 8%, IRR 25.2%, payback 3.3 years, opex US$12.6/kg TREO processed against a US$40/kg processing fee. Louisiana incentives US$46.4M as estimated in Oct 2025, of which the ITEP component received FINAL state approval on 26 Jun 2026 at approximately US$20.8M over the initial 5-year term - below the US$29.3M originally estimated. Schedule: FEL-3 basic engineering Q3 2026, long-lead awards Q4 2026, construction Q1 2027 to Q1 2028, pre-commissioning and ramp-up from Q2 2028; key permits (air, industrial wastewater, stormwater) targeted October 2026 with groundbreaking Q4 2026. STUDY-STATUS CAVEAT: this is scoping level, a full study grade below the Carina FS, and its NPV is excluded from that FS. UNRECONCILED: the Carina FS books a US$314.4M average annual separation fee (34% of Carina gross revenue) payable to this facility, while Dynamo reports average annual NET revenue of US$175M on a US$40/kg processing fee - the two do not reconcile on their face and likely use different bases (gross transfer price vs net revenue booked). Resolve from the filed NI 43-101 before either enters the graph as a revenue fact. Also note a double-count trap in Aclara's separate 50/50 metals and alloys JV with CAP: its '154 t FeDy metal' is an 80%Dy:20%Fe alloy, not 154 t of dysprosium. CAPTIVE BY DESIGN - a negative finding worth as much as an envelope. Every FILED Aclara document says Dynamo processes Aclara's own material: the AIF states 'Aclara Technologies intends to source high-purity mixed MREC from the Company's mining projects', and 'The pilot plant has been specifically designed based on the characteristics of the Carina Project MREC production.' The only third-party statement anywhere is a single unfiled marketing bullet - 'Third-party compatible MREC processing' - with no tonnage, spec, timeline or capacity, explicitly excluded from the economics. The structural tell is that Dynamo pays THIRD PARTIES to separate its own by-products, which is not merchant behaviour. Moving the feed intermediate from MREC to SPREC at approximately 99% RE content further tunes the front end to Carina chemistry - Aclara's stated purpose is to strip impurities upstream because they are 'the main source of complexity in the solvent extraction plant'. Aclara nowhere says this narrows the envelope; that inference is ours. DO NOT create third-party CAN_SUPPLY edges into this node.",
+    "aliases": ["Aclara separation plant"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "accepted_hosts": ["CRACKED"],
+          "note": "Designed around Aclara's own Penco and Carina MREC."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-louisiana-site-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-segh-carbonate",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "_commented_out": "magnet manufacturing: downstream of refining",
+    "id": "fac-neo-narva",
+    "name": "Neo European Permanent Magnet Facility (Narva)",
+    "facility_type": "MAGNET_MANUFACTURING",
+    "country_id": "EE",
+    "operator_id": "org-neo-performance-materials",
+    "operating_status": {
+      "value": "COMMISSIONING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-neo-aif-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Narva, Estonia",
+    "coordinates": null,
+    "capacities": [
+      {
+        "value": {
+          "material_id": "mat-sintered-ndfeb-magnet",
+          "tonnes_per_year": 2000,
+          "target_year": null,
+          "note": "Phase 1a initial capacity, with stated potential expansion to cumulatively 5,000 mT annually under Phase 1b (advanced equipment purchases begun as at Q2 2026). Terminology note: the 2025 AIF called the 5,000 mT step 'Phase 2'; from the 2026 AIF it is 'Phase 1b'."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-aif-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "expected_start": null,
+    "description": "Europe's first mass-production sintered NdFeB magnet plant, advancing through customer qualification with commercial production expected to ramp later in 2026. Modelled because it is the destination of Caremag's Dy/Tb under the 31 Aug 2026 Neo-Carester binding term sheet, which makes it the first attested ex-China Dy/Tb oxide DEMAND node in this graph rather than another supply node.",
+    "aliases": ["Narva", "Neo EPM"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-ndfeb-alloy",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-aif-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-carester-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "accepted_hosts": ["CRACKED"],
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-carester-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-sintered-ndfeb-magnet",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": null
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-neo-aif-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "fac-sareco",
+    "name": "SARECO / Summit Atom Rare Earth Company (Stepnogorsk)",
+    "facility_type": "BENEFICIATION",
+    "country_id": "KZ",
+    "operator_id": "org-lindian-resources",
+    "operating_status": {
+      "value": "COMMISSIONING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lindian-sareco-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "location_description": "Stepnogorsk, Kazakhstan; includes approximately 15,500 sq m of warehousing, land and associated assets",
+    "coordinates": null,
     "capacities": [],
     "expected_start": {
       "value": 2026,
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-usar-disclosures",
-        "assertion_confidence": "HIGH",
-        "last_verified": null
+        "unverified_model_extraction": true,
+        "source_id": "src-lindian-kangankunde-project-page",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
       }
     },
-    "description": "First commercial sintered NdFeB magnet-production line commissioned in March 2026. Aerospace and defense are among the stated target markets.",
-    "aliases": ["Stillwater"]
+    "description": "A node this graph was missing entirely, and a structurally important one: an ALREADY-CONSTRUCTED AND OPERATIONAL MREC plant outside China, previously owned and operated by Sumitomo Corporation and Kazatomprom, which Lindian took to 100% ownership on 10 Aug 2026 for US$20 million cash (reported total consideration up to US$42 million with equity and performance rights). Lindian's claim, verbatim: 'SARECO is the only constructed and operational MREC/CLP Processing Facility of commercial scale outside of China, MP Materials Inc., Serra Verde and Lynas Rare Earths Ltd.' IT SITS ONE LEVEL UPSTREAM of the Dy/Tb separators in this graph: it converts monazite concentrate into MREC at ~92% TREO / ~97% NdPr recovery (96% overall NdPr recovery from Kangankunde concentrate), it does NOT separate individual oxides, and it therefore contributes ZERO Dy/Tb capacity while potentially feeding several plants that do. facility_type BENEFICIATION is imperfect - the function is hydrometallurgical cracking and leaching, matching how Lynas Kalgoorlie is typed here, but neither is truly beneficiation. NAMEPLATE CAPACITY NOT DISCLOSED in the acquisition release; the only throughput figure is the ~12,500 tpa of Kangankunde concentrate expected to feed it. Target MREC production Q4 2026. GEOPOLITICAL CAVEAT: Kazakhstan is recorded as NEUTRAL alignment at LOW confidence - it is landlocked between Russia and China, so physical routing of both feed and product is itself a supply-chain exposure that a chemistry-only reading of this node will miss. IDENTITY AND HISTORY CORRECTED: the full legal name is Summit Atom Rare Earth Company LLP; the original JV was KAZATOMPROM 51% / SUMITOMO CORPORATION 49% (not Toshiba, as circulating secondary accounts have it), opened 2 November 2012 at Stepnogorsk in the Akmola region, originally recovering rare earths from URANIUM-ORE RESIDUE. Flowsheet is sulphuric acid bake, water leach, impurity removal, carbonate precipitation. THE LARGEST UNVERIFIED ASSUMPTION IN THIS NODE: Sumitomo's 2012 release gives an original nameplate of 1,500 t/yr of rare earth product, while feeding 12,500 tpa of 55% TREO concentrate implies roughly 6,875 t of contained TREO per year - about 4.6x that nameplate. Lindian has never disclosed a current capacity in either the 3 Mar 2026 or 10 Aug 2026 announcements, and no primary document reconciles the gap; either the plant is being substantially expanded or the 12,500 tpa is aspirational. FEED IS NOT SOLELY KANGANKUNDE: on 31 Aug 2026 Lindian optioned a 13,389 t Aktau heavy-rare-earth stockpile with 12-month exclusivity over a further 15,000-20,000 t, explicitly processable 'ahead of, alongside or independently from Kangankunde concentrate deliveries' - which both loosens the Kangankunde over-commitment and makes SARECO a potential Dy/Tb source in its own right, since the Aktau material is described as HREE-bearing.",
+    "aliases": ["SARECO", "Summit Atom Rare Earth Company LLP", "Stepnogorsk"],
+    "accepted_feeds": [
+      {
+        "value": {
+          "material_id": "mat-monazite-concentrate",
+          "accepted_hosts": ["MONAZITE"],
+          "note": "Kazakh beneficiation plant taking Kangankunde monazite concentrate."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lindian-kangankunde-project-page",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carried over from the unattested output_material_ids list; cited to the node's primary source, not to a statement of this specific output."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lindian-sareco-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
   }
 ]

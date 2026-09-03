@@ -3,10 +3,22 @@
     "id": "dep-browns-range",
     "name": "Browns Range (Wolverine)",
     "country_id": "AU",
-    "commodities": ["Dy", "Tb", "Y"],
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Y"
+    ],
     "coordinates": {
-      "value": { "latitude": -18.86, "longitude": 128.94 },
-      "provenance": { "type": "INFERRED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "MEDIUM", "last_verified": "2026-08-30" }
+      "value": {
+        "latitude": -18.86,
+        "longitude": 128.94
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "source_id": "src-ntu-browns-range-dfs-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-08-30"
+      }
     },
     "geometry_wkt": null,
     "deposit_type": "Unconformity-related hydrothermal xenotime (breccia-hosted)",
@@ -17,7 +29,12 @@
         "grade_pct": 0.91,
         "grade_basis": "TREO",
         "contained_tonnes": 1000,
-        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
       },
       {
         "classification": "INDICATED",
@@ -25,7 +42,12 @@
         "grade_pct": 1.13,
         "grade_basis": "TREO",
         "contained_tonnes": 54400,
-        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
       },
       {
         "classification": "INFERRED",
@@ -33,7 +55,12 @@
         "grade_pct": 0.63,
         "grade_basis": "TREO",
         "contained_tonnes": 15100,
-        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
       },
       {
         "classification": "PROBABLE",
@@ -41,46 +68,861 @@
         "grade_pct": 0.88,
         "grade_basis": "TREO",
         "contained_tonnes": 45800,
-        "provenance": { "type": "REPORTED", "source_id": "src-ntu-browns-range-dfs-2025", "assertion_confidence": "HIGH", "last_verified": "2026-08-30" }
+        "provenance": {
+          "type": "REPORTED",
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-08-30"
+        }
       }
     ],
     "location_description": "East Kimberley, Western Australia, ~160 km SE of Halls Creek on the Gordon Downs pastoral lease, mining lease M80/627, adjacent to the NT border. Wolverine is the flagship of seven Browns Range deposits (global MRE 11.7 Mt @ 0.77% TREO). Coordinates inferred from MGA94 Zone 52 grid in DFS figures (~493,650 mE, ~7,914,750 mN). Resource figures: Wolverine MRE as at 15 Jan 2025 above 0.15% TREO cut-off (Table 3); Probable Ore Reserve includes BRPP stockpile (Table 9, App.1). HREO ~90% of TREO; assemblage ~63% Y, 9.4% Dy, 1.4% Tb.",
-    "aliases": ["Wolverine", "Browns Range"]
+    "aliases": [
+      "Wolverine",
+      "Browns Range"
+    ]
   },
   {
     "id": "dep-wimmera",
     "name": "Wimmera",
     "country_id": "AU",
-    "commodities": ["Nd", "Pr", "Dy", "Tb", "Zr"],
+    "commodities": [
+      "Nd",
+      "Pr",
+      "Dy",
+      "Tb",
+      "Zr"
+    ],
     "coordinates": null,
     "geometry_wkt": null,
     "deposit_type": "Fine-grained heavy mineral sands (monazite / xenotime, zircon)",
     "resource_estimates": [],
     "location_description": "Wimmera region, western Victoria (Murray Basin). Iluka's WIM100 deposit; re-modelling added +3.9 Mt HM to Murray Basin Mineral Resources in 2025 and a resource increase was announced January 2026 (AR25 pp.21, 167). AR25 reports Murray Basin resources only in aggregate (2,272 Mt @ 5.6% HM, monazite+xenotime 2.2% of HM), so no Wimmera-specific estimate is recorded here; the January 2026 resource announcement is the source to load.",
-    "aliases": ["WIM100"]
+    "aliases": [
+      "WIM100"
+    ]
   },
   {
     "id": "dep-glenaladale",
     "name": "Glenaladale",
     "country_id": "AU",
-    "commodities": ["Dy", "Tb", "Nd", "Pr"],
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Nd",
+      "Pr"
+    ],
     "coordinates": null,
     "geometry_wkt": null,
     "deposit_type": "Mineral sands (monazite / xenotime)",
     "resource_estimates": [],
     "location_description": "Glenaladale, East Gippsland, Victoria",
-    "aliases": ["Fingerboards"]
+    "aliases": [
+      "Fingerboards"
+    ]
   },
   {
     "id": "dep-pela-ema",
     "name": "Pela Ema",
     "country_id": "BR",
-    "commodities": ["Dy", "Tb", "Nd", "Pr"],
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Nd",
+      "Pr"
+    ],
     "coordinates": null,
     "geometry_wkt": null,
     "deposit_type": "Ionic clay",
+    "resource_estimates": [
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 0.0,
+        "grade_pct": 3.23,
+        "grade_basis": "Dy2O3 as % of product TREO (2015 pilot oxalate assay)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-serra-verde-cetem-2015",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 0.0,
+        "grade_pct": 0.53,
+        "grade_basis": "Tb4O7 as % of product TREO (2015 pilot oxalate assay)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-serra-verde-cetem-2015",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-02"
+        }
+      }
+    ],
+    "location_description": "Goias, Brazil. ASSEMBLAGE, PRODUCT BASIS: Mineracao Serra Verde's own 2015 pilot assay of a 4 kg rare earth oxalate (CETEM) gives Dy2O3 3.23% and Tb4O7 0.53% of TREO, with La2O3 32.01%, Nd2O3 23.10%, Y2O3 19.76% and CeO2 only 3.01%; HREO 27.61%. IN-SITU IS DIFFERENT AND MUST NOT BE SUBSTITUTED: whole-rock resource distribution is about Dy 2.35% and Tb 0.39% of TREO with CeO2 at ~33.6% (secondary compilation of a 2016 Mineracao Serra Verde resource; not independently verified here). The gap between the two is the ion-adsorption signature - Ce(IV) is not desorbed and stays in the clay, so removing Ce from the in-situ distribution and renormalising reproduces the product assay to within 10-17% per element. NO PUBLIC RESOURCE TABLE: the SRK 2021 (S-K 1300) and SRK 2023 (JORC) reserve reports are not public, and USAR states it will file a Technical Report Summary with its first 10-K after the merger closes. CONTAMINATION WARNING - REJECT ON SIGHT: figures of roughly 1,024 t Dy and 1,024 t Tb (and Y 2,688 t) circulate for Serra Verde (e.g. Discovery Alert, 23 Apr 2026) and Bloomberg/MINING.COM of the same week quotes 'about 32% will be terbium and dysprosium'. Both apply USAR's basket split as % of MASS when the slide labels it % of VALUE. By mass Dy+Tb is about 3.8% of TREO, so the Dy figure is roughly 6x too high and the Tb figure roughly 34x too high. Do not admit these to the graph.",
+    "aliases": [
+      "Serra Verde"
+    ]
+  },
+  {
+    "id": "dep-mount-weld",
+    "name": "Mount Weld",
+    "country_id": "AU",
+    "commodities": [
+      "Nd",
+      "Pr",
+      "Dy",
+      "Tb",
+      "La",
+      "Ce"
+    ],
+    "coordinates": {
+      "value": {
+        "latitude": -28.862,
+        "longitude": 122.547
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lynas-mt-weld-resource-2012",
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "geometry_wkt": null,
+    "deposit_type": "Carbonatite with lateritic weathering profile; heavy rare earths associated with churchite (a hydrated form of xenotime) and yttropyrochlore",
+    "resource_estimates": [
+      {
+        "classification": "PROVED",
+        "ore_tonnes": 20900000,
+        "grade_pct": 7.3,
+        "grade_basis": "TREO",
+        "contained_tonnes": 1530000,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-ar26-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 10600000,
+        "grade_pct": 4.5,
+        "grade_basis": "TREO",
+        "contained_tonnes": 480000,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-ar26-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "MEASURED",
+        "ore_tonnes": 22800000,
+        "grade_pct": 7.3,
+        "grade_basis": "TREO",
+        "contained_tonnes": 1664000,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-ar26-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 15300000,
+        "grade_pct": 4.3,
+        "grade_basis": "TREO",
+        "contained_tonnes": 652000,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-ar26-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 71100000,
+        "grade_pct": 3.2,
+        "grade_basis": "TREO",
+        "contained_tonnes": 2294000,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-ar26-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROVED",
+        "ore_tonnes": 21200000,
+        "grade_pct": 0.031,
+        "grade_basis": "Dy2O3",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mre-reserve-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 10800000,
+        "grade_pct": 0.057,
+        "grade_basis": "Dy2O3",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mre-reserve-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROVED",
+        "ore_tonnes": 21200000,
+        "grade_pct": 0.008,
+        "grade_basis": "Tb4O7",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mre-reserve-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 10800000,
+        "grade_pct": 0.012,
+        "grade_basis": "Tb4O7",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mre-reserve-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 0.0,
+        "grade_pct": 0.09,
+        "grade_basis": "Tb4O7 as % of TREO (CLD, 2012)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mt-weld-resource-2012",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 0.0,
+        "grade_pct": 0.25,
+        "grade_basis": "Dy2O3 as % of TREO (CLD, 2012)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mt-weld-resource-2012",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 0.0,
+        "grade_pct": 0.26,
+        "grade_basis": "Tb4O7 as % of TREO (Duncan, 2012)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mt-weld-resource-2012",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 0.0,
+        "grade_pct": 1.27,
+        "grade_basis": "Dy2O3 as % of TREO (Duncan, 2012)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-mt-weld-resource-2012",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "location_description": "Mining leases M38/58, M38/59, M38/326 and M38/327 near Laverton, Western Australia; grid MGA94 Zone 51. The Mt Weld Carbonatite is a sub-vertical cylindrical intrusion approximately 3.6 km in diameter within the Laverton Tectonic Zone, north-eastern Yilgarn Craton. TREO figures are the FY2026 Annual Report statement as at 30 June 2026 (reserve 2.8% TREO cut-off, resource 2.5%, JORC 2012, Competent Person Dr Ganesh Bhat). The Dy2O3 and Tb4O7 grades are RESERVE-BASIS ONLY and come from the 5 Aug 2024 ASX resource/reserve update Table 7 (p.23), the only Lynas document that has ever carried a per-element Dy/Tb breakdown for Mt Weld - Lynas flagged it as a first ('All heavy rare earth element grades, including Terbium oxide, are now reported in the ore reserves statement'). The FY2026 Annual Report cross-references that announcement rather than reproducing the table, which is why the assemblage is absent from the annual report. Total 2024 reserve 32.0 Mt @ 6.4% TREO carries Dy2O3 400 ppm and Tb4O7 100 ppm, i.e. contained Dy2O3 of 12,790 t (up 92% from 6,660 t). NOTE THE MISMATCH OF VINTAGES: the 2024 grades are declared by Lynas as the continuing basis for the 2026 tonnages, but multiplying one by the other to derive contained Dy/Tb would be inference, not disclosure. STILL NOT DISCLOSED: a resource-basis per-element split (only a combined 29,800 t Tb+Dy oxides), the CONCENTRATE assemblage - which remains the true unquantified link in the feed side of the ex-China Dy/Tb chain - and any latitude/longitude. IMPLICATION: at roughly 0.63% Dy2O3 and 0.16% Tb4O7 of TREO, Mt Weld is an LREE carbonatite with a thin heavy tail, which is why Lynas states its 250 t Dy / 50 t Tb nameplate is 'subject to sourcing other potential feedstock'. ASSEMBLAGE RESOLVED (supplementary sweep of Lynas's full 1,767-announcement ASX archive): Lynas DID publish a complete per-element REO distribution, but only between 2003 and 2012, after which it was dropped. The last one, 17 Jan 2012 Table 5, gives the Central Lanthanide Deposit at Tb4O7 0.09% and Dy2O3 0.25% of TREO against the Duncan Deposit at 0.26% and 1.27% - so the main ore source is markedly lighter than the deposit as a whole, and the ~0.63% Dy2O3 implied by the 2024 reserve reflects a blend. The four percentage entries above carry ore_tonnes 0.0 because they are assemblage ratios, not tonnage estimates. Coordinates are an INFERRED conversion of published MGA94 Zone 51 borehole collars (LWB025 6807238N 455816E) from the 26 Nov 2020 drilling announcement - Lynas has never published a Mt Weld latitude and longitude. THE CONCENTRATE ASSEMBLAGE IS NOW A HARD NULL: a sweep of all 1,767 ASX announcements and 24 annual reports found no per-oxide concentrate assay, spec sheet or assemblage in Lynas's entire disclosure history - only the aggregate grade (ore 14.8% REO to concentrate ~40% REO). That remains the one genuinely unquantified link in the operating ex-China Dy/Tb chain.",
+    "aliases": [
+      "Mt Weld"
+    ]
+  },
+  {
+    "id": "dep-carina",
+    "name": "Carina",
+    "country_id": "BR",
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Nd",
+      "Pr",
+      "Y",
+      "Sm",
+      "Gd"
+    ],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Ion-adsorption clay",
     "resource_estimates": [],
-    "location_description": "Goiás, Brazil",
-    "aliases": ["Serra Verde"]
+    "location_description": "Goias, Brazil. Aclara states it is 'the only company in the world to report heavy rare earth Mineral Reserves from ionic clays in accordance with NI 43-101'. No tonnage or grade recorded: the FS news release gives economics and production but not the reserve table - take those from the filed NI 43-101 report on SEDAR+.",
+    "aliases": [
+      "Carina Module"
+    ]
+  },
+  {
+    "id": "dep-monte-alto",
+    "name": "Monte Alto",
+    "country_id": "BR",
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Nd",
+      "Pr",
+      "U"
+    ],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": null,
+    "resource_estimates": [],
+    "location_description": "Within the Rocha da Rocha Rare Earth Province, Bahia, Brazil; approximately 260 km from the Camacari Petrochemical Complex. Positioned by Carester as 'the preferred heavy rare earth feedstock' for its operations. No deposit type, tonnage or grade recorded - the offtake release states none.",
+    "aliases": [
+      "Rocha da Rocha"
+    ]
+  },
+  {
+    "id": "dep-lofdal",
+    "name": "Lofdal (Areas 4 and 2B)",
+    "country_id": "NA",
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Y",
+      "Gd"
+    ],
+    "coordinates": {
+      "value": {
+        "latitude": -20.35,
+        "longitude": 14.75
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-nmi-lofdal-pfs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "geometry_wkt": null,
+    "deposit_type": "Xenotime-hosted carbonatite dyke swarm",
+    "resource_estimates": [
+      {
+        "classification": "MEASURED",
+        "ore_tonnes": 6600000,
+        "grade_pct": 0.21,
+        "grade_basis": "TREO",
+        "contained_tonnes": 13700,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 49200000,
+        "grade_pct": 0.15,
+        "grade_basis": "TREO",
+        "contained_tonnes": 75700,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 10500000,
+        "grade_pct": 0.14,
+        "grade_basis": "TREO",
+        "contained_tonnes": 15000,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 2700000,
+        "grade_pct": 0.16,
+        "grade_basis": "TREO",
+        "contained_tonnes": 4400,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROVED",
+        "ore_tonnes": 6190000,
+        "grade_pct": 0.211,
+        "grade_basis": "TREO",
+        "contained_tonnes": 13087,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 25810000,
+        "grade_pct": 0.168,
+        "grade_basis": "TREO",
+        "contained_tonnes": 43254,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "location_description": "Approximately 30 km NW of Khorixas, Kunene Region, north-western Namibia; mine site 20 21'S 14 45'E (WGS84). ML 200 granted 15 Jul 2021 and valid to 10 May 2046. Title held by Namibia Rare Earths (Pty) Ltd, 95% Namibia Critical Metals / 5% Philco 196 (Pty) Ltd under Namibia's Historically Disadvantaged Namibians ownership requirement. THE STANDOUT ASSEMBLAGE IN THIS GRAPH: in-situ Dy2O3 is 5.1% of TREO in Area 4 and 5.6% in Area 2B, Tb2O3 0.8% and 0.9%, with total HREO 53.2-56.0% (TREO and HREO both include Y2O3) - roughly 8x Mt Weld's Dy fraction. In concentrate, Dy2O3 rises to 6.2% and Tb4O7 to 0.9%. Estimates listed are Area 4 Measured/Indicated/Inferred then Area 2B Indicated, followed by the 1 Dec 2025 Proved and Probable reserves. DATA-QUALITY FLAG carried from the source: the concentrate distribution table in both the PFS and the MSA report prints Lu2O3 42.4% and Y2O3 0.6%, which are transposed - the PFS states separately that the product 'contains about 40 to 50% Yttrium oxide'.",
+    "aliases": [
+      "Lofdal 2B-4"
+    ]
+  },
+  {
+    "id": "dep-caldeira",
+    "name": "Caldeira",
+    "country_id": "BR",
+    "commodities": [
+      "Nd",
+      "Pr",
+      "Dy",
+      "Tb",
+      "Y"
+    ],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Ion-adsorption clay (Pocos de Caldas Alkaline Complex)",
+    "resource_estimates": [
+      {
+        "classification": "MEASURED",
+        "ore_tonnes": 128000000,
+        "grade_pct": 0.2815,
+        "grade_basis": "TREO",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 574000000,
+        "grade_pct": 0.2572,
+        "grade_basis": "TREO",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 928000000,
+        "grade_pct": 0.2091,
+        "grade_basis": "TREO",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 151100000,
+        "grade_pct": 0.3524,
+        "grade_basis": "TREO",
+        "contained_tonnes": 532000,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "location_description": "Minas Gerais, Brazil - 77 licences over 18,292 ha between Caldas, Pocos de Caldas and Andradas, approximately 31 km south of Pocos de Caldas and 350 km from the port of Santos; hosted in the Pocos de Caldas Alkaline Complex. At 1,631 Mt @ 2,317 ppm TREO this is described by Meteoric as the largest ionic clay REE deposit outside China. Reserve is 151.1 Mt @ 3,524 ppm TREO, ALL PROBABLE with zero Proved, converted from Measured and Indicated only. Dy/Tb grades are thin in absolute terms - reserve Dy2O3 30 ppm and Tb4O7 6 ppm - so the project's Dy/Tb significance comes from scale, not tenor. No lat/long is published. Coordinates and per-element percentage assemblage NOT DISCLOSED.",
+    "aliases": [
+      "Caldeira Project"
+    ]
+  },
+  {
+    "id": "dep-makuutu",
+    "name": "Makuutu",
+    "country_id": "UG",
+    "commodities": [
+      "Nd",
+      "Pr",
+      "Dy",
+      "Tb",
+      "Y",
+      "Sc"
+    ],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Ion-adsorption clay",
+    "resource_estimates": [
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 517000000,
+        "grade_pct": 0.065,
+        "grade_basis": "TREO",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-mre-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 99000000,
+        "grade_pct": 0.056,
+        "grade_basis": "TREO",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-mre-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 172900000,
+        "grade_pct": 0.0848,
+        "grade_basis": "TREO",
+        "contained_tonnes": 146654,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-dfs-2023",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "location_description": "120 km east of Kampala, Uganda, across 11 low plateaus on LML00334, RL00007 and RL00234. Resource is the 15 May 2024 MRE at a 200 ppm TREO-CeO2 cut-off - 617 Mt @ 630 ppm TREO containing approximately 126,000 t of magnet REO including 7,400 t of DyTb oxide and 99,000 t of heavy REO. THIS SUPERSEDES the 532 Mt @ 640 ppm figure that circulates in secondary sources. Reserve is the March 2023 maiden estimate over RL 1693 only: 172.9 Mt @ 848 ppm TREO with Dy2O3 18 ppm and Tb4O7 3 ppm, ALL Probable and converted from Indicated only. Per-element grades carry Ionic's own caveat that Tb4O7 and other minor elements are 'immaterial to overall resource grade' and Dy is rounded to the nearest 10 ppm; the Dy/Tb split of the 7,400 t is NOT DISCLOSED. HREO here INCLUDES Y2O3, so it is not comparable to narrower HREE definitions. Coordinates NOT DISCLOSED.",
+    "aliases": [
+      "Makuutu Rare Earths Project"
+    ]
+  },
+  {
+    "id": "dep-mountain-pass",
+    "name": "Mountain Pass",
+    "country_id": "US",
+    "commodities": [
+      "Nd",
+      "Pr",
+      "La",
+      "Ce",
+      "Sm",
+      "Eu",
+      "Gd",
+      "Dy",
+      "Tb"
+    ],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Bastnaesite-bearing carbonatite",
+    "resource_estimates": [],
+    "location_description": "San Bernardino County, California - the only rare earth mining and processing site of scale in North America. NO resource or reserve tonnage is recorded here: MP's SK-1300 Technical Report Summary was consulted for the SEG+ heavy concentrate assemblage rather than the resource tables, and those should be added from EX-96.1 to the FY2025 10-K before this node is used for resource questions. The one assemblage fact carried: MP's stockpiled SEG+ heavy rare earth concentrate contains 'lesser amounts of heavy rare earth elements, including around 4% dysprosium and terbium' (TRS section 16.4.3). On the heavy circuit's 3,000 t/yr feedstock throughput that implies roughly 120 t of contained Dy+Tb against a 200 t nameplate - the gap MP intends to close with richer third-party feed.",
+    "aliases": [
+      "Mountain Pass carbonatite"
+    ]
+  },
+  {
+    "id": "dep-round-top",
+    "name": "Round Top",
+    "country_id": "US",
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Y",
+      "Nd",
+      "Pr",
+      "Li"
+    ],
+    "coordinates": {
+      "value": {
+        "latitude": 31.2766,
+        "longitude": -105.4742
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10k-fy2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "geometry_wkt": null,
+    "deposit_type": "Peralkaline rhyolite laccolith",
+    "resource_estimates": [
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 1100000000.0,
+        "grade_pct": null,
+        "grade_basis": "TREO - HISTORICAL, NON-COMPLIANT, DISCLAIMED",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-tmrc-round-top-2019",
+          "assertion_confidence": "LOW",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "location_description": "Hudspeth County, Texas, approximately eight miles from Sierra Blanca; 950 leased mining acres (Texas GLO leases M-113117 and M-113629) plus 2,037 owned acres and a 5,670-acre purchase option. NO RESOURCE OR RESERVE IS RECORDED, and that is the finding, not an omission: USA Rare Earth's FY2025 10-K states 'We do not have declared mineral resources as defined under Item 1300 of Regulation S-K' and classifies Round Top as 'an exploration stage property... that has no mineral reserves disclosed'. No EX-96 Technical Report Summary exists in the FY2025 filing. All three historical PEAs (2012, 2013, 2019) are expressly disclaimed as non-compliant with Item 1300, and the company 'does not currently intend to update the 2019 PEA'. The historical, non-compliant 1.1 Bt Measured+Indicated+Inferred figure and the widely recirculated Dy 206 tpy / Tb 23 tpy pair both come from a 2019 Texas Mineral Resources 8-K, which itself disclaims the latter: 'The projected production reflects the results of previous work and was not reported in the PEA.' DO NOT USE EITHER AS A CURRENT FIGURE. 10-K INTERNAL INCONSISTENCY: Item 2 says both 'approximately eight miles northwest' and 'approximately eight miles southeast' of Sierra Blanca; the recorded coordinates place it northwest, matching TMRC's filing. The single estimate recorded is the historical 1.1 billion tonne Measured+Indicated+Inferred figure from the 2019 Texas Mineral Resources 8-K, entered at LOW confidence solely so the 'do not use' warning carries a citation. It is NOT S-K 1300 compliant, is expressly disclaimed by USA Rare Earth, has no grade recorded, and must not be treated as a current resource.",
+    "aliases": [
+      "Round Top Mountain"
+    ]
+  },
+  {
+    "id": "dep-penco",
+    "name": "Penco Module",
+    "country_id": "CL",
+    "commodities": [
+      "Dy",
+      "Tb",
+      "Y",
+      "Nd",
+      "Pr"
+    ],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Ion-adsorption clay",
+    "resource_estimates": [
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 27500000,
+        "grade_pct": 0.2275,
+        "grade_basis": "TREO",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 27500000,
+        "grade_pct": 0.0067,
+        "grade_basis": "Dy2O3 (total)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 27500000,
+        "grade_pct": 0.001,
+        "grade_basis": "Tb4O7 (total)",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 27500000,
+        "grade_pct": 0.0491,
+        "grade_basis": "DREO (desorbible)",
+        "contained_tonnes": 13487,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 27500000,
+        "grade_pct": 0.0027,
+        "grade_basis": "Dy2O3 (desorbible)",
+        "contained_tonnes": 739,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "classification": "INDICATED",
+        "ore_tonnes": 27500000,
+        "grade_pct": 0.0004,
+        "grade_basis": "Tb4O7 (desorbible)",
+        "contained_tonnes": 100,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-dynamo-scoping-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "location_description": "Penco, Biobio Region, Chile. Resource is Table 2 of the 13 Apr 2026 integrated technical-reports release: Measured and Indicated combined 27.5 Mt - the release does not split M from I, and notes the deposit 'is characterized by a high proportion of Measured and Indicated mineral resources (~94%) relative to Inferred resources (~6%)', so all estimates are recorded as INDICATED. THE DESORBIBLE FRACTION IS WHAT MATTERS for ionic clay: total TREO is 2,275 ppm but desorbible REO is only 491 ppm, and desorbible Dy is 27 ppm against 67 ppm total. On the desorbible basis the distribution is Dy 5.5% and Tb 0.7% - a genuinely heavy basket, comparable to Lofdal. Contained desorbible Dy 739 t and Tb 100 t. The 2021 PEA's resource base of 20.7 Mt @ 2,426 ppm is superseded by this.",
+    "aliases": [
+      "Penco"
+    ]
+  },
+  {
+    "id": "dep-colossus",
+    "name": "Colossus",
+    "country_id": "BR",
+    "commodities": [
+      "Nd",
+      "Pr",
+      "Dy",
+      "Tb",
+      "La",
+      "Y"
+    ],
+    "coordinates": null,
+    "geometry_wkt": null,
+    "deposit_type": "Ion-adsorption clay (Pocos de Caldas Alkaline Complex)",
+    "resource_estimates": [
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 493000000,
+        "grade_pct": 0.2508,
+        "grade_basis": "TREO - TOTAL JORC Mineral Resource, Measured + Indicated + Inferred COMBINED. Classified INFERRED here only because the enum has no combined category and INFERRED is the conservative choice; the per-category breakdown lives in the January 2025 MRE announcement, which has NOT been read. Do not read this as an Inferred-only resource.",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-viridis-colossus-pfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "classification": "INFERRED",
+        "ore_tonnes": 493000000,
+        "grade_pct": 0.0601,
+        "grade_basis": "MREO (Nd2O3 + Pr6O11 + Dy2O3 + Tb4O7) over the SAME 493 Mt as the TREO entry above - NOT ADDITIVE with it, and not a second resource. MREO is 24.0% of TREO in the resource. Viridis's own framing: the mine plan optimises MREO grade over TREO volume, and the PFS feed averages 936 ppm MREO at a 28% MREO:TREO ratio, richer than the global resource.",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-viridis-colossus-pfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "classification": "PROBABLE",
+        "ore_tonnes": 200100000,
+        "grade_pct": 0.2894,
+        "grade_basis": "TREO - maiden Ore Reserve stated in the August 2026 DFS. SECONDARY: quoted by mining.com.au from the DFS announcement; the primary has not been read (see the placeholder source). An earlier maiden reserve of 200.6 Mt @ 2,640 ppm circulated in September 2025 and appears to have been restated by the DFS, not added to.",
+        "contained_tonnes": null,
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-viridis-colossus-dfs-2026",
+          "assertion_confidence": "LOW",
+          "last_verified": "2026-09-02"
+        }
+      }
+    ],
+    "location_description": "Pocos de Caldas, Minas Gerais, Brazil - a 228 km2 tenement package over the Pocos de Caldas Alkaline Complex, the same complex that hosts dep-caldeira roughly 30 km away. True ion-adsorption clay with a 0.3M ammonium sulfate (AMSUL) leach and low radionuclides (1.04% total impurity in the Northern Concessions composite, 0.7% in the Southern Complex, with negligible U and Th). ASSEMBLAGE, MREC PRODUCT BASIS (PFS Tables 6 and 7, ANSTO resource-to-MREC testwork) - Northern Concessions: La2O3 44.5%, Nd2O3 29.1%, Pr6O11 8.3%, Y2O3 6.9%, Sm2O3 3.2%, CeO2 2.4%, Gd2O3 2.1%, Dy2O3 1.2%, Tb4O7 0.3%; Southern Complex: La2O3 48.2%, Nd2O3 27.9%, Pr6O11 8.7%, Y2O3 6.7%, Sm2O3 3.1%, Gd2O3 1.9%, Dy2O3 1.1%, Tb4O7 0.2%, CeO2 0.6%. This is a LANTHANUM-DOMINATED, Ce-depleted basket: Dy+Tb is only 1.3-1.5% of product TREO, against 3.8% at Serra Verde and 4.44% at Makuutu. DEPOSIT TYPE MATTERS MORE THAN 'IONIC CLAY': the implied Dy:Tb is 4.0 (Northern) and 5.5 (Southern), and sister deposit Caldeira in the same alkaline complex discloses 4.64 - all below the 6.2-7.9 band the README attributes to ionic clay, which is drawn from GRANITE-derived clays (Serra Verde 5.8, Makuutu 6.3, Carina 5.8, Penco 7.4). Alkaline-complex-derived clays in Pocos de Caldas are a distinct population near 4.6. Both ratios here are quoted from percentages rounded to one decimal, so treat them as a band, not a point. IN-SITU IS NOT THE SAME AS PRODUCT and must not be substituted: per-element recoveries differ sharply (Dy2O3 65-67%, Tb4O7 69-71%, La2O3 75-78%, CeO2 3-9%), so Ce collapses and everything else enriches between resource and MREC, exactly as at Pela Ema.",
+    "aliases": [
+      "Colossus Rare Earth Project"
+    ]
   }
 ]

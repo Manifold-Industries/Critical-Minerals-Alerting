@@ -13,6 +13,7 @@ from enum import StrEnum
 from src.models._validation import require_in_range, require_non_blank
 from src.models.deposit import ResourceEstimate
 from src.models.lifecycle import DevelopmentStage, OperatingStatus
+from src.models.material import HostMineral
 from src.models.provenance import Attested
 
 
@@ -39,6 +40,33 @@ class ProductionFigure:
 
 
 @dataclass(frozen=True)
+class ProductForm:
+    """A form in which material physically *leaves* an asset.
+
+    Deliberately narrower than ``ProductionFigure``, which mixes shipped forms
+    with contained-metal accounting: a mine that ships concentrate still reports
+    contained Dy2O3 tonnes, and both land in ``planned_production``. Only a
+    stream that a counterparty could take delivery of belongs here.
+
+    An asset may ship several forms - Round Top's own concentrate and the
+    "excess concentrate" it has discussed sending to Caremag are different
+    products - so this is a tuple, not a scalar.
+    """
+
+    material_id: str
+    #: What a receiving plant has to process. See ``HostMineral``.
+    host_mineral: HostMineral
+    #: Grade as % TREO of product mass, where disclosed.
+    grade_pct_treo: float | None = None
+    #: Basis, caveat, or the disclosure this form was read from.
+    note: str | None = None
+
+    def __post_init__(self) -> None:
+        require_non_blank("material_id", self.material_id)
+        require_in_range("grade_pct_treo", self.grade_pct_treo, 0.0, 100.0)
+
+
+@dataclass(frozen=True)
 class Project:
     id: str
     name: str
@@ -50,6 +78,8 @@ class Project:
     #: Year first production is expected (or occurred).
     expected_production_start: Attested[int] | None = None
     planned_production: tuple[Attested[ProductionFigure], ...] = ()
+    #: Forms this mine actually ships. Feeds route inference; see ``ProductForm``.
+    products: tuple[Attested[ProductForm], ...] = ()
     resource_estimates: tuple[ResourceEstimate, ...] = ()
     description: str | None = None
     aliases: tuple[str, ...] = ()

@@ -96,7 +96,24 @@
     ],
     "resource_estimates": [],
     "description": "100%-owned by Northern Minerals. Open-pit then underground (sublevel caving) mining of the Wolverine deposit, with on-site crushing, grinding, magnetic separation and flotation producing a ~25% TREO xenotime concentrate, trucked by road to Iluka's Eneabba refinery. DFS: A$592M pre-production capital, 11-year LOM, ~84% TREO recovery. FID subject to funding; construction ~26 months from financial close, targeting completion Q4 2027 and ramp-up in 2028. Dy/Tb ~70% of basket value.",
-    "aliases": ["Browns Range", "Browns Range HRE Project"]
+    "aliases": ["Browns Range", "Browns Range HRE Project"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "host_mineral": "XENOTIME",
+          "grade_pct_treo": 25.0,
+          "note": "DFS flowsheet is crushing, grinding, magnetic separation and flotation to a ~25% TREO xenotime concentrate, trucked to Eneabba."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ntu-browns-range-dfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
   },
   {
     "id": "proj-wimmera",
@@ -130,19 +147,85 @@
           "tonnes": 15000,
           "period": "ANNUAL",
           "target_year": null,
-          "note": "UNVERIFIED: ~15 ktpa rare-earth concentrate to Eneabba for 25+ years, per Iluka refinery feed scenarios cited in the v0 brief. Not stated in the 2025 Annual Report, which says only 'potential multi-decade source of light and heavy rare earths'. Not a committed production plan."
+          "note": "UNVERIFIED: ~15 ktpa rare-earth concentrate to Eneabba for 25+ years, per Iluka refinery feed scenarios cited in the v0 brief. Not stated in the 2025 Annual Report, which says only 'potential multi-decade source of light and heavy rare earths'. Not a committed production plan. ANCHORED: 'Wimmera (DFS); WIM100 could supply ~15ktpa of rare earth concentrate with 25+ year life' - Investor Briefing slide 41. Previously held against a placeholder source."
         },
         "provenance": {
           "type": "REPORTED",
-          "source_id": "src-iluka-wimmera-feed-scenarios",
-          "assertion_confidence": "LOW",
-          "last_verified": null
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-investor-briefing-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 145,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "SEPARATED OXIDE SOLD, NOT CONTAINED IN CONCENTRATE - the only figure of its kind in this graph, because Iluka owns both the mine and the refinery and reports Wimmera's rare earths as Eneabba product. Table 7 of the Feb 2023 Ore Reserve announcement gives a 20-year life with Product Sold of 2.5 kt Dy oxide and 0.4 kt Tb oxide, i.e. (2,500 + 400) t / 20 years = 145 tpa. DO NOT SUM with the per-element entries. NOT COMPARABLE with other mines' contained-in-concentrate figures without adjustment. At the disclosed recoveries (Dy 70.9%, Tb 69.5%, Table 8) the contained-in-ore equivalent is Dy 176 + Tb 29 = 205 tpa; contained-in-concentrate lies between 145 and 205 tpa and cannot be separated further, because the disclosed recovery spans mining, concentration AND refining as a single figure. Use 145 tpa when comparing against refinery capacity and the 145-205 band when comparing against other mines' feed. Assemblage (Table 2): Dy2O3 2.7% and Tb4O7 0.4% of total REO, ratio 6.75. Concentrate 280 kt over 20 years = 14 ktpa, consistent with this node's 15 ktpa mat-re-concentrate entry. VINTAGE: PFS-era, 22 Feb 2023, WIM100 Probable Ore Reserve only; a Jan 2026 Wimmera resource update exists and has NOT been checked against this. CORRECTION OF A PRIOR CLAIM: this graph previously recorded that Wimmera's study 'shows Dy/Tb as a dash'. That is wrong - the figures are disclosed here, the later DFS simply did not restate them."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-wimmera-reserve-2023",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 125,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "SEPARATED OXIDE SOLD, NOT CONTAINED IN CONCENTRATE - the only figure of its kind in this graph, because Iluka owns both the mine and the refinery and reports Wimmera's rare earths as Eneabba product. Table 7 of the Feb 2023 Ore Reserve announcement gives a 20-year life with Product Sold of 2.5 kt Dy oxide and 0.4 kt Tb oxide, i.e. 2,500 t / 20 years = 125 tpa separated Dy oxide. NOT COMPARABLE with other mines' contained-in-concentrate figures without adjustment. At the disclosed recoveries (Dy 70.9%, Tb 69.5%, Table 8) the contained-in-ore equivalent is Dy 176 + Tb 29 = 205 tpa; contained-in-concentrate lies between 145 and 205 tpa and cannot be separated further, because the disclosed recovery spans mining, concentration AND refining as a single figure. Use 145 tpa when comparing against refinery capacity and the 145-205 band when comparing against other mines' feed. Assemblage (Table 2): Dy2O3 2.7% and Tb4O7 0.4% of total REO, ratio 6.75. Concentrate 280 kt over 20 years = 14 ktpa, consistent with this node's 15 ktpa mat-re-concentrate entry. VINTAGE: PFS-era, 22 Feb 2023, WIM100 Probable Ore Reserve only; a Jan 2026 Wimmera resource update exists and has NOT been checked against this. CORRECTION OF A PRIOR CLAIM: this graph previously recorded that Wimmera's study 'shows Dy/Tb as a dash'. That is wrong - the figures are disclosed here, the later DFS simply did not restate them."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-wimmera-reserve-2023",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 20,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "SEPARATED OXIDE SOLD, NOT CONTAINED IN CONCENTRATE - the only figure of its kind in this graph, because Iluka owns both the mine and the refinery and reports Wimmera's rare earths as Eneabba product. Table 7 of the Feb 2023 Ore Reserve announcement gives a 20-year life with Product Sold of 2.5 kt Dy oxide and 0.4 kt Tb oxide, i.e. 400 t / 20 years = 20 tpa separated Tb oxide. NOT COMPARABLE with other mines' contained-in-concentrate figures without adjustment. At the disclosed recoveries (Dy 70.9%, Tb 69.5%, Table 8) the contained-in-ore equivalent is Dy 176 + Tb 29 = 205 tpa; contained-in-concentrate lies between 145 and 205 tpa and cannot be separated further, because the disclosed recovery spans mining, concentration AND refining as a single figure. Use 145 tpa when comparing against refinery capacity and the 145-205 band when comparing against other mines' feed. Assemblage (Table 2): Dy2O3 2.7% and Tb4O7 0.4% of total REO, ratio 6.75. Concentrate 280 kt over 20 years = 14 ktpa, consistent with this node's 15 ktpa mat-re-concentrate entry. VINTAGE: PFS-era, 22 Feb 2023, WIM100 Probable Ore Reserve only; a Jan 2026 Wimmera resource update exists and has NOT been checked against this. CORRECTION OF A PRIOR CLAIM: this graph previously recorded that Wimmera's study 'shows Dy/Tb as a dash'. That is wrong - the figures are disclosed here, the later DFS simply did not restate them."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-wimmera-reserve-2023",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-02"
         }
       }
     ],
     "resource_estimates": [],
     "description": "Mining and beneficiation of a fine-grained heavy mineral sands ore body in western Victoria for potential long-term supply of rare earths (monazite/xenotime: Nd/Pr plus Dy/Tb) and zircon. In definitive feasibility study; Environment Effects Statement being prepared for submission to the Victorian Government in 2026; detailed engineering began 2025 with WSP as major engineering provider (Integrated Owner's Team). Flowsheet successfully tested with finished zircon produced (~40% of zircon suitable for ceramics, markets identified for ~60%). Resource increase announced January 2026 following additional exploration and modelling. ~A$10M of 2025 feasibility spend covered Wimmera, Tutunup and other deposits. Iluka expects Wimmera (with Eneabba) to be operational in the long term (2040-2050).",
-    "aliases": ["Wimmera", "WIM100"]
+    "aliases": ["Wimmera", "WIM100"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "host_mineral": "MIXED_PHOSPHATE",
+          "grade_pct_treo": null,
+          "note": "Fine-grained heavy mineral sands yielding a monazite/xenotime concentrate carrying both Nd/Pr and Dy/Tb."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-ar25-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
   },
   {
     "id": "proj-fingerboards",
@@ -218,7 +301,24 @@
     ],
     "resource_estimates": [],
     "description": "Development-stage mineral-sands project at the Glenaladale deposit. Heavy mineral concentrate would be processed further in the Northern Territory or Western Australia; the specific downstream refinery is not publicly established.",
-    "aliases": ["Fingerboards"]
+    "aliases": ["Fingerboards"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-heavy-mineral-concentrate",
+          "host_mineral": "UNSEPARATED_SANDS",
+          "grade_pct_treo": null,
+          "note": "Ships a bulk HMC for further processing elsewhere; the mineral-separation step that would yield monazite/xenotime has no node in this graph and no named operator."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-gcm-fingerboards-disclosures",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
   },
   {
     "id": "proj-serra-verde",
@@ -227,30 +327,33 @@
     "deposit_id": "dep-pela-ema",
     "operator_id": "org-serra-verde",
     "development_stage": {
-      "value": "PRODUCTION",
+      "value": "DEVELOPMENT",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-serra-verde-disclosures",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-defm14a-2026",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-09-01"
       }
     },
     "operating_status": {
-      "value": "OPERATING",
+      "value": "COMMISSIONING",
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-serra-verde-disclosures",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-defm14a-2026",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-09-01"
       }
     },
     "expected_production_start": {
-      "value": 2024,
+      "value": 2027,
       "provenance": {
         "type": "REPORTED",
-        "source_id": "src-serra-verde-disclosures",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-defm14a-2026",
         "assertion_confidence": "HIGH",
-        "last_verified": null
+        "last_verified": "2026-09-01"
       }
     },
     "planned_production": [
@@ -259,20 +362,86 @@
           "material_id": "mat-mrec",
           "tonnes": 6400,
           "period": "ANNUAL",
-          "target_year": 2027,
-          "note": "Rare-earth oxide equivalent contained in mixed rare-earth carbonate; company target by end of 2027"
+          "target_year": null,
+          "note": "'Following ramp-up, production from Phase I is expected to average c. 6,400 metric tons of total rare earth oxides (TREO) per year over the life of the mine.' Contained TREO in MREC, not separated oxides. NO per-element Dy/Tb split is disclosed anywhere in the proxy."
         },
         "provenance": {
           "type": "REPORTED",
-          "source_id": "src-serra-verde-disclosures",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-defm14a-2026",
           "assertion_confidence": "HIGH",
-          "last_verified": null
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 203,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED from the only disclosed absolute figures. USA Rare Earth's 20 Apr 2026 investor deck gives 2027E separated-oxide output of 164 t Dy and 29 t Tb; footnote 3 states 'Assumes 95% recovery yield from MREC to separated oxides', so contained in MREC is (164 + 29) / 0.95 = 203 t. DO NOT SUM with the per-element entries. CRITICAL - THIS IS NOT CURRENT OUTPUT. The merger proxy records 150 t TREO produced in 2024 and only 40 t in 2025, and the COO told Bloomberg in Apr 2026 that Pela Ema 'now produces roughly 100 metric tons of rare earth oxides each year'. At ~100 tpa TREO the contained Dy+Tb today is about 4 t, roughly 2% of the figure recorded here. Serra Verde is a ramp-stage asset; do not give this number a 'currently flowing' weighting in disruption ranking. CORROBORATION from an independent document: Mineracao Serra Verde's own 2015 pilot assay (CETEM) puts Dy2O3 at 3.23% and Tb4O7 at 0.53% of product TREO, which against the 6,400 tpa LOM TREO average implies Dy 207 / Tb 34 = 241 t contained - 16% above the 2027E figure, consistent with 2027 being a ramp year rather than LOM steady state. Treat 203-241 tpa as the steady-state band. Two further checks pass: La at 32% of TREO reproduces USAR's stated '~4,400 tpa after Lanthanum removal' from 6,400 tpa, and the 2015 mass basket priced at the proxy's own 2028E deck reproduces projected 2028E revenue to within ~6%. BASIS DISCIPLINE: 3.23%/0.53% is PRODUCT basis. In-situ whole-rock is about 2.35% Dy and 0.39% Tb of TREO; the difference is the ion-adsorption signature, with Ce collapsing from ~33.6% of in-situ TREO to ~3.0% of product TREO and everything else enriching ~1.4x. Never quote one basis for the other. CONFIDENCE IS LOW DESPITE A FILED SOURCE: this is an acquisition deck seeking shareholder approval for a US$2.83bn transaction, the non-China denominators are Benchmark's rather than the company's, 2027E and the 6,400 t LOM average are different time bases, and no S-K 1300 Technical Report Summary for Pela Ema exists - USAR says it will file one with its first 10-K after closing. FURTHER CORROBORATION (independent sweep): the Dy:NdPr mass ratio implied by USAR's value shares divided by Argus non-China spot is 0.110, and the 2015 assay gives 3.23/(23.10+6.26) = 0.110 - identical to three decimals across two datasets eleven years apart. USAR's own press release states production 'after Lanthanum removal, of c.4,400 metric tons per year', implying La at 31.3% of TREO against the 2015 assay's 32.01%. The Dy:Tb mass ratio converges on 5.3-6.1:1 across four independent routes. YTTRIUM DOES NOT RECONCILE and is the one element that fails these checks: USAR's implied 1,615 t Y2O3 is 25.2% of 6,400 t TREO against 19.8-20.7% in the 2015 assay, so the flowsheet or the basis has changed for Y. Dy and Tb reconcile; Y does not. RAMP IS FAST AND THIS FIGURE WILL MOVE: the 24 Aug 2026 DEFA14A states the operation 'is expected to reach a run-rate of c. 4,000tpa TREO by the end of 2026', against the ~100 tpa actual above. Re-check this node when the first post-merger 10-K and its S-K 1300 Technical Report Summary are filed. A SECOND CONTAMINATED VARIANT also circulates (Discovery Alert): 'approximately 2.5-3.5% dysprosium oxide and 0.8-1.2% terbium oxide in separated concentrates', unsourced - the Dy range brackets the real value but the Tb range is about 2x too high and contradicts USAR's own 164:29. DFC IS A WELL-EVIDENCED NEGATIVE: the Public Information Summary, board resolution BDR(25)20, the press release and all eight ESIA documents were checked and contain no per-element data at all. CONTAMINATION WARNING - REJECT ON SIGHT: figures of roughly 1,024 t Dy and 1,024 t Tb (and Y 2,688 t) circulate for Serra Verde (e.g. Discovery Alert, 23 Apr 2026) and Bloomberg/MINING.COM of the same week quotes 'about 32% will be terbium and dysprosium'. Both apply USAR's basket split as % of MASS when the slide labels it % of VALUE. By mass Dy+Tb is about 3.8% of TREO, so the Dy figure is roughly 6x too high and the Tb figure roughly 34x too high. Do not admit these to the graph."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-serra-verde-8k-2026",
+          "assertion_confidence": "LOW",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 173,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED from the only disclosed absolute figures. USA Rare Earth's 20 Apr 2026 investor deck gives 2027E separated-oxide output of 164 t Dy and 29 t Tb; footnote 3 states 'Assumes 95% recovery yield from MREC to separated oxides', so contained in MREC is 164 / 0.95 = 172.6 t contained Dy2O3. CRITICAL - THIS IS NOT CURRENT OUTPUT. The merger proxy records 150 t TREO produced in 2024 and only 40 t in 2025, and the COO told Bloomberg in Apr 2026 that Pela Ema 'now produces roughly 100 metric tons of rare earth oxides each year'. At ~100 tpa TREO the contained Dy+Tb today is about 4 t, roughly 2% of the figure recorded here. Serra Verde is a ramp-stage asset; do not give this number a 'currently flowing' weighting in disruption ranking. CORROBORATION from an independent document: Mineracao Serra Verde's own 2015 pilot assay (CETEM) puts Dy2O3 at 3.23% and Tb4O7 at 0.53% of product TREO, which against the 6,400 tpa LOM TREO average implies Dy 207 / Tb 34 = 241 t contained - 16% above the 2027E figure, consistent with 2027 being a ramp year rather than LOM steady state. Treat 203-241 tpa as the steady-state band. Two further checks pass: La at 32% of TREO reproduces USAR's stated '~4,400 tpa after Lanthanum removal' from 6,400 tpa, and the 2015 mass basket priced at the proxy's own 2028E deck reproduces projected 2028E revenue to within ~6%. BASIS DISCIPLINE: 3.23%/0.53% is PRODUCT basis. In-situ whole-rock is about 2.35% Dy and 0.39% Tb of TREO; the difference is the ion-adsorption signature, with Ce collapsing from ~33.6% of in-situ TREO to ~3.0% of product TREO and everything else enriching ~1.4x. Never quote one basis for the other. CONFIDENCE IS LOW DESPITE A FILED SOURCE: this is an acquisition deck seeking shareholder approval for a US$2.83bn transaction, the non-China denominators are Benchmark's rather than the company's, 2027E and the 6,400 t LOM average are different time bases, and no S-K 1300 Technical Report Summary for Pela Ema exists - USAR says it will file one with its first 10-K after closing. FURTHER CORROBORATION (independent sweep): the Dy:NdPr mass ratio implied by USAR's value shares divided by Argus non-China spot is 0.110, and the 2015 assay gives 3.23/(23.10+6.26) = 0.110 - identical to three decimals across two datasets eleven years apart. USAR's own press release states production 'after Lanthanum removal, of c.4,400 metric tons per year', implying La at 31.3% of TREO against the 2015 assay's 32.01%. The Dy:Tb mass ratio converges on 5.3-6.1:1 across four independent routes. YTTRIUM DOES NOT RECONCILE and is the one element that fails these checks: USAR's implied 1,615 t Y2O3 is 25.2% of 6,400 t TREO against 19.8-20.7% in the 2015 assay, so the flowsheet or the basis has changed for Y. Dy and Tb reconcile; Y does not. RAMP IS FAST AND THIS FIGURE WILL MOVE: the 24 Aug 2026 DEFA14A states the operation 'is expected to reach a run-rate of c. 4,000tpa TREO by the end of 2026', against the ~100 tpa actual above. Re-check this node when the first post-merger 10-K and its S-K 1300 Technical Report Summary are filed. A SECOND CONTAMINATED VARIANT also circulates (Discovery Alert): 'approximately 2.5-3.5% dysprosium oxide and 0.8-1.2% terbium oxide in separated concentrates', unsourced - the Dy range brackets the real value but the Tb range is about 2x too high and contradicts USAR's own 164:29. DFC IS A WELL-EVIDENCED NEGATIVE: the Public Information Summary, board resolution BDR(25)20, the press release and all eight ESIA documents were checked and contain no per-element data at all. CONTAMINATION WARNING - REJECT ON SIGHT: figures of roughly 1,024 t Dy and 1,024 t Tb (and Y 2,688 t) circulate for Serra Verde (e.g. Discovery Alert, 23 Apr 2026) and Bloomberg/MINING.COM of the same week quotes 'about 32% will be terbium and dysprosium'. Both apply USAR's basket split as % of MASS when the slide labels it % of VALUE. By mass Dy+Tb is about 3.8% of TREO, so the Dy figure is roughly 6x too high and the Tb figure roughly 34x too high. Do not admit these to the graph."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-serra-verde-8k-2026",
+          "assertion_confidence": "LOW",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 30,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED from the only disclosed absolute figures. USA Rare Earth's 20 Apr 2026 investor deck gives 2027E separated-oxide output of 164 t Dy and 29 t Tb; footnote 3 states 'Assumes 95% recovery yield from MREC to separated oxides', so contained in MREC is 29 / 0.95 = 30.5 t contained Tb oxide. CRITICAL - THIS IS NOT CURRENT OUTPUT. The merger proxy records 150 t TREO produced in 2024 and only 40 t in 2025, and the COO told Bloomberg in Apr 2026 that Pela Ema 'now produces roughly 100 metric tons of rare earth oxides each year'. At ~100 tpa TREO the contained Dy+Tb today is about 4 t, roughly 2% of the figure recorded here. Serra Verde is a ramp-stage asset; do not give this number a 'currently flowing' weighting in disruption ranking. CORROBORATION from an independent document: Mineracao Serra Verde's own 2015 pilot assay (CETEM) puts Dy2O3 at 3.23% and Tb4O7 at 0.53% of product TREO, which against the 6,400 tpa LOM TREO average implies Dy 207 / Tb 34 = 241 t contained - 16% above the 2027E figure, consistent with 2027 being a ramp year rather than LOM steady state. Treat 203-241 tpa as the steady-state band. Two further checks pass: La at 32% of TREO reproduces USAR's stated '~4,400 tpa after Lanthanum removal' from 6,400 tpa, and the 2015 mass basket priced at the proxy's own 2028E deck reproduces projected 2028E revenue to within ~6%. BASIS DISCIPLINE: 3.23%/0.53% is PRODUCT basis. In-situ whole-rock is about 2.35% Dy and 0.39% Tb of TREO; the difference is the ion-adsorption signature, with Ce collapsing from ~33.6% of in-situ TREO to ~3.0% of product TREO and everything else enriching ~1.4x. Never quote one basis for the other. CONFIDENCE IS LOW DESPITE A FILED SOURCE: this is an acquisition deck seeking shareholder approval for a US$2.83bn transaction, the non-China denominators are Benchmark's rather than the company's, 2027E and the 6,400 t LOM average are different time bases, and no S-K 1300 Technical Report Summary for Pela Ema exists - USAR says it will file one with its first 10-K after closing. FURTHER CORROBORATION (independent sweep): the Dy:NdPr mass ratio implied by USAR's value shares divided by Argus non-China spot is 0.110, and the 2015 assay gives 3.23/(23.10+6.26) = 0.110 - identical to three decimals across two datasets eleven years apart. USAR's own press release states production 'after Lanthanum removal, of c.4,400 metric tons per year', implying La at 31.3% of TREO against the 2015 assay's 32.01%. The Dy:Tb mass ratio converges on 5.3-6.1:1 across four independent routes. YTTRIUM DOES NOT RECONCILE and is the one element that fails these checks: USAR's implied 1,615 t Y2O3 is 25.2% of 6,400 t TREO against 19.8-20.7% in the 2015 assay, so the flowsheet or the basis has changed for Y. Dy and Tb reconcile; Y does not. RAMP IS FAST AND THIS FIGURE WILL MOVE: the 24 Aug 2026 DEFA14A states the operation 'is expected to reach a run-rate of c. 4,000tpa TREO by the end of 2026', against the ~100 tpa actual above. Re-check this node when the first post-merger 10-K and its S-K 1300 Technical Report Summary are filed. A SECOND CONTAMINATED VARIANT also circulates (Discovery Alert): 'approximately 2.5-3.5% dysprosium oxide and 0.8-1.2% terbium oxide in separated concentrates', unsourced - the Dy range brackets the real value but the Tb range is about 2x too high and contradicts USAR's own 164:29. DFC IS A WELL-EVIDENCED NEGATIVE: the Public Information Summary, board resolution BDR(25)20, the press release and all eight ESIA documents were checked and contain no per-element data at all. CONTAMINATION WARNING - REJECT ON SIGHT: figures of roughly 1,024 t Dy and 1,024 t Tb (and Y 2,688 t) circulate for Serra Verde (e.g. Discovery Alert, 23 Apr 2026) and Bloomberg/MINING.COM of the same week quotes 'about 32% will be terbium and dysprosium'. Both apply USAR's basket split as % of MASS when the slide labels it % of VALUE. By mass Dy+Tb is about 3.8% of TREO, so the Dy figure is roughly 6x too high and the Tb figure roughly 34x too high. Do not admit these to the graph."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-serra-verde-8k-2026",
+          "assertion_confidence": "LOW",
+          "last_verified": "2026-09-02"
         }
       }
     ],
     "resource_estimates": [],
-    "description": "Integrated mining and processing operation in commercial production since 2024, producing a mixed rare-earth carbonate with Dy, Tb, Nd and Pr — the first scaled producer outside Asia of all four magnet rare earths.",
-    "aliases": ["Serra Verde", "Pela Ema"]
+    "description": "Ionic-clay operation in Goias, Brazil, and the subject of USA Rare Earth's pending US$2.83bn acquisition. Phase I is expected to average approximately 6,400 t/yr TREO contained in MREC over life of mine, with commercial operations expected in 2027 - as at 31 Dec 2025 the proxy states 'the Project remains in the development stage and has not yet achieved the milestones necessary to be considered operational', which contradicts the earlier claim held here that it has been in production since 2024. Financed by a DFC facility of up to US$565 million (initial tranche up to US$465m plus a second tranche up to US$100m), of which approximately US$325 million was outstanding at 31 Mar 2026. A 15-year 100% offtake with per-element floor prices to US SIIE, LLC was signed 20 Apr 2026. TWO EVIDENCE GAPS: no per-element Dy/Tb tonnage or grade split appears anywhere in the proxy, and there is no S-K 1300-compliant resource or reserve - 'A qualified person has not done sufficient work to classify these estimates as current estimates of mineral resources or mineral reserves'. One is promised in the first 10-K after closing. THE OFFTAKE IS NOW LIVE AND THE LOCK IS NARROWER THAN IT LOOKS. US SIIE, LLC is identified by the U.S. Department of War as a special purpose vehicle it capitalised with US$750 million through the IBAS programme, inside a US$1.55 billion structure that also carries a US$300 million Defense Logistics Agency purchase commitment and a US$500 million money-center bank commitment. Conditions precedent were satisfied 21-24 Aug 2026 and the agreement is 'now in force and in full effect', with first deliveries expected early Q4 2026. SCOPE IS 100% OF PHASE 1 Nd, Pr, Dy AND Tb ONLY, take-or-pay - but YTTRIUM IS EXPRESSLY CARVED OUT and is 42% of life-of-mine basket VALUE, and a potential Phase 2 of roughly +6,400 tpa TREO is not covered. So Serra Verde is locked for magnet rare earths and free for yttrium and any expansion. Floor prices: Tb US$2,050/kg, Dy US$575/kg, Nd and Pr US$110/kg, escalating 2% a year, with 70% of any excess over the market index returning to the seller - note these were struck BELOW then-prevailing ex-China spot, so they are downside insurance rather than a subsidy. Term is legally the earlier of 198 million tonnes of run-of-mine ore or 20 years from a Commercial Operations Date that has not yet occurred; the '15-year' framing used throughout USAR and Serra Verde marketing is not reconciled to that anywhere and should be treated as shorthand. US SIIE additionally holds a CALL OPTION OVER ALL SVRE EQUITY, triggered by events including breach of the change-of-control provisions - a sovereign lock on the asset, not just the tonnes. Residual risk: the US$500m facility funding the SPV's purchases is an undocumented, unfunded commitment expiring 31 Dec 2026.",
+    "aliases": ["Serra Verde", "Pela Ema"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Phase I averages ~6,400 t/yr TREO contained in MREC. Ionic clay, salt-leach desorbed."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-defm14a-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
   },
   {
     "id": "proj-eneabba-stockpile",
@@ -318,7 +487,24 @@
     ],
     "resource_estimates": [],
     "description": "Iluka's existing stockpile of rare-earth-bearing monazite and xenotime at Eneabba, WA (a by-product of historical mineral-sands mining), with Phase 1 screening and Phase 2 concentrating plant already built (A$50M deployed). Described by Iluka as the highest-grade rare earths operation globally; valued at A$1,270M as an equity-like contribution to the refinery (FID 2022). No mining required. Provides the refinery's initial feed for an indicative nine years; replenished from Iluka's Jacinth-Ambrosia and Cataby mineral-sands operations. AR25: the Rare Earths segment comprises the refinery plus Phases 1 and 2; Iluka's 2026 LTIP targets securing at least 8 kt contained NdPr (or Dy/Tb equivalent) of additional feedstock beyond the monazite stockpile. Tonnage and REO assemblage of the stockpile not disclosed.",
-    "aliases": ["Eneabba stockpile"]
+    "aliases": ["Eneabba stockpile"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "host_mineral": "MIXED_PHOSPHATE",
+          "grade_pct_treo": null,
+          "note": "Stockpiled monazite AND xenotime from historical mineral-sands mining, screened and concentrated on site. Blended host, split not separately disclosed."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-iluka-ar25-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
   },
   {
     "id": "proj-kangankunde",
@@ -345,9 +531,1440 @@
       }
     },
     "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-monazite-concentrate",
+          "tonnes": 15300,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "JORC-COMPLIANT PRODUCTION TARGET from the 1 Jul 2024 Stage 1 FS, at 55% TREO containing approximately 8,400 tpa REO and 1,640 tpa NdPr. A 17 Dec 2025 optimisation announced plant CAPACITY to reach 20,000 tpa, but the JORC production target has NOT been restated and Lindian's own Aug 2026 SARECO announcement still sources production to the 2024 FS. 15,300 is therefore the figure the company certifies as current."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lindian-kangankunde-fs-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Carbonatite monazite project in Malawi, and a LIGHT rare earth source - Lindian publishes NdPr ratios only, with no Dy or Tb distribution - so its contribution to Dy/Tb supply is immaterial. It matters to this graph because of a genuine FEED OVER-COMMITMENT. Two claims exist on Stage 1 concentrate: Iluka's binding 6,000 dmt/yr for 15 years (90,000 dmt total, containing 9,600 dmt NdPr), and approximately 12,500 tpa to Lindian's own SARECO plant in Kazakhstan - 18,500 tpa in total. Against the JORC production target of 15,300 tpa that is a 21% OVER-COMMITMENT; against the unrestated 20,000 tpa optimised capacity it fits with 1,500 tpa spare. Lindian materially managed this: it TERMINATED the Gerald Metals SPA on 19 Jun 2026, which had held roughly 40% of Stage 1, explicitly to 'allow for the earlier supply of product to the SARECO hydromet facility in Kazakhstan'. TWO ILUKA ROFR TRIGGERS ARE ARGUABLY LIVE: expansion 'beyond its initial capacity of up to 18,000dmt per annum' would oblige Lindian to offer Iluka 33% or 80% of incremental production up to 31,000 dmt/yr, and 18,500 tpa crosses that threshold; and Iluka holds a further ROFR where Lindian sells 'on less favourable terms' than Iluka's - which makes transfer pricing to a now wholly-owned SARECO a live question. MITIGANT: SARECO need not run on Kangankunde alone - Lindian optioned a 13,389 t Aktau HREE stockpile on 31 Aug 2026 with exclusivity over a further 15,000-20,000 t, explicitly processable 'ahead of, alongside or independently from Kangankunde concentrate deliveries'. DO NOT DOUBLE-COUNT: Iluka's '10% of the refinery's capacity feedstock for 15 years' and the '6,000 tpa for 15 years' are the same contract described two ways.",
+    "aliases": ["Kangankunde"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-monazite-concentrate",
+          "host_mineral": "MONAZITE",
+          "grade_pct_treo": null,
+          "note": "Carbonatite monazite. A light rare earth source - Lindian publishes NdPr ratios only, no Dy/Tb distribution."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lindian-kangankunde-fs-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-mount-weld",
+    "name": "Mt Weld Mine and Concentration Plant",
+    "country_id": "AU",
+    "development_stage": {
+      "value": "PRODUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lynas-q4-fy26-quarterly",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-lynas-q4-fy26-quarterly",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-mount-weld",
+    "operator_id": "org-lynas",
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 62,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "LOWER BOUND, NOT A PRODUCTION FIGURE - Mt Weld discloses no production at all. Derived by mass balance from a MEASURED downstream actual: Lynas Malaysia produced 62 t of Dy+Tb across FY26 (9 t Q1, 26 t Q2, 8 t Q3, 19 t Q4, src-lynas-q4-fy26-quarterly). Lynas Malaysia's only feed is Kalgoorlie and Kalgoorlie's only feed is Mt Weld, so every tonne separated in Malaysia was contained in Mt Weld concentrate; beneficiation and separation recoveries are below 100%, so contained Dy+Tb at the mine is >= 62 t. UPPER BOUND ~300 t, also disclosed: Lynas states its 250 t Dy / 50 t Tb nameplate is 'subject to sourcing other potential feedstock', which is the operator's own statement that Mt Weld alone cannot fill it. Use 62-300 tpa as the range; the lower bound is what ranking needs. DO NOT substitute the reserve-grade route (0.63% Dy2O3 + 0.16% Tb4O7 = 0.79% of TREO, 5 Aug 2024 reserve): that is an ORE-basis ratio and the Mt Weld CONCENTRATE assemblage is a hard null across all 1,767 Lynas ASX announcements, so flotation fractionation is unquantified. It does give a free consistency check - inverting 62 t at 0.79% implies roughly 7,850 t TREO through the chain, which should be reconciled against Lynas's FY26 REO production. This is the only Dy/Tb feed figure in the graph derived from material that actually moved."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-q4-fy26-quarterly",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Lynas's upstream mine and concentrator at Laverton, Western Australia, and the head of the only fully ex-China Dy/Tb chain in commercial operation (Mt Weld -> Kalgoorlie -> Lynas Malaysia). Expansion ramping through Q4 FY26 as part of the completed A$1.5 billion Lynas 2025 growth investment; the only construction outstanding is additional tailings storage, and all equipment is operational except a new fine grinding mill (Isamill) planned for Q1 FY27 to improve recoveries. Water recycling plant issues during the June 2026 quarter were resolved and the plant now produces sufficient water to run at design capacity. The hybrid renewable power station averaged 90% renewable content in Q4 FY26 against a 70% target. RISK: in the June 2026 quarter, ore variation plus replacement of a moveable crusher with a fixed crusher degraded concentrate quality, which in turn reduced cracking-and-leaching productivity at both Kalgoorlie and Kuantan and cut finished product volumes - a single-point upstream dependency for all downstream ex-China Dy/Tb output. No resource estimate or production target is recorded: the quarterly states neither.",
+    "aliases": ["Mt Weld", "Mount Weld"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "host_mineral": "MIXED_PHOSPHATE",
+          "grade_pct_treo": null,
+          "note": "Form is firm - a flotation concentrate railed to Kalgoorlie. Host is INFERRED from deposit_type (lateritic carbonatite, heavies in churchite, a hydrated xenotime, plus yttropyrochlore): Lynas has published no per-oxide concentrate assay in 1,767 ASX announcements, so the monazite/churchite split is a hard null."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-lynas-q4-fy26-quarterly",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-mountain-pass",
+    "name": "Mountain Pass Rare Earth Mine",
+    "country_id": "US",
+    "development_stage": {
+      "value": "PRODUCTION",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mp-10k-fy2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "OPERATING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mp-10k-fy2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-mountain-pass",
+    "operator_id": "org-mp-materials",
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "tonnes": 50692,
+          "period": "ANNUAL",
+          "target_year": 2025,
+          "note": "FY2025 ACTUAL, not a plan: 50,692 MT REO in concentrate, alongside 2,599 MT NdPr oxide. Recorded here because MP publishes no forward production target. MP's disclosed KPIs are REO and NdPr volume only - there is no Dy, Tb or HREE production KPI in any filing."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-10k-fy2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 120,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Contained Dy+Tb in Mountain Pass's own SEG+ heavy concentrate stream. RE-ATTRIBUTED, NOT NEWLY ESTIMATED: the same derivation is already carried as a MODEL_ESTIMATE capacity on fac-mountain-pass-refinery - 3,000 t/yr of SEG+ feedstock throughput (src-mp-q3-2025-results) at the 'around 4% dysprosium and terbium' stated in MP's SK-1300 TRS section 16.4.3 implies ~120 t. Recorded here as well because the Dy/Tb originates in Mountain Pass ore and a mine-side disruption ranking cannot see a figure held only on the refinery node; the two entries are ONE claim, not two - do not add them. CROSS-CHECK: 120 t against the FY2025 actual 50,692 t REO in concentrate implies 0.237% Dy+Tb of TREO, against Mt Weld's CLD at 0.34% and its 2024 reserve blend at 0.79% - the same order and slightly lighter, as expected for a bastnaesite LREE carbonatite. CAVEAT: 3,000 t/yr is circuit THROUGHPUT, not the annual rate at which SEG+ arises; MP has been stockpiling SEG+ since late 2023, so the two may differ. Adequate for ranking, not for sizing."
+        },
+        "provenance": {
+          "type": "MODEL_ESTIMATE",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-sk1300-trs-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "MP Materials' bastnaesite mine and processing site at Mountain Pass, San Bernardino County, California - the only rare earth mining and processing site of scale in North America. Historically a light rare earth (NdPr) producer; a heavy rare earth separation capability is being added under a US$150 million DoD loan announced 10 July 2025. NOTE: no deposit node, resource estimate or production figure is recorded here - none appears in the DoD partnership release, which is the only primary document read for this project.",
+    "aliases": ["Mountain Pass"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "host_mineral": "BASTNAESITE",
+          "grade_pct_treo": 60.0,
+          "note": "Bastnaesite fluorocarbonate concentrate consumed on site. Roast/leach route, no phosphate cracking circuit - a different front end from every monazite/xenotime concentrate in this graph despite sharing the material id."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mp-10k-fy2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-donald",
+    "name": "Donald Project",
+    "country_id": "AU",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-energy-fuels-hre-construction-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-energy-fuels-hre-construction-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": null,
+    "operator_id": null,
+    "expected_production_start": {
+      "value": 2028,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-energy-fuels-hre-construction-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-monazite-concentrate",
+          "tonnes": 8500,
+          "period": "ANNUAL",
+          "target_year": 2028,
+          "note": "Stated as a range of approximately 8,500 to 9,500 t of monazite concentrate annually beginning in 2028; the lower bound is recorded here. Conditional on a positive FID, anticipated Q3 2026."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-hre-construction-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 98,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Contained in the Donald rare earth element concentrate (REEC), Phase 1, as disclosed. Energy Fuels states 8,000 t of REEC contains approximately 4,700 t TREO including 84 t Dy oxide and 14 t Tb oxide - implying a concentrate grade of 1.05% Dy2O3 and 0.175% Tb4O7, and Dy+Tb at 2.09% of TREO. Phase 2 (14,000 t REEC) is disclosed as 140 t Dy and 25 t Tb = 165 t. Dy 84 + Tb 14 = 98 t. DO NOT SUM with the per-element entries. VINTAGE MISMATCH, READ BEFORE USING: these figures are from Jun 2024 and describe a 7,000-8,000 tpa Phase 1 starting 'as early as 2026'. This node's mat-monazite-concentrate entry is 8,500-9,500 tpa starting 2028, from the Jul 2026 release, and no restatement of the Dy/Tb content at that scale has been found. Scaling by the disclosed grade gives Dy 89 / Tb 15 (104 t) at 8,500 t and Dy 100 / Tb 17 (116 t) at 9,500 t; the 98 t recorded here is the disclosed Phase 1 figure, not the scaled one. CROSS-CHECK: Donald Phase 1's Dy:Tb ratio is 6.00 and White Mesa's 2027 nameplate is 120/20 = 6.00 exactly, corroborating Energy Fuels' statement that the expansion is 'sized and timed' for Donald monazite. The 2029 expansion (288 Dy / 80 Tb = 368 t, ratio 3.60) is 2.2x Donald Phase 2 and far more Tb-rich, so it requires substantial third-party heavy feed that has no edge in this graph."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-donald-jv-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 84,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Contained in the Donald rare earth element concentrate (REEC), Phase 1, as disclosed. Energy Fuels states 8,000 t of REEC contains approximately 4,700 t TREO including 84 t Dy oxide and 14 t Tb oxide - implying a concentrate grade of 1.05% Dy2O3 and 0.175% Tb4O7, and Dy+Tb at 2.09% of TREO. Phase 2 (14,000 t REEC) is disclosed as 140 t Dy and 25 t Tb = 165 t. Dy oxide alone, as disclosed. VINTAGE MISMATCH, READ BEFORE USING: these figures are from Jun 2024 and describe a 7,000-8,000 tpa Phase 1 starting 'as early as 2026'. This node's mat-monazite-concentrate entry is 8,500-9,500 tpa starting 2028, from the Jul 2026 release, and no restatement of the Dy/Tb content at that scale has been found. Scaling by the disclosed grade gives Dy 89 / Tb 15 (104 t) at 8,500 t and Dy 100 / Tb 17 (116 t) at 9,500 t; the 98 t recorded here is the disclosed Phase 1 figure, not the scaled one. CROSS-CHECK: Donald Phase 1's Dy:Tb ratio is 6.00 and White Mesa's 2027 nameplate is 120/20 = 6.00 exactly, corroborating Energy Fuels' statement that the expansion is 'sized and timed' for Donald monazite. The 2029 expansion (288 Dy / 80 Tb = 368 t, ratio 3.60) is 2.2x Donald Phase 2 and far more Tb-rich, so it requires substantial third-party heavy feed that has no edge in this graph."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-donald-jv-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 14,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Contained in the Donald rare earth element concentrate (REEC), Phase 1, as disclosed. Energy Fuels states 8,000 t of REEC contains approximately 4,700 t TREO including 84 t Dy oxide and 14 t Tb oxide - implying a concentrate grade of 1.05% Dy2O3 and 0.175% Tb4O7, and Dy+Tb at 2.09% of TREO. Phase 2 (14,000 t REEC) is disclosed as 140 t Dy and 25 t Tb = 165 t. Tb oxide alone, as disclosed. VINTAGE MISMATCH, READ BEFORE USING: these figures are from Jun 2024 and describe a 7,000-8,000 tpa Phase 1 starting 'as early as 2026'. This node's mat-monazite-concentrate entry is 8,500-9,500 tpa starting 2028, from the Jul 2026 release, and no restatement of the Dy/Tb content at that scale has been found. Scaling by the disclosed grade gives Dy 89 / Tb 15 (104 t) at 8,500 t and Dy 100 / Tb 17 (116 t) at 9,500 t; the 98 t recorded here is the disclosed Phase 1 figure, not the scaled one. CROSS-CHECK: Donald Phase 1's Dy:Tb ratio is 6.00 and White Mesa's 2027 nameplate is 120/20 = 6.00 exactly, corroborating Energy Fuels' statement that the expansion is 'sized and timed' for Donald monazite. The 2029 expansion (288 Dy / 80 Tb = 368 t, ratio 3.60) is 2.2x Donald Phase 2 and far more Tb-rich, so it requires substantial third-party heavy feed that has no edge in this graph."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-donald-jv-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-02"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Mineral sands JV in Victoria, Australia between Astron Limited and Energy Fuels, under which Energy Fuels has the right to earn up to a 49% interest. Its monazite is the feedstock the White Mesa heavy rare earth expansion is explicitly 'sized and timed' to process, making Donald the upstream dependency for the largest planned US Dy/Tb capacity. RISK: production is conditional on a final investment decision anticipated Q3 2026, itself conditional on completing project debt financing with Export Finance Australia and other lenders targeting A$220 million. Operator not recorded: the release names the JV parties but not the operating entity.",
+    "aliases": ["Donald Mineral Sands", "Donald JV"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-monazite-concentrate",
+          "host_mineral": "MONAZITE",
+          "grade_pct_treo": null,
+          "note": "Mineral-sands JV whose monazite the White Mesa heavy expansion is 'sized and timed' to process."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-energy-fuels-donald-jv-2024",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-carina",
+    "name": "Carina Project",
+    "country_id": "BR",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-carina-fs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-carina-fs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-carina",
+    "operator_id": "org-aclara",
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 4378,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average annual REO CONTAINED in the mixed rare earth concentrate product over an 18-year LOM; DyTb content 4.2%, NdPr content 27.2%. Not separated oxide - separation is performed at Aclara's planned Louisiana facility."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-carina-fs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 156,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Dy contained in the MREC product, average annual over LOM - NOT separated Dy oxide at the mine gate."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-carina-fs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 27,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Tb contained in the MREC product, average annual over LOM - NOT separated Tb oxide at the mine gate."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-carina-fs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Ionic-clay heavy rare earth project in Goias, Brazil, and the largest single ex-China Dy/Tb source in this graph after Caremag: 156 t Dy and 27 t Tb per year contained in MREC, which Aclara states is equivalent to approximately 11.8% of China's 2024 estimated DyTb production. Feasibility study filed 13 Apr 2026 (effective 20 Mar 2026, by Hatch, on SEDAR+), completed only six months after the PFS; metallurgy demonstrated on a continuously operated pilot plant. Economics: after-tax NPV8 approximately US$1.7 billion, IRR 26.9%, payback 2.9 years, construction capex US$780.9 million including US$102.7 million contingency (US$100.4 million above PFS on FX, inflation and engineering accuracy). STRUCTURAL POINT: Carina is a concentrate producer, not a refiner - the FS applies an average annual commercial discount of US$314.4 million (34% of gross revenue) as a separation fee payable to Aclara's own 100%-owned Louisiana separation project, whose NPV is explicitly EXCLUDED from the FS. Treat the mine economics and the separation economics as separate, unproven-together propositions.",
+    "aliases": ["Carina Module"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Feasibility study (Hatch, effective 20 Mar 2026) states 156 t Dy and 27 t Tb per year contained in MREC."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-carina-fs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-monte-alto",
+    "name": "Monte Alto Rare Earths Project",
+    "country_id": "BR",
+    "development_stage": {
+      "value": "DEVELOPMENT",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-bre-carester-offtake-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-bre-carester-offtake-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-monte-alto",
+    "operator_id": "org-brazilian-rare-earths",
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 150,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "CONTRACTED MAXIMUM, not a production estimate. 'up to a maximum of 150 tpa of contained DyTb over an initial 10-year term' supplied to Caremag as heavy rare earth concentrate (SEG+). This is the offtake ceiling, so it is a FLOOR on Monte Alto's capability rather than a measure of its output - BRE discloses no total production figure, resource or grade for Monte Alto. Duplicated on rel-monte-alto-supplies-caremag by design: the project field states what the mine delivers, the edge states what is contracted to one buyer."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-bre-carester-offtake-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 128,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 150 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. The 150 t parent is a CONTRACTED MAXIMUM, so these are ceilings, not production estimates. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 22,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 150 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. The 150 t parent is a CONTRACTED MAXIMUM, so these are ceilings, not production estimates. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Brazilian Rare Earths' heavy rare earth project in the Rocha da Rocha Province, Bahia, and the contracted feedstock that resolves Caremag's largest supply question: under a binding 10-year agreement signed 9 Oct 2025, Monte Alto supplies heavy rare earth concentrate (SEG+) supporting up to 150 tpa of contained DyTb at Caremag - a quarter of that plant's 600 tpa steady-state DyTb output. BRE separately plans its own integrated separation plant at the Camacari Petrochemical Complex (approximately 260 km away), producing separated NdPr oxide, heavy rare earth concentrate and uranium yellowcake, with Carester providing front-end engineering, process design, commissioning and ramp-up support through December 2031. NOT MODELLED as a facility: the release discloses no capacity or timeline for Camacari. No development stage, resource, grade or production tonnage is disclosed in the offtake release either - DEVELOPMENT is a MEDIUM-confidence reading of a project with a binding 10-year offtake and an EPC partner, not a sourced stage.",
+    "aliases": ["Monte Alto"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "host_mineral": "UNDISCLOSED",
+          "grade_pct_treo": null,
+          "note": "OPEN QUESTION, deliberately not resolved here. The binding 10-year Carester offtake names the product 'heavy rare earth concentrate (SEG+)', which reads as mat-seg-plus, but the curated edges carry mat-hre-concentrate and no document on the mineral host has been read. Left on the edge material to avoid resolving a README-flagged open item by fiat; host UNDISCLOSED so it cannot clear a narrowed envelope."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-bre-carester-offtake-2025",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-songwe-hill",
+    "name": "Songwe Hill Rare Earths Project",
+    "country_id": "MW",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mkango-pulawy-pfs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mkango-pulawy-pfs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": null,
+    "operator_id": "org-mkango",
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 5954,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average TREO for the first full five years of production, contained in a MREC grading 55% TREO (dry basis)."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "tonnes": 1953,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "NdPr oxides contained in the MREC, first full five years."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 56,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "COMBINED Dy and Tb oxides CONTAINED IN MREC, first full five years - not separated oxide, and not to be confused with the Pulawy separation plant in Poland."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 48,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 56 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 8,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 56 t using a Dy:Tb ratio of 5.92, the pooled median of the 9 nodes in this graph that disclose Dy and Tb separately. Splitting that sample into mine-only and plant-only medians tested WORSE in backtest (n too small), so the pooled median is used. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Mkango's carbonatite-hosted rare earth project in Malawi and the intended feed for the Pulawy separation plant. Updated feasibility study announced 19 Mar 2026 alongside the Pulawy PFS. Contained Dy+Tb of 56 tpa is small relative to the rest of this graph, but it is the paired upstream asset that makes the Pulawy flowsheet legible: Songwe's MREC is what Pulawy would split, and on the current PFS design its heavies would leave Pulawy as a mixed SEGH carbonate rather than separated Dy/Tb oxide.",
+    "aliases": ["Songwe"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Carbonatite-hosted, but the shipped form is MREC - Songwe's MREC is what Pulawy would split."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-mkango-pulawy-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-lofdal",
+    "name": "Lofdal Heavy Rare Earths Project",
+    "country_id": "NA",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-nmi-lofdal-earnin-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-nmi-lofdal-pfs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-lofdal",
+    "operator_id": "org-namibia-critical-metals",
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 119,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average annual Dy contained in a MIXED 99% TREO rare earth carbonate product, NOT separated oxide. PFS grade. The technical report writes '119 t Dy' without a unit qualifier; the company project page writes the same figure as Dy2O3, and the oxide reading is self-consistent with the published assemblage, but the report itself is ambiguous."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 17.8,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average annual Tb contained in mixed carbonate; same oxide-vs-metal ambiguity as the Dy figure."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 1478,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average annual TREO ex-La and Ce contained in mixed rare earth carbonate (PFS Table 144). NOTE: the company project page headlines '2,000 tpa TREO' - the technical report figure governs."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "The only DEDICATED heavy-rare-earth project in this graph, and the richest by assemblage: in-situ Dy2O3 is 5.1-5.6% of TREO against Mt Weld's ~0.63%. NI 43-101 PFS filed on SEDAR+ 13 Jan 2026 (SGS Bateman, QP Joseph Keane), reserve effective 1 Dec 2025. Average annual production 1,478 t TREO ex-La,Ce including 119 t Dy, 17.8 t Tb and 841 t Y, over a 13-year mine life at 1.482 Mtpa throughput; capex US$347.9M, after-tax NPV5 US$275.5M base case, IRR 19.0%. Product is a mixed carbonate, so this is contained metal for someone else to separate. OWNERSHIP: Japan now holds 50%. JOGMEC and Toyota Tsusho completed a C$23 million earn-in (C$3M Term 1, C$7M Term 2, C$13M Term 3) and hold their interest through TJ Namibia Rare Earths Corporation, a jointly owned SPC established June 2026, into which JOGMEC is investing up to C$47.668 million; the JOGMEC:Toyota Tsusho split inside TJNREC is not disclosed. JOGMEC holds a first right of refusal to fund to commercial production AND to purchase all production at market prices - so this is effectively a Japanese-destined supply. Fully permitted under ML 200 to 2046. DFS fully funded, targeted for Q2 2027, with FID targeted during FY2026; the DFS will evaluate producing SEPARATE light and heavy rare earth carbonates in Namibia rather than the PFS's single mixed carbonate. First production year NOT DISCLOSED - the PFS states only a 24-month development period before production.",
+    "aliases": ["Lofdal", "Lofdal 2B-4"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "PFS states the product is a mixed carbonate, so Lofdal ships contained metal for someone else to separate despite being the richest HREE assemblage in the graph."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-nmi-lofdal-pfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-caldeira",
+    "name": "Caldeira Project",
+    "country_id": "BR",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-meteoric-caldeira-dfs-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "COMMISSIONING",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-meteoric-pilot-mrec-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-caldeira",
+    "operator_id": "org-meteoric-resources",
+    "expected_production_start": {
+      "value": 2029,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-meteoric-caldeira-dfs-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 127,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average annual COMBINED DyTb contained in MREC. The individual annual Dy and Tb figures are NOT DISCLOSED - only the LOM totals are split (2,408 t Dy, 519 t Tb over 23 years)."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 12500,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average annual TREO contained in MREC over a 23-year LOM (12,181 t in years 1-5). Plant designed for ~25,000 dmt/yr of MREC from 6 Mtpa of ionic clay feed at 91.3% availability."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 2408,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Dy contained in MREC over the 23-year LOM (~105 tpa). Oxide-equivalent contained in product, not separated oxide."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 519,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Tb contained in MREC over the 23-year LOM (~23 tpa)."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 104,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 127 t using the node's own life-of-mine split (2,408 t Dy / 519 t Tb over 23 years), a SAME-DOCUMENT ratio of 4.64 from src-meteoric-caldeira-dfs-2026, which also carries the annual figure being split. CORROBORATED: the DFS's own LOM notes annualise to ~105 tpa Dy and ~23 tpa Tb, which this derivation reproduces independently (104 / 23). Assumes the ratio is stable across the mine life. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 23,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 127 t using the node's own life-of-mine split (2,408 t Dy / 519 t Tb over 23 years), a SAME-DOCUMENT ratio of 4.64 from src-meteoric-caldeira-dfs-2026, which also carries the annual figure being split. CORROBORATED: the DFS's own LOM notes annualise to ~105 tpa Dy and ~23 tpa Tb, which this derivation reproduces independently (104 / 23). Assumes the ratio is stable across the mine life. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "The largest ionic clay REE deposit outside China by resource (1,631 Mt @ 2,317 ppm TREO), and the feed behind Ucore's only quantified Dy/Tb basket. DFS released 31 Jul 2026 to AACE Class 3 (+/-10%, Ausenco), SUPERSEDING the Jul 2025 PFS. Critically, the DFS production target is underpinned ENTIRELY by Probable Ore Reserves converted from Measured and Indicated with no Inferred material - a material de-risking against the PFS, whose target contained roughly 11% Inferred. Average annual output 12,500 t TREO and 127 t combined DyTb contained in ~25,000 dmt of MREC. Capex US$498M, post-tax NPV8 US$847M, IRR 24%, 4-year payback. Preliminary Licence granted Dec 2025; Installation Licence expected Q4 2026; first MREC targeted 2029 after roughly 26 months of construction following FID. FUNDING is non-binding: an EXIM Letter of Interest for up to US$250M of US-origin equipment and services, and an Export Finance Australia conditional Letter of Support up to US$50M. OFFTAKE IS ALSO ALL NON-BINDING - POSCO International, Neo Performance Materials and Ucore, with no volumes, prices or terms disclosed by Meteoric. IMPORTANT: Ucore's figures of ~24 t Dy and ~6 t Tb within 3,000 t TREO/yr have NO counterpart in any Meteoric filing; they are Ucore's own characterisation of a non-binding MOU covering roughly a quarter of Caldeira's TREO output. OFFTAKE IS OVERSUBSCRIBED ON PAPER. Four separate claims exist on Caldeira output against average annual production of 12,500 t TREO (127 t combined DyTb): three non-binding MOUs - Ucore 3,000 t (24%), Neo 3,000 t (24%), POSCO approximately 30% - plus a conditional take-or-pay Offtake Option granted to the Togni parties in April 2026 for up to 30% of annual production, exercisable on five years' notice. The three MOUs alone total roughly 78% and fit. Add the Togni option at full exercise and total potential claims reach roughly 13,500 t against 12,500 t produced, an oversubscription of about 8%; the same holds on the Dy/Tb axis at roughly 136 t of claims against 127 t produced. Neo additionally holds a right of first refusal on volume above 6,000 t TREO/yr. None of this is a contradiction today - the MOUs are non-binding and POSCO's volume is undefined - but it is a hard ceiling on how much of the POSCO 30% can ever be converted, and it means Caldeira should NOT be modelled as an available reroute source without checking which claims have hardened. PILOT PLANT IS RUNNING: as at 11 Jun 2026 Meteoric had produced over 200 kg of MREC at Pocos de Caldas at averaged 71% NdPr and DyTb recoveries, impurities below 2%, and uranium and thorium well below the 10 Bq/g transport threshold, distributing bulk samples for separation testwork and product qualification to Neo, Ucore, MTM and other prospective offtakers. Status moved from PLANNED to COMMISSIONING on that basis.",
+    "aliases": ["Caldeira"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "DFS output is ~25,000 dmt/yr of MREC carrying 127 t combined DyTb. Salt-leach desorption, so no cracking circuit downstream."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-meteoric-caldeira-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-makuutu",
+    "name": "Makuutu Rare Earths Project",
+    "country_id": "UG",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-ionicre-makuutu-dfs-2023",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-ionicre-makuutu-dfs-2023",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-makuutu",
+    "operator_id": "org-ionic-rare-earths",
+    "expected_production_start": null,
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 1156,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Average annual REO over a 35-year life (~1,300 tpa over the first 10 years), contained in MREC. Stage 1 DFS, RL 1693 only. THE ANNUAL Dy2O3 AND Tb4O7 TONNAGES ARE NOT DISCLOSED NUMERICALLY anywhere in the DFS - they appear only as unlabelled bars in Figures 12 and 13. Disclosed instead: product-basket shares of Dy2O3 3.82% and Tb4O7 0.62%, and recoveries of Dy 49% / Tb 45%."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-dfs-2023",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 51,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED, NOT DISCLOSED. The Stage 1 DFS shows the annual Dy2O3 and Tb4O7 tonnages only as unlabelled bars in Figures 12 and 13, but publishes both inputs needed to compute them: 1,156 t of average annual REO contained in MREC over a 35-year life, and product-basket shares of Dy2O3 3.82% and Tb4O7 0.62%. Combined Dy+Tb is 1,156 x (3.82% + 0.62%) = 51.3 t; recorded as 51 so that the separate mat-dy-oxide and mat-tb-oxide entries sum to it exactly. DO NOT SUM the three - they are one claim expressed three ways. Over the first ten years, at the ~1,300 tpa REO the DFS gives for that period, the figures rise by about 12%% (combined ~58 t). RECONCILED against a second route sharing no inputs with the first: the 172.9 Mt @ 848 ppm TREO maiden reserve over a 35-year life implies 4.94 Mt/yr of ore carrying 88.9 t Dy2O3 and 14.8 t Tb4O7, which at the DFS's disclosed recoveries of Dy 49% / Tb 45% gives 43.6 t and 6.7 t - within 2.1% of the basket-share result, and back-implying basket shares of 3.77% and 0.58% against the disclosed 3.82% and 0.62%. It also implies an overall REO recovery of 27.6%, which reproduces the disclosed 1,156 t. Two independent derivations agreeing this closely is why this is recorded at MEDIUM rather than LOW. NOTE ON THE SPLIT: Makuutu is the one node whose per-element split needs no ratio judgment - the DFS discloses Dy and Tb basket shares separately, so each element is computed directly rather than apportioned by the pooled 5.92 median. Makuutu's own implied ratio is 6.16. STALENESS: the governing study is the March 2023 Stage 1 DFS, covering RL 1693 only; the arithmetic is sound but the underlying study is ageing and its production timing has already slipped."
+        },
+        "provenance": {
+          "type": "MODEL_ESTIMATE",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-dfs-2023",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 44,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED, NOT DISCLOSED. The Stage 1 DFS shows the annual Dy2O3 and Tb4O7 tonnages only as unlabelled bars in Figures 12 and 13, but publishes both inputs needed to compute them: 1,156 t of average annual REO contained in MREC over a 35-year life, and product-basket shares of Dy2O3 3.82% and Tb4O7 0.62%. Dy2O3 alone: 1,156 x 3.82% = 44.2 t. Over the first ten years, at the ~1,300 tpa REO the DFS gives for that period, the figures rise by about 12%% (combined ~58 t). RECONCILED against a second route sharing no inputs with the first: the 172.9 Mt @ 848 ppm TREO maiden reserve over a 35-year life implies 4.94 Mt/yr of ore carrying 88.9 t Dy2O3 and 14.8 t Tb4O7, which at the DFS's disclosed recoveries of Dy 49% / Tb 45% gives 43.6 t and 6.7 t - within 2.1% of the basket-share result, and back-implying basket shares of 3.77% and 0.58% against the disclosed 3.82% and 0.62%. It also implies an overall REO recovery of 27.6%, which reproduces the disclosed 1,156 t. Two independent derivations agreeing this closely is why this is recorded at MEDIUM rather than LOW. NOTE ON THE SPLIT: Makuutu is the one node whose per-element split needs no ratio judgment - the DFS discloses Dy and Tb basket shares separately, so each element is computed directly rather than apportioned by the pooled 5.92 median. Makuutu's own implied ratio is 6.16. STALENESS: the governing study is the March 2023 Stage 1 DFS, covering RL 1693 only; the arithmetic is sound but the underlying study is ageing and its production timing has already slipped."
+        },
+        "provenance": {
+          "type": "MODEL_ESTIMATE",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-dfs-2023",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 7,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED, NOT DISCLOSED. The Stage 1 DFS shows the annual Dy2O3 and Tb4O7 tonnages only as unlabelled bars in Figures 12 and 13, but publishes both inputs needed to compute them: 1,156 t of average annual REO contained in MREC over a 35-year life, and product-basket shares of Dy2O3 3.82% and Tb4O7 0.62%. Tb4O7 alone: 1,156 x 0.62% = 7.2 t. Over the first ten years, at the ~1,300 tpa REO the DFS gives for that period, the figures rise by about 12%% (combined ~58 t). RECONCILED against a second route sharing no inputs with the first: the 172.9 Mt @ 848 ppm TREO maiden reserve over a 35-year life implies 4.94 Mt/yr of ore carrying 88.9 t Dy2O3 and 14.8 t Tb4O7, which at the DFS's disclosed recoveries of Dy 49% / Tb 45% gives 43.6 t and 6.7 t - within 2.1% of the basket-share result, and back-implying basket shares of 3.77% and 0.58% against the disclosed 3.82% and 0.62%. It also implies an overall REO recovery of 27.6%, which reproduces the disclosed 1,156 t. Two independent derivations agreeing this closely is why this is recorded at MEDIUM rather than LOW. NOTE ON THE SPLIT: Makuutu is the one node whose per-element split needs no ratio judgment - the DFS discloses Dy and Tb basket shares separately, so each element is computed directly rather than apportioned by the pooled 5.92 median. Makuutu's own implied ratio is 6.16. STALENESS: the governing study is the March 2023 Stage 1 DFS, covering RL 1693 only; the arithmetic is sound but the underlying study is ageing and its production timing has already slipped."
+        },
+        "provenance": {
+          "type": "MODEL_ESTIMATE",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-dfs-2023",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "One of the largest ionic adsorption clay deposits outside China and genuinely HREE-enriched - the Stage 1 MREC basket is 45% heavy REO with Dy2O3 at 3.82% and Tb4O7 at 0.62%, roughly 6x Mt Weld's Dy fraction. Resource 617 Mt @ 630 ppm TREO containing ~7,400 t of DyTb oxide (the 532 Mt @ 640 ppm figure in secondary sources is the superseded May 2022 estimate). Maiden Ore Reserve 172.9 Mt @ 848 ppm TREO, all Probable, converted from Indicated only. Large-scale Mining Licence LML00334 was GRANTED 28 Dec 2023 and runs to Dec 2044, with a second application still in process. STALENESS IS THE KEY RISK: the governing study is still the March 2023 Stage 1 DFS, which targeted first MREC production in Q4 2024 - not achieved, and never restated. There is no FID, no construction start and no revised schedule; the project is described only as 'shovel-ready', and on 31 Jul 2026 IonicRE launched a strategic review of 'strategic, structural and funding alternatives' including government-backed partners and listings in alternative jurisdictions. Held at 60% via Rwenzori Rare Metals. Separately, IonicRE's Belfast magnet-recycling subsidiary Ionic Technologies runs a 10 tpa REO demonstration plant and plans a 400 tpa magnet-REO plant backed by a UK DRIVE35 GBP 12M grant offer in principle; its Dy/Tb split is not disclosed and demonstrated volumes remain kilogram-scale (10 kg Dy2O3 at 99.56%, 8 kg Tb4O7 at 99.75%).",
+    "aliases": ["Makuutu"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Stage 1 MREC basket is 45% heavy REO, Dy2O3 3.82% and Tb4O7 0.62% of TREO."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ionicre-makuutu-dfs-2023",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-round-top",
+    "name": "Round Top Project",
+    "country_id": "US",
+    "development_stage": {
+      "value": "EXPLORATION",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10k-fy2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10k-fy2025",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-round-top",
+    "operator_id": "org-usa-rare-earth",
+    "expected_production_start": {
+      "value": 2028,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-usar-10k-fy2025",
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-01"
+      }
+    },
     "planned_production": [],
     "resource_estimates": [],
-    "description": "Rare-earth deposit in Malawi being developed by Lindian Resources; described by Iluka as 'a major source of neodymium and praseodymium'. Included here only as a contracted Eneabba feedstock (light rare earths) - it is not a Dy/Tb alternative to Browns Range. Stage and status inferred from Iluka's description of Lindian as 'developing' the deposit; no Lindian disclosure has been reviewed.",
-    "aliases": ["Kangankunde"]
+    "description": "The deposit behind USA Rare Earth's whole strategy - Wheat Ridge exists to validate its flowsheets - but formally the least-evidenced mining node in this graph. USAR classifies it as an S-K 1300 EXPLORATION STAGE PROPERTY with no declared mineral resources and no reserves, and no Technical Report Summary has been filed. Development stage EXPLORATION reflects that regulatory status, not the company's activity level, which is substantial. NO Dy/Tb PRODUCTION FIGURE IS RECORDED and none should be inferred: the circulating Dy 206 tpy / Tb 23 tpy pair comes from a 2019 Texas Mineral Resources 8-K table that the same document disclaims as 'not reported in the PEA', and USAR separately disclaims all three PEAs (2012, 2013, 2019) as non-compliant with Item 1300. Targets from the FY2025 10-K: extraction of up to 40,000 t/day of feedstock with commercial production expected in 2028, plus processing of a combined 8,000 MTPA of third-party MREC and HREE oxides and concentrates at site - these are FEED RATES, not contained Dy/Tb. Study pipeline: a PFS contracted to Fluor and WSP was expected to complete in H2 2026 but as at the Q2 2026 10-Q (10 Aug 2026) remains in progress with no results released; DFS targeted early 2027. expected_production_start 2028 is held at LOW confidence for that reason. Ownership consolidated: USAR closed the Texas Mineral Resources acquisition on 7 Aug 2026 for approximately US$73.9M, taking 100% of the JV (previously 81.7% USAR / 18.3% TMRC).",
+    "aliases": ["Round Top"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-re-concentrate",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Host INFERRED from the disclosed flowsheet: ore to crushing to heap leach to pregnant leach solution to solvent extraction. USAR states its mineralogy lets it AVOID flotation, magnetic separation and cracking, so what leaves site is a leach-derived stream, NOT a conventional mineral concentrate - which is why the id it shares with Mountain Pass and Mt Weld is misleading."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-10q-q2-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-hre-concentrate",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "The 'excess concentrate from Round Top or other USAR sources' in the April 2026 Caremag arrangement. LOW: Round Top is an S-K 1300 exploration-stage property with no declared resources, so no product exists to characterise."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-usar-carester-definitive-2026",
+          "assertion_confidence": "LOW",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-penco",
+    "name": "Penco Module",
+    "country_id": "CL",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-presentation-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-q2-2026-mda",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": "dep-penco",
+    "operator_id": "org-aclara",
+    "expected_production_start": {
+      "value": 2028,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-aclara-presentation-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 52,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "COMBINED DyTb, never split. From the 5 Aug 2026 corporate presentation p.9, attributed there to the 2021 NI 43-101 PEA. Caveat: the same slide states a 17-year life against the PEA's own 12-year mine life, an unexplained revision, so the annualisation basis is unclear."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-presentation-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 489,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Dy2O3 over the PEA's 12-year mine life, contained in rare earth carbonate. The PEA gives no average-annual Dy line, so no per-year split is recorded."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-penco-pea-2021",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 66,
+          "period": "LIFE_OF_MINE",
+          "target_year": null,
+          "note": "Tb4O7 over the PEA's 12-year mine life, contained in rare earth carbonate."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-penco-pea-2021",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 774,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Total average annual REO production per the 2021 PEA (Table 1-19). NOTE: aclara-re.com states 811 t, which appears in no technical report and looks like a website recomputation excluding ramp years. Beware also that '811' denotes NdPr METAL tonnes in Aclara's separate Metals and Alloys project - an easy conflation."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-penco-pea-2021",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-01"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dy-oxide",
+          "tonnes": 46,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 52 t using the node's own life-of-mine split (489 t Dy / 66 t Tb), a ratio of 7.41. NOT same-document: the ratio comes from src-aclara-penco-pea-2021 over the PEA's 12-year mine life, while the combined 52 tpa comes from src-aclara-presentation-2026, whose slide states a 17-year life - an unexplained revision. The RATIO is an assemblage property and is more robust to a life revision than the absolute tonnages are, which is why it is still preferred over the cross-node median, but this is a cross-source transfer within one node, not a same-document one. Assumes ratio stability across the mine life and across the two vintages. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-tb-oxide",
+          "tonnes": 6,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED SPLIT - NOT DISCLOSED. Estimated from the mat-dytb-combined entry of 52 t using the node's own life-of-mine split (489 t Dy / 66 t Tb), a ratio of 7.41. NOT same-document: the ratio comes from src-aclara-penco-pea-2021 over the PEA's 12-year mine life, while the combined 52 tpa comes from src-aclara-presentation-2026, whose slide states a 17-year life - an unexplained revision. The RATIO is an assemblage property and is more robust to a life revision than the absolute tonnages are, which is why it is still preferred over the cross-node median, but this is a cross-source transfer within one node, not a same-document one. Assumes ratio stability across the mine life and across the two vintages. DO NOT SUM with the mat-dytb-combined entry: that is the disclosed figure this was split from. Method backtested leave-one-out against the 9 nodes in this graph that disclose Dy and Tb separately: median absolute error on Tb 13%, maximum 34%, with errors biased toward UNDER-stating Tb. Observed ratio range across those nodes is 3.60-7.41 (Tb 11.9-21.7% of Dy+Tb) - use that band for sensitivity. Suitable for feed-security and reroute ranking; NOT suitable for sizing a Tb shortfall against demand."
+        },
+        "provenance": {
+          "type": "JUDGMENT",
+          "unverified_model_extraction": true,
+          "source_id": null,
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "Aclara's Chilean ionic-clay module and the second intended feed for the Louisiana separation plant. Only completed study is the 2021 NI 43-101 PEA (Ausenco, effective 15 Sep 2021); the NI 43-101 FEASIBILITY STUDY IS STILL UNRELEASED, targeted for Q4 2026 and confirmed pending in the Q2 2026 MD&A. An internal viability study completed March 2026 has not been publicly disclosed. PERMITTING IS THE KEY RISK AND IT IS PARTIAL: the RCA was formally issued and published 22-23 June 2026 following unanimous COEVA Biobio approval on 8 June, concluding an assessment that addressed 700+ technical and 1,000+ citizen observations - but the Q2 2026 MD&A discloses, and none of the three permitting press releases mentions, that this covers only 'the first six years of life-of-mine', with a second environmental impact assessment (EIA 2) still in preparation for the full life and no filing date given. Sectoral construction permits also remain in process. TIMING IS INCONSISTENT ACROSS COMPANY SOURCES: mid-2028 (Aug 2026 presentation), Q3 2028 commissioning with construction Q1 2027-Q2 2028 (Apr 2026 release), and 2027 (website, stale). Capex US$129M.",
+    "aliases": ["Penco"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "Ionic clay module feeding Aclara Louisiana. Only completed study is the 2021 PEA; the NI 43-101 feasibility study is still unreleased."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-aclara-penco-pea-2021",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-wicheeda",
+    "name": "Wicheeda Rare Earth Project",
+    "country_id": "CA",
+    "development_stage": {
+      "value": "DEVELOPMENT",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-ucore-wicheeda-qualification-2024",
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-ucore-wicheeda-qualification-2024",
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": null,
+    "operator_id": "org-defense-metals",
+    "expected_production_start": null,
+    "planned_production": [],
+    "resource_estimates": [],
+    "description": "Bastnaesite carbonatite in British Columbia. Included NOT as a Dy/Tb source - it is a light rare earth deposit and no Dy/Tb figure is recorded - but because it is THE ONLY THIRD-PARTY DEPOSIT UCORE HAS EVER PHYSICALLY PROCESSED, and therefore the single proof point that RapidSX works on real outside material. Wicheeda MREC from a 26 t bulk sample piloted at SGS Lakefield was run at Ucore's Kingston facility and qualified for commercial-scale processing on 29 Apr 2024. No resource, reserve or production figure is recorded - none was researched.",
+    "aliases": ["Wicheeda"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "26 t bulk sample piloted at SGS Lakefield, run at Ucore Kingston and qualified 29 Apr 2024. Cited to the counterparty's release, not the owner's - no Defense Metals document has been read here."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-ucore-wicheeda-qualification-2024",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-deep-leads",
+    "name": "Deep Leads Rare Earths Project",
+    "country_id": "AU",
+    "development_stage": {
+      "value": "EXPLORATION",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-abx-deep-leads-mrec-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-abx-deep-leads-mrec-2026",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-01"
+      }
+    },
+    "deposit_id": null,
+    "operator_id": "org-abx-group",
+    "expected_production_start": null,
+    "planned_production": [],
+    "resource_estimates": [],
+    "description": "Ionic-clay rare earth project in northern Tasmania. Included on evidence quality rather than scale: its maiden MREC is THE BEST-CHARACTERISED THIRD-PARTY MATERIAL ANY REFINERY IN THIS GRAPH HAS RECEIVED, with a full published assay - TREO 96.53%, NdPr 26.71%, DyTb 4.54%, Y2O3 26.11%, U3O8 0.0053%, ThO2 below 0.002% - and ANSTO gamma spectrometry putting every radionuclide below 0.5 Bq/g, inside the IAEA bulk exemption limit. That matters because radionuclide content is the constraint most likely to bind at Lynas Malaysia after 2031 and at Silmet under its NORM assertion, and ABx states it is 'unlikely to require an impurity removal step to reduce the levels of radioactive elements to meet customer specifications'. NO RESOURCE OR PRODUCTION FIGURE IS RECORDED - none was researched, and the material to date is a 100 kg trial-pit bulk sample yielding 72 g of MREC. Under a Sep 2024 MOU, Ucore has an intended first right of refusal over 50% of ABx annual volume for at least five years; an ABx slide notes 'Ucore favours ABx's REE project because it is enriched in Tb & Dy'.",
+    "aliases": ["Deep Leads"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": 96.53,
+          "note": "Maiden MREC with a full published assay: TREO 96.53%, DyTb 4.54%, all radionuclides below 0.5 Bq/g."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-abx-deep-leads-mrec-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "proj-colossus",
+    "name": "Colossus Rare Earth Project",
+    "country_id": "BR",
+    "deposit_id": "dep-colossus",
+    "operator_id": "org-viridis",
+    "development_stage": {
+      "value": "FEASIBILITY",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-viridis-funding-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
+    "operating_status": {
+      "value": "PLANNED",
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-viridis-funding-2026",
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
+    "expected_production_start": {
+      "value": 2028,
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-viridis-colossus-pfs-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
+    "planned_production": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "tonnes": 9448,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "PFS BASIS, PARTLY SUPERSEDED - TREAT AS AN UPPER BOUND. 'Annual Production (REO) 9,448 t' from PFS Table 3, contained TREO in the MREC product over a 20-year LOM on 5 Mtpa of ore at 3,380 ppm TREO feed and 57% TREO recovery. NOT separated oxide. The August 2026 DFS revised the mine plan - MREO fell from 3,518 to 2,967 tpa (-16%) on the same 5 Mtpa throughput over a 25-year life - so the DFS TREO figure is almost certainly lower than 9,448, but no DFS TREO number appears in anything read here. Replace this entry when the primary DFS is anchored."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-viridis-colossus-pfs-2025",
+          "assertion_confidence": "HIGH",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-ndpr-oxide",
+          "tonnes": 2843,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "Contained NdPr in the MREC product, NOT separated NdPr oxide. Recorded so the Dy+Tb subtraction on this node is auditable in the data rather than only in prose: 2,967 tpa MREO minus this 2,843 tpa NdPr is the 124 tpa mat-dytb-combined entry. SECONDARY - quoted by news.metal.com from the DFS announcement; the primary has not been read. The PFS equivalent was 36% of 9,448 t = about 3,401 tpa."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-viridis-colossus-dfs-2026",
+          "assertion_confidence": "LOW",
+          "last_verified": "2026-09-02"
+        }
+      },
+      {
+        "value": {
+          "material_id": "mat-dytb-combined",
+          "tonnes": 124,
+          "period": "ANNUAL",
+          "target_year": null,
+          "note": "DERIVED, NOT DISCLOSED - Viridis never states a Dy+Tb tonnage. The derivation is a DEFINITIONAL SUBTRACTION, not a basket assumption: Viridis defines MREO as Dy2O3 + Nd2O3 + Pr6O11 + Tb4O7 (PFS footnote B, primary and read), so MREO minus NdPr is exactly Dy2O3 + Tb4O7. On the August 2026 DFS figures, 2,967 tpa MREO minus 2,843 tpa NdPr = 124 tpa. CONTAINED IN MREC, NOT SEPARATED OXIDE. FOUR INDEPENDENT ROUTES CONVERGE ON 117-142 tpa: (1) the DFS subtraction above = 124; (2) the same subtraction on PFS Table 3 - MREO 3,518 minus 36% of 9,448 t TREO (3,401) = 117, though 36% is rounded to a whole percent so this route alone carries roughly +/-70 t; (3) the PFS's own MREC assemblage, Dy2O3 + Tb4O7 = 1.5% of product TREO in the Northern Concessions and 1.3% in the Southern Complex (Tables 6 and 7), which on 9,448 tpa TREO gives 123-142 t; (4) sister deposit Caldeira, the same Pocos de Caldas alkaline complex at comparable scale, discloses 127 tpa. CONFIDENCE IS MEDIUM DESPITE THE CONVERGENCE, and the reason is the source, not the arithmetic: both DFS inputs are quoted from secondary outlets (MREO 2,967 from mining.com.au, NdPr 2,843 from news.metal.com) and the primary DFS announcement has not been read. Anchor src-viridis-colossus-dfs-2026 and this number can move to REPORTED. REJECT ON SIGHT - 190 tpa: the PFS's own page 2 headline says '9,500 tonnes of TREO and 3,500 tonnes of MREO, with a high-value mix comprising 36% NdPr oxides and 2% DyTb oxides', and 2% of 9,500 is 190. That is contradicted by Tables 3, 6 and 7 of the SAME DOCUMENT, which put Dy+Tb at 1.2-1.5% of TREO. The 2% is a rounded-up headline; the tables are the claim. REJECT ON SIGHT - roughly 380 tpa: obtained by applying the ~4%-of-TREO Dy+Tb share that holds for Serra Verde (3.8%) and Makuutu (4.44%) to a 9,500 tpa TREO output. It is about 3x too high because Pocos de Caldas clays are lanthanum-dominated (La2O3 44-48% of product TREO) and Dy+Tb is only 1.3-1.5% here. 'Ionic clay' is not a basket - the parent lithology is. NO PER-ELEMENT SPLIT IS RECORDED. The PFS does disclose Dy2O3 and Tb4O7 separately, but only to one decimal place (1.2%/0.3% and 1.1%/0.2%), so the implied Dy:Tb of 4.0-5.5 spans 3.6-7.7 once rounding is carried through. Splitting an INFERRED combined figure with a ratio that coarse would compound two estimates - the same reason Mountain Pass's 120 t own-feed entry is left unsplit. Note that the pooled median of 5.92 must NOT be used here: Caldeira's disclosed 4.64 in the same complex is the correct comparator, and it sits below the graph's ionic-clay band."
+        },
+        "provenance": {
+          "type": "INFERRED",
+          "unverified_model_extraction": true,
+          "source_id": "src-viridis-colossus-dfs-2026",
+          "assertion_confidence": "MEDIUM",
+          "last_verified": "2026-09-02"
+        }
+      }
+    ],
+    "resource_estimates": [],
+    "description": "The largest undeveloped ion-adsorption clay rare earth resource outside China, and the closest thing in this graph to a fully funded ex-China ionic clay mine: DFS complete (20 Aug 2026), US$449M total pre-production capital, equity requirement of about US$135M fully covered by about US$150M of identified sources, FID targeted Q4 2026 and first production H2 2028. An MREC Demonstration Plant is already running in Brazil and reported July 2026 MREO recoveries of 78.1% against DFS assumptions of 76-78%. Debt is advanced but not closed - Goldman Sachs and Cutfield Freeman mandated, letters of support from Export Finance Australia (up to US$50M), Export Development Canada (up to US$100M), Bpifrance and a BNDES/FINEP joint support plan, with lender term sheets targeted end-September 2026. WHY IT MATTERS HERE, AND WHY LESS THAN ITS SIZE SUGGESTS: Colossus is a big project with a small Dy/Tb number. At roughly 124 tpa contained Dy+Tb it ranks around ninth of the fifteen quantified mines in this graph, below Caldeira and barely above Donald, because the Pocos de Caldas basket is lanthanum-dominated and Dy+Tb is only 1.3-1.5% of product TREO. It is an NdPr project that carries heavies, not a heavies project. THE OFFTAKE IS THE OPEN QUESTION: the 20 Aug 2026 funding release lists 'finalising binding offtake' as an immediate priority and names NO separation counterparty, so the SUPPLIES edge is UNRESOLVED. Colossus is therefore ex-China mine supply with no committed ex-China separation home - the same structural position as Serra Verde, Fingerboards, Lofdal and Makuutu, and the reason the aggregate 'refining nameplate versus mine feed' comparison understates how much unattached feed exists. CAVEAT ON EVERY DFS NUMBER ON THIS NODE: the DFS results announcement itself has not been read - it is identified by exact title and date from Reference 3 of the funding release, but the figures came from secondary outlets. See src-viridis-colossus-dfs-2026.",
+    "aliases": ["Colossus"],
+    "products": [
+      {
+        "value": {
+          "material_id": "mat-mrec",
+          "host_mineral": "CRACKED",
+          "grade_pct_treo": null,
+          "note": "DFS 20 Aug 2026; an MREC demonstration plant is already operating in Brazil."
+        },
+        "provenance": {
+          "type": "REPORTED",
+          "unverified_model_extraction": true,
+          "source_id": "src-viridis-colossus-dfs-2026",
+          "assertion_confidence": "HIGH",
+          "last_verified": null
+        }
+      }
+    ]
   }
 ]
