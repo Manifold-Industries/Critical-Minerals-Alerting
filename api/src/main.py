@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.config import get_settings
 from src.router.assets import router as assets_router
 from src.router.disruption import router as disruption_router
+from src.router.exposure import router as exposure_router
 
 settings = get_settings()
 
@@ -20,6 +21,7 @@ app.add_middleware(
 
 app.include_router(disruption_router)
 app.include_router(assets_router)
+app.include_router(exposure_router)
 
 
 @app.get("/")

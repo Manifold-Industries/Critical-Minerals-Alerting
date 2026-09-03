@@ -94,6 +94,21 @@ export interface ApiFacilityImpact {
   readonly alternatives: readonly ApiAlternativeFeed[];
 }
 
+/**
+ * Year every simulation is struck at, absent a reason to move off it.
+ *
+ * Not cosmetic: capacities are staged and supersede one another, so a
+ * share-of-nameplate figure moves with this. It is exported because the console
+ * has to raise it for a mine that does not open until later, and because the
+ * figures it produces are only readable beside the year they were struck at —
+ * `capacity_context.as_of_year` carries that back for display.
+ *
+ * The API applies the same default server-side; `/disruption/years` reports the
+ * band over which the graph returns different answers, and is worth fetching
+ * again if a year control ever returns.
+ */
+export const DEFAULT_IMPACT_YEAR = 2027;
+
 export interface ApiCapacityContext {
   readonly as_of_year: number;
   readonly total_tpa: number;
@@ -112,6 +127,11 @@ export interface DisruptionResponse {
   readonly country_name: string | null;
   readonly coordinates: ApiCoordinates | null;
   readonly as_of_year: number;
+  /** First year the mine is expected to produce; null if already producing
+   *  or if no start year is disclosed — which are different things. */
+  readonly earliest_year: number | null;
+  /** True when as_of_year precedes the mine's own expected production start. */
+  readonly before_production_start: boolean;
   readonly severity: number;
   readonly lost_feed: ApiFeedQuantity | null;
   readonly impacted: readonly ApiFacilityImpact[];
@@ -123,7 +143,7 @@ export async function fetchDisruption(
   mineId: string,
   options: { readonly asOfYear?: number; readonly signal?: AbortSignal } = {},
 ): Promise<DisruptionResponse> {
-  const { asOfYear = 2027, signal } = options;
+  const { asOfYear = DEFAULT_IMPACT_YEAR, signal } = options;
   const params = new URLSearchParams({
     as_of_year: String(asOfYear),
     limit: String(ALTERNATIVES_PER_FACILITY),
@@ -141,6 +161,7 @@ export interface ApiMineSummary {
   readonly country_id: string;
   readonly country_name: string | null;
   readonly operating_status: string;
+  readonly earliest_year: number | null;
   readonly coordinates: ApiCoordinates | null;
   readonly reaches_refiner: boolean;
 }
@@ -149,7 +170,7 @@ export interface ApiMineSummary {
 export async function fetchMines(
   options: { readonly asOfYear?: number; readonly signal?: AbortSignal } = {},
 ): Promise<readonly ApiMineSummary[]> {
-  const { asOfYear = 2027, signal } = options;
+  const { asOfYear = DEFAULT_IMPACT_YEAR, signal } = options;
   const params = new URLSearchParams({
     as_of_year: String(asOfYear),
     reaches_refiner: "true",
@@ -378,4 +399,81 @@ export async function fetchAsset(
   const res = await fetch(`${BASE}/assets/${assetId}`, { signal: options.signal });
   if (!res.ok) throw new Error(`Asset request failed for ${assetId}: ${res.status}`);
   return (await res.json()) as AssetDetail;
+}
+
+// ── End-use exposure ───────────────────────────────────────────────────────
+//
+// Which weapons systems a mine's Dy/Tb reaches, and through which components.
+// Every edge behind this is an open-source claim that a platform *class* uses a
+// component *class* — bills of material are classified. It is not a routed
+// path: nothing here checks the mine's Dy actually reaches a separator, which
+// is what `fetchDisruption` answers. Read it as "what is at stake in this
+// element", and keep `kind` visible so a category never reads as an airframe.
+
+export interface ApiMaterialLink {
+  readonly material_id: string;
+  readonly material_name: string | null;
+  readonly elements: readonly string[];
+  /** The scoped subset that actually made the link — not `elements`. */
+  readonly matched_elements: readonly string[];
+  readonly provenance: ApiProvenance | null;
+}
+
+export interface ApiMineMaterial extends ApiMaterialLink {
+  /** False means a contained-element figure, not a form the mine ships. */
+  readonly shipped: boolean;
+}
+
+export interface ApiComponentExposure {
+  readonly component_id: string;
+  readonly name: string;
+  readonly category: string;
+  readonly defense_relevant: boolean;
+  readonly elements: readonly string[];
+  readonly via_materials: readonly ApiMaterialLink[];
+  readonly platform_ids: readonly string[];
+}
+
+export interface ApiComponentLink {
+  readonly component_id: string;
+  readonly name: string;
+  readonly defense_relevant: boolean;
+  readonly provenance: ApiProvenance;
+}
+
+export interface ApiPlatformExposure {
+  readonly platform_id: string;
+  readonly name: string;
+  readonly category: string;
+  /** PLATFORM, SUBSYSTEM or CATEGORY. A CATEGORY names no single hull. */
+  readonly kind: string;
+  readonly parent_id: string | null;
+  readonly parent_name: string | null;
+  readonly via_components: readonly ApiComponentLink[];
+  readonly elements: readonly string[];
+  /** Weakest link on the best path — not a joint probability. */
+  readonly confidence: string | null;
+  readonly defense_relevant: boolean;
+}
+
+export interface MineExposure {
+  readonly mine_id: string;
+  readonly mine_name: string | null;
+  readonly scope_elements: readonly string[];
+  readonly elements: readonly string[];
+  readonly source_materials: readonly ApiMineMaterial[];
+  readonly components: readonly ApiComponentExposure[];
+  /** Most specific and best evidenced first. Server-ordered; do not re-sort. */
+  readonly platforms: readonly ApiPlatformExposure[];
+  readonly warnings: readonly string[];
+}
+
+/** End uses reachable from one mine's Dy/Tb. No year: nothing here is staged. */
+export async function fetchExposure(
+  mineId: string,
+  options: { readonly signal?: AbortSignal } = {},
+): Promise<MineExposure> {
+  const res = await fetch(`${BASE}/exposure/${mineId}`, { signal: options.signal });
+  if (!res.ok) throw new Error(`Exposure request failed for ${mineId}: ${res.status}`);
+  return (await res.json()) as MineExposure;
 }

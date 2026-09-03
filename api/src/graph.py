@@ -14,11 +14,13 @@ provenance. Merging them here would quietly discard the distinction that
 from dataclasses import dataclass, field
 
 from src.models import (
+    Component,
     Coordinates,
     Country,
     Deposit,
     Material,
     Organization,
+    Platform,
     ProcessingFacility,
     Project,
     Relationship,
@@ -52,6 +54,13 @@ class SupplyGraph:
     organizations: dict[str, Organization]
     countries: dict[str, Country]
     materials: dict[str, Material]
+    #: The end-use layer. Kept beside the assets rather than in a graph of its
+    #: own because it hangs off the same ``Material`` ids: a component names the
+    #: materials it needs, a platform names the components. Neither carries a
+    #: location or a tonnage, so nothing here joins to the adjacency indexes
+    #: below - see ``src/service/exposure.py`` for the traversal that uses them.
+    components: dict[str, Component]
+    platforms: dict[str, Platform]
     curated: tuple[Relationship, ...]
     inferred: tuple[Relationship, ...]
     #: Edges dropped for naming a node this graph does not hold. See ``from_data``.
@@ -99,6 +108,8 @@ class SupplyGraph:
             organizations=organizations,
             countries={c.id: c for c in data["countries"]},
             materials={m.id: m for m in data["materials"]},
+            components={c.id: c for c in data["components"]},
+            platforms={p.id: p for p in data["platforms"]},
             curated=curated,
             inferred=inferred,
             dangling=tuple(r for r in both if not resolved(r)),
