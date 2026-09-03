@@ -86,6 +86,39 @@ def _source(source: Source) -> schemas.SourceRef:
     )
 
 
+def _link_rank(
+    graph: SupplyGraph, assertion: Confidence | None, source_id: str | None
+) -> int:
+    """Rank of one assertion, no stronger than the document it rests on.
+
+    The two ratings are not interchangeable - ``assertion_confidence`` rates the
+    conclusion and ``source_confidence`` rates the document - so this takes the
+    weaker rather than averaging or preferring either. Taking the assertion
+    alone would let a confident reading of a weak document rank as a strong
+    claim, which on this layer is a green mark against a weapons system.
+
+    An assertion citing a source id that names no loaded source is graded on the
+    assertion alone: ``validate_data.py`` reports the dangling id, and inventing
+    an unrated document here would silently push the claim down.
+    """
+    rank = _CONFIDENCE_RANK[assertion]
+    if source_id is None:
+        return rank
+    source = graph.sources.get(source_id)
+    if source is None:
+        return rank
+    return max(rank, _CONFIDENCE_RANK[source.source_confidence])
+
+
+def _schema_link_rank(graph: SupplyGraph, prov: schemas.Provenance) -> int:
+    """``_link_rank`` for a provenance already converted for the response."""
+    return _link_rank(
+        graph,
+        Confidence(prov.assertion_confidence) if prov.assertion_confidence else None,
+        prov.source_id,
+    )
+
+
 def _cited_sources(
     graph: SupplyGraph, exposure: schemas.MineExposure
 ) -> list[schemas.SourceRef]:
@@ -206,26 +239,29 @@ def _platform_paths(
     return out
 
 
-def _path_confidence(edge: Provenance, component: schemas.ComponentExposure) -> int:
-    """Weakest link over the two assertions this path rests on.
+def _path_confidence(
+    graph: SupplyGraph, edge: Provenance, component: schemas.ComponentExposure
+) -> int:
+    """Weakest link over the two claims this path rests on.
 
     The platform-requires-component edge and the strongest component-requires-
     material edge under it. Weakest link rather than a product: the two are not
     independent - several of these claims trace to the same publication - and
     the graph carries nothing that would justify combining them.
+
+    Each edge is itself graded through ``_link_rank``, so the path is no
+    stronger than the weakest *document* on it either.
     """
     material_rank = min(
         (
-            _CONFIDENCE_RANK[
-                Confidence(link.provenance.assertion_confidence)
-                if link.provenance and link.provenance.assertion_confidence
-                else None
-            ]
+            _schema_link_rank(graph, link.provenance)
+            if link.provenance
+            else _CONFIDENCE_RANK[None]
             for link in component.via_materials
         ),
         default=_CONFIDENCE_RANK[None],
     )
-    edge_rank = _CONFIDENCE_RANK[edge.assertion_confidence]
+    edge_rank = _link_rank(graph, edge.assertion_confidence, edge.source_id)
     return max(edge_rank, material_rank)
 
 
@@ -270,7 +306,7 @@ def get_exposure(
             f"{mine_id} discloses no material carrying "
             f"{' or '.join(sorted(scope))}; nothing downstream is reached at this scope"
         )
-        exposure = schemas.MineExposure(
+        return schemas.MineExposure(
             mine_id=mine_id,
             mine_name=project.name,
             scope_elements=sorted(scope),
@@ -307,11 +343,7 @@ def get_exposure(
                 for _, component, edge in paths
             ),
             key=lambda link: (
-                _CONFIDENCE_RANK[
-                    Confidence(link.provenance.assertion_confidence)
-                    if link.provenance.assertion_confidence
-                    else None
-                ],
+                _schema_link_rank(graph, link.provenance),
                 link.component_id,
             ),
         )
@@ -320,7 +352,9 @@ def get_exposure(
         parent = graph.platforms.get(platform.parent_id) if platform.parent_id else None
         # Best path wins: a platform reached twice is as well evidenced as its
         # strongest route, not as weak as its worst.
-        best = min(_path_confidence(edge, reached[c.id]) for _, c, edge in paths)
+        best = min(
+            _path_confidence(graph, edge, reached[c.id]) for _, c, edge in paths
+        )
         platforms.append(
             schemas.PlatformExposure(
                 platform_id=platform_id,

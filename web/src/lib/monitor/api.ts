@@ -540,7 +540,10 @@ export interface ApiPlatformExposure {
   readonly parent_name: string | null;
   readonly via_components: readonly ApiComponentLink[];
   readonly elements: readonly string[];
-  /** Weakest link on the best path — not a joint probability. */
+  /** Weakest link on the best path — not a joint probability. Each edge is
+   *  graded at the weaker of its own assertion confidence and the confidence
+   *  of the document it cites, so a confident reading of a weak source does
+   *  not reach this list as a strong claim. */
   readonly confidence: string | null;
   readonly defense_relevant: boolean;
 }
