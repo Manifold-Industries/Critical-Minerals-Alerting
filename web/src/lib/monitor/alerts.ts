@@ -40,6 +40,14 @@ export interface Alert {
   readonly confidence: Confidence;
   readonly source: AlertSource;
   /**
+   * Critical minerals this alert is about, as element symbols where there is
+   * one. Placeholder, and only for alerts with no engine behind them: an alert
+   * carrying a `mineId` reads its elements from `/exposure/{mineId}` instead,
+   * so what the queue shows follows the materials the mine actually puts into
+   * the chain. Absent on those alerts precisely so a stale list cannot be shown.
+   */
+  readonly minerals?: readonly string[];
+  /**
    * Downstream systems at risk, most consequential first. Placeholder prose,
    * and only for alerts with no engine behind them: an alert carrying a
    * `mineId` derives this from `/exposure/{mineId}` instead, so what it claims
@@ -102,6 +110,7 @@ export const ALERTS: readonly Alert[] = [
     severity: "critical",
     confidence: "HIGH",
     source: { kind: "Cable", name: "Embassy cable 26-0142" },
+    minerals: ["Ga"],
     affectedSystems: [
       "AESA radar modules",
       "5G base stations",
@@ -118,6 +127,7 @@ export const ALERTS: readonly Alert[] = [
     severity: "critical",
     confidence: "MEDIUM",
     source: { kind: "API", name: "Logistics feed" },
+    minerals: ["Co"],
     affectedSystems: ["Turbine superalloys", "EV battery cathodes"],
   },
   {
@@ -130,6 +140,7 @@ export const ALERTS: readonly Alert[] = [
     severity: "high",
     confidence: "HIGH",
     source: { kind: "Website", name: "Provincial press release" },
+    minerals: ["Nd", "Pr"],
     affectedSystems: [
       "Precision-guided munitions",
       "Wind turbines",
@@ -146,6 +157,7 @@ export const ALERTS: readonly Alert[] = [
     severity: "high",
     confidence: "MEDIUM",
     source: { kind: "Website", name: "Ministry of Commerce notice" },
+    minerals: ["Graphite"],
     affectedSystems: ["Battery anodes", "Grid storage"],
   },
   {
@@ -158,6 +170,7 @@ export const ALERTS: readonly Alert[] = [
     severity: "elevated",
     confidence: "LOW",
     source: { kind: "Report", name: "Industry analyst note" },
+    minerals: ["Li"],
     affectedSystems: ["EV battery cells", "Consumer electronics"],
   },
   {
@@ -170,6 +183,7 @@ export const ALERTS: readonly Alert[] = [
     severity: "moderate",
     confidence: "MEDIUM",
     source: { kind: "API", name: "Commodities data feed" },
+    minerals: ["Ni"],
     affectedSystems: ["Stainless alloys", "Battery cathodes"],
   },
 ];

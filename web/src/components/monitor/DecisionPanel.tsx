@@ -21,6 +21,7 @@ import {
   type ScoreFactorBreakdown,
 } from "@/lib/monitor/graphs";
 import { IMPACT_COLOR, SEVERITY_COLOR } from "@/lib/monitor/colors";
+import ElementBadges from "./ElementBadges";
 
 interface DecisionPanelProps {
   readonly alert: Alert;
@@ -357,6 +358,13 @@ function supplyLabel(node: {
   return `${n} other supplier${n === 1 ? "" : "s"}`;
 }
 
+/** What the alert hit: the kind of site, and which one. */
+interface Entity {
+  readonly label: string;
+  readonly name: string;
+  readonly place: string;
+}
+
 const CONFIDENCE_LABEL: Record<Confidence, string> = {
   HIGH: "Conf high",
   MEDIUM: "Conf med",
@@ -541,25 +549,48 @@ function AffectedSystems({
           )}
         </>
       )}
-
-      <p className="border-t border-surface-2 pt-1.5 text-[10px] leading-relaxed text-text-tertiary">
-        <span className="text-text-secondary">What this is.</span> Open-source
-        claims that a system <em>class</em> uses a component class — bills of
-        material are classified, so nothing here says metal from this mine
-        reached a particular airframe. Nor is it a routed path: whether this
-        mine&rsquo;s output reaches a separator is what the dependency graph
-        below answers.
-      </p>
-      {exposure.warnings.map((warning) => (
-        <p
-          key={warning}
-          className="text-[10px] leading-relaxed text-text-tertiary"
-        >
-          <span className="text-accent">Note.</span> {warning}
-        </p>
-      ))}
     </div>
   );
+}
+
+/**
+ * Minerals this alert is about, or null while there is nothing honest to show.
+ *
+ * Same rule the queue row follows: a mine-backed alert reports the elements the
+ * mine actually puts into the chain rather than a list of its own, and null
+ * reads as "not yet known" rather than "none" while the fetch is out.
+ */
+function mineralsFor(
+  alert: Alert,
+  exposure: MineExposure | undefined,
+): readonly string[] | null {
+  if (!alert.mineId) return alert.minerals ?? null;
+  return exposure?.elements ?? null;
+}
+
+/** The asset the event hit — the subject of every section below the title. */
+function entityFor(alert: Alert, graph: AlertGraph | undefined): Entity | null {
+  if (!graph) return null;
+  return {
+    // A mine-backed alert names a project by construction; a placeholder
+    // fixture carries prose, whose last word is the nearest thing to a kind.
+    label: alert.mineId
+      ? "Mine"
+      : (graph.asset.role.split(" ").at(-1) ?? graph.asset.role),
+    name: graph.asset.name,
+    place: graph.asset.place,
+  };
+}
+
+/** Why the panel names no asset: a pending fetch, a failed one, or no graph. */
+function entityNotice(
+  alert: Alert,
+  state: "idle" | "loading" | "error",
+): string {
+  if (!alert.mineId) return "No modelled site";
+  return state === "loading"
+    ? "Resolving affected site…"
+    : "Affected site unavailable";
 }
 
 // Right rail: layout scaffold for the per-alert assessment. Qualitative
@@ -579,6 +610,8 @@ export default function DecisionPanel({
   const [explainedId, setExplainedId] = useState<string | null>(null);
   const graph = liveGraph ?? graphForAlert(alert.id);
   const lookup = graph ? nodesById(graph) : undefined;
+  const minerals = mineralsFor(alert, exposure);
+  const entity = entityFor(alert, graph);
   // An empty panel means three different things; saying which avoids reading
   // a failed request as a mine with no downstream exposure.
   const emptyReason =
@@ -600,30 +633,62 @@ export default function DecisionPanel({
       </div>
 
       <div className="blueprint flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-4">
-        {/* Title block */}
-        <div className="flex flex-col gap-2">
+        {/* Title block — the same elements the queue row boxes, then the asset
+            the event hit, which is the subject of everything below it. */}
+        <div className="flex flex-col gap-2.5">
           <p className="font-mono text-[10px] tracking-[0.15em] text-text-tertiary uppercase">
             {alert.domain} · {alert.subdomain}
           </p>
-          <h3 className="flex items-start gap-2 text-base leading-[1.2] font-semibold text-foreground">
-            <span
-              className="mt-1.5 inline-block size-2 shrink-0"
-              title={`${alert.severity} severity`}
-              style={{ backgroundColor: SEVERITY_COLOR[alert.severity] }}
+
+          {minerals ? (
+            <ElementBadges
+              symbols={minerals}
+              severity={alert.severity}
+              size="lg"
             />
+          ) : (
+            <p className="font-mono text-[10px] tracking-[0.12em] text-text-tertiary uppercase">
+              {exposureState === "error"
+                ? "Elements unavailable"
+                : "Resolving elements…"}
+            </p>
+          )}
+
+          {entity ? (
+            <div className="flex flex-col gap-0.5">
+              <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+                {entity.place
+                  ? `${entity.label} · ${entity.place}`
+                  : entity.label}
+              </span>
+              <p className="flex items-start gap-2 text-[15px] leading-[1.2] font-semibold text-foreground">
+                <span
+                  className="mt-1.5 inline-block size-2 shrink-0"
+                  title={`${alert.severity} severity`}
+                  style={{ backgroundColor: SEVERITY_COLOR[alert.severity] }}
+                />
+                {entity.name}
+              </p>
+            </div>
+          ) : (
+            <p className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+              {entityNotice(alert, loadState)}
+            </p>
+          )}
+
+          <h3 className="text-[13px] leading-[1.35] font-medium text-text-secondary">
             {alert.title}
           </h3>
+
           <div className="flex flex-wrap gap-1">
             <span className="tag tag-neutral">
               {CONFIDENCE_LABEL[alert.confidence]}
             </span>
             <span className="tag tag-outline">{alert.source.kind}</span>
           </div>
-          {graph && (
-            <p className="font-mono text-[10px] text-text-tertiary">
-              {graph.asset.name} · via {alert.source.name}
-            </p>
-          )}
+          <p className="font-mono text-[10px] text-text-tertiary">
+            via {alert.source.name}
+          </p>
         </div>
 
         {/* What happened */}
