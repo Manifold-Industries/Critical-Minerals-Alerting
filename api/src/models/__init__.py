@@ -11,6 +11,7 @@ from src.models.geography import Coordinates, Country
 from src.models.lifecycle import DevelopmentStage, OperatingStatus
 from src.models.material import HostMineral, Material, MaterialCategory
 from src.models.organization import Organization, OrganizationType
+from src.models.platform import Platform, PlatformKind
 from src.models.project import ProductForm, ProductionFigure, ProductionPeriod, Project
 from src.models.provenance import (
     Attested,
@@ -26,7 +27,6 @@ from src.models.relationship import (
     RelationshipStatus,
     RelationshipType,
 )
-from src.models.system import System
 
 __all__ = [
     "Attested",
@@ -49,6 +49,8 @@ __all__ = [
     "ProductForm",
     "ProductionFigure",
     "ProductionPeriod",
+    "Platform",
+    "PlatformKind",
     "Project",
     "Provenance",
     "ProvenanceType",
@@ -60,5 +62,4 @@ __all__ = [
     "ResourceEstimate",
     "Source",
     "SourceType",
-    "System",
 ]

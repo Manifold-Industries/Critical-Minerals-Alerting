@@ -18,5 +18,45 @@
       }
     ],
     "defense_relevant": true
+  },
+  {
+    "id": "cmp-terfenol-d-transducer",
+    "name": "Terfenol-D magnetostrictive transducer",
+    "category": "Magnetostrictive transducer",
+    "requires": [
+      {
+        "value": "mat-tb-oxide",
+        "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-terfenol-d-submarine-mapping", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" }
+      },
+      {
+        "value": "mat-dy-oxide",
+        "provenance": { "type": "REPORTED", "source_id": "src-terfenol-d-submarine-mapping", "assertion_confidence": "HIGH", "last_verified": null }
+      }
+    ],
+    "defense_relevant": true
+  },
+  {
+    "id": "cmp-dy-cermet-control-rod",
+    "name": "Dysprosium titanate neutron-absorbing cermet control rod",
+    "category": "Reactor control element",
+    "requires": [
+      {
+        "value": "mat-dy-oxide",
+        "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-kns-dy-titanate-control-rods", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" }
+      }
+    ],
+    "defense_relevant": true
+  },
+  {
+    "id": "cmp-tb-green-phosphor",
+    "name": "Terbium green phosphor",
+    "category": "Display / image-intensifier phosphor",
+    "requires": [
+      {
+        "value": "mat-tb-oxide",
+        "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-ree-nvg-rare-earth-exchanges", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" }
+      }
+    ],
+    "defense_relevant": true
   }
 ]

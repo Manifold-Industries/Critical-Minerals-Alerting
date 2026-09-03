@@ -778,5 +778,75 @@
     "url": null,
     "locator": "PLACEHOLDER. The document is definitively identified - it is cited as Reference 3 of the 20 Aug 2026 funding release (src-viridis-funding-2026), by exact title and date - but the PDF was not retrieved and NO claim citing this source has been checked against the primary. Every DFS figure in the graph came from secondary outlets reporting the announcement: MREO 2,967 tpa and the 200.1 Mt @ 2,894 ppm Ore Reserve, 5 Mtpa ROM, 25-year mine life, US$405M ex-contingency / US$449M total pre-production capital and first production H2 2028 from mining.com.au; NdPr 2,843 tpa from news.metal.com; after-tax NPV8 US$1,196M, IRR 36.4%, payback 2.7 years from both. ANCHOR THIS FIRST: it is the single highest-value open item on this node, because the Dy+Tb figure is a subtraction of two of these secondary numbers.",
     "source_confidence": "LOW"
+  },
+  {
+    "id": "src-terfenol-d-submarine-mapping",
+    "name": "Magnetostrictive Terfenol-D transducers for submarine acoustic mapping and sonar projection (ResearchGate publication record)",
+    "source_type": "DOCUMENT",
+    "publisher": "ResearchGate (journal/preprint record)",
+    "published_on": null,
+    "url": "https://www.researchgate.net/publication/50384273",
+    "locator": "ResearchGate publication 50384273. Cited by the JARVIS component_system_sources.csv as Source 1 for (Terbium, Terfenol-D magnetostrictive transducers, Virginia-class Submarine sonar), Verdict CONFIRMED. NOT RETRIEVED IN FULL - the record was reached by id only, and the Tb/Dy composition assertion in components.json rests on the material's standard Tb(x)Dy(1-x)Fe(2) definition rather than on a checked page of this document. Anchor before treating the Virginia-class edge as HIGH.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-terfenol-d-sonar-transducer",
+    "name": "Terfenol-D magnetostrictive sonar transducer design (ResearchGate publication record)",
+    "source_type": "DOCUMENT",
+    "publisher": "ResearchGate (journal/preprint record)",
+    "published_on": null,
+    "url": "https://www.researchgate.net/publication/264011849",
+    "locator": "ResearchGate publication 264011849. Cited by the JARVIS component_system_sources.csv as Source 1 for (Terbium, Terfenol-D magnetostrictive transducers, Submarine sonar systems), Verdict CONFIRMED. NOT RETRIEVED IN FULL - reached by id only.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-terfenol-d-wikipedia",
+    "name": "Terfenol-D - Wikipedia",
+    "source_type": "OTHER",
+    "publisher": "Wikimedia Foundation",
+    "published_on": null,
+    "url": "https://en.wikipedia.org/wiki/Terfenol-D",
+    "locator": "Tertiary source, no fixed revision recorded. Cited by the JARVIS component_system_sources.csv as the ONLY Source 1 for (Terbium, Terfenol-D magnetostrictive transducers, Ohio-class SSBN sonar), Verdict PLAUSIBLE - which is why that edge carries MEDIUM and unverified_model_extraction true. Suitable for the material's composition, not for any hull-class claim.",
+    "source_confidence": "LOW"
+  },
+  {
+    "id": "src-kns-dy-titanate-control-rods",
+    "name": "Dysprosium titanate cermet neutron-absorbing control rod materials (Korean Nuclear Society conference paper)",
+    "source_type": "DOCUMENT",
+    "publisher": "Korean Nuclear Society (KNS)",
+    "published_on": null,
+    "url": "https://www.kns.org/files/pre_paper/14/81%EA%B9%80%ED%95%9C%EC%88%98.pdf",
+    "locator": "KNS pre-paper 14/81. Cited by the JARVIS component_system_sources.csv as Source 1 for (Dysprosium, Dy neutron-absorbing cermet rods, Naval nuclear reactor control), Verdict CONFIRMED. NOT RETRIEVED IN FULL. Note the scope gap: a KNS paper supports Dy titanate as a control-rod absorber material generally; it is not evidence about US naval reactor cores specifically, so the naval-reactor edge is the weakest link in this chain despite its CONFIRMED verdict upstream.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-sfa-oxford-critical-minerals-defence",
+    "name": "SFA (Oxford): Critical Minerals in Defence and National Security",
+    "source_type": "DOCUMENT",
+    "publisher": "SFA (Oxford) Ltd",
+    "published_on": null,
+    "url": "https://www.sfa-oxford.com/knowledge-and-insights/critical-minerals-in-low-carbon-and-future-technologies/critical-minerals-in-defence-and-national-security/",
+    "locator": "Consultancy knowledge-base page. Cited by the JARVIS component_system_sources.csv as Source 1 for (Dysprosium, Propulsion and navigation magnets, Hypersonic Missile Systems), Verdict CONFIRMED. NOT RETRIEVED IN FULL.",
+    "source_confidence": "MEDIUM"
+  },
+  {
+    "id": "src-finabel-ree-f35-supply-chain",
+    "name": "Finabel: Rare Earth Metals and the F-35 Supply Chain",
+    "source_type": "NEWS",
+    "publisher": "Finabel - European Army Interoperability Centre",
+    "published_on": null,
+    "url": "https://finabel.org/rare-earth-metals-and-f-35-supply-chain/",
+    "locator": "Commentary article. Cited by the JARVIS component_system_sources.csv as the ONLY Source 1 for (Dysprosium, Dy-doped NdFeB magnets, F-22 Raptor), Verdict PLAUSIBLE. The article is about the F-35; the F-22 edge is an extrapolation from it, which is why that edge carries MEDIUM and unverified_model_extraction true.",
+    "source_confidence": "LOW"
+  },
+  {
+    "id": "src-ree-nvg-rare-earth-exchanges",
+    "name": "Rare Earth Exchanges: Rare Earths in Night Vision Goggles",
+    "source_type": "NEWS",
+    "publisher": "Rare Earth Exchanges",
+    "published_on": null,
+    "url": "https://rareearthexchanges.com/night-vision-goggles/",
+    "locator": "Trade/advocacy outlet. Cited by the JARVIS component_system_sources.csv as Source 1 for (Terbium, Tb green phosphors for displays, Military night-vision and display systems), Verdict CONFIRMED. NOT RETRIEVED IN FULL. Weakest source class in this file - a commercially interested outlet, carrying the only evidence for the Tb phosphor branch.",
+    "source_confidence": "LOW"
   }
 ]
