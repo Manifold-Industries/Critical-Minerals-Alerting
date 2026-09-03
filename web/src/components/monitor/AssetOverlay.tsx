@@ -81,6 +81,33 @@ function Section({
 }
 
 /**
+ * A section that starts closed. For prose the panel should offer but not lead
+ * with: the heading still says the notes are there, and the graded rows above
+ * keep the top of the panel.
+ */
+function CollapsibleSection({
+  title,
+  children,
+}: {
+  readonly title: string;
+  readonly children: React.ReactNode;
+}) {
+  return (
+    <details className="disclosure flex flex-col gap-1 border-t border-surface-2 pt-2">
+      <summary className="flex cursor-pointer items-center gap-1.5 text-accent transition-colors hover:text-foreground">
+        <span aria-hidden className="disclosure-caret text-[11px] leading-none">
+          ▼
+        </span>
+        <h4 className="font-mono text-[9px] font-semibold tracking-[0.15em] uppercase">
+          {title}
+        </h4>
+      </summary>
+      {children}
+    </details>
+  );
+}
+
+/**
  * Staged figures supersede rather than accumulate, so a superseded row is shown
  * struck through with the year that replaced it. Summing this column would
  * overstate the asset, which is exactly the mistake the marker exists to stop.
@@ -122,11 +149,6 @@ function FigureRow({
           subject={`${figure.material_name ?? figure.material_id} · ${amount}`}
         />
       </span>
-      {figure.note && (
-        <span className="text-[9.5px] leading-relaxed text-text-tertiary">
-          {figure.note}
-        </span>
-      )}
     </li>
   );
 }
@@ -354,10 +376,6 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
             <Section
               title={asset.kind === "MINE" ? "Production figures" : "Nameplate capacity"}
             >
-              <p className="text-[9.5px] leading-relaxed text-text-tertiary">
-                Staged and superseding: a later entry replaces the earlier one for the
-                same material rather than adding to it.
-              </p>
               <ul className="flex flex-col divide-y divide-surface-2">
                 {asset.figures.map((figure, i) => (
                   <FigureRow
@@ -453,11 +471,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
           )}
 
           {asset.description && (
-            <Section title="Notes">
+            <CollapsibleSection title="Notes">
               <p className="text-[9.5px] leading-relaxed text-text-tertiary">
                 {asset.description}
               </p>
-            </Section>
+            </CollapsibleSection>
           )}
 
           {asset.sources.length > 0 && (
