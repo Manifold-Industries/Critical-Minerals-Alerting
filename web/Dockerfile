@@ -1,7 +1,10 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+# The lockfile is written by npm 11, which records optional wasm deps
+# differently than the npm 10 bundled with node:22-alpine; npm ci fails
+# on the mismatch unless the container uses npm 11 too.
+RUN npm install -g npm@11 && npm ci
 
 FROM node:22-alpine AS builder
 WORKDIR /app
