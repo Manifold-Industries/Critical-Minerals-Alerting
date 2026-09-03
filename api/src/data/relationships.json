@@ -190,6 +190,7 @@
     "qualification_lead_months": null
   },
   {
+    "_commented_out": "endpoint proj-eneabba-stockpile is outside the subset",
     "id": "rel-eneabba-stockpile-supplies-eneabba",
     "type": "SUPPLIES",
     "from_id": "proj-eneabba-stockpile",
@@ -213,6 +214,7 @@
     "qualification_lead_months": null
   },
   {
+    "_commented_out": "endpoint proj-eneabba-stockpile is outside the subset",
     "id": "rel-eneabba-stockpile-alternative-to-browns-range",
     "type": "ALTERNATIVE_TO",
     "from_id": "proj-eneabba-stockpile",

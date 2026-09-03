@@ -444,6 +444,7 @@
     ]
   },
   {
+    "_commented_out": "removed from the modelled subset",
     "id": "proj-eneabba-stockpile",
     "name": "Eneabba Rare Earths Stockpile (Phases 1-2)",
     "country_id": "AU",
@@ -510,7 +511,7 @@
     "id": "proj-kangankunde",
     "name": "Kangankunde Rare Earths Project",
     "country_id": "MW",
-    "deposit_id": null,
+    "deposit_id": "dep-kangankunde",
     "operator_id": "org-lindian-resources",
     "development_stage": {
       "value": "DEVELOPMENT",
@@ -742,7 +743,7 @@
         "last_verified": "2026-09-01"
       }
     },
-    "deposit_id": null,
+    "deposit_id": "dep-donald",
     "operator_id": null,
     "expected_production_start": {
       "value": 2028,
@@ -1061,7 +1062,7 @@
         "last_verified": "2026-09-01"
       }
     },
-    "deposit_id": null,
+    "deposit_id": "dep-songwe-hill",
     "operator_id": "org-mkango",
     "expected_production_start": null,
     "planned_production": [

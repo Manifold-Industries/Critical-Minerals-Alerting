@@ -848,5 +848,45 @@
     "url": "https://rareearthexchanges.com/night-vision-goggles/",
     "locator": "Trade/advocacy outlet. Cited by the JARVIS component_system_sources.csv as Source 1 for (Terbium, Tb green phosphors for displays, Military night-vision and display systems), Verdict CONFIRMED. NOT RETRIEVED IN FULL. Weakest source class in this file - a commercially interested outlet, carrying the only evidence for the Tb phosphor branch.",
     "source_confidence": "LOW"
+  },
+  {
+    "id": "src-aclara-carina-pea-2024",
+    "name": "GE21 Consultoria Mineral for Aclara Resources Mineracao Ltda.: NI 43-101 Technical Report, Preliminary Economic Assessment Update, Carina Rare Earth Element Project, Nova Roma, Goias, Brazil (GE21 Project No. 240205)",
+    "source_type": "DOCUMENT",
+    "publisher": "GE21 Consultoria Mineral / Aclara Resources Inc.",
+    "published_on": "2024-05-03",
+    "url": "https://minedocs.com/28/Carina-PEA-05032024.pdf",
+    "locator": "Locator: Section 4.1 property location and Figure 4-1; drill collar table, coordinates in UTM WGS84 Zone 23S.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-bre-monte-alto-drilling-2026",
+    "name": "Brazilian Rare Earths Limited ASX announcement: 'Monte Alto expands with new ultra-high grade discoveries' - Appendix B, Monte Alto drillhole information (surveyed diamond drill collars, SIRGAS 2000 UTM 24S)",
+    "source_type": "DOCUMENT",
+    "publisher": "Brazilian Rare Earths Limited (ASX:BRE)",
+    "published_on": "2026-02-18",
+    "url": "https://announcements.asx.com.au/asxpdf/20260218/pdf/06wf7512wcychv.pdf",
+    "locator": "Locator: Appendix B, Monte Alto drillhole information - 75 surveyed diamond drill collars in SIRGAS 2000 UTM 24S; JORC Table 1 states RTK-GPS centimetre-scale collar survey.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-lindian-kangankunde-mre-2024",
+    "name": "Lindian Resources ASX Announcement: Kangankunde Mineral Resource Estimate updated to include 61 million tonnes Indicated category grading 2.43% TREO (Appendix 1: Kangankunde Rare Earths Project Hole Details, Datum UTM WGS84 Zone 36S)",
+    "source_type": "DOCUMENT",
+    "publisher": "Lindian Resources Ltd (ASX:LIN)",
+    "published_on": "2024-05-02",
+    "url": "https://announcements.asx.com.au/asxpdf/20240502/pdf/0634yfnttdfvs4.pdf",
+    "locator": "Locator: Appendix 1, drill hole collar table; datum stated as UTM WGS84 Zone 36S in the appendix and in JORC Table 1.",
+    "source_confidence": "HIGH"
+  },
+  {
+    "id": "src-mkango-songwe-ni43101-2019",
+    "name": "The MSA Group (Pty) Ltd: Mkango Resources Ltd, The Songwe Hill Project, Phalombe District, Republic of Malawi - NI 43-101 Technical Report, 23 January 2019 Mineral Resource Estimate (MSA project J3802; Table 14-6 block model prototype parameters)",
+    "source_type": "DOCUMENT",
+    "publisher": "Mkango Resources Ltd (TSXV:MKA; AIM:MKA)",
+    "published_on": "2019-03-21",
+    "url": "https://mininginmalawi.wordpress.com/wp-content/uploads/2019/04/2019-mkango-resources-ni-43-101-technical-report.pdf",
+    "locator": "Locator: Table 14-6, block model definition - origin X 801,530 / Y 8,263,120 / Z 300, 20 x 20 x 5 m blocks, 30 x 35 x 150 cells.",
+    "source_confidence": "HIGH"
   }
 ]

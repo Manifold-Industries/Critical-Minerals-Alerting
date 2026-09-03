@@ -15,7 +15,19 @@
       }
     },
     "location_description": "Eneabba, Western Australia (brownfields site at Iluka's existing Eneabba operation)",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -29.884,
+        "longitude": 115.293
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -256,7 +268,19 @@
       }
     },
     "location_description": "Wheat Ridge, Colorado - leased office and warehouse space, lease commenced 1 Jan 2026 and expires 31 Mar 2028, total minimum lease payments US$224 thousand",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 39.7839,
+        "longitude": -105.1269
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [],
     "expected_start": null,
     "description": "RECLASSIFIED. This is NOT a commercial separation plant. USAR's FY2025 10-K states it twice: 'The Colorado Facility is not a commercial production facility, but rather develops and refines the technologies that, with success, would be applied at the Round Top Project', and in risk factors 'a development and demonstration facility, not a commercial production facility, and the technologies developed there may prove insufficient or prohibitively costly to scale.' Scale is given only as equipment count - '500+ planned mixer/settlers... one of the largest and most sophisticated solvent extraction demo facilities in the nation' - and the site is leased warehouse space with US$224k of total minimum lease payments to Mar 2028. Operations commenced 15 June 2026 to validate flowsheets for Round Top, third-party feedstock and magnet swarf recycling. On 14 July 2026 it produced commercial-grade dysprosium oxide and NdPr oxide SAMPLES from recycled Stillwater swarf - samples, at demonstration scale, with no tonnage and no revenue. The earlier claim held here of 'demonstrated production of commercial-grade Dy and NdPr oxide' was directionally right but overstated the node: it is a flowsheet validation, not capacity. CAPACITY NOT DISCLOSED and none should be inferred. The commercial nodes USAR describes are separate and unbuilt: 'the planned on-site Round Top processing facility and the Company's anticipated third-party MREC processing and magnet swarf recycling facility'.",
@@ -325,7 +349,19 @@
       }
     },
     "location_description": "United Kingdom",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 53.3055,
+        "longitude": -2.9334
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -441,7 +477,19 @@
       }
     },
     "location_description": "Stillwater, Oklahoma",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 36.1595,
+        "longitude": -97.0583
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -522,7 +570,19 @@
       }
     },
     "location_description": "Kalgoorlie, Western Australia",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": -30.788,
+        "longitude": 121.409
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [],
     "expected_start": null,
     "description": "Cracking and leaching of Mt Weld concentrate into mixed rare earth carbonate for onward separation at Lynas Malaysia. A continuous precipitation process was completed and commissioned in the June 2026 quarter, enabling design precipitation capacity and MREC quality improvements. Identified in the Q4 FY26 CEO review as a bottleneck being addressed following the A$1.5 billion Lynas 2025 growth investment; cracking-and-leaching productivity was reduced during the quarter by Mt Weld concentrate quality variation. No capacity figure is recorded: the quarterly states none.",
@@ -578,7 +638,19 @@
       }
     },
     "location_description": "Gebeng industrial estate, Kuantan, Pahang, Malaysia",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 4.0037,
+        "longitude": 103.3775
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -763,7 +835,19 @@
       }
     },
     "location_description": "Seadrift, Calhoun County, Texas (149-acre greenfield site acquired from Union Carbide, 2023)",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 28.538,
+        "longitude": -96.763
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [],
     "expected_start": null,
     "description": "CANCELLED. Lynas FY2026 Annual Report (26 Aug 2026), 'Lynas USA', p.16: funding for a new US supply agreement 'has been reallocated from funds previously intended for the construction of a HRE facility in Texas which will no longer proceed.' The pivot was announced five months earlier (ASX, 16 Mar 2026), which names the site explicitly: a binding Letter of Intent with the US Department of War to supply approximately US$96 million of light and heavy rare earth oxides over four years at a US$110/kg NdPr floor price, following 'the mutual decision to modify the original agreement... based on significant uncertainty as to whether the construction of the Heavy Rare Earth processing facility at Seadrift, Texas would proceed.' WORDING CAVEAT: Lynas never says 'cancelled', 'terminated' or 'abandoned' - the operative language is 'will no longer proceed', disclosed inside annual report narrative with no standalone announcement. NO IMPAIRMENT was attributable: FY26 impairment was A$1.7m on unrelated specific assets with no US attribution, and 'Seadrift' appears zero times in the FY26 annual report while 'Texas' appears once. Consistent with an expenditure-reimbursement contract under which little Lynas capital was at risk - FY26 government grants received were A$6.925m, netted against assets under construction. CORRECTION TO A FIGURE PREVIOUSLY HELD HERE: the DoD contribution was approximately US$258m ALLOCATED (FY2025 Annual Report p.15), not the ~US$288m 'received' reported in trade press. CAPACITY WAS NEVER DISCLOSED: no tpa figure for Seadrift appears in any Lynas document across FY2023-FY2026 annual reports, all FY26 quarterlies, the HY FY26 accounts or the 2022 and 2023 DoD award announcements. The secondary '2,500-3,000 tpa HREO' claim appears to be a conflation of two MALAYSIAN numbers - the 5,000 tpa HRE feedstock expansion at Lynas Malaysia and the 3,000 tpa JS Link magnet plant at Kuantan. Retained as a node for historical continuity and because the DoW funds were redirected rather than withdrawn; contributes zero capacity.",
@@ -803,7 +887,19 @@
       }
     },
     "location_description": "Mountain Pass, San Bernardino County, California",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 35.48222,
+        "longitude": -115.53167
+      },
+      "provenance": {
+        "type": "REPORTED",
+        "unverified_model_extraction": true,
+        "source_id": "src-mp-sk1300-trs-2025",
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -1016,7 +1112,19 @@
       }
     },
     "location_description": "Blanding, San Juan County, Utah",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 37.535,
+        "longitude": -109.503
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -1306,7 +1414,19 @@
       }
     },
     "location_description": "Lacq, Pyrenees-Atlantiques, south-west France",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 43.408,
+        "longitude": -0.635
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -1490,7 +1610,19 @@
       }
     },
     "location_description": "Chef de Baie industrial zone, La Rochelle, France (40-hectare site, 300+ employees, founded 1948)",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 46.1553,
+        "longitude": -1.1988
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [],
     "expected_start": null,
     "description": "Described by Solvay as 'the biggest plant outside China capable of separating all rare earth materials'. A new production line for permanent-magnet rare earths was inaugurated 8 April 2025, starting commercial NdPr production and targeting 30% of European demand by 2030, with feedstock from a diverse range of suppliers, mining partners and recycled materials. IMPORTANT: the inauguration release states NO tonnage capacity and makes NO Dy- or Tb-specific claim. Reports of a few hundred tonnes per year of NdPr and of industrial-scale Dy/Tb separation targeted for September 2026 are secondary trade press only, and are deliberately NOT recorded as attested values or as output materials here. Anchor to a Solvay capacity disclosure before treating La Rochelle as ex-China Dy/Tb capacity.",
@@ -1560,7 +1692,19 @@
       }
     },
     "location_description": "Sillamae, Estonia",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 59.4011,
+        "longitude": 27.7455
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -1647,7 +1791,19 @@
       }
     },
     "location_description": "Alexandria, Louisiana",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 31.342,
+        "longitude": -92.529
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -1788,7 +1944,19 @@
       }
     },
     "location_description": "Grupa Azoty Pulawy site, Pulawy, Poland",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 51.459,
+        "longitude": 21.977
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -1929,7 +2097,19 @@
       }
     },
     "location_description": "82-acre LED Certified Site, Port of Vinton, Lake Charles industrial corridor, Louisiana; approximately 80-year lease option",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 30.154,
+        "longitude": -93.564
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "MEDIUM",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -2086,7 +2266,19 @@
       }
     },
     "location_description": "Narva, Estonia",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 59.3535,
+        "longitude": 28.124
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "HIGH",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [
       {
         "value": {
@@ -2186,7 +2378,19 @@
       }
     },
     "location_description": "Stepnogorsk, Kazakhstan; includes approximately 15,500 sq m of warehousing, land and associated assets",
-    "coordinates": null,
+    "coordinates": {
+      "value": {
+        "latitude": 52.3415,
+        "longitude": 71.8829
+      },
+      "provenance": {
+        "type": "INFERRED",
+        "unverified_model_extraction": true,
+        "source_id": null,
+        "assertion_confidence": "LOW",
+        "last_verified": "2026-09-02"
+      }
+    },
     "capacities": [],
     "expected_start": {
       "value": 2026,
