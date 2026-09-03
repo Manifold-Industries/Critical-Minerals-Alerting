@@ -4,13 +4,23 @@ The cases are chosen because each pins an invariant that is easy to regress:
 supersession, no-double-counting, path dependency, and the ordering of the key.
 """
 
+from math import fsum
+
 import pytest
 
 from scripts.validate_data import build
 from src.disruption import (
     ALIGNMENT_RANK,
+    DEFAULT_WEIGHTS,
+    TIME_BUCKET_UNKNOWN,
+    UNSIZED_COVERAGE_SCORE,
+    WEIGHTS_VERSION,
     QuantityBasis,
     RankingKey,
+    ScoreFactor,
+    _TIME_LABELS,
+    _coverage_measure,
+    build_scoring_policy,
     simulate_disruption,
 )
 from src.graph import SupplyGraph
@@ -96,13 +106,23 @@ def test_basis_falls_back_to_category_when_host_undisclosed(graph: SupplyGraph) 
     assert impact.lost_feed.basis is QuantityBasis.CONTAINED_IN_CONCENTRATE
 
 
-def test_curated_edges_outrank_automated_ones(graph: SupplyGraph) -> None:
+def test_curated_edges_score_full_marks_on_evidence_and_automated_ones_none(
+    graph: SupplyGraph,
+) -> None:
+    """Evidence is a weighted factor now, not an absolute gate.
+
+    The lexicographic key made a curated row beat an automated one whatever else
+    was true. Scoring prices that preference instead, so the invariant that
+    survives is the normalisation, not the output order.
+    """
     impact = simulate_disruption(graph, "proj-monte-alto", as_of_year=2027)
     hit = _find(impact, "fac-caremag-lacq")
-    classes = [a.key.evidence_class for a in hit.alternatives]
-    assert classes == sorted(classes)
-    automated = [a for a in hit.alternatives if a.key.evidence_class == 1]
-    assert all(a.provenance.type is ProvenanceType.AUTOMATED for a in automated)
+    for alt in hit.alternatives:
+        automated = alt.provenance.type is ProvenanceType.AUTOMATED
+        factor = alt.score.factor(ScoreFactor.EVIDENCE)
+        assert factor.normalized == (0.0 if automated else 1.0)
+        assert factor.raw_label == ("AUTOMATED" if automated else "CURATED")
+        assert alt.key.evidence_class == (1 if automated else 0)
 
 
 def test_infeasible_routes_are_pruned(graph: SupplyGraph) -> None:
@@ -133,8 +153,167 @@ def test_ranking_key_orders_lexicographically() -> None:
     assert better < worse
 
 
-def test_results_are_sorted_by_key(graph: SupplyGraph) -> None:
+def test_results_are_sorted_by_score(graph: SupplyGraph) -> None:
     impact = simulate_disruption(graph, "proj-browns-range", as_of_year=2028)
     for hit in impact.impacted:
-        keys = [a.key for a in hit.alternatives]
-        assert keys == sorted(keys)
+        scores = [a.score.value for a in hit.alternatives]
+        assert scores == sorted(scores, reverse=True)
+
+
+def test_the_key_breaks_exact_score_ties(graph: SupplyGraph) -> None:
+    """Equal scores must still order deterministically, or output is unstable."""
+    impact = simulate_disruption(graph, "proj-caldeira", as_of_year=2029)
+    tied = 0
+    for hit in impact.impacted:
+        for above, below in zip(hit.alternatives, hit.alternatives[1:]):
+            if above.score.value == below.score.value:
+                tied += 1
+                assert above.key < below.key
+    assert tied, "no adjacent pair tied, so the tiebreak was never exercised"
+
+
+# --- scoring -----------------------------------------------------------------
+
+
+def test_contributions_sum_to_the_score(graph: SupplyGraph) -> None:
+    """The composite must be fully decomposable, or it hides its own reasoning."""
+    impact = simulate_disruption(graph, "proj-monte-alto", as_of_year=2027)
+    for hit in impact.impacted:
+        for alt in hit.alternatives:
+            assert fsum(f.contribution for f in alt.score.factors) == pytest.approx(
+                alt.score.value, abs=1e-6
+            )
+
+
+def test_scores_stay_on_a_nought_to_hundred_scale(graph: SupplyGraph) -> None:
+    for mine in ("proj-monte-alto", "proj-browns-range", "proj-caldeira"):
+        impact = simulate_disruption(graph, mine, as_of_year=2029)
+        for hit in impact.impacted:
+            for alt in hit.alternatives:
+                assert 0.0 <= alt.score.value <= 100.0
+                assert all(0.0 <= f.normalized <= 1.0 for f in alt.score.factors)
+
+
+def test_a_strong_secondary_factor_can_outweigh_alignment(graph: SupplyGraph) -> None:
+    """The whole point of a score, on a case the key could not express.
+
+    Sareco and Serra Verde tie on evidence, time and coverage. The key decides on
+    alignment - PARTNER over NEUTRAL - and never reaches commitment, because
+    alignment is absolute over everything beneath it. The score weighs both, and
+    being uncommitted is worth more than one step of alignment.
+    """
+    impact = simulate_disruption(graph, "proj-browns-range", as_of_year=2028)
+    hit = _find(impact, "fac-eneabba")
+    by_id = {a.source_id: a for a in hit.alternatives}
+    sareco, serra = by_id["fac-sareco"], by_id["proj-serra-verde"]
+
+    assert serra.key < sareco.key
+    assert serra.key.alignment_rank < sareco.key.alignment_rank
+    assert (sareco.key.committed, serra.key.committed) == (0, 1)
+
+    assert sareco.score.value > serra.score.value
+    assert hit.alternatives.index(sareco) < hit.alternatives.index(serra)
+
+
+def test_unsized_coverage_still_outranks_every_known_partial() -> None:
+    """Carried across from the key deliberately - see UNSIZED_COVERAGE_SCORE."""
+
+    def coverage(rank: int, shortfall: float) -> float:
+        return _coverage_measure(RankingKey(0, 0, 0, rank, shortfall, 0, 0, "x"))[0]
+
+    assert coverage(0, 0.0) == 1.0
+    assert coverage(2, 1.0) < coverage(2, 0.001) < coverage(1, 0.0)
+    assert coverage(1, 0.0) == UNSIZED_COVERAGE_SCORE
+
+
+def test_a_fallback_is_marked_rather_than_passed_off_as_data(graph: SupplyGraph) -> None:
+    """``known`` is how a client sees the score is not resting on a disclosure."""
+    impact = simulate_disruption(graph, "proj-browns-range", as_of_year=2028)
+    rows = [a for i in impact.impacted for a in i.alternatives]
+
+    coverage = [a.score.factor(ScoreFactor.COVERAGE) for a in rows]
+    assert coverage and all(not f.known and f.raw is None and f.detail for f in coverage)
+
+    blind = [a.score.factor(ScoreFactor.TIME_TO_FLOW) for a in rows if a.months_to_flow is None]
+    assert blind, "no candidate had unknown readiness, so nothing was exercised"
+    assert all(f.normalized == 0.0 and not f.known and f.raw is None for f in blind)
+
+
+def test_excluding_a_factor_renormalises_the_rest(graph: SupplyGraph) -> None:
+    """Scores must stay comparable across policies, or the parameter is a trap."""
+    trimmed = simulate_disruption(
+        graph, "proj-monte-alto", as_of_year=2027, exclude_factors=[ScoreFactor.ALIGNMENT]
+    )
+    for hit in trimmed.impacted:
+        for alt in hit.alternatives:
+            assert fsum(f.max_contribution for f in alt.score.factors) == pytest.approx(
+                100.0, abs=1e-4
+            )
+
+    dropped = _find(trimmed, "fac-caremag-lacq").alternatives[0].score.factor(ScoreFactor.ALIGNMENT)
+    assert dropped.excluded and dropped.weight == 0.0 and dropped.contribution == 0.0
+    # Still reported: excluded and never-computed are different statements.
+    assert dropped.raw_label and dropped.max_contribution == 0.0
+
+
+def test_an_excluded_factor_is_reported_and_warned_about(graph: SupplyGraph) -> None:
+    impact = simulate_disruption(
+        graph, "proj-monte-alto", as_of_year=2027, exclude_factors=["confidence"]
+    )
+    assert impact.scoring.excluded == (ScoreFactor.CONFIDENCE,)
+    assert any("scores exclude confidence" in w for w in impact.warnings)
+
+
+def test_evidence_decides_alone_when_it_is_the_only_factor(graph: SupplyGraph) -> None:
+    """Excluding everything else recovers the gate the key used to apply."""
+    impact = simulate_disruption(
+        graph,
+        "proj-monte-alto",
+        as_of_year=2027,
+        exclude_factors=[f for f in ScoreFactor if f is not ScoreFactor.EVIDENCE],
+    )
+    hit = _find(impact, "fac-caremag-lacq")
+    assert [a.key.evidence_class for a in hit.alternatives] == sorted(
+        a.key.evidence_class for a in hit.alternatives
+    )
+    assert {a.score.value for a in hit.alternatives} <= {0.0, 100.0}
+
+
+def test_default_policy_reports_the_shipped_version() -> None:
+    policy = build_scoring_policy()
+    assert policy.version == WEIGHTS_VERSION
+    assert policy.excluded == ()
+    assert policy.total_weight == pytest.approx(sum(DEFAULT_WEIGHTS.values()))
+
+
+def test_weights_merge_over_the_defaults_rather_than_replacing_them() -> None:
+    policy = build_scoring_policy(weights={"alignment": 0.5})
+    assert policy.weight_of(ScoreFactor.ALIGNMENT) == 0.5
+    assert policy.weight_of(ScoreFactor.COVERAGE) == DEFAULT_WEIGHTS[ScoreFactor.COVERAGE]
+    assert policy.version.endswith("+custom")
+
+
+def test_scoring_on_nothing_raises() -> None:
+    with pytest.raises(ValueError, match="no factors left"):
+        build_scoring_policy(exclude_factors=list(ScoreFactor))
+
+
+def test_negative_weight_raises() -> None:
+    with pytest.raises(ValueError, match="must not be negative"):
+        build_scoring_policy(weights={ScoreFactor.ALIGNMENT: -1.0})
+
+
+def test_unknown_factor_raises() -> None:
+    with pytest.raises(ValueError, match="unknown score factor"):
+        build_scoring_policy(exclude_factors=["reputation"])
+
+
+def test_the_tiebreak_is_not_a_scoring_factor() -> None:
+    """A factor for source_id would score candidates on the spelling of their id."""
+    assert "source_id" not in set(ScoreFactor)
+    assert len(ScoreFactor) == 6
+
+
+def test_every_time_bucket_has_a_label() -> None:
+    """Missing one is an IndexError deep inside scoring, not a wrong number."""
+    assert len(_TIME_LABELS) == TIME_BUCKET_UNKNOWN + 1

@@ -5,13 +5,28 @@ feed, how exposed each one is, and which other sources could be rerouted in.
 
 What the ranking is, and is not
 -------------------------------
-``RankingKey`` is lexicographic, not a weighted score. Five of its seven fields
-are ordinal, and the one quantitative field carries a derived-split error the
-seed README puts at 13% median on Tb plus a contained-versus-separated basis
-mismatch. There is no principled exchange rate between a qualification tier, a
-month and a tonne, so any weighting would be invented - and a composite float
-would hide *why* one candidate outranked another. The key is returned on every
-row so an ordering can be read back.
+Candidates are ordered by ``CandidateScore``: each of six factors is normalised
+to [0, 1] with 1 as best, weighted, and renormalised over the weights actually
+in play, giving 0-100 where higher is better. ``RankingKey`` is still built and
+still returned - it breaks exact score ties, and it records the lexicographic
+order the score replaced.
+
+The weights are invented. There is no principled exchange rate between a
+qualification tier, a month and a tonne, and no amount of tuning creates one, so
+``DEFAULT_WEIGHTS`` is a stated editorial position carrying a version string
+rather than a derived result. Two consequences follow, and both are load-bearing:
+
+* **The score is not the lexicographic key rescaled.** Reproducing that key
+  exactly would need each factor's smallest step to outweigh everything beneath
+  it - weights spanning four orders of magnitude, and unreachable at any spread
+  while ``shortfall`` is continuous. A weighted run therefore *will* order some
+  pairs differently, most visibly by letting strength elsewhere outweigh
+  ``evidence_class``, which the key treated as absolute.
+* **Every score can be taken apart.** ``CandidateScore.factors`` carries each
+  factor's raw value, its normalised value, its weight and its contribution in
+  points of the final score, and those contributions sum to the score. So the
+  composite hides nothing the key exposed. ``FactorScore.known`` marks the
+  factors where a fallback stood in for data the graph does not hold.
 
 Two limits worth stating before anyone acts on the output:
 
@@ -31,8 +46,10 @@ Two limits worth stating before anyone acts on the output:
   it properly.
 """
 
+from collections.abc import Collection, Mapping
 from dataclasses import dataclass
 from enum import StrEnum
+from math import fsum
 
 from src.feed_matching import UNCRACKED_HOSTS
 from src.graph import SupplyGraph
@@ -104,6 +121,71 @@ _COMMITTING_STATUSES = frozenset(
 )
 
 
+class ScoreFactor(StrEnum):
+    """The axes a candidate is scored on.
+
+    ``source_id`` is deliberately not among them. It breaks exact ties so that
+    orderings stay stable and testable, and a tiebreak that contributed points
+    would be scoring candidates on the spelling of their id.
+    """
+
+    EVIDENCE = "evidence"
+    TIME_TO_FLOW = "time_to_flow"
+    ALIGNMENT = "alignment"
+    COVERAGE = "coverage"
+    COMMITMENT = "commitment"
+    CONFIDENCE = "confidence"
+
+
+#: Bumped whenever a weight moves, so a stored response can be read back against
+#: the policy that produced it rather than against today's defaults.
+WEIGHTS_VERSION = "v1-balanced"
+
+#: An editorial position, not a derived result - see the module docstring.
+#: Feasibility (when it can flow, how much of the gap it fills) carries more than
+#: half the weight. ``EVIDENCE`` is deliberately no longer absolute, which is the
+#: single largest behavioural difference from the lexicographic key.
+DEFAULT_WEIGHTS: dict[ScoreFactor, float] = {
+    ScoreFactor.TIME_TO_FLOW: 0.30,
+    ScoreFactor.COVERAGE: 0.25,
+    ScoreFactor.EVIDENCE: 0.20,
+    ScoreFactor.ALIGNMENT: 0.10,
+    ScoreFactor.COMMITMENT: 0.10,
+    ScoreFactor.CONFIDENCE: 0.05,
+}
+
+#: Where an unsized candidate scores on coverage. 0.5 preserves the rule the
+#: lexicographic key enforced - unsized outranks any *known* partial, because
+#: Browns Range is unsized only through a life-of-mine disclosure and is
+#: plausibly the largest heavy feed in the graph. Scoring also prices that rule
+#: for the first time: a candidate covering 99% of the gap now scores just under
+#: a complete unknown. Moving this is a judgement about what a missing tonnage
+#: means, not a tuning knob.
+UNSIZED_COVERAGE_SCORE = 0.5
+
+#: Reported precision for scores and contributions. Rounding is what makes an
+#: exact tie exact - without it two indistinguishable candidates can differ by
+#: 1e-16 and present as ranked.
+_SCORE_DP = 6
+
+#: Coverage rank as a label, shared with the API layer so the engine and the
+#: schema cannot drift on what a rank means.
+COVERAGE_LABEL: dict[int, str] = {0: "COVERS", 1: "UNSIZED", 2: "PARTIAL"}
+
+#: One label per time bucket, including the unknown bucket at the end.
+_TIME_LABELS: tuple[str, ...] = (
+    "IMMEDIATE",
+    "WITHIN_6M",
+    "WITHIN_12M",
+    "WITHIN_24M",
+    "BEYOND_24M",
+    "UNKNOWN",
+)
+
+_MAX_ALIGNMENT_RANK = max(ALIGNMENT_RANK.values())
+_MAX_CONFIDENCE_RANK = max(_CONFIDENCE_RANK.values())
+
+
 @dataclass(frozen=True)
 class FeedQuantity:
     """A Dy+Tb tonnage together with where it was struck and what it rests on."""
@@ -147,6 +229,240 @@ class RankingKey:
 
 
 @dataclass(frozen=True)
+class FactorScore:
+    """One factor's part of a score, with everything needed to check it."""
+
+    factor: ScoreFactor
+    #: The ordinal or measure the normalisation was taken from. ``None`` where
+    #: the graph disclosed nothing to take it from.
+    raw: float | None
+    #: Display form of ``raw`` - "PARTNER", "WITHIN_12M", "PARTIAL".
+    raw_label: str
+    #: [0, 1], 1 is best. One direction on every factor, so a reader never has to
+    #: remember which way a particular axis runs.
+    normalized: float
+    weight: float
+    #: Points of the final score. Contributions sum to ``CandidateScore.value``.
+    contribution: float
+    #: Points this factor would have contributed at ``normalized`` 1.0, so a
+    #: reader can see what was available as well as what was earned.
+    max_contribution: float
+    #: False where a fallback stood in for data the graph does not hold. The
+    #: score still moves on it; it is just not resting on a disclosure.
+    known: bool
+    detail: str | None = None
+
+    @property
+    def excluded(self) -> bool:
+        return self.weight == 0.0
+
+
+@dataclass(frozen=True)
+class CandidateScore:
+    """A composite score and the factors that produced it."""
+
+    #: 0-100, higher is better.
+    value: float
+    #: Every factor in ``ScoreFactor`` order, excluded ones included at weight
+    #: zero. Dropping them would leave a client unable to tell a factor that was
+    #: excluded from one that was never computed.
+    factors: tuple[FactorScore, ...]
+    policy_version: str
+
+    def factor(self, factor: ScoreFactor) -> FactorScore:
+        return next(f for f in self.factors if f.factor is factor)
+
+
+@dataclass(frozen=True)
+class ScoringPolicy:
+    """The weights a run actually used, and what it dropped.
+
+    Scores are renormalised over ``total_weight``, so excluding a factor keeps
+    the 0-100 scale rather than shrinking it. Two runs under different policies
+    are on the same scale but are not the same measurement, which is why
+    ``version`` and ``excluded`` are carried on the result.
+    """
+
+    #: Every factor in declaration order, excluded ones at 0.0. A tuple rather
+    #: than a dict so the policy stays hashable like the rows that carry it.
+    weights: tuple[tuple[ScoreFactor, float], ...]
+    excluded: tuple[ScoreFactor, ...]
+    version: str
+
+    @property
+    def total_weight(self) -> float:
+        return fsum(w for _, w in self.weights)
+
+    def weight_of(self, factor: ScoreFactor) -> float:
+        return next((w for f, w in self.weights if f is factor), 0.0)
+
+
+def _as_factor(value: object) -> ScoreFactor:
+    try:
+        return ScoreFactor(value)
+    except ValueError:
+        raise ValueError(f"unknown score factor {value!r}") from None
+
+
+def build_scoring_policy(
+    exclude_factors: Collection[ScoreFactor | str] = (),
+    weights: Mapping[ScoreFactor | str, float] | None = None,
+) -> ScoringPolicy:
+    """Resolve caller overrides into the weights a run will use.
+
+    ``weights`` is merged over ``DEFAULT_WEIGHTS`` rather than replacing it, so a
+    caller can move one axis without restating the rest. Excluding a factor and
+    weighting it zero are the same arithmetic; they are kept apart because only
+    the first states an intent the result can echo back.
+    """
+    excluded_set = {_as_factor(f) for f in exclude_factors}
+    merged = dict(DEFAULT_WEIGHTS)
+    for factor, weight in (weights or {}).items():
+        if weight < 0:
+            raise ValueError(f"weight for {factor} must not be negative, got {weight}")
+        merged[_as_factor(factor)] = float(weight)
+    for factor in excluded_set:
+        merged[factor] = 0.0
+    resolved = tuple((f, merged[f]) for f in ScoreFactor)
+    if fsum(w for _, w in resolved) <= 0:
+        raise ValueError("no factors left to score on; every weight is zero or excluded")
+    return ScoringPolicy(
+        weights=resolved,
+        excluded=tuple(f for f in ScoreFactor if f in excluded_set),
+        version=WEIGHTS_VERSION if not weights else f"{WEIGHTS_VERSION}+custom",
+    )
+
+
+@dataclass(frozen=True)
+class _Measured:
+    """A factor after normalisation and before weights."""
+
+    factor: ScoreFactor
+    normalized: float
+    raw: float | None
+    raw_label: str
+    known: bool
+    detail: str | None = None
+
+
+def _coverage_measure(key: RankingKey) -> tuple[float, float | None, bool, str | None]:
+    """Collapse ``coverage_rank`` and ``shortfall`` onto one axis.
+
+    The two are entangled - ``shortfall`` only means anything within rank 2 - so
+    they score as one factor. ``raw`` is the fraction of the gap covered, capped
+    at 1.0: rank 0 says the candidate clears the gap, not by how much.
+    """
+    if key.coverage_rank == 0:
+        return 1.0, 1.0, True, None
+    if key.coverage_rank == 1:
+        return (
+            UNSIZED_COVERAGE_SCORE,
+            None,
+            False,
+            "tonnage cannot be sized against the loss; scored between COVERS and "
+            "every known partial rather than as zero",
+        )
+    return UNSIZED_COVERAGE_SCORE * (1.0 - key.shortfall), 1.0 - key.shortfall, True, None
+
+
+def _measure(
+    key: RankingKey,
+    alignment: str | None,
+    months: int | None,
+    confidence: Confidence | None,
+) -> tuple[_Measured, ...]:
+    """Normalise every axis to [0, 1] with 1 as best.
+
+    Ordinals are read off ``RankingKey`` rather than recomputed, so the score and
+    the key can never disagree about what a candidate looked like.
+    """
+    coverage_normal, coverage_raw, coverage_known, coverage_detail = _coverage_measure(key)
+    return (
+        _Measured(
+            ScoreFactor.EVIDENCE,
+            1.0 - key.evidence_class,
+            float(key.evidence_class),
+            "CURATED" if key.evidence_class == 0 else "AUTOMATED",
+            True,
+        ),
+        _Measured(
+            ScoreFactor.TIME_TO_FLOW,
+            1.0 - key.time_bucket / TIME_BUCKET_UNKNOWN,
+            float(months) if months is not None else None,
+            _TIME_LABELS[key.time_bucket],
+            months is not None,
+            None
+            if months is not None
+            else "no stated start year or qualification lead; scored below every known bucket",
+        ),
+        _Measured(
+            ScoreFactor.ALIGNMENT,
+            1.0 - key.alignment_rank / _MAX_ALIGNMENT_RANK,
+            float(key.alignment_rank),
+            alignment or "UNASSESSED",
+            alignment is not None,
+            None
+            if alignment is not None
+            else "country carries no alignment assessment; scored with NEUTRAL, not below it",
+        ),
+        _Measured(
+            ScoreFactor.COVERAGE,
+            coverage_normal,
+            coverage_raw,
+            COVERAGE_LABEL[key.coverage_rank],
+            coverage_known,
+            coverage_detail,
+        ),
+        _Measured(
+            ScoreFactor.COMMITMENT,
+            1.0 - key.committed,
+            float(key.committed),
+            "UNCOMMITTED" if key.committed == 0 else "COMMITTED_ELSEWHERE",
+            True,
+        ),
+        _Measured(
+            ScoreFactor.CONFIDENCE,
+            1.0 - key.confidence / _MAX_CONFIDENCE_RANK,
+            float(key.confidence),
+            confidence.value if confidence is not None else "UNSTATED",
+            confidence is not None,
+            None
+            if confidence is not None
+            else "no assertion confidence stated; scored at the floor",
+        ),
+    )
+
+
+def _score(policy: ScoringPolicy, measured: tuple[_Measured, ...]) -> CandidateScore:
+    """Weight, renormalise and round.
+
+    Contributions are rounded before they are summed, so the reported
+    contributions add up to the reported score exactly rather than to within a
+    float epsilon of it.
+    """
+    total = policy.total_weight
+    factors = tuple(
+        FactorScore(
+            factor=m.factor,
+            raw=m.raw,
+            raw_label=m.raw_label,
+            normalized=round(m.normalized, _SCORE_DP),
+            weight=policy.weight_of(m.factor),
+            contribution=round(100.0 * policy.weight_of(m.factor) * m.normalized / total, _SCORE_DP),
+            max_contribution=round(100.0 * policy.weight_of(m.factor) / total, _SCORE_DP),
+            known=m.known,
+            detail=m.detail,
+        )
+        for m in measured
+    )
+    return CandidateScore(
+        value=round(fsum(f.contribution for f in factors), _SCORE_DP),
+        factors=factors,
+        policy_version=policy.version,
+    )
+
+
+@dataclass(frozen=True)
 class AlternativeFeed:
     source_id: str
     relationship_id: str
@@ -161,6 +477,8 @@ class AlternativeFeed:
     readiness_known: bool
     already_committed_to: tuple[str, ...]
     basis_comparable: bool
+    #: What ordered this row. Read with ``key``, which broke any exact tie.
+    score: CandidateScore
     key: RankingKey
     note: str | None = None
 
@@ -184,6 +502,9 @@ class DisruptionImpact:
     severity: float
     lost_feed: FeedQuantity | None
     impacted: tuple[FacilityImpact, ...]
+    #: The weights every score in ``impacted`` was computed under. Weights are an
+    #: input now, so a stored result is not reproducible without them.
+    scoring: ScoringPolicy
     warnings: tuple[str, ...] = ()
 
 
@@ -450,6 +771,7 @@ def _rank_alternatives(
     lost_basis: QuantityBasis | None,
     as_of_year: int,
     min_qualification: QualificationTier,
+    policy: ScoringPolicy,
 ) -> tuple[AlternativeFeed, ...]:
     rows: list[AlternativeFeed] = []
     for edge in _candidate_edges(graph, facility_id, excluded, min_qualification):
@@ -469,6 +791,7 @@ def _rank_alternatives(
             confidence=_CONFIDENCE_RANK.get(edge.provenance.assertion_confidence, 3),
             source_id=source_id,
         )
+        score = _score(policy, _measure(key, alignment, months, edge.provenance.assertion_confidence))
         rows.append(
             AlternativeFeed(
                 source_id=source_id,
@@ -486,11 +809,14 @@ def _rank_alternatives(
                 basis_comparable=(
                     available is not None and lost_basis is not None and available.basis is lost_basis
                 ),
+                score=score,
                 key=key,
                 note=edge.note,
             )
         )
-    return tuple(sorted(rows, key=lambda r: r.key))
+    # Score first, the lexicographic key only where scores are exactly equal, so
+    # an ordering stays deterministic without the tiebreak ever earning points.
+    return tuple(sorted(rows, key=lambda r: (-r.score.value, r.key)))
 
 
 def _dependent_nodes(graph: SupplyGraph, mine_id: str, max_hops: int) -> frozenset[str]:
@@ -558,6 +884,8 @@ def simulate_disruption(
     severity: float = 1.0,
     max_hops: int = 3,
     min_qualification: QualificationTier = QualificationTier.PLAUSIBLE,
+    exclude_factors: Collection[ScoreFactor | str] = (),
+    weights: Mapping[ScoreFactor | str, float] | None = None,
 ) -> DisruptionImpact:
     """Model a mine losing output and rank what could take its place.
 
@@ -568,12 +896,18 @@ def simulate_disruption(
     ``min_qualification`` prunes the reroute space - ``INFEASIBLE`` edges are
     always dropped, being recorded precisely to prune it.
 
-    Raises ``KeyError`` if ``mine_id`` names no project in the graph.
+    ``exclude_factors`` drops factors from the score and ``weights`` overrides
+    individual ones; both renormalise over what is left, so scores stay on 0-100
+    whatever is in play. The policy actually used comes back on the result.
+
+    Raises ``KeyError`` if ``mine_id`` names no project in the graph, and
+    ``ValueError`` for a severity outside [0, 1] or a policy scoring on nothing.
     """
     if mine_id not in graph.projects:
         raise KeyError(f"unknown mine {mine_id!r}")
     if not 0.0 <= severity <= 1.0:
         raise ValueError(f"severity must be within [0, 1], got {severity}")
+    policy = build_scoring_policy(exclude_factors, weights)
 
     project = graph.projects[mine_id]
     feed = _mine_feed(graph, project, as_of_year)
@@ -617,6 +951,7 @@ def simulate_disruption(
                     lost.basis if lost else None,
                     as_of_year,
                     min_qualification,
+                    policy,
                 ),
             )
         )
@@ -635,6 +970,12 @@ def simulate_disruption(
             "some coverage ratios compare tonnages struck at different points in the chain; "
             "no recovery factor exists in the graph to reconcile them"
         )
+    if policy.excluded:
+        warnings.append(
+            "scores exclude " + ", ".join(f.value for f in policy.excluded) + "; the remaining "
+            "weights were renormalised, so these values sit on the same 0-100 scale as a "
+            "default run but are not the same measurement"
+        )
 
     return DisruptionImpact(
         mine_id=mine_id,
@@ -642,5 +983,6 @@ def simulate_disruption(
         severity=severity,
         lost_feed=lost,
         impacted=tuple(impacted),
+        scoring=policy,
         warnings=tuple(warnings),
     )
