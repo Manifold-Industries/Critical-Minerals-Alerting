@@ -49,6 +49,8 @@ interface GlobeSceneProps {
   readonly mode: MapMode;
   readonly graph?: AlertGraph;
   readonly alerts: readonly Alert[];
+  /** Assets for alerts with no fixture graph, keyed by alert id. */
+  readonly contextAssets?: Readonly<Record<string, GeoNode>>;
   readonly selectedAlertId: string;
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
@@ -375,6 +377,7 @@ function ContextLayer({
   projection,
   graph,
   alerts,
+  contextAssets,
   selectedAlertId,
   selectedNodeId,
   onSelectNode,
@@ -384,6 +387,8 @@ function ContextLayer({
   readonly projection: GeoProjection;
   readonly graph?: AlertGraph;
   readonly alerts: readonly Alert[];
+  /** Assets for alerts with no fixture graph, keyed by alert id. */
+  readonly contextAssets?: Readonly<Record<string, GeoNode>>;
   readonly selectedAlertId: string;
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
@@ -407,9 +412,10 @@ function ContextLayer({
       {alerts
         .filter((alert) => alert.id !== selectedAlertId)
         .map((alert) => {
-          const other = GRAPHS[alert.id];
+          // Live alerts have no fixture entry; their asset arrives separately.
+          const other = GRAPHS[alert.id]?.asset ?? contextAssets?.[alert.id];
           if (!other) return null;
-          const at = project(projection, other.asset.lon, other.asset.lat);
+          const at = project(projection, other.lon, other.lat);
           return (
             <g key={alert.id}>
               <NodeDot
@@ -420,13 +426,13 @@ function ContextLayer({
                 strokeWidth={1}
                 onClick={() => onSelectAlert(alert.id)}
                 hover={{
-                  name: other.asset.name,
-                  sub: `${other.asset.role} · ${other.asset.place}`,
+                  name: other.name,
+                  sub: `${other.role} · ${other.place}`,
                   detail: `Queued alert · ${alert.title}`,
                 }}
                 onHover={onHoverNode}
               />
-              <NodeLabel at={at} text={other.asset.name} size={10} />
+              <NodeLabel at={at} text={other.name} size={10} />
             </g>
           );
         })}
@@ -446,6 +452,7 @@ export default function GlobeScene({
   mode,
   graph,
   alerts,
+  contextAssets,
   selectedAlertId,
   selectedNodeId,
   onSelectNode,
@@ -499,6 +506,7 @@ export default function GlobeScene({
           projection={projection}
           graph={graph}
           alerts={alerts}
+          contextAssets={contextAssets}
           selectedAlertId={selectedAlertId}
           selectedNodeId={selectedNodeId}
           onSelectNode={onSelectNode}

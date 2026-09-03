@@ -37,11 +37,18 @@ export interface Alert {
   readonly source: AlertSource;
   /** Downstream systems at risk, most consequential first. */
   readonly affectedSystems: readonly string[];
+  /**
+   * Project id to simulate, for alerts backed by the disruption engine.
+   * Present means the console fetches its graph live; absent means it falls
+   * back to the placeholder fixture in `graphs.ts`.
+   */
+  readonly mineId?: string;
 }
 
 export const ALERTS: readonly Alert[] = [
   {
     id: "SA-047",
+    mineId: "proj-mount-weld",
     title: "Haul road washout halts Mt Weld concentrate to Kalgoorlie",
     summary:
       "Sustained flooding severed the haul route out of Mt Weld, suspending concentrate deliveries to the Kalgoorlie cracking and leaching plant and cutting the only feed reaching Lynas Malaysia's Dy/Tb separation circuit.",
@@ -58,6 +65,7 @@ export const ALERTS: readonly Alert[] = [
   },
   {
     id: "SA-045",
+    mineId: "proj-mountain-pass",
     title: "Mountain Pass mill fire cuts domestic heavy rare earth feed",
     summary:
       "A fire in the Mountain Pass concentrator has suspended mine output, leaving the co-located refinery and separation circuit without feed and removing the only domestic source of contained Dy/Tb.",
@@ -70,6 +78,7 @@ export const ALERTS: readonly Alert[] = [
   },
   {
     id: "SA-043",
+    mineId: "proj-caldeira",
     title: "Caldeira licence suspension halts ionic clay MREC exports",
     summary:
       "A state environmental court suspended operating licences at the Caldeira project, halting mixed rare earth carbonate shipments to separation plants in Estonia and Louisiana.",

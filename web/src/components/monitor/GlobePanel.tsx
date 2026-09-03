@@ -15,13 +15,21 @@ import {
   IconPlus,
 } from "@tabler/icons-react";
 import type { Alert } from "@/lib/monitor/alerts";
-import { graphForAlert, type AlertGraph } from "@/lib/monitor/graphs";
+import {
+  graphForAlert,
+  type AlertGraph,
+  type GeoNode,
+} from "@/lib/monitor/graphs";
 import { IMPACT_COLOR, SAFE_COLOR } from "@/lib/monitor/colors";
 import GlobeScene, { type MapMode, type NodeHover } from "./GlobeScene";
 
 interface GlobePanelProps {
   readonly alerts: readonly Alert[];
   readonly selectedAlert: Alert;
+  /** Graph fetched from the disruption API, when this alert has one. */
+  readonly liveGraph?: AlertGraph;
+  /** Assets for live alerts the globe draws in context mode. */
+  readonly contextAssets?: Readonly<Record<string, GeoNode>>;
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
   readonly onSelectAlert: (id: string) => void;
@@ -118,6 +126,8 @@ function fitCamera(
 export default function GlobePanel({
   alerts,
   selectedAlert,
+  liveGraph,
+  contextAssets,
   selectedNodeId,
   onSelectNode,
   onSelectAlert,
@@ -146,7 +156,9 @@ export default function GlobePanel({
   const dragMovedRef = useRef(false);
   const initializedRef = useRef(false);
 
-  const graph = graphForAlert(selectedAlert.id);
+  // A live alert's graph comes from the API; the placeholder alerts still
+  // read the fixture, so both kinds render through the same path below.
+  const graph = liveGraph ?? graphForAlert(selectedAlert.id);
 
   useEffect(() => {
     const el = wrapRef.current;
@@ -307,6 +319,7 @@ export default function GlobePanel({
             mode={mode}
             graph={graph}
             alerts={alerts}
+            contextAssets={contextAssets}
             selectedAlertId={selectedAlert.id}
             selectedNodeId={selectedNodeId}
             onSelectNode={guardClick(onSelectNode)}
