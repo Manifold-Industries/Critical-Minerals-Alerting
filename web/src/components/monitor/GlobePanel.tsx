@@ -22,6 +22,7 @@ import {
 } from "@/lib/monitor/graphs";
 import { IMPACT_COLOR, SAFE_COLOR } from "@/lib/monitor/colors";
 import GlobeScene, { type MapMode, type NodeHover } from "./GlobeScene";
+import AssetOverlay from "./AssetOverlay";
 
 interface GlobePanelProps {
   readonly alerts: readonly Alert[];
@@ -33,6 +34,8 @@ interface GlobePanelProps {
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
   readonly onSelectAlert: (id: string) => void;
+  /** Clears the selection, which is what closes the asset overlay. */
+  readonly onClearNode?: () => void;
 }
 
 interface Camera {
@@ -131,6 +134,7 @@ export default function GlobePanel({
   selectedNodeId,
   onSelectNode,
   onSelectAlert,
+  onClearNode,
 }: GlobePanelProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -407,6 +411,16 @@ export default function GlobePanel({
           <IconFocusCentered size={14} stroke={1.5} />
         </button>
       </div>
+
+      {/* Bottom-right: reference detail for the selected node. Only live
+          alerts resolve — a fixture node id names no asset and the overlay
+          closes itself rather than showing an error over the map. */}
+      {liveGraph && (
+        <AssetOverlay
+          assetId={selectedNodeId}
+          onClose={() => onClearNode?.()}
+        />
+      )}
 
       {/* Bottom-left: legend */}
       <div className="absolute bottom-3 left-3 flex items-center gap-3 border border-surface-2 bg-surface-1/90 px-2.5 py-1.5">
