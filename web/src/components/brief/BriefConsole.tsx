@@ -58,21 +58,32 @@ function BriefBody({
   const criterion = rankingCriterion(graph?.scoring);
   return (
     <>
+      <AlertSubject
+        alert={alert}
+        graph={graph}
+        exposure={exposure}
+        exposureState={exposureState}
+      />
+
       <BriefSection no={1} title="Bottom line">
         <BottomLine alert={alert} graph={graph} exposure={exposure} />
       </BriefSection>
 
       {/* §2 and §3 verbatim from the decision panel: the same summary, the
-          same capacity and end-use blocks, so brief and panel cannot drift. */}
+          same capacity and end-use blocks, so brief and panel cannot drift.
+          The panel blocks are set at rail density, so they are zoomed up a
+          step here rather than restyled — same markup, document scale. */}
       <BriefSection no={2} title="What happened">
-        <p className="text-xs leading-relaxed text-text-secondary">
+        <p className="max-w-4xl text-sm leading-relaxed text-text-secondary">
           {alert.summary}
         </p>
       </BriefSection>
 
       <BriefSection no={3} title="Why it matters">
-        {graph?.capacity && <CapacityContext graph={graph} />}
-        <AffectedSystems exposure={exposure} state={exposureState} />
+        <div className="flex max-w-4xl flex-col gap-2 [zoom:1.2]">
+          {graph?.capacity && <CapacityContext graph={graph} />}
+          <AffectedSystems exposure={exposure} state={exposureState} />
+        </div>
       </BriefSection>
 
       <div className="grid gap-5 lg:grid-cols-2">
@@ -109,7 +120,7 @@ function BriefBody({
         </BriefSection>
       </div>
 
-      <p className="border-t-2 border-surface-2 pt-3 font-mono text-[9.5px] leading-relaxed text-text-tertiary">
+      <p className="border-t-2 border-surface-2 pt-3 font-mono text-[11px] leading-relaxed text-text-tertiary">
         {basisLine(alert, graph, exposure)}
       </p>
     </>
@@ -204,14 +215,14 @@ export default function BriefConsole() {
         <article className="blueprint flex min-h-full w-full flex-col gap-5 p-6">
           {!alert ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs leading-relaxed text-text-secondary">
+              <p className="text-sm leading-relaxed text-text-secondary">
                 No alert with id{" "}
                 <span className="font-mono text-accent">{requestedId}</span> is
                 on the queue, so there is nothing to brief.
               </p>
               <Link
                 href="/monitor"
-                className="font-mono text-[11px] tracking-[0.15em] text-accent uppercase underline decoration-surface-2 underline-offset-2 hover:decoration-accent"
+                className="font-mono text-xs tracking-[0.15em] text-accent uppercase underline decoration-surface-2 underline-offset-2 hover:decoration-accent"
               >
                 Pick an alert on the monitor
               </Link>
