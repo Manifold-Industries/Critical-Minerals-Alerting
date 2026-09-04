@@ -20,6 +20,7 @@ import { graphForAlert, type AlertGraph } from "@/lib/monitor/graphs";
 import { basisLine, rankingCriterion } from "@/lib/brief/derive";
 import AffectedSystems from "@/components/monitor/AffectedSystems";
 import CapacityContext from "@/components/monitor/CapacityContext";
+import AlertSubject from "./AlertSubject";
 import AlternativesSection from "./AlternativesSection";
 import AssumptionsSection from "./AssumptionsSection";
 import AtRisk from "./AtRisk";
@@ -36,7 +37,7 @@ type LoadState = "idle" | "loading" | "error";
 /** A notice standing in for the memo body, so an empty page says which empty. */
 function BriefNotice({ children }: { readonly children: string }) {
   return (
-    <p className="border-t border-surface-2 pt-4 text-xs leading-relaxed text-text-tertiary">
+    <p className="border-t border-surface-2 pt-4 text-sm leading-relaxed text-text-tertiary">
       {children}
     </p>
   );

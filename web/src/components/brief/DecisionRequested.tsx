@@ -14,13 +14,13 @@ function Effect({
   readonly children: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 border border-surface-2 px-2.5 py-2">
+    <div className="flex flex-col gap-1.5 border border-surface-2 px-3 py-2.5">
       <p
-        className={`font-mono text-[9px] font-semibold tracking-[0.15em] uppercase ${labelClass}`}
+        className={`font-mono text-[11px] font-semibold tracking-[0.15em] uppercase ${labelClass}`}
       >
         {label}
       </p>
-      <p className="text-[10.5px] leading-relaxed text-text-secondary">
+      <p className="text-[13px] leading-relaxed text-text-secondary">
         {children}
       </p>
     </div>
@@ -45,17 +45,17 @@ export default function DecisionRequested({
   const d = decisionRequest(alert, graph, exposure);
 
   return (
-    <div className="flex flex-col gap-3 border-y-2 border-text-secondary bg-surface-1 px-4 py-3">
-      <p className="text-[13px] leading-relaxed font-medium text-foreground">
+    <div className="flex flex-col gap-4 border-y-2 border-text-secondary bg-surface-1 px-5 py-4">
+      <p className="max-w-4xl text-base leading-relaxed font-medium text-foreground">
         {d.ask}
       </p>
-      <p className="font-mono text-[10px] leading-relaxed text-text-secondary">
+      <p className="font-mono text-xs leading-relaxed text-text-secondary">
         <span className="font-semibold tracking-[0.15em] text-accent uppercase">
           Deadline ·{" "}
         </span>
         {d.deadline}
       </p>
-      <div className="grid gap-2 sm:grid-cols-3">
+      <div className="grid gap-2.5 sm:grid-cols-3">
         <Effect label="Approve" labelClass="text-positive">
           {d.approve}
         </Effect>
@@ -67,11 +67,11 @@ export default function DecisionRequested({
         </Effect>
       </div>
       {d.onApproval.length > 0 && (
-        <div className="flex flex-col gap-1">
-          <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
+        <div className="flex flex-col gap-1.5">
+          <p className="font-mono text-[11px] font-semibold tracking-[0.15em] text-accent uppercase">
             On approval
           </p>
-          <ol className="flex list-decimal flex-col gap-0.5 pl-4 text-[10.5px] leading-relaxed text-text-secondary marker:font-mono marker:text-[10px] marker:text-text-tertiary">
+          <ol className="flex list-decimal flex-col gap-1 pl-5 text-[13px] leading-relaxed text-text-secondary marker:font-mono marker:text-xs marker:text-text-tertiary">
             {d.onApproval.map((action) => (
               <li key={action}>{action}</li>
             ))}

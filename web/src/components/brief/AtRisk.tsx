@@ -19,7 +19,7 @@ const CONFIDENCE_CLASS: Record<Confidence, string> = {
 export default function AtRisk({ graph }: { readonly graph?: AlertGraph }) {
   if (!graph || graph.downstream.length === 0) {
     return (
-      <p className="text-xs text-text-tertiary">
+      <p className="text-sm text-text-tertiary">
         No dependency graph for this alert.
       </p>
     );
@@ -34,7 +34,7 @@ export default function AtRisk({ graph }: { readonly graph?: AlertGraph }) {
               <th
                 key={h}
                 scope="col"
-                className="border-b border-surface-2 py-1.5 pr-2 font-mono text-[9px] font-semibold tracking-[0.15em] text-text-tertiary uppercase"
+                className="border-b border-surface-2 py-2 pr-3 font-mono text-[11px] font-semibold tracking-[0.15em] text-text-tertiary uppercase"
               >
                 {h}
               </th>
@@ -46,45 +46,45 @@ export default function AtRisk({ graph }: { readonly graph?: AlertGraph }) {
             const conf = nodeConfidence(node);
             return (
               <tr key={node.id} className="border-b border-surface-2 align-top">
-                <td className="py-2 pr-2">
+                <td className="py-2.5 pr-3">
                   <span className="flex items-baseline gap-1.5">
                     <span
                       aria-hidden
-                      className="inline-block size-[7px] shrink-0 translate-y-px rounded-full"
+                      className="inline-block size-2 shrink-0 translate-y-px rounded-full"
                       style={{ backgroundColor: IMPACT_COLOR[node.impact] }}
                     />
                     <span className="flex flex-col gap-0.5">
-                      <span className="text-xs font-semibold text-foreground">
+                      <span className="text-sm font-semibold text-foreground">
                         {node.name}
                       </span>
-                      <span className="text-[10px] leading-snug text-text-secondary">
+                      <span className="text-xs leading-snug text-text-secondary">
                         {node.place ? `${node.role} · ${node.place}` : node.role}
                       </span>
                       {node.operatingStatus && (
-                        <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+                        <span className="font-mono text-[10px] tracking-[0.1em] text-text-tertiary uppercase">
                           {statusLabel(node.operatingStatus)}
                         </span>
                       )}
                     </span>
                   </span>
                 </td>
-                <td className="py-2 pr-2">
+                <td className="py-2.5 pr-3">
                   <span className="flex flex-col gap-0.5">
                     <span
-                      className={`font-mono text-[10px] tracking-[0.08em] uppercase ${
+                      className={`font-mono text-xs tracking-[0.08em] uppercase ${
                         node.soleSource ? "text-accent" : "text-text-secondary"
                       }`}
                     >
                       {nodeLoss(node)}
                     </span>
                     {supplyLabel(node) && (
-                      <span className="font-mono text-[9px] tracking-[0.08em] text-text-tertiary uppercase">
+                      <span className="font-mono text-[10px] tracking-[0.08em] text-text-tertiary uppercase">
                         {supplyLabel(node)}
                       </span>
                     )}
                     {node.shareOfNameplate !== undefined && (
                       <span
-                        className="font-mono text-[9px] text-text-tertiary"
+                        className="font-mono text-[11px] text-text-tertiary"
                         title="Lost tonnage over this plant's nameplate. Upper bound — the two figures are struck at different points in the chain."
                       >
                         {pct(node.shareOfNameplate)} of nameplate
@@ -92,7 +92,7 @@ export default function AtRisk({ graph }: { readonly graph?: AlertGraph }) {
                     )}
                     {node.shareOfModelledCapacity !== undefined && (
                       <span
-                        className="font-mono text-[9px] text-text-tertiary"
+                        className="font-mono text-[11px] text-text-tertiary"
                         title="This plant's nameplate as a share of all disclosed Dy+Tb separation capacity in the graph"
                       >
                         {pct(node.shareOfModelledCapacity)} of modelled capacity
@@ -101,7 +101,7 @@ export default function AtRisk({ graph }: { readonly graph?: AlertGraph }) {
                   </span>
                 </td>
                 <td
-                  className={`py-2 font-mono text-[9px] font-semibold tracking-[0.1em] ${CONFIDENCE_CLASS[conf]}`}
+                  className={`py-2.5 font-mono text-[11px] font-semibold tracking-[0.1em] ${CONFIDENCE_CLASS[conf]}`}
                   title={
                     conf === "HIGH"
                       ? "The loss share rests on a disclosed nameplate"

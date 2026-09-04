@@ -35,7 +35,7 @@ export default function AlternativesSection({
                   <th
                     key={h}
                     scope="col"
-                    className="border-b border-surface-2 py-1.5 pr-3 font-mono text-[9px] font-semibold tracking-[0.15em] text-text-tertiary uppercase last:pr-0 last:text-right"
+                    className="border-b border-surface-2 py-2 pr-3 font-mono text-[11px] font-semibold tracking-[0.15em] text-text-tertiary uppercase last:pr-0 last:text-right"
                   >
                     {h}
                   </th>
@@ -50,34 +50,34 @@ export default function AlternativesSection({
                     key={alt.id}
                     className="border-b border-surface-2 align-baseline"
                   >
-                    <td className="py-2 pr-3 font-mono text-[13px] font-semibold text-accent tabular-nums">
+                    <td className="py-2.5 pr-3 font-mono text-base font-semibold text-accent tabular-nums">
                       {alt.rank}
                     </td>
-                    <td className="py-2 pr-3">
+                    <td className="py-2.5 pr-3">
                       <span className="flex flex-col gap-0.5">
-                        <span className="text-xs font-semibold text-foreground">
+                        <span className="text-sm font-semibold text-foreground">
                           {alt.name}
                         </span>
-                        <span className="text-[10px] leading-snug text-text-secondary">
+                        <span className="text-xs leading-snug text-text-secondary">
                           {alt.country}
                         </span>
                       </span>
                     </td>
-                    <td className="py-2 pr-3 text-[10px] leading-snug text-text-secondary">
+                    <td className="py-2.5 pr-3 text-xs leading-snug text-text-secondary">
                       {feeds?.name ?? "—"}
                     </td>
-                    <td className="py-2 pr-3 font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+                    <td className="py-2.5 pr-3 font-mono text-[10px] tracking-[0.1em] text-text-tertiary uppercase">
                       {evidenceLabel(alt.evidenceClass)}
                     </td>
-                    <td className="py-2 text-right">
+                    <td className="py-2.5 text-right">
                       {alt.score != null ? (
                         <span className="flex flex-col items-end gap-1">
-                          <span className="font-mono text-[11px] font-semibold text-foreground tabular-nums">
+                          <span className="font-mono text-sm font-semibold text-foreground tabular-nums">
                             {alt.score.toFixed(0)}
                           </span>
                           <span
                             aria-hidden
-                            className="block h-[2px] w-14 bg-surface-2"
+                            className="block h-[3px] w-20 bg-surface-2"
                           >
                             <span
                               className="block h-full bg-accent"
@@ -87,7 +87,7 @@ export default function AlternativesSection({
                         </span>
                       ) : (
                         <span
-                          className="font-mono text-[11px] text-text-tertiary"
+                          className="font-mono text-sm text-text-tertiary"
                           title="Seeded order without a score — this graph predates scoring"
                         >
                           —
@@ -101,18 +101,18 @@ export default function AlternativesSection({
           </table>
         </div>
       ) : (
-        <p className="text-xs text-text-tertiary">
+        <p className="text-sm text-text-tertiary">
           No alternatives identified yet.
         </p>
       )}
 
       {/* The assumption a reader must carry out of this section, so it sits
           inside it rather than in §8 with the general caveats. */}
-      <div className="flex flex-col gap-1 border border-accent bg-accent-tint px-3 py-2.5">
-        <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
+      <div className="flex flex-col gap-1.5 border border-accent bg-accent-tint px-3.5 py-3">
+        <p className="font-mono text-[11px] font-semibold tracking-[0.15em] text-accent uppercase">
           Critical assumption — mining capacity
         </p>
-        <p className="text-[10.5px] leading-relaxed text-text-secondary">
+        <p className="max-w-4xl text-[13px] leading-relaxed text-text-secondary">
           {capacityAssumption(graph)}
         </p>
       </div>

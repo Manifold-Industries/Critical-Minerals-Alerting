@@ -27,21 +27,21 @@ function Stat({
   readonly swatch?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 border border-surface-2 px-3 py-2">
-      <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-text-tertiary uppercase">
+    <div className="flex flex-col gap-1.5 border border-surface-2 px-3.5 py-3">
+      <p className="font-mono text-[11px] font-semibold tracking-[0.15em] text-text-tertiary uppercase">
         {label}
       </p>
-      <p className="flex items-center gap-1.5 font-mono text-sm font-semibold text-foreground tabular-nums">
+      <p className="flex items-center gap-2 font-mono text-xl font-semibold text-foreground tabular-nums">
         {swatch && (
           <span
             aria-hidden
-            className="inline-block size-2 shrink-0"
+            className="inline-block size-2.5 shrink-0"
             style={{ backgroundColor: swatch }}
           />
         )}
         {stat.value}
       </p>
-      <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+      <p className="font-mono text-[11px] leading-relaxed text-text-tertiary">
         {stat.detail}
       </p>
     </div>
@@ -60,11 +60,11 @@ export default function BottomLine({ alert, graph, exposure }: BottomLineProps) 
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-[13px] leading-relaxed text-foreground">
+    <div className="flex flex-col gap-4">
+      <p className="max-w-4xl text-base leading-relaxed text-foreground">
         {bluf(alert, graph, exposure)}
       </p>
-      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
         <Stat label="Consequence" stat={consequenceStat(graph)} />
         <Stat
           label="Severity"

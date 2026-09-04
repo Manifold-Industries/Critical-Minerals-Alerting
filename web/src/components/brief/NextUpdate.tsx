@@ -16,7 +16,7 @@ export default function NextUpdate({
 }) {
   const year = graph?.capacity?.as_of_year;
   return (
-    <p className="text-[10.5px] leading-relaxed text-text-secondary">
+    <p className="text-[13px] leading-relaxed text-text-secondary">
       {alert.mineId
         ? `This brief is struck from the live supply graph each time it is opened — the same simulation the Decision Panel reads${year != null ? `, at ${year}` : ""}. Capacities are staged and supersede one another, so every share here moves with that year. Reopen the brief for current figures.`
         : "No engine behind this alert: this brief follows the seeded graph and changes only when its seed data does."}

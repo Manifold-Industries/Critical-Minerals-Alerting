@@ -17,13 +17,13 @@ export default function BriefSection({
   children,
 }: BriefSectionProps) {
   return (
-    <section className="flex flex-col gap-2.5 border-t border-surface-2 pt-4">
+    <section className="flex flex-col gap-3 border-t border-surface-2 pt-5">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="font-mono text-[10px] font-semibold tracking-[0.2em] text-accent uppercase">
+        <h3 className="font-mono text-xs font-semibold tracking-[0.2em] text-accent uppercase">
           {no} · {title}
         </h3>
         {aside && (
-          <p className="font-mono text-[9px] tracking-[0.12em] text-text-tertiary uppercase">
+          <p className="font-mono text-[11px] tracking-[0.12em] text-text-tertiary uppercase">
             {aside}
           </p>
         )}

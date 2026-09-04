@@ -19,13 +19,13 @@ export default function AssumptionsSection({
 }) {
   const items = assumptions(alert, graph, exposure);
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-2.5">
       {items.map((item) => (
         <li
           key={item}
-          className="grid grid-cols-[8px_1fr] gap-2 text-[10.5px] leading-relaxed text-text-secondary"
+          className="grid grid-cols-[10px_1fr] gap-2.5 text-[13px] leading-relaxed text-text-secondary"
         >
-          <span aria-hidden className="mt-[7px] h-[3px] w-2 bg-accent" />
+          <span aria-hidden className="mt-[8px] h-[3px] w-2.5 bg-accent" />
           <span>{item}</span>
         </li>
       ))}

@@ -14,11 +14,11 @@ function MemoRow({
   readonly children: string;
 }) {
   return (
-    <div className="grid grid-cols-[90px_1fr] items-baseline gap-2">
-      <dt className="font-mono text-[9px] font-semibold tracking-[0.2em] text-text-tertiary uppercase">
+    <div className="grid grid-cols-[120px_1fr] items-baseline gap-2">
+      <dt className="font-mono text-[11px] font-semibold tracking-[0.2em] text-text-tertiary uppercase">
         {label}
       </dt>
-      <dd className="text-xs leading-relaxed text-foreground">{children}</dd>
+      <dd className="text-sm leading-relaxed text-foreground">{children}</dd>
     </div>
   );
 }
@@ -32,10 +32,10 @@ function MemoRow({
 export default function MemoHeader({ alert, watchName }: MemoHeaderProps) {
   return (
     <header className="flex flex-col gap-3 border-b-2 border-surface-2 pb-4">
-      <p className="font-mono text-[10px] font-semibold tracking-[0.25em] text-text-secondary uppercase">
+      <p className="font-mono text-sm font-semibold tracking-[0.25em] text-text-secondary uppercase">
         Decision brief
       </p>
-      <dl className="flex flex-col gap-1.5">
+      <dl className="flex flex-col gap-2">
         <MemoRow label="For">{watchName}</MemoRow>
         <MemoRow label="From">
           {`${alert.source.kind} — ${alert.source.name}`}
