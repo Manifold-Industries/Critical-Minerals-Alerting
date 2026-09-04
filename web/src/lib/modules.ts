@@ -15,8 +15,8 @@ export interface ModuleDefinition {
 
 // Workflow order per spec: Explore → Monitor → Strategize → Brief, fusing the
 // Decomposition Prototype modules (Atlas, Cascade, Prism, Forge) with the
-// critical-minerals alerting workflow. Monitor is the only live module; the
-// rest are staged placeholders until their screens land.
+// critical-minerals alerting workflow. Monitor and Brief are live; the rest
+// are staged placeholders until their screens land.
 export const MODULES: readonly ModuleDefinition[] = [
   { name: "Explore", href: "/explore", icon: IconGlobe, disabled: true },
   { name: "Monitor", href: "/monitor", icon: IconBell, disabled: false },
@@ -26,7 +26,7 @@ export const MODULES: readonly ModuleDefinition[] = [
     icon: IconTriangle,
     disabled: true,
   },
-  { name: "Brief", href: "/brief", icon: IconFileText, disabled: true },
+  { name: "Brief", href: "/brief", icon: IconFileText, disabled: false },
 ];
 
 export const DEFAULT_MODULE_HREF = "/monitor";
