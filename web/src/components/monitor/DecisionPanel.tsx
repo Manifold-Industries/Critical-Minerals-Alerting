@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import type { Alert, Confidence } from "@/lib/monitor/alerts";
+import type { Alert } from "@/lib/monitor/alerts";
 import type { MineExposure } from "@/lib/monitor/api";
 import {
   graphForAlert,
@@ -16,6 +16,12 @@ import {
   statusLabel,
   supplyLabel,
 } from "@/lib/monitor/format";
+import {
+  CONFIDENCE_LABEL,
+  entityFor,
+  entityNotice,
+  mineralsFor,
+} from "@/lib/monitor/entity";
 import AffectedSystems from "./AffectedSystems";
 import CapacityContext from "./CapacityContext";
 import ElementBadges from "./ElementBadges";
@@ -110,65 +116,12 @@ function ScoreBreakdown({
   );
 }
 
-/** What the alert hit: the kind of site, and which one. */
-interface Entity {
-  readonly label: string;
-  readonly name: string;
-  readonly place: string;
-}
-
-const CONFIDENCE_LABEL: Record<Confidence, string> = {
-  HIGH: "Conf high",
-  MEDIUM: "Conf med",
-  LOW: "Conf low",
-};
-
 function Kicker({ children }: { readonly children: string }) {
   return (
     <h3 className="font-mono text-[9px] font-semibold tracking-[0.2em] text-accent uppercase">
       {children}
     </h3>
   );
-}
-
-/**
- * Minerals this alert is about, or null while there is nothing honest to show.
- *
- * Same rule the queue row follows: a mine-backed alert reports the elements the
- * mine actually puts into the chain rather than a list of its own, and null
- * reads as "not yet known" rather than "none" while the fetch is out.
- */
-function mineralsFor(
-  alert: Alert,
-  exposure: MineExposure | undefined,
-): readonly string[] | null {
-  if (!alert.mineId) return alert.minerals ?? null;
-  return exposure?.elements ?? null;
-}
-
-/** The asset the event hit — the subject of every section below the title. */
-function entityFor(alert: Alert, graph: AlertGraph | undefined): Entity | null {
-  if (!graph) return null;
-  return {
-    // A mine-backed alert names a project by construction; a placeholder
-    // fixture carries prose, whose last word is the nearest thing to a kind.
-    label: alert.mineId
-      ? "Mine"
-      : (graph.asset.role.split(" ").at(-1) ?? graph.asset.role),
-    name: graph.asset.name,
-    place: graph.asset.place,
-  };
-}
-
-/** Why the panel names no asset: a pending fetch, a failed one, or no graph. */
-function entityNotice(
-  alert: Alert,
-  state: "idle" | "loading" | "error",
-): string {
-  if (!alert.mineId) return "No modelled site";
-  return state === "loading"
-    ? "Resolving affected site…"
-    : "Affected site unavailable";
 }
 
 // Right rail: layout scaffold for the per-alert assessment. Qualitative

@@ -108,12 +108,10 @@ export function bluf(
   const top = graph?.alternatives[0];
   if (top) {
     parts.push(
-      `The top-ranked alternative feed is ${top.name} (${top.country}); approval is requested to open qualification against it.`,
+      `The top-ranked alternative source is ${top.name} (${top.country})${top.score != null ? `, scored ${top.score.toFixed(0)} of 100` : ""}.`,
     );
   } else {
-    parts.push(
-      "No alternative feed is identified; the decision requested is to accept the exposure or direct collection.",
-    );
+    parts.push("No alternative source has been identified.");
   }
   return parts.join(" ");
 }
@@ -209,41 +207,57 @@ export function decisionRequest(
 ): DecisionRequest {
   const top: AlternativeSource | undefined = graph?.alternatives[0];
   const feeds = top && graph ? nodesById(graph).get(top.feedsNodeId) : undefined;
-  const severed =
-    graph?.downstream.filter((n) => n.soleSource === true).length ?? 0;
+  const known = graph?.downstream.filter((n) => n.soleSource !== undefined) ?? [];
+  const severed = known.filter((n) => n.soleSource).length;
   const systems =
     exposure?.platforms.length ?? alert.affectedSystems?.length ?? 0;
   const criterion = rankingCriterion(graph?.scoring);
+  const runnersUp = graph?.alternatives.slice(1) ?? [];
 
   return {
     ask: top
-      ? `Approve the opening of qualification against the ranked alternatives in §6, starting with ${top.name} (${top.country})${feeds ? ` as feed for ${feeds.name}` : ""}.`
-      : "Acknowledge the exposure and direct collection against the gaps in §8 — no alternative feed is identified to qualify.",
+      ? `Approve ${top.name} (${top.country}) — ranked 1 of ${graph?.alternatives.length ?? 1} in §6${feeds ? `, feeding ${feeds.name}` : ""} — as the alternative source pursued for this alert.`
+      : "No alternative source is identified in §6 — the decision is whether to accept the exposure in §4 as it stands.",
+    // No date exists anywhere in the data, so the deadline is the supply
+    // structure itself: severed means the exposure is already in effect.
     deadline:
       severed > 0
-        ? `Before the next update of this watch (§9): ${severed} node${severed === 1 ? "" : "s"} in §4 ${severed === 1 ? "is" : "are"} severed now, and no qualification clock starts until a disposition is recorded.`
-        : "Before the next update of this watch (§9), while the affected nodes are degraded rather than severed.",
+        ? `Immediate — ${severed} node${severed === 1 ? "" : "s"} in §4 ${severed === 1 ? "is" : "are"} sole-sourced from the disrupted asset, so the exposure is already in effect.`
+        : known.length > 0
+          ? "Buffered — every node in §4 keeps at least one other supplier."
+          : "Not modelled — the seeded graph carries no supply-count claims.",
     approve: top
-      ? `Qualification of ${top.name} opens against the criterion stated in §6${criterion ? ` (${criterion.toLowerCase()})` : ""}; the mining-capacity assumption beneath it becomes the first thing that review must retire.`
-      : "Collection is tasked against the gaps in §8 and this brief is reissued when they close.",
-    defer: `The exposure stands as assessed until the next update${severed > 0 ? `; the ${severed} severed node${severed === 1 ? " stays" : "s stay"} without feed and no mitigation is on record` : ""}.`,
+      ? `${top.name} becomes the pursued alternative feed${feeds ? ` for ${feeds.name}` : ""}${top.score != null ? `, on its score of ${top.score.toFixed(0)} of 100${criterion ? ` — ranked on ${criterion.toLowerCase()}` : ""}` : ""}.`
+      : "There is no alternative in §6 to pursue.",
+    defer: `The exposure in §4 stands as assessed${severed > 0 ? ` — ${severed} sole-source node${severed === 1 ? "" : "s"} without feed` : ""}.`,
     noAction:
       systems > 0
-        ? `The ${systems} system${systems === 1 ? "" : "s"} in §3 keep their dependency on the disrupted feed, with nothing on record that a mitigation was considered.`
-        : "The dependency stands as assessed, with nothing on record that a mitigation was considered.",
+        ? `The ${systems} system${systems === 1 ? "" : "s"} in §3 keep their dependency on the disrupted feed.`
+        : "Everything in §4 keeps its dependency on the disrupted feed.",
     onApproval: [
       ...(top
         ? [
-            `Open a qualification review of ${top.name}, testing the mining-capacity assumption in §6 first.`,
+            `Pursue ${top.name} (${top.country}) as feed${feeds ? ` for ${feeds.name}` : ""}.`,
           ]
         : []),
-      "Re-run the disruption simulation with any approved source included as feed, and reissue this brief.",
-      `Record the disposition against alert ${alert.id}.`,
+      ...(runnersUp.length > 0
+        ? [
+            `Hold ${runnersUp
+              .slice(0, 3)
+              .map((a) => a.name)
+              .join(", ")} as fallback${runnersUp.length === 1 ? "" : "s"}, in the ranked order of §6.`,
+          ]
+        : []),
     ],
   };
 }
 
-/** Section 8: what the assessment leans on, and where the graph is silent. */
+/**
+ * Section 8: the caveats the Decision Panel already carries, gathered in one
+ * place — the disclosed-capacity denominator, the "?" marks on fallback score
+ * inputs, the inferred evidence layer, and the weakest-link confidence rule.
+ * Nothing is added that the panel does not itself state.
+ */
 export function assumptions(
   alert: Alert,
   graph: AlertGraph | undefined,
@@ -272,16 +286,19 @@ export function assumptions(
     );
   }
 
-  if (exposure) {
+  const inferred =
+    graph?.alternatives.filter((a) => a.evidenceClass === 1).length ?? 0;
+  if (inferred > 0) {
     out.push(
-      "End-use claims are class-level, open-source assertions — bills of materials are classified, and nothing here says material from this site reached a particular airframe.",
+      `${inferred} of the ${graph?.alternatives.length} alternatives in §6 come${inferred === 1 ? "s" : ""} from the inferred relationship layer, which describes itself as not evidence.`,
     );
-    out.push(...exposure.warnings);
   }
 
-  out.push(
-    "The graph carries no demand side, so no shortfall is sized: the brief states what depends on the lost feed, not how much production is lost.",
-  );
+  if (exposure && exposure.platforms.length > 0) {
+    out.push(
+      "Each confidence grade in §3 is the weakest link on the route from this mine's elements to that system, and no link is stronger than the document under it.",
+    );
+  }
 
   if (!alert.mineId) {
     out.push(

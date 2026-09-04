@@ -199,8 +199,8 @@ export default function BriefConsole() {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <BriefHeader alert={alert} watchName={WATCH_NAME} />
-      <div className="min-h-0 flex-1 overflow-y-auto">
-        <article className="blueprint mx-auto my-6 flex w-full max-w-3xl flex-col gap-5 p-6">
+      <div className="min-h-0 flex-1 overflow-y-auto p-3">
+        <article className="blueprint flex min-h-full w-full flex-col gap-5 p-6">
           {!alert ? (
             <div className="flex flex-col gap-3">
               <p className="text-xs leading-relaxed text-text-secondary">

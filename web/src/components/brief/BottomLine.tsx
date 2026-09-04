@@ -52,11 +52,11 @@ function Stat({
 export default function BottomLine({ alert, graph, exposure }: BottomLineProps) {
   const severity: BriefStat = {
     value: alert.severity.charAt(0).toUpperCase() + alert.severity.slice(1),
-    detail: "as triaged on the alert queue",
+    detail: "as carried on the alert",
   };
   const confidence: BriefStat = {
     value: alert.confidence,
-    detail: "in the event report itself — per-claim grades are in §3 and §4",
+    detail: "in the event report — per-claim grades appear in §3 and §4",
   };
 
   return (

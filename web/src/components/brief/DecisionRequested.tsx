@@ -66,16 +66,18 @@ export default function DecisionRequested({
           {d.noAction}
         </Effect>
       </div>
-      <div className="flex flex-col gap-1">
-        <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
-          On approval
-        </p>
-        <ol className="flex list-decimal flex-col gap-0.5 pl-4 text-[10.5px] leading-relaxed text-text-secondary marker:font-mono marker:text-[10px] marker:text-text-tertiary">
-          {d.onApproval.map((action) => (
-            <li key={action}>{action}</li>
-          ))}
-        </ol>
-      </div>
+      {d.onApproval.length > 0 && (
+        <div className="flex flex-col gap-1">
+          <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
+            On approval
+          </p>
+          <ol className="flex list-decimal flex-col gap-0.5 pl-4 text-[10.5px] leading-relaxed text-text-secondary marker:font-mono marker:text-[10px] marker:text-text-tertiary">
+            {d.onApproval.map((action) => (
+              <li key={action}>{action}</li>
+            ))}
+          </ol>
+        </div>
+      )}
     </div>
   );
 }

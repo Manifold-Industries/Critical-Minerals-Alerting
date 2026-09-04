@@ -24,10 +24,10 @@ function MemoRow({
 }
 
 /**
- * Memo routing block, ruled off from the numbered sections below. The fields
- * are filled from the alert record: the subject is the alert's own title and
- * the reference its id and source, so the header can never drift from the
- * alert it routes.
+ * Memo routing block, ruled off from the numbered sections below. Every field
+ * restates something the Decision Panel shows for this alert — the watch, the
+ * source line ("via …"), the title, the id and DIMEFIL classification — so
+ * the header can never drift from the alert it routes.
  */
 export default function MemoHeader({ alert, watchName }: MemoHeaderProps) {
   return (
@@ -36,11 +36,13 @@ export default function MemoHeader({ alert, watchName }: MemoHeaderProps) {
         Decision brief
       </p>
       <dl className="flex flex-col gap-1.5">
-        <MemoRow label="For">{`Decision authority · ${watchName}`}</MemoRow>
-        <MemoRow label="From">Strategic Alerts console — automated synthesis</MemoRow>
+        <MemoRow label="For">{watchName}</MemoRow>
+        <MemoRow label="From">
+          {`${alert.source.kind} — ${alert.source.name}`}
+        </MemoRow>
         <MemoRow label="Subject">{alert.title}</MemoRow>
         <MemoRow label="Reference">
-          {`${alert.id} · ${alert.source.kind} — ${alert.source.name}`}
+          {`${alert.id} · ${alert.domain} · ${alert.subdomain}`}
         </MemoRow>
       </dl>
     </header>
