@@ -1,7 +1,19 @@
 import { useState } from "react";
 
 import type { Alert, Confidence } from "@/lib/monitor/alerts";
-import type { MineExposure } from "@/lib/monitor/api";
+import type {
+  ApiPlatformExposure,
+  ApiProvenance,
+  ApiSourceRef,
+  MineExposure,
+} from "@/lib/monitor/api";
+import {
+  displayedConfidence,
+  humanise,
+  toGrade,
+  GRADE_LABEL,
+} from "@/lib/monitor/provenance";
+import { ConfidenceDot, ConfidencePie } from "./ProvenanceDot";
 import {
   graphForAlert,
   nodesById,
@@ -109,6 +121,159 @@ function ScoreBreakdown({
         })}
       </ul>
     </div>
+  );
+}
+
+/** source_id -> the document, so an edge can name what it rests on. */
+type ExposureSources = ReadonlyMap<string, ApiSourceRef>;
+
+/** One assertion on the route from this mine's elements to a platform. */
+interface PathEdge {
+  readonly key: string;
+  readonly label: string;
+  readonly provenance: ApiProvenance;
+}
+
+/**
+ * The assertions a platform's grade is drawn from, outermost first.
+ *
+ * Two hops: the platform requires a component, and that component requires a
+ * material carrying the element. Read off the response rather than recomputed -
+ * the server already decided which route is best, and deriving a second answer
+ * here is how the popover comes to disagree with the dot above it.
+ */
+function pathEdges(
+  platform: ApiPlatformExposure,
+  exposure: MineExposure,
+): readonly PathEdge[] {
+  const out: PathEdge[] = [];
+  for (const link of platform.via_components) {
+    out.push({
+      key: `c-${link.component_id}`,
+      label: `Requires ${link.name}`,
+      provenance: link.provenance,
+    });
+    const component = exposure.components.find(
+      (c) => c.component_id === link.component_id,
+    );
+    for (const material of component?.via_materials ?? []) {
+      if (!material.provenance) continue;
+      out.push({
+        key: `m-${link.component_id}-${material.material_id}`,
+        label: `${link.name} requires ${material.material_name ?? material.material_id}`,
+        provenance: material.provenance,
+      });
+    }
+  }
+  return out;
+}
+
+/** One edge, graded the same way every other claim in the console is. */
+function PathEdgeRow({
+  edge,
+  sources,
+}: {
+  readonly edge: PathEdge;
+  readonly sources: ExposureSources;
+}) {
+  const source = edge.provenance.source_id
+    ? sources.get(edge.provenance.source_id)
+    : undefined;
+  const conf = displayedConfidence(edge.provenance, source);
+  return (
+    <div className="flex flex-col gap-0.5">
+      <span className="flex items-start gap-1.5">
+        <span className="mt-[3px]">
+          <ConfidencePie grade={conf.grade} size={8} />
+        </span>
+        <span className="text-[9.5px] leading-snug text-text-secondary">
+          {edge.label}
+        </span>
+      </span>
+      <span className="ml-[14px] font-mono text-[9px] text-text-tertiary">
+        {[
+          `${GRADE_LABEL[conf.assertion].toLowerCase()} reading`,
+          conf.source !== null
+            ? `${GRADE_LABEL[conf.source].toLowerCase()} source`
+            : "no document",
+          humanise(edge.provenance.type).toLowerCase(),
+        ].join(" · ")}
+      </span>
+      {source &&
+        (source.url ? (
+          <a
+            href={source.url}
+            target="_blank"
+            rel="noreferrer"
+            // See SourceBlock: the popover is aria-hidden, so nothing inside it
+            // may take focus.
+            tabIndex={-1}
+            className="ml-[14px] line-clamp-1 text-[9px] text-text-tertiary underline decoration-surface-2 underline-offset-2 transition-colors hover:text-accent hover:decoration-accent"
+          >
+            {source.name}
+          </a>
+        ) : (
+          <span className="ml-[14px] line-clamp-1 text-[9px] text-text-tertiary">
+            {source.name}
+          </span>
+        ))}
+    </div>
+  );
+}
+
+/**
+ * How well evidenced this mine's dependency on a weapons system is.
+ *
+ * The grade is a path minimum rather than one assertion's, but it is the same
+ * rule: no link is stronger than the document under it, and the path is no
+ * stronger than its weakest link. Grading on assertions alone painted almost
+ * this entire list green - every component edge in the graph is asserted HIGH
+ * while the documents behind them are not, and one of them is a Wikipedia
+ * article. On a list of weapons systems that is the worst place to be generous.
+ */
+function PlatformConfidence({
+  platform,
+  exposure,
+  sources,
+}: {
+  readonly platform: ApiPlatformExposure;
+  readonly exposure: MineExposure;
+  readonly sources: ExposureSources;
+}) {
+  const grade = toGrade(platform.confidence);
+  const edges = pathEdges(platform, exposure);
+  // Where a step has alternatives, the best-evidenced one set the grade, so a
+  // weaker row below is not a contradiction. Said only when it can happen.
+  const branching = edges.length > platform.via_components.length + 1;
+  const label = [
+    `${platform.name}.`,
+    `Confidence ${GRADE_LABEL[grade].toLowerCase()},`,
+    "the weakest link on the route from this mine's elements.",
+    ...edges.map((e) => `${e.label}.`),
+  ].join(" ");
+
+  return (
+    <ConfidenceDot grade={grade} subject={platform.name} label={label}>
+      <p className="border-t border-surface-2 pt-1.5 text-[9px] leading-relaxed text-text-tertiary">
+        The weakest link on the route from this mine&rsquo;s elements to this
+        system, where each link is itself no stronger than the document under
+        it. Not a joint probability: these assertions are not independent.
+      </p>
+      <div className="flex flex-col gap-1.5 border-t border-surface-2 pt-1.5">
+        <span className="font-mono text-[9px] tracking-[0.15em] text-accent uppercase">
+          What it rests on
+        </span>
+        {edges.map((edge) => (
+          <PathEdgeRow key={edge.key} edge={edge} sources={sources} />
+        ))}
+      </div>
+      {branching && (
+        <p className="text-[9px] leading-relaxed text-text-tertiary">
+          Where a step has more than one route, the best evidenced of them sets
+          the grade.
+        </p>
+      )}
+    </ConfidenceDot>
   );
 }
 
@@ -223,8 +388,12 @@ const KIND_LABEL: Record<string, string> = {
 /** One end use, with the components that carry the mine's elements into it. */
 function SystemRow({
   platform,
+  exposure,
+  sources,
 }: {
-  readonly platform: MineExposure["platforms"][number];
+  readonly platform: ApiPlatformExposure;
+  readonly exposure: MineExposure;
+  readonly sources: ExposureSources;
 }) {
   const kind = KIND_LABEL[platform.kind];
   // Not the platform's own name: the parent is named only so a subsystem does
@@ -253,12 +422,11 @@ function SystemRow({
             and "DY" is not how dysprosium is written. */}
         <span className="normal-case">{platform.elements.join("/")}</span>
         <span>·</span>
-        <span
-          title="Weakest assertion on the two-edge path actually used — not a joint probability"
-          className={platform.confidence === "HIGH" ? undefined : "text-accent"}
-        >
-          {platform.confidence ? `Conf ${platform.confidence}` : "Conf unrated"}
-        </span>
+        <PlatformConfidence
+          platform={platform}
+          exposure={exposure}
+          sources={sources}
+        />
       </span>
     </li>
   );
@@ -299,6 +467,9 @@ function AffectedSystems({
   }
 
   const { platforms } = exposure;
+  const sources: ExposureSources = new Map(
+    exposure.sources.map((source) => [source.id, source]),
+  );
   const shipped = exposure.source_materials.filter((m) => m.shipped);
   const shown = platforms.slice(0, SYSTEMS_SHOWN);
   const rest = platforms.slice(SYSTEMS_SHOWN);
@@ -328,7 +499,12 @@ function AffectedSystems({
         <>
           <ul className="flex flex-col">
             {shown.map((platform) => (
-              <SystemRow key={platform.platform_id} platform={platform} />
+              <SystemRow
+                key={platform.platform_id}
+                platform={platform}
+                exposure={exposure}
+                sources={sources}
+              />
             ))}
           </ul>
           {rest.length > 0 && (
@@ -353,7 +529,12 @@ function AffectedSystems({
               </summary>
               <ul className="flex flex-col">
                 {rest.map((platform) => (
-                  <SystemRow key={platform.platform_id} platform={platform} />
+                  <SystemRow
+                    key={platform.platform_id}
+                    platform={platform}
+                    exposure={exposure}
+                    sources={sources}
+                  />
                 ))}
               </ul>
             </details>
