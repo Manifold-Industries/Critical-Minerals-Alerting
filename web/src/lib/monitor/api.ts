@@ -554,6 +554,9 @@ export interface MineExposure {
   readonly components: readonly ApiComponentExposure[];
   /** Most specific and best evidenced first. Server-ordered; do not re-sort. */
   readonly platforms: readonly ApiPlatformExposure[];
+  /** Documents cited above, in order of first citation. Resolve a provenance's
+   *  `source_id` against this — a bare id is not attribution. */
+  readonly sources: readonly ApiSourceRef[];
   readonly warnings: readonly string[];
 }
 

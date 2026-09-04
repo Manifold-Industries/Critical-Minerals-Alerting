@@ -35,7 +35,7 @@ exercise it yet.
 """
 
 from src.graph import DYTB_ELEMENTS, SupplyGraph
-from src.models import Component, Confidence, Platform, PlatformKind, Provenance
+from src.models import Component, Confidence, Platform, PlatformKind, Provenance, Source
 from src.schemas import exposure as schemas
 
 #: Weakest-link ordering for assertion confidence. ``None`` sorts last: an
@@ -69,6 +69,57 @@ def _provenance(prov: Provenance) -> schemas.Provenance:
         ),
         unverified_model_extraction=prov.unverified_model_extraction,
     )
+
+
+def _source(source: Source) -> schemas.SourceRef:
+    return schemas.SourceRef(
+        id=source.id,
+        name=source.name,
+        source_type=source.source_type.value,
+        publisher=source.publisher,
+        published_on=source.published_on,
+        url=source.url,
+        locator=source.locator,
+        source_confidence=(
+            source.source_confidence.value if source.source_confidence else None
+        ),
+    )
+
+
+def _cited_sources(
+    graph: SupplyGraph, exposure: schemas.MineExposure
+) -> list[schemas.SourceRef]:
+    """Documents cited by ``exposure``, in order of first citation.
+
+    Reads the assembled response rather than the graph, so nothing appears here
+    that no row points at. An id naming no loaded source is skipped - a
+    half-resolved citation is worse than none.
+    """
+    provenances = [
+        *(m.provenance for m in exposure.source_materials),
+        *(
+            link.provenance
+            for component in exposure.components
+            for link in component.via_materials
+        ),
+        *(
+            link.provenance
+            for platform in exposure.platforms
+            for link in platform.via_components
+        ),
+    ]
+    out: list[schemas.SourceRef] = []
+    seen: set[str] = set()
+    for prov in provenances:
+        source_id = prov.source_id if prov else None
+        if source_id is None or source_id in seen:
+            continue
+        source = graph.sources.get(source_id)
+        if source is None:
+            continue
+        seen.add(source_id)
+        out.append(_source(source))
+    return out
 
 
 def _mine_materials(
@@ -219,7 +270,7 @@ def get_exposure(
             f"{mine_id} discloses no material carrying "
             f"{' or '.join(sorted(scope))}; nothing downstream is reached at this scope"
         )
-        return schemas.MineExposure(
+        exposure = schemas.MineExposure(
             mine_id=mine_id,
             mine_name=project.name,
             scope_elements=sorted(scope),
@@ -318,7 +369,7 @@ def get_exposure(
             "every mine and does not distinguish between them"
         )
 
-    return schemas.MineExposure(
+    exposure = schemas.MineExposure(
         mine_id=mine_id,
         mine_name=project.name,
         scope_elements=sorted(scope),
@@ -328,3 +379,5 @@ def get_exposure(
         platforms=platforms,
         warnings=warnings,
     )
+    exposure.sources = _cited_sources(graph, exposure)
+    return exposure

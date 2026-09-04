@@ -19,6 +19,8 @@ for what the element join does and does not license.
 
 from pydantic import BaseModel, Field
 
+from src.schemas.assets import SourceRef
+
 
 class Provenance(BaseModel):
     type: str
@@ -137,5 +139,10 @@ class MineExposure(BaseModel):
         default=[],
         description="Reachable end uses, most specific and best evidenced first",
     )
+    #: Every document cited by a provenance above, in order of first
+    #: citation. Without it source_id is a bare string: nothing downstream
+    #: can turn src-crs-rare-earths-2025 into something a reader can check,
+    #: and confidence is graded partly on documents the caller cannot see.
+    sources: list[SourceRef] = []
     #: Conditions the caller should surface rather than swallow.
     warnings: list[str] = []

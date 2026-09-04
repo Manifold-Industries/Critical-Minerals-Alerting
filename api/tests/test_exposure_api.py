@@ -87,6 +87,28 @@ def test_confidence_is_the_weakest_link_on_the_best_path(client: TestClient) -> 
     assert sonar["confidence"] == "MEDIUM"
 
 
+def test_sources_resolve_every_cited_id(client: TestClient) -> None:
+    """A bare source_id is not attribution: the document has to be reachable."""
+    body = client.get("/exposure/proj-mount-weld").json()
+    by_id = {s["id"]: s for s in body["sources"]}
+    assert by_id, "platform and component edges all cite documents"
+
+    cited = {
+        prov["source_id"]
+        for prov in (
+            [m["provenance"] for m in body["source_materials"]]
+            + [link["provenance"] for c in body["components"] for link in c["via_materials"]]
+            + [link["provenance"] for p in body["platforms"] for link in p["via_components"]]
+        )
+        if prov and prov["source_id"]
+    }
+    assert cited == set(by_id), "every cited id resolves, and nothing uncited is listed"
+    # Order of first citation is the only thing tying a row to an entry.
+    assert len(body["sources"]) == len(by_id)
+    for source in body["sources"]:
+        assert source["name"]
+
+
 def test_a_subsystem_keeps_its_parent_without_exposing_it(client: TestClient) -> None:
     """Ohio-class SSBN requires nothing itself; only its sonar is reached.
 
