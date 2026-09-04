@@ -63,6 +63,10 @@ export interface Alert {
   readonly mineId?: string;
 }
 
+/** The watch every console screen reports under. One place, so the monitor
+ *  header and the brief's memo header can never disagree about its name. */
+export const WATCH_NAME = "Critical minerals watch";
+
 export const ALERTS: readonly Alert[] = [
   {
     id: "SA-047",

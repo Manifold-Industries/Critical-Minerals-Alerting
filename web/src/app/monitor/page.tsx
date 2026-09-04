@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import MonitorHeader from "@/components/monitor/MonitorHeader";
 import MonitorConsole from "@/components/monitor/MonitorConsole";
-import { ALERTS } from "@/lib/monitor/alerts";
+import { ALERTS, WATCH_NAME } from "@/lib/monitor/alerts";
 
 export const metadata: Metadata = {
   title: "Strategic Alerts",
 };
-
-const WATCH_NAME = "Critical minerals watch";
 
 export default function MonitorPage() {
   return (
