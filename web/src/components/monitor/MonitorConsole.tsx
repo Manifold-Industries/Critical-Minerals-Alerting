@@ -47,6 +47,9 @@ export default function MonitorConsole() {
     readonly state: LoadState;
   }>();
   const [contextAssets, setContextAssets] = useState<Record<string, GeoNode>>({});
+  // The mines list is what names the disrupted asset on each queue card, so a
+  // failed fetch has to read as a failure rather than as a pending one.
+  const [contextState, setContextState] = useState<LoadState>("loading");
   // Which end uses each mine's Dy/Tb reaches, keyed by mine id. Fetched once
   // rather than per selection: the queue shows it for every mine-backed alert
   // at the same time, and nothing in the end-use layer is staged by year, so
@@ -70,7 +73,7 @@ export default function MonitorConsole() {
   const asOfYear = Math.max(DEFAULT_IMPACT_YEAR, earliest ?? DEFAULT_IMPACT_YEAR);
 
   // Context-mode markers for live alerts, which have no fixture graph to read
-  // an asset position from. One request, on mount.
+  // an asset position or a name from. One request, on mount.
   useEffect(() => {
     const controller = new AbortController();
     fetchMines({ signal: controller.signal })
@@ -86,9 +89,12 @@ export default function MonitorConsole() {
         setEarliestByMine(
           Object.fromEntries(mines.map((m) => [m.mine_id, m.earliest_year])),
         );
+        setContextState("idle");
       })
       .catch(() => {
-        // Context markers are decoration; losing them must not break the console.
+        // Losing this costs the globe its context markers and the queue the
+        // name of what was hit. Neither is worth breaking the console over.
+        if (!controller.signal.aborted) setContextState("error");
       });
     return () => controller.abort();
   }, []);
@@ -143,6 +149,8 @@ export default function MonitorConsole() {
     <div className="grid min-h-0 flex-1 grid-cols-[minmax(220px,320px)_minmax(280px,1fr)_minmax(280px,400px)] gap-3 p-3">
       <AlertQueue
         alerts={alerts}
+        assets={contextAssets}
+        assetState={contextState}
         exposures={exposures}
         exposureState={exposureState}
         selectedId={selectedId}
