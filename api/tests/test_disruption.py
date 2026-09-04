@@ -194,25 +194,75 @@ def test_scores_stay_on_a_nought_to_hundred_scale(graph: SupplyGraph) -> None:
                 assert all(0.0 <= f.normalized <= 1.0 for f in alt.score.factors)
 
 
-def test_a_strong_secondary_factor_can_outweigh_alignment(graph: SupplyGraph) -> None:
-    """The whole point of a score, on a case the key could not express.
+def test_alignment_alone_decides_and_nothing_beneath_it_counts(
+    graph: SupplyGraph,
+) -> None:
+    """The default policy, on the pair that shows what it gives up.
 
-    Sareco and Serra Verde tie on evidence, time and coverage. The key decides on
-    alignment - PARTNER over NEUTRAL - and never reaches commitment, because
-    alignment is absolute over everything beneath it. The score weighs both, and
-    being uncommitted is worth more than one step of alignment.
+    Sareco is uncommitted and Serra Verde is contracted elsewhere. Under a
+    balanced policy that was worth more than one step of alignment and put Sareco
+    first. Scoring on alignment alone reverses it: PARTNER beats NEUTRAL and
+    commitment buys nothing, because it carries no weight to buy with.
     """
     impact = simulate_disruption(graph, "proj-browns-range", as_of_year=2028)
     hit = _find(impact, "fac-eneabba")
     by_id = {a.source_id: a for a in hit.alternatives}
     sareco, serra = by_id["fac-sareco"], by_id["proj-serra-verde"]
 
-    assert serra.key < sareco.key
-    assert serra.key.alignment_rank < sareco.key.alignment_rank
+    assert (sareco.alignment, serra.alignment) == ("NEUTRAL", "PARTNER")
     assert (sareco.key.committed, serra.key.committed) == (0, 1)
 
-    assert sareco.score.value > serra.score.value
-    assert hit.alternatives.index(sareco) < hit.alternatives.index(serra)
+    assert serra.score.value > sareco.score.value
+    assert sareco.score.factor(ScoreFactor.COMMITMENT).contribution == 0.0
+    assert hit.alternatives.index(serra) < hit.alternatives.index(sareco)
+
+
+def test_the_default_policy_scores_on_alignment_alone() -> None:
+    policy = build_scoring_policy()
+    assert [f for f, w in policy.weights if w > 0] == [ScoreFactor.ALIGNMENT]
+    assert policy.total_weight == 1.0
+
+
+def test_alignment_only_scoring_takes_five_values(graph: SupplyGraph) -> None:
+    """A five-step ordinal cannot express more. Pinning it is how a score stops
+    being read as finer than the data behind it."""
+    seen: set[float] = set()
+    for mine in ("proj-monte-alto", "proj-browns-range", "proj-caldeira"):
+        impact = simulate_disruption(graph, mine, as_of_year=2029)
+        seen |= {a.score.value for i in impact.impacted for a in i.alternatives}
+    assert seen and seen <= {0.0, 25.0, 50.0, 75.0, 100.0}
+
+
+def test_most_pairs_tie_on_score_and_fall_through_to_the_key(
+    graph: SupplyGraph,
+) -> None:
+    """The cost of a five-value score: the tiebreak does most of the ordering."""
+    impact = simulate_disruption(graph, "proj-caldeira", as_of_year=2029)
+    pairs = ties = 0
+    for hit in impact.impacted:
+        for above, below in zip(hit.alternatives, hit.alternatives[1:]):
+            pairs += 1
+            if above.score.value == below.score.value:
+                ties += 1
+                assert above.key < below.key
+    assert pairs and ties / pairs > 0.5
+
+
+def test_a_single_factor_policy_says_so(graph: SupplyGraph) -> None:
+    """The score explains one of eight criteria. A caller must not read it as all."""
+    impact = simulate_disruption(graph, "proj-monte-alto", as_of_year=2027)
+    assert any("rest on alignment alone" in w for w in impact.warnings)
+    assert any("lexicographic RankingKey" in w for w in impact.warnings)
+
+
+def test_a_multi_factor_policy_does_not_carry_that_warning(graph: SupplyGraph) -> None:
+    impact = simulate_disruption(
+        graph,
+        "proj-monte-alto",
+        as_of_year=2027,
+        weights={ScoreFactor.ALIGNMENT: 0.5, ScoreFactor.COVERAGE: 0.5},
+    )
+    assert not any("rest on" in w for w in impact.warnings)
 
 
 def test_unsized_coverage_still_outranks_every_known_partial() -> None:
@@ -240,14 +290,26 @@ def test_a_fallback_is_marked_rather_than_passed_off_as_data(graph: SupplyGraph)
 
 
 def test_excluding_a_factor_renormalises_the_rest(graph: SupplyGraph) -> None:
-    """Scores must stay comparable across policies, or the parameter is a trap."""
+    """Scores must stay comparable across policies, or the parameter is a trap.
+
+    Needs a policy with more than one weighted factor to say anything: excluding
+    alignment under the default weights leaves nothing to score on at all.
+    """
     trimmed = simulate_disruption(
-        graph, "proj-monte-alto", as_of_year=2027, exclude_factors=[ScoreFactor.ALIGNMENT]
+        graph,
+        "proj-monte-alto",
+        as_of_year=2027,
+        weights={ScoreFactor.ALIGNMENT: 0.5, ScoreFactor.COVERAGE: 0.5},
+        exclude_factors=[ScoreFactor.ALIGNMENT],
     )
     for hit in trimmed.impacted:
         for alt in hit.alternatives:
             assert fsum(f.max_contribution for f in alt.score.factors) == pytest.approx(
                 100.0, abs=1e-4
+            )
+            # Coverage was half the policy and is now the whole of it.
+            assert alt.score.factor(ScoreFactor.COVERAGE).max_contribution == pytest.approx(
+                100.0
             )
 
     dropped = _find(trimmed, "fac-caremag-lacq").alternatives[0].score.factor(ScoreFactor.ALIGNMENT)
@@ -264,13 +326,15 @@ def test_an_excluded_factor_is_reported_and_warned_about(graph: SupplyGraph) -> 
     assert any("scores exclude confidence" in w for w in impact.warnings)
 
 
-def test_evidence_decides_alone_when_it_is_the_only_factor(graph: SupplyGraph) -> None:
-    """Excluding everything else recovers the gate the key used to apply."""
+def test_a_zero_weighted_factor_can_be_put_back_without_a_code_change(
+    graph: SupplyGraph,
+) -> None:
+    """The five the default policy holds at zero are measured, not discarded."""
     impact = simulate_disruption(
         graph,
         "proj-monte-alto",
         as_of_year=2027,
-        exclude_factors=[f for f in ScoreFactor if f is not ScoreFactor.EVIDENCE],
+        weights={ScoreFactor.EVIDENCE: 1.0, ScoreFactor.ALIGNMENT: 0.0},
     )
     hit = _find(impact, "fac-caremag-lacq")
     assert [a.key.evidence_class for a in hit.alternatives] == sorted(

@@ -11,22 +11,29 @@ in play, giving 0-100 where higher is better. ``RankingKey`` is still built and
 still returned - it breaks exact score ties, and it records the lexicographic
 order the score replaced.
 
-The weights are invented. There is no principled exchange rate between a
-qualification tier, a month and a tonne, and no amount of tuning creates one, so
-``DEFAULT_WEIGHTS`` is a stated editorial position carrying a version string
-rather than a derived result. Two consequences follow, and both are load-bearing:
+``DEFAULT_WEIGHTS`` scores on country alignment alone. Every other factor is
+still measured and still returned, at weight zero. Three consequences follow,
+and all three are load-bearing:
 
-* **The score is not the lexicographic key rescaled.** Reproducing that key
-  exactly would need each factor's smallest step to outweigh everything beneath
-  it - weights spanning four orders of magnitude, and unreachable at any spread
-  while ``shortfall`` is continuous. A weighted run therefore *will* order some
-  pairs differently, most visibly by letting strength elsewhere outweigh
-  ``evidence_class``, which the key treated as absolute.
-* **Every score can be taken apart.** ``CandidateScore.factors`` carries each
-  factor's raw value, its normalised value, its weight and its contribution in
-  points of the final score, and those contributions sum to the score. So the
-  composite hides nothing the key exposed. ``FactorScore.known`` marks the
-  factors where a fallback stood in for data the graph does not hold.
+* **The score takes five values, not a hundred.** Alignment is a five-step
+  ordinal, so a default run scores 100, 75, 50, 25 or 0 and nothing between.
+  Candidates sharing a country's alignment tie outright.
+* **The tiebreak does most of the ordering.** Ties fall through to
+  ``RankingKey``, which is lexicographic over seven fields. So the visible
+  ordering of a default run is alignment first and then those seven, and a
+  reader told only about the score has been told about one of eight criteria.
+  ``AlternativeFeed.score`` and ``AlternativeFeed.key`` are both returned for
+  exactly this reason, and ``simulate_disruption`` warns when a policy rests on
+  a single factor.
+* **Every score can still be taken apart.** ``CandidateScore.factors`` carries
+  each factor's raw value, its normalised value, its weight and its contribution
+  in points, and those contributions sum to the score. The zero-weighted five
+  come back measured, so re-weighting is a caller decision, not a code change:
+  pass ``weights`` to move any of them.
+
+Nothing here is derived. There is no principled exchange rate between a
+qualification tier, a month and a tonne, so any weighting is a stated editorial
+position and carries a version string that says which one it was.
 
 Two limits worth stating before anyone acts on the output:
 
@@ -139,19 +146,20 @@ class ScoreFactor(StrEnum):
 
 #: Bumped whenever a weight moves, so a stored response can be read back against
 #: the policy that produced it rather than against today's defaults.
-WEIGHTS_VERSION = "v1-balanced"
+WEIGHTS_VERSION = "v2-alignment-only"
 
-#: An editorial position, not a derived result - see the module docstring.
-#: Feasibility (when it can flow, how much of the gap it fills) carries more than
-#: half the weight. ``EVIDENCE`` is deliberately no longer absolute, which is the
-#: single largest behavioural difference from the lexicographic key.
+#: Country alignment, and nothing else. An editorial position, not a derived
+#: result - see the module docstring for what resting on one five-step ordinal
+#: does to the ordering. The other five are held at zero rather than deleted:
+#: they are still measured, still returned, and a caller who wants any of them
+#: back passes ``weights`` rather than editing this.
 DEFAULT_WEIGHTS: dict[ScoreFactor, float] = {
-    ScoreFactor.TIME_TO_FLOW: 0.30,
-    ScoreFactor.COVERAGE: 0.25,
-    ScoreFactor.EVIDENCE: 0.20,
-    ScoreFactor.ALIGNMENT: 0.10,
-    ScoreFactor.COMMITMENT: 0.10,
-    ScoreFactor.CONFIDENCE: 0.05,
+    ScoreFactor.ALIGNMENT: 1.0,
+    ScoreFactor.TIME_TO_FLOW: 0.0,
+    ScoreFactor.COVERAGE: 0.0,
+    ScoreFactor.EVIDENCE: 0.0,
+    ScoreFactor.COMMITMENT: 0.0,
+    ScoreFactor.CONFIDENCE: 0.0,
 }
 
 #: Where an unsized candidate scores on coverage. 0.5 preserves the rule the
@@ -969,6 +977,13 @@ def simulate_disruption(
         warnings.append(
             "some coverage ratios compare tonnages struck at different points in the chain; "
             "no recovery factor exists in the graph to reconcile them"
+        )
+    weighted = [f for f, w in policy.weights if w > 0]
+    if len(weighted) == 1:
+        warnings.append(
+            f"scores rest on {weighted[0].value} alone, which is ordinal and takes few "
+            "distinct values; candidates sharing one tie on score and are then ordered by "
+            "the lexicographic RankingKey, so the score explains only part of the ordering"
         )
     if policy.excluded:
         warnings.append(

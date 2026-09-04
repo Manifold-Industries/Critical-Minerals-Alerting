@@ -222,22 +222,39 @@ def test_the_policy_is_echoed_so_a_stored_response_is_readable(client: TestClien
     assert body["impacted"][0]["alternatives"][0]["score"]["policy_version"] == scoring["version"]
 
 
-def test_excluding_a_factor_zeroes_it_and_renormalises_the_rest(client: TestClient) -> None:
+def test_excluding_a_factor_reports_it_on_the_wire(client: TestClient) -> None:
+    """Under the default policy these two already carry no weight, so this pins
+    the reporting rather than any change to the numbers."""
     body = client.get(
         "/disruption/proj-monte-alto",
-        params={"as_of_year": 2027, "exclude_factor": ["alignment", "confidence"]},
+        params={"as_of_year": 2027, "exclude_factor": ["commitment", "confidence"]},
     ).json()
-    assert body["scoring"]["excluded_factors"] == ["alignment", "confidence"]
+    assert body["scoring"]["excluded_factors"] == ["commitment", "confidence"]
     assert any("scores exclude" in w for w in body["warnings"])
     for alt in (a for i in body["impacted"] for a in i["alternatives"]):
-        dropped = [f for f in alt["score"]["factors"] if f["excluded"]]
-        assert {f["factor"] for f in dropped} == {"alignment", "confidence"}
-        assert all(f["contribution"] == 0.0 for f in dropped)
+        dropped = {f["factor"] for f in alt["score"]["factors"] if f["excluded"]}
+        # Every unweighted factor reads as excluded, which is what zero weight is.
+        assert {"commitment", "confidence"} <= dropped
         # Still on the wire: excluded and never-computed are different statements.
         assert len(alt["score"]["factors"]) == 6
         assert sum(f["max_contribution"] for f in alt["score"]["factors"]) == pytest.approx(
             100.0, abs=1e-4
         )
+
+
+def test_excluding_the_only_weighted_factor_is_422(client: TestClient) -> None:
+    """Alignment carries the whole default policy, so dropping it scores on nothing."""
+    response = client.get(
+        "/disruption/proj-donald",
+        params={"as_of_year": 2027, "exclude_factor": ["alignment"]},
+    )
+    assert response.status_code == 422
+
+
+def test_the_response_says_the_score_is_not_the_whole_ordering(client: TestClient) -> None:
+    """A client showing only the score would be showing one of eight criteria."""
+    body = client.get("/disruption/proj-donald", params={"as_of_year": 2027}).json()
+    assert any("rest on alignment alone" in w for w in body["warnings"])
 
 
 def test_excluding_every_factor_is_422(client: TestClient) -> None:
