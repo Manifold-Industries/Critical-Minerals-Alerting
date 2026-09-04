@@ -103,11 +103,19 @@ class PlatformExposure(BaseModel):
     via_components: list[ComponentLink] = []
     #: Scoped elements reaching this platform, across every component above.
     elements: list[str] = []
-    #: Weakest ``assertion_confidence`` on the two-edge path actually used
-    #: (platform-requires-component, component-requires-material), taking the
-    #: strongest path where several reach the same platform. The weakest link,
-    #: not a joint probability - the two assertions are not independent and the
-    #: graph carries nothing that would let them be combined.
+    #: Weakest link on the two-edge path actually used (platform-requires-
+    #: component, component-requires-material), taking the strongest path where
+    #: several reach the same platform. The weakest link, not a joint
+    #: probability - the assertions are not independent and the graph carries
+    #: nothing that would let them be combined.
+    #:
+    #: A link is no stronger than the document under it, so each edge is graded
+    #: at the weaker of its own ``assertion_confidence`` and the
+    #: ``source_confidence`` of the source it cites. A confident reading of a
+    #: weak document is not a strong claim, and grading the path on assertions
+    #: alone said it was: of the 21 ``requires`` edges in the current data, 10
+    #: are weaker once their document is counted, and every component edge is
+    #: asserted HIGH while the documents behind them are not.
     confidence: str | None = None
     #: True where at least one component on the path is flagged defense
     #: relevant. Ordering criterion 1.
@@ -139,10 +147,10 @@ class MineExposure(BaseModel):
         default=[],
         description="Reachable end uses, most specific and best evidenced first",
     )
-    #: Every document cited by a provenance above, in order of first
-    #: citation. Without it source_id is a bare string: nothing downstream
-    #: can turn src-crs-rare-earths-2025 into something a reader can check,
-    #: and confidence is graded partly on documents the caller cannot see.
+    #: Every document cited by a ``provenance`` above, in order of first
+    #: citation. Without it ``source_id`` is a bare string: nothing downstream
+    #: can turn ``src-crs-rare-earths-2025`` into something a reader can check,
+    #: and ``confidence`` is graded partly on documents the caller cannot see.
     sources: list[SourceRef] = []
     #: Conditions the caller should surface rather than swallow.
     warnings: list[str] = []

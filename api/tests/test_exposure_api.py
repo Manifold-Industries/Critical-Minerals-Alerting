@@ -84,7 +84,28 @@ def test_confidence_is_the_weakest_link_on_the_best_path(client: TestClient) -> 
         p for p in body["platforms"] if p["platform_id"] == "plat-ohio-class-sonar"
     )
     assert sonar["via_components"][0]["provenance"]["assertion_confidence"] == "MEDIUM"
-    assert sonar["confidence"] == "MEDIUM"
+    # ...and the MEDIUM edge cites Wikipedia, which the graph rates LOW. The path
+    # is no stronger than the weakest document on it, so the platform reads LOW.
+    assert sonar["confidence"] == "LOW"
+
+
+def test_a_link_is_no_stronger_than_the_document_under_it(client: TestClient) -> None:
+    """Grading on assertions alone would call a Wikipedia-backed claim MEDIUM.
+
+    Every component ``requires`` edge in the graph is asserted HIGH while the
+    documents behind them are not, so an assertion-only grade paints a green
+    mark against a weapons system on the strength of a source nobody rated
+    highly. This is the whole reason the two confidences are not interchangeable.
+    """
+    body = client.get("/exposure/proj-mount-weld").json()
+    by_id = {s["id"]: s for s in body["sources"]}
+    sonar = next(
+        p for p in body["platforms"] if p["platform_id"] == "plat-ohio-class-sonar"
+    )
+    edge = sonar["via_components"][0]["provenance"]
+    assert by_id[edge["source_id"]]["source_confidence"] == "LOW"
+    assert edge["assertion_confidence"] == "MEDIUM"
+    assert sonar["confidence"] == "LOW"
 
 
 def test_sources_resolve_every_cited_id(client: TestClient) -> None:
