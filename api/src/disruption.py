@@ -54,9 +54,10 @@ Two limits worth stating before anyone acts on the output:
 """
 
 from collections.abc import Collection, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from enum import StrEnum
 from math import fsum
+from operator import attrgetter
 
 from src.feed_matching import UNCRACKED_HOSTS
 from src.graph import SupplyGraph
@@ -75,6 +76,7 @@ from src.models import (
     RelationshipStatus,
     RelationshipType,
 )
+from src.models.rank import Filter, LinearSum, LinearSumTerm, Ordinal, rank
 
 
 class QuantityBasis(StrEnum):
@@ -353,6 +355,42 @@ class _Measured:
     detail: str | None = None
 
 
+@dataclass(frozen=True)
+class _Normals:
+    """Every factor's normalised value, one field per ``ScoreFactor``.
+
+    Transposed out of ``_measure``'s per-factor records so a scorer can read
+    them by name. The field names are the enum's values, so the two cannot
+    drift apart.
+    """
+
+    evidence: float
+    time_to_flow: float
+    alignment: float
+    coverage: float
+    commitment: float
+    confidence: float
+
+
+#: One term per factor. Normalisation already happened in ``_measure``, next to
+#: the prose that explains each fallback, so every term here is a plain read.
+_TERMS = {factor: LinearSumTerm(factor.value, float) for factor in ScoreFactor}
+
+
+def _scorer(policy: ScoringPolicy) -> LinearSum:
+    """The policy as a scorer: weights renormalised onto 0-100 and rounded.
+
+    Coefficients are pre-divided by the total weight, which is what keeps the
+    scale fixed whatever was excluded, and leaves each coefficient equal to the
+    points its factor would contribute at a normalised 1.0.
+    """
+    total = policy.total_weight
+    return LinearSum(
+        [(_TERMS[factor], 100.0 * weight / total) for factor, weight in policy.weights],
+        dp=_SCORE_DP,
+    )
+
+
 def _coverage_measure(key: RankingKey) -> tuple[float, float | None, bool, str | None]:
     """Collapse ``coverage_rank`` and ``shortfall`` onto one axis.
 
@@ -441,14 +479,18 @@ def _measure(
     )
 
 
-def _score(policy: ScoringPolicy, measured: tuple[_Measured, ...]) -> CandidateScore:
-    """Weight, renormalise and round.
+def _score(
+    policy: ScoringPolicy, scorer: LinearSum, measured: tuple[_Measured, ...]
+) -> CandidateScore:
+    """Weight and round, then say what each factor was.
 
-    Contributions are rounded before they are summed, so the reported
-    contributions add up to the reported score exactly rather than to within a
-    float epsilon of it.
+    The arithmetic is ``LinearSum``'s, so the points a factor contributed and
+    the value a candidate is ordered on are one computation. What is added here
+    is the account of a factor that only this module can give: what the
+    normalisation was taken from, what to call it, and whether it rests on a
+    disclosure at all.
     """
-    total = policy.total_weight
+    scored = scorer.score(_Normals(**{m.factor.value: m.normalized for m in measured}))
     factors = tuple(
         FactorScore(
             factor=m.factor,
@@ -456,15 +498,17 @@ def _score(policy: ScoringPolicy, measured: tuple[_Measured, ...]) -> CandidateS
             raw_label=m.raw_label,
             normalized=round(m.normalized, _SCORE_DP),
             weight=policy.weight_of(m.factor),
-            contribution=round(100.0 * policy.weight_of(m.factor) * m.normalized / total, _SCORE_DP),
-            max_contribution=round(100.0 * policy.weight_of(m.factor) / total, _SCORE_DP),
+            contribution=contribution.value,
+            max_contribution=round(contribution.coef, _SCORE_DP),
             known=m.known,
             detail=m.detail,
         )
-        for m in measured
+        # ``_measure`` and ``policy.weights`` are both built by iterating
+        # ``ScoreFactor``, so the two sequences are in the same order.
+        for m, contribution in zip(measured, scored.contributions)
     )
     return CandidateScore(
-        value=round(fsum(f.contribution for f in factors), _SCORE_DP),
+        value=scored.value,
         factors=factors,
         policy_version=policy.version,
     )
@@ -528,9 +572,9 @@ def _superseding(entries: list[tuple[str, float, int | None]], as_of_year: int) 
     for material_id, tonnes, target_year in entries:
         if target_year is not None and target_year > as_of_year:
             continue
-        rank = (target_year or 0, tonnes)
-        if material_id not in best or rank > best[material_id]:
-            best[material_id] = rank
+        entry = (target_year or 0, tonnes)
+        if material_id not in best or entry > best[material_id]:
+            best[material_id] = entry
     return {k: v[1] for k, v in best.items()}
 
 
@@ -745,13 +789,45 @@ def _coverage(gap: float | None, available: FeedQuantity | None) -> tuple[int, f
     return 2, 1.0 - (available.tonnes / gap) if gap else 0.0
 
 
+def _meets_floor(edge: Relationship, floor: int) -> bool:
+    """An edge with no tier at all is kept: unrated is not the same as failing."""
+    tier = _effective_tier(edge)
+    return tier is None or _TIER_RANK[tier] >= floor
+
+
+def _edge_filters(
+    graph: SupplyGraph, excluded: frozenset[str], min_qualification: QualificationTier
+) -> list[Filter]:
+    """The rules that prune the reroute space, each one named.
+
+    A dropped edge leaves no trace in the output, so the descriptions are what
+    a reader has to go on when a candidate they expected is not in the list.
+    """
+    floor = _TIER_RANK[min_qualification]
+    return [
+        Filter("source is not itself part of the outage", lambda e: e.from_id not in excluded),
+        Filter("source is an asset in the graph", lambda e: graph.is_asset(e.from_id)),
+        Filter(
+            "route is not recorded INFEASIBLE",
+            lambda e: _effective_tier(e) is not QualificationTier.INFEASIBLE,
+        ),
+        Filter("route meets the qualification floor", lambda e: _meets_floor(e, floor)),
+    ]
+
+
 def _candidate_edges(
     graph: SupplyGraph,
     facility_id: str,
     excluded: frozenset[str],
     min_qualification: QualificationTier,
 ) -> list[Relationship]:
-    floor = _TIER_RANK[min_qualification]
+    """One edge per candidate source, taking the first seen: a supplies edge
+    before a can-supply one, and either before an inferred one.
+
+    Deduplication is by source rather than by edge and is stateful across the
+    list, so it stays a loop rather than joining the filters.
+    """
+    filters = _edge_filters(graph, excluded, min_qualification)
     seen: set[str] = set()
     out: list[Relationship] = []
     for edge in (
@@ -759,16 +835,21 @@ def _candidate_edges(
         *graph.can_supply_to.get(facility_id, ()),
         *graph.inferred_to.get(facility_id, ()),
     ):
-        if edge.from_id in excluded or not graph.is_asset(edge.from_id) or edge.from_id in seen:
-            continue
-        tier = _effective_tier(edge)
-        if tier is QualificationTier.INFEASIBLE:
-            continue
-        if tier is not None and _TIER_RANK[tier] < floor:
+        if edge.from_id in seen or not all(f.is_valid(edge) for f in filters):
             continue
         seen.add(edge.from_id)
         out.append(edge)
     return out
+
+
+#: Score first, then the lexicographic key, so an ordering stays deterministic
+#: without the tiebreak ever earning points. The key's criteria are read off its
+#: fields, so the declaration order in ``RankingKey`` is the ordering rather than
+#: a thing that has to be kept in step with it.
+_ALTERNATIVE_CRITERIA = [
+    Ordinal("score", attrgetter("value"), reverse=True),
+    *(Ordinal("key", attrgetter(field.name)) for field in fields(RankingKey)),
+]
 
 
 def _rank_alternatives(
@@ -781,6 +862,7 @@ def _rank_alternatives(
     min_qualification: QualificationTier,
     policy: ScoringPolicy,
 ) -> tuple[AlternativeFeed, ...]:
+    scorer = _scorer(policy)
     rows: list[AlternativeFeed] = []
     for edge in _candidate_edges(graph, facility_id, excluded, min_qualification):
         source_id = edge.from_id
@@ -799,7 +881,11 @@ def _rank_alternatives(
             confidence=_CONFIDENCE_RANK.get(edge.provenance.assertion_confidence, 3),
             source_id=source_id,
         )
-        score = _score(policy, _measure(key, alignment, months, edge.provenance.assertion_confidence))
+        score = _score(
+            policy,
+            scorer,
+            _measure(key, alignment, months, edge.provenance.assertion_confidence),
+        )
         rows.append(
             AlternativeFeed(
                 source_id=source_id,
@@ -822,9 +908,7 @@ def _rank_alternatives(
                 note=edge.note,
             )
         )
-    # Score first, the lexicographic key only where scores are exactly equal, so
-    # an ordering stays deterministic without the tiebreak ever earning points.
-    return tuple(sorted(rows, key=lambda r: (-r.score.value, r.key)))
+    return tuple(placed.entity for placed in rank(rows, [], _ALTERNATIVE_CRITERIA))
 
 
 def _dependent_nodes(graph: SupplyGraph, mine_id: str, max_hops: int) -> frozenset[str]:
@@ -882,6 +966,15 @@ def _walk_downstream(
                 visited.add(target)
                 frontier.append((target, depth + 1, trail))
     return [(fid, hops, trail) for fid, (hops, trail) in found.items()]
+
+
+#: Nearest first, then largest, so the plant with most at stake leads a tie on
+#: hops. An undisclosed nameplate stands in at zero rather than raising.
+_IMPACT_CRITERIA = [
+    Ordinal("hops"),
+    Ordinal("nameplate_dytb_tpa", lambda tpa: -(tpa or 0.0)),
+    Ordinal("facility_id"),
+]
 
 
 def simulate_disruption(
@@ -963,7 +1056,7 @@ def simulate_disruption(
                 ),
             )
         )
-    impacted.sort(key=lambda i: (i.hops, -(i.nameplate_dytb_tpa or 0.0), i.facility_id))
+    impacted = [placed.entity for placed in rank(impacted, [], _IMPACT_CRITERIA)]
 
     unknown_readiness = sum(
         1 for i in impacted for a in i.alternatives if not a.readiness_known
