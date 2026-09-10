@@ -10,7 +10,7 @@ import {
   type ApiSourceRef,
 } from "@/lib/monitor/api";
 import { humanise } from "@/lib/monitor/provenance";
-import ProvenanceDot from "./ProvenanceDot";
+import { AttestedValue, ProvenanceLegend } from "./ProvenanceDot";
 
 interface AssetOverlayProps {
   /** Asset to describe. Null closes the overlay. */
@@ -32,30 +32,39 @@ function sourceIndex(sources: readonly ApiSourceRef[]): SourceIndex {
 /**
  * How far to trust a claim, and where to go and check it.
  *
- * Two marks, because they answer two questions and often have different
- * answers. The dot grades the assertion and always appears. The footnote points
- * at a document and appears only where there is one: a judgment, an inference
- * and a model estimate rest on no document, and giving them a number would
- * invent one. The dot's popover says which of those a bare dot is.
+ * The value itself is the trigger: a confidence dot and the value, dashed-
+ * underlined, with the hover card behind them. The footnote points at a
+ * document and appears only where there is one: a judgment, an inference and a
+ * model estimate rest on no document, and giving them a number would invent
+ * one. The card says which of those an uncited value is. Passing no children
+ * renders the not-disclosed state, and the card then says why the field is
+ * empty.
  */
-function Attribution({
+function Attested({
   provenance,
   index,
   subject,
+  unit,
+  children,
 }: {
   readonly provenance: ApiProvenance | null;
   readonly index: SourceIndex;
   readonly subject: string;
+  readonly unit?: string;
+  readonly children?: React.ReactNode;
 }) {
   const entry = provenance?.source_id ? index.get(provenance.source_id) : undefined;
   return (
-    <span className="ml-1 inline-flex items-center gap-1 align-middle">
-      <ProvenanceDot
+    <span className="inline-flex max-w-full items-baseline gap-1">
+      <AttestedValue
         provenance={provenance}
         source={entry?.source}
         citation={entry?.n}
         subject={subject}
-      />
+        unit={unit}
+      >
+        {children}
+      </AttestedValue>
       {entry && (
         <span className="font-mono text-[9px] text-accent">[{entry.n}]</span>
       )}
@@ -120,9 +129,8 @@ function FigureRow({
   readonly index: SourceIndex;
 }) {
   const replaced = figure.superseded_by != null;
-  const amount = `${figure.tonnes.toLocaleString()} t${
-    figure.period === "LIFE_OF_MINE" ? " LOM" : "/yr"
-  }`;
+  const unit = figure.period === "LIFE_OF_MINE" ? "t LOM" : "t/yr";
+  const amount = `${figure.tonnes.toLocaleString()} ${unit}`;
   return (
     <li className="flex flex-col gap-0.5 py-1">
       <span className="flex items-baseline justify-between gap-2">
@@ -131,23 +139,26 @@ function FigureRow({
         >
           {figure.material_name ?? figure.material_id}
         </span>
-        <span
-          className={`shrink-0 font-mono text-[10px] tabular-nums ${
-            replaced ? "text-text-tertiary line-through" : "text-foreground"
-          }`}
-        >
-          {amount}
+        <span className="shrink-0">
+          <Attested
+            provenance={figure.provenance}
+            index={index}
+            subject={`${figure.material_name ?? figure.material_id} · ${amount}`}
+            unit={unit}
+          >
+            <span
+              className={`font-mono text-[10px] tabular-nums ${
+                replaced ? "text-text-tertiary line-through" : "text-foreground"
+              }`}
+            >
+              {figure.tonnes.toLocaleString()}
+            </span>
+          </Attested>
         </span>
       </span>
       <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
         {figure.target_year ? `by ${figure.target_year}` : "no target year"}
         {replaced && ` · superseded by ${figure.superseded_by}`}
-        {` · ${figure.provenance.type.toLowerCase()}`}
-        <Attribution
-          provenance={figure.provenance}
-          index={index}
-          subject={`${figure.material_name ?? figure.material_id} · ${amount}`}
-        />
       </span>
     </li>
   );
@@ -300,12 +311,13 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
             <p className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
               {asset.kind === "MINE" ? "Mine" : humanise(asset.facility_type ?? "Facility")}
               {" · "}
-              {humanise(asset.operating_status)}
-              <Attribution
+              <Attested
                 provenance={asset.operating_status_provenance}
                 index={index}
                 subject={`Operating status · ${humanise(asset.operating_status)}`}
-              />
+              >
+                {humanise(asset.operating_status)}
+              </Attested>
               {asset.country_name ? ` · ${asset.country_name}` : ""}
             </p>
           )}
@@ -333,25 +345,34 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
               <>
                 <dt className="text-text-tertiary uppercase">Stage</dt>
                 <dd className="text-text-secondary">
-                  {humanise(asset.development_stage)}
-                  <Attribution
+                  <Attested
                     provenance={asset.development_stage_provenance}
                     index={index}
                     subject={`Development stage · ${humanise(asset.development_stage)}`}
-                  />
+                  >
+                    {humanise(asset.development_stage)}
+                  </Attested>
                 </dd>
               </>
             )}
-            {asset.expected_start != null && (
+            {/* Rendered even when empty: an undisclosed start date is a fact
+                about the record, and the card says why the field is blank. */}
+            {(asset.expected_start != null ||
+              asset.expected_start_provenance != null) && (
               <>
                 <dt className="text-text-tertiary uppercase">Start</dt>
                 <dd className="text-text-secondary">
-                  {asset.expected_start}
-                  <Attribution
+                  <Attested
                     provenance={asset.expected_start_provenance}
                     index={index}
-                    subject={`Expected start · ${asset.expected_start}`}
-                  />
+                    subject={
+                      asset.expected_start != null
+                        ? `Expected start · ${asset.expected_start}`
+                        : "Expected start · not disclosed"
+                    }
+                  >
+                    {asset.expected_start}
+                  </Attested>
                 </dd>
               </>
             )}
@@ -393,18 +414,19 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
               <ul className="flex flex-col gap-1">
                 {asset.accepted_feeds.map((feed) => (
                   <li key={feed.material_id} className="text-[10.5px] text-text-secondary">
-                    {feed.material_name ?? feed.material_id}
+                    <Attested
+                      provenance={feed.provenance}
+                      index={index}
+                      subject={`Accepts ${feed.material_name ?? feed.material_id}`}
+                    >
+                      {feed.material_name ?? feed.material_id}
+                    </Attested>
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
                       {feed.accepted_hosts.length
                         ? feed.accepted_hosts.map(humanise).join(", ")
                         : "any host / undisclosed"}
                     </span>
-                    <Attribution
-                      provenance={feed.provenance}
-                      index={index}
-                      subject={`Accepts ${feed.material_name ?? feed.material_id}`}
-                    />
                   </li>
                 ))}
               </ul>
@@ -416,17 +438,18 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
               <ul className="flex flex-col gap-1">
                 {asset.products.map((product) => (
                   <li key={product.material_id} className="text-[10.5px] text-text-secondary">
-                    {product.material_name ?? product.material_id}
+                    <Attested
+                      provenance={product.provenance}
+                      index={index}
+                      subject={`Ships ${product.material_name ?? product.material_id}`}
+                    >
+                      {product.material_name ?? product.material_id}
+                    </Attested>
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
                       {humanise(product.host_mineral)}
                       {product.grade_pct_treo != null && ` · ${product.grade_pct_treo}% TREO`}
                     </span>
-                    <Attribution
-                      provenance={product.provenance}
-                      index={index}
-                      subject={`Ships ${product.material_name ?? product.material_id}`}
-                    />
                   </li>
                 ))}
               </ul>
@@ -439,31 +462,33 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                 {asset.supplied_by.map((link) => (
                   <li key={link.relationship_id} className="text-[10px] text-text-secondary">
                     <span className="font-mono text-[9px] text-text-tertiary">← </span>
-                    {link.name ?? link.id}
+                    <Attested
+                      provenance={link.provenance}
+                      index={index}
+                      subject={`Supplied by ${link.name ?? link.id} · ${humanise(link.status)}`}
+                    >
+                      {link.name ?? link.id}
+                    </Attested>
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
                       {humanise(link.status)}
                     </span>
-                    <Attribution
-                      provenance={link.provenance}
-                      index={index}
-                      subject={`Supplied by ${link.name ?? link.id} · ${humanise(link.status)}`}
-                    />
                   </li>
                 ))}
                 {asset.supplies_to.map((link) => (
                   <li key={link.relationship_id} className="text-[10px] text-text-secondary">
                     <span className="font-mono text-[9px] text-text-tertiary">→ </span>
-                    {link.name ?? link.id}
+                    <Attested
+                      provenance={link.provenance}
+                      index={index}
+                      subject={`Supplies ${link.name ?? link.id} · ${humanise(link.status)}`}
+                    >
+                      {link.name ?? link.id}
+                    </Attested>
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
                       {humanise(link.status)}
                     </span>
-                    <Attribution
-                      provenance={link.provenance}
-                      index={index}
-                      subject={`Supplies ${link.name ?? link.id} · ${humanise(link.status)}`}
-                    />
                   </li>
                 ))}
               </ul>
@@ -487,6 +512,8 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
               }
             />
           )}
+
+          <ProvenanceLegend />
         </div>
       )}
     </aside>
