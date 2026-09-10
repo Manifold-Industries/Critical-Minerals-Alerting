@@ -5,7 +5,7 @@
     "category": "Aircraft",
     "kind": "PLATFORM",
     "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-rex-ree-defense-technology", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
     ],
     "parent_id": null,
     "operator": null
@@ -16,7 +16,7 @@
     "category": "Aircraft",
     "kind": "PLATFORM",
     "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-finabel-ree-f35-supply-chain", "assertion_confidence": "MEDIUM", "last_verified": null } }
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-finabel-ree-f35-supply-chain", "assertion_confidence": "LOW", "last_verified": null } }
     ],
     "parent_id": null,
     "operator": null
@@ -26,9 +26,7 @@
     "name": "Virginia-class submarine",
     "category": "Submarine",
     "kind": "PLATFORM",
-    "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
-    ],
+    "requires": [],
     "parent_id": null,
     "operator": null
   },
@@ -41,17 +39,6 @@
       { "value": "cmp-terfenol-d-transducer", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-terfenol-d-submarine-mapping", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
     ],
     "parent_id": "plat-virginia-class",
-    "operator": null
-  },
-  {
-    "id": "plat-columbia-class",
-    "name": "Columbia-class submarine",
-    "category": "Submarine",
-    "kind": "PLATFORM",
-    "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
-    ],
-    "parent_id": null,
     "operator": null
   },
   {
@@ -91,7 +78,7 @@
     "category": "Missile",
     "kind": "PLATFORM",
     "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-vandyke-tomahawk-critical-minerals", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
     ],
     "parent_id": null,
     "operator": null
@@ -113,29 +100,7 @@
     "category": "Munition",
     "kind": "PLATFORM",
     "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
-    ],
-    "parent_id": null,
-    "operator": null
-  },
-  {
-    "id": "plat-predator",
-    "name": "Predator UAV",
-    "category": "UAV",
-    "kind": "PLATFORM",
-    "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
-    ],
-    "parent_id": null,
-    "operator": null
-  },
-  {
-    "id": "plat-radar-systems",
-    "name": "Radar systems",
-    "category": "Radar",
-    "kind": "CATEGORY",
-    "requires": [
-      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "source_id": "src-dod-ree-magnet-publications", "assertion_confidence": "HIGH", "last_verified": null } }
+      { "value": "cmp-ndfeb-magnet", "provenance": { "type": "REPORTED", "unverified_model_extraction": false, "source_id": "src-realloys-magnets-in-defense", "assertion_confidence": "HIGH", "last_verified": "2026-03-12" } }
     ],
     "parent_id": null,
     "operator": null

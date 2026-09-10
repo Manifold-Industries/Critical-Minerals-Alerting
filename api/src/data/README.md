@@ -65,10 +65,14 @@ Commented out, in two groups:
   restore it first if the metal-to-magnet stage comes back); `org-less-common-metals`;
   `mat-re-metals` and `mat-ndfeb-alloy`; countries `GB` and `DE`.
 
-Note the shape this leaves: `systems.json` and `components.json` state what the end use *requires*
+Note the shape this leaves: `platforms.json` and `components.json` state what the end use *requires*
 in oxide terms, but the physical path from separated oxide to magnet is commented out, so nothing
-connects the two halves. `cmp-ndfeb-magnet` and `src-dod-ree-magnet-publications` are loaded only
-because `systems.json` requires and cites them - restoring a system means restoring both.
+connects the two halves. `cmp-ndfeb-magnet` is loaded only because `platforms.json` requires it.
+
+A platform is kept only where the JARVIS `component_system_sources.csv` cites a document for its
+dependency. Columbia-class, Predator and radar systems were dropped on that basis: JARVIS has no
+source for any of them (it lists MQ-9 Reaper as UNVERIFIABLE and ties radar to SmCo, not NdFeB).
+Virginia-class stays only as the parent of its sonar subsystem and carries no edge of its own.
 
 Light rare-earth material records (`mat-ndpr-oxide`, `mat-lreo`, `mat-sm-oxide`, `mat-eu-oxide`,
 `mat-gd-oxide`) are **kept**: they are co-products of in-subset refineries, and dropping them
@@ -140,7 +144,6 @@ confidence you can place on the claims listed.
 |---|---|---|
 | `src-gcm-fingerboards-disclosures` | Fingerboards stage/status, 280 ktpa HMC, unresolved downstream refinery, `ALTERNATIVE_TO` (LOW) | Gippsland Critical Minerals project pages / ASX releases |
 | `src-au-gov-major-project-status-fingerboards` | Fingerboards 200 tpa HREO / 1,800 tpa LREO | Australian Government Major Project Status listing (DISR) |
-| `src-dod-ree-magnet-publications` | Magnet dependency for the seven named systems | DoD industrial-base / rare-earth reports naming F-35, Virginia/Columbia, Tomahawk, Predator, radar, JDAM |
 | `src-usar-caremag-split-2026` | Caremag's 500 t Dy / 100 t Tb per-element split | USA Rare Earth news release, 23 Jul 2026 |
 | `src-viridis-colossus-dfs-2026` | Every Colossus DFS number, including the two inputs to its 124 tpa Dy+Tb | VMM ASX, 20 Aug 2026, 'Colossus DFS Confirms Project Bankability and Execution' - title and date known from Reference 3 of the funding release; PDF not retrieved |
 
