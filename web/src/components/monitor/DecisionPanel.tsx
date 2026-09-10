@@ -12,6 +12,7 @@ import {
   humanise,
   toGrade,
   GRADE_LABEL,
+  GRADE_TERM,
 } from "@/lib/monitor/provenance";
 import { ConfidenceDot, ConfidencePie } from "./ProvenanceDot";
 import {
@@ -248,13 +249,18 @@ function PlatformConfidence({
   const branching = edges.length > platform.via_components.length + 1;
   const label = [
     `${platform.name}.`,
-    `Confidence ${GRADE_LABEL[grade].toLowerCase()},`,
+    `${GRADE_TERM[grade]},`,
     "the weakest link on the route from this mine's elements.",
     ...edges.map((e) => `${e.label}.`),
   ].join(" ");
 
   return (
-    <ConfidenceDot grade={grade} subject={platform.name} label={label}>
+    <ConfidenceDot
+      grade={grade}
+      subject={platform.name}
+      label={label}
+      triggerText={GRADE_TERM[grade]}
+    >
       <p className="border-t border-surface-2 pt-1.5 text-[9px] leading-relaxed text-text-tertiary">
         The weakest link on the route from this mine&rsquo;s elements to this
         system, where each link is itself no stronger than the document under
@@ -365,9 +371,10 @@ interface Entity {
   readonly place: string;
 }
 
+// ICD-203 wording, matching the provenance grades: "moderate", never "med".
 const CONFIDENCE_LABEL: Record<Confidence, string> = {
   HIGH: "Conf high",
-  MEDIUM: "Conf med",
+  MEDIUM: "Conf moderate",
   LOW: "Conf low",
 };
 

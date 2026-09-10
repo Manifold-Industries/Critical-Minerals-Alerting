@@ -19,9 +19,10 @@ interface AlertQueueProps {
   readonly onSelect: (id: string) => void;
 }
 
+// ICD-203 wording, matching the provenance grades: "moderate", never "med".
 const CONFIDENCE_LABEL: Record<Confidence, string> = {
   HIGH: "Conf high",
-  MEDIUM: "Conf med",
+  MEDIUM: "Conf moderate",
   LOW: "Conf low",
 };
 
