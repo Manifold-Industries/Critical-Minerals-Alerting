@@ -9,12 +9,12 @@ import type {
 } from "@/lib/monitor/api";
 import {
   displayedConfidence,
-  humanise,
   toGrade,
-  GRADE_LABEL,
+  GRADE_RANK,
   GRADE_TERM,
+  type DisplayedConfidence,
 } from "@/lib/monitor/provenance";
-import { ConfidenceDot, ConfidencePie } from "./ProvenanceDot";
+import { AttestedValue } from "./ProvenanceDot";
 import {
   graphForAlert,
   nodesById,
@@ -170,68 +170,20 @@ function pathEdges(
   return out;
 }
 
-/** One edge, graded the same way every other claim in the console is. */
-function PathEdgeRow({
-  edge,
-  sources,
-}: {
-  readonly edge: PathEdge;
-  readonly sources: ExposureSources;
-}) {
-  const source = edge.provenance.source_id
-    ? sources.get(edge.provenance.source_id)
-    : undefined;
-  const conf = displayedConfidence(edge.provenance, source);
-  return (
-    <div className="flex flex-col gap-0.5">
-      <span className="flex items-start gap-1.5">
-        <span className="mt-[3px]">
-          <ConfidencePie grade={conf.grade} size={8} />
-        </span>
-        <span className="text-[9.5px] leading-snug text-text-secondary">
-          {edge.label}
-        </span>
-      </span>
-      <span className="ml-[14px] font-mono text-[9px] text-text-tertiary">
-        {[
-          `${GRADE_LABEL[conf.assertion].toLowerCase()} reading`,
-          conf.source !== null
-            ? `${GRADE_LABEL[conf.source].toLowerCase()} source`
-            : "no document",
-          humanise(edge.provenance.type).toLowerCase(),
-        ].join(" · ")}
-      </span>
-      {source &&
-        (source.url ? (
-          <a
-            href={source.url}
-            target="_blank"
-            rel="noreferrer"
-            // See SourceBlock: the popover is aria-hidden, so nothing inside it
-            // may take focus.
-            tabIndex={-1}
-            className="ml-[14px] line-clamp-1 text-[9px] text-text-tertiary underline decoration-surface-2 underline-offset-2 transition-colors hover:text-accent hover:decoration-accent"
-          >
-            {source.name}
-          </a>
-        ) : (
-          <span className="ml-[14px] line-clamp-1 text-[9px] text-text-tertiary">
-            {source.name}
-          </span>
-        ))}
-    </div>
-  );
-}
-
 /**
  * How well evidenced this mine's dependency on a weapons system is.
  *
- * The grade is a path minimum rather than one assertion's, but it is the same
- * rule: no link is stronger than the document under it, and the path is no
- * stronger than its weakest link. Grading on assertions alone painted almost
- * this entire list green - every component edge in the graph is asserted HIGH
- * while the documents behind them are not, and one of them is a Wikipedia
- * article. On a list of weapons systems that is the worst place to be generous.
+ * The grade is a path minimum: no link is stronger than the document under it,
+ * and the path is no stronger than its weakest link. Grading on assertions
+ * alone painted almost this entire list green - every component edge in the
+ * graph is asserted HIGH while the documents behind them are not, and one of
+ * them is a Wikipedia article. On a list of weapons systems that is the worst
+ * place to be generous.
+ *
+ * The card shown is the same provenance card every attested value gets, opened
+ * on the link that set the minimum: the weakest assertion is what the whole
+ * dependency rests on, so its document, method and verification state are the
+ * answer to "why this grade".
  */
 function PlatformConfidence({
   platform,
@@ -242,45 +194,36 @@ function PlatformConfidence({
   readonly exposure: MineExposure;
   readonly sources: ExposureSources;
 }) {
-  const grade = toGrade(platform.confidence);
   const edges = pathEdges(platform, exposure);
-  // Where a step has alternatives, the best-evidenced one set the grade, so a
-  // weaker row below is not a contradiction. Said only when it can happen.
-  const branching = edges.length > platform.via_components.length + 1;
-  const label = [
-    `${platform.name}.`,
-    `${GRADE_TERM[grade]},`,
-    "the weakest link on the route from this mine's elements.",
-    ...edges.map((e) => `${e.label}.`),
-  ].join(" ");
+  let weakest: { readonly edge: PathEdge; readonly conf: DisplayedConfidence } | null =
+    null;
+  for (const edge of edges) {
+    const source = edge.provenance.source_id
+      ? sources.get(edge.provenance.source_id)
+      : undefined;
+    const conf = displayedConfidence(edge.provenance, source);
+    if (!weakest || GRADE_RANK[conf.grade] < GRADE_RANK[weakest.conf.grade]) {
+      weakest = { edge, conf };
+    }
+  }
+
+  const source = weakest?.edge.provenance.source_id
+    ? sources.get(weakest.edge.provenance.source_id)
+    : undefined;
+  const grade = weakest?.conf.grade ?? toGrade(platform.confidence);
 
   return (
-    <ConfidenceDot
-      grade={grade}
-      subject={platform.name}
-      label={label}
-      triggerText={GRADE_TERM[grade]}
+    <AttestedValue
+      provenance={weakest?.edge.provenance ?? null}
+      source={source}
+      subject={
+        weakest
+          ? `${platform.name} · weakest link: ${weakest.edge.label}`
+          : platform.name
+      }
     >
-      <p className="border-t border-surface-2 pt-1.5 text-[9px] leading-relaxed text-text-tertiary">
-        The weakest link on the route from this mine&rsquo;s elements to this
-        system, where each link is itself no stronger than the document under
-        it. Not a joint probability: these assertions are not independent.
-      </p>
-      <div className="flex flex-col gap-1.5 border-t border-surface-2 pt-1.5">
-        <span className="font-mono text-[9px] tracking-[0.15em] text-accent uppercase">
-          What it rests on
-        </span>
-        {edges.map((edge) => (
-          <PathEdgeRow key={edge.key} edge={edge} sources={sources} />
-        ))}
-      </div>
-      {branching && (
-        <p className="text-[9px] leading-relaxed text-text-tertiary">
-          Where a step has more than one route, the best evidenced of them sets
-          the grade.
-        </p>
-      )}
-    </ConfidenceDot>
+      {GRADE_TERM[grade]}
+    </AttestedValue>
   );
 }
 

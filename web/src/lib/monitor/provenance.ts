@@ -22,7 +22,9 @@ import type { ApiProvenance, ApiSourceRef } from "./api";
  *  field the graph asserts nothing about, which is different again. */
 export type ConfidenceGrade = "HIGH" | "MEDIUM" | "LOW" | "UNRATED" | "NO_CLAIM";
 
-const RANK: Record<ConfidenceGrade, number> = {
+/** Ordering for weakest-link comparisons. Exported so a caller grading a path
+ *  of assertions can find the link that set the minimum. */
+export const GRADE_RANK: Record<ConfidenceGrade, number> = {
   HIGH: 3,
   MEDIUM: 2,
   LOW: 1,
@@ -72,15 +74,15 @@ export function displayedConfidence(
     return { grade: assertion, assertion, source: null, binding: "ASSERTION" };
   }
   const sourceGrade = toGrade(source.source_confidence);
-  const weakest = Math.min(RANK[assertion], RANK[sourceGrade]);
+  const weakest = Math.min(GRADE_RANK[assertion], GRADE_RANK[sourceGrade]);
   return {
     grade: BY_RANK[weakest],
     assertion,
     source: sourceGrade,
     binding:
-      RANK[assertion] === RANK[sourceGrade]
+      GRADE_RANK[assertion] === GRADE_RANK[sourceGrade]
         ? "BOTH"
-        : RANK[sourceGrade] < RANK[assertion]
+        : GRADE_RANK[sourceGrade] < GRADE_RANK[assertion]
           ? "SOURCE"
           : "ASSERTION",
   };
