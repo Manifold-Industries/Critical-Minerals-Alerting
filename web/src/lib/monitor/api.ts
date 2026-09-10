@@ -13,7 +13,8 @@ import type {
   ImpactLevel,
 } from "./graphs";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+/** Same origin as the page; next.config.ts forwards it to the API server. */
+const BASE = "/api";
 
 /** Alternatives per affected plant. The engine returns ~20; the rail shows a few. */
 const ALTERNATIVES_PER_FACILITY = 4;

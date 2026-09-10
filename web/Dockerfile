@@ -10,6 +10,9 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Where next.config.ts sends /api. It is fixed at build time, so it is a build
+# arg rather than a compose runtime variable; `api` is the compose service name.
+ARG API_BACKEND_URL=http://api:8000
 RUN npm run build
 
 FROM node:22-alpine AS runner
