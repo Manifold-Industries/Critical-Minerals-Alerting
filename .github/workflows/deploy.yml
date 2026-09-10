@@ -1,12 +1,16 @@
 name: Deploy
 
-# Pushes to main SSH into the EC2 host. The deploy key is pinned in the host's
-# authorized_keys to a forced command (~/deploy.sh: git pull, compose up), so
-# the runner sends no command and the key can do nothing but redeploy main.
+# Pushes to main SSH into the EC2 host and run ~/deploy.sh (git pull, compose up).
+# The host's authorized_keys also pins the deploy key to that script as a forced
+# command, so a leaked key can only redeploy main. Naming the script here too means
+# a key installed without the forced command still deploys, and a missing script
+# fails the job instead of passing silently.
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions: {}
 
 concurrency:
   group: deploy-production
@@ -15,6 +19,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Configure SSH
         env:
@@ -26,4 +31,6 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
       - name: Deploy
-        run: ssh -i ~/.ssh/deploy_key ubuntu@${{ secrets.DEPLOY_HOST }}
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o ConnectTimeout=15 "ubuntu@$DEPLOY_HOST" /home/ubuntu/deploy.sh
