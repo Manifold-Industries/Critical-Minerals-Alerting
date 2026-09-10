@@ -66,7 +66,7 @@ def test_platforms_are_ordered_specific_and_defence_relevant_first(
     )
     within = [p["confidence"] for p in body["platforms"] if p["kind"] == "PLATFORM"]
     assert within == sorted(within, key=["HIGH", "MEDIUM", "LOW"].index)
-    assert body["platforms"][0]["platform_id"] == "plat-columbia-class"
+    assert body["platforms"][0]["platform_id"] == "plat-f22"
 
 
 def test_every_ordering_field_is_carried_so_the_order_reads_back(

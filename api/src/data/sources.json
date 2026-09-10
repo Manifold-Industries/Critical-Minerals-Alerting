@@ -50,16 +50,6 @@
     "source_confidence": "HIGH"
   },
   {
-    "id": "src-dod-ree-magnet-publications",
-    "name": "U.S. Department of Defense publications identifying rare-earth permanent magnet dependencies in defense systems",
-    "source_type": "DOCUMENT",
-    "publisher": "U.S. Department of Defense",
-    "published_on": null,
-    "url": null,
-    "locator": null,
-    "source_confidence": "HIGH"
-  },
-  {
     "id": "src-lynas-q4-fy26-quarterly",
     "name": "Lynas Rare Earths Quarterly Report for the period ended 30 June 2026",
     "source_type": "DOCUMENT",
@@ -205,8 +195,8 @@
     "source_type": "DOCUMENT",
     "publisher": "MP Materials Corp. (NYSE:MP)",
     "published_on": "2026-02-26",
-    "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000008/mpmcexhibit961123115.htm",
-    "locator": "Section 16.4.3 (approximately p.238): SEG+ heavy rare earth concentrate described as containing 'lesser amounts of heavy rare earth elements, including around 4% dysprosium and terbium'. NOTE: the exact exhibit filename should be re-checked against the EDGAR filing index for accession 0001801368-26-000008.",
+    "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000008/mpmcexhibit961123125.htm",
+    "locator": "Section 16.4.3 (approximately p.238): SEG+ heavy rare earth concentrate described as containing 'lesser amounts of heavy rare earth elements, including around 4% dysprosium and terbium'. Exhibit filename checked against the EDGAR filing index for accession 0001801368-26-000008.",
     "source_confidence": "HIGH"
   },
   {
@@ -305,8 +295,8 @@
     "source_type": "DOCUMENT",
     "publisher": "Ucore Rare Metals Inc. (TSXV:UCU)",
     "published_on": "2024-08-21",
-    "url": "https://ucore.com/ucore-rare-metals-and-meteoric-resources-sign-mou-for-offtake-of-caldeira-project-mrec-in-brazil-to-usa-oxide-production-project/",
-    "locator": "'Key Provisions of the MOU', bullet 2: 'Once the Parties are in production they envision that Ucore will purchase a minimum quantity of 3,000MT of TREO annually from Caldeira. This could represent over 900MT of NdPr, approximately 6MT of Tb and 24MT of Dy.' CONTAINED-IN-CONCENTRATE under a NON-BINDING MOU, not SMC output capacity. Carried forward verbatim in Ucore's MD&A for the three months ended 31 Mar 2026 (prepared 29 May 2026), p.13. Covers roughly 31% of the SMC's 9,600 tpa nameplate throughput; never restated against the current configuration. Implies a Caldeira basket of ~0.8% Dy and ~0.2% Tb of TREO - that is Caldeira's assemblage, NOT a design-basis feed assemblage for the SMC.",
+    "url": "https://www.newsfilecorp.com/release/220620/Ucore-Rare-Metals-and-Meteoric-Resources-Sign-MOU-for-Offtake-of-Caldeira-Project-MREC-in-Brazil-to-USA-Oxide-Production-Project",
+    "locator": "Ucore has taken the post off ucore.com (404 as of 10 Sep 2026); this is the same release as distributed on Newsfile. 'Key Provisions of the MOU', bullet 2: 'Once the Parties are in production they envision that Ucore will purchase a minimum quantity of 3,000MT of TREO annually from Caldeira. This could represent over 900MT of NdPr, approximately 6MT of Tb and 24MT of Dy.' CONTAINED-IN-CONCENTRATE under a NON-BINDING MOU, not SMC output capacity. Carried forward verbatim in Ucore's MD&A for the three months ended 31 Mar 2026 (prepared 29 May 2026), p.13. Covers roughly 31% of the SMC's 9,600 tpa nameplate throughput; never restated against the current configuration. Implies a Caldeira basket of ~0.8% Dy and ~0.2% Tb of TREO - that is Caldeira's assemblage, NOT a design-basis feed assemblage for the SMC.",
     "source_confidence": "HIGH"
   },
   {
@@ -465,8 +455,8 @@
     "source_type": "DOCUMENT",
     "publisher": "Aclara Resources Inc. (TSX:ARA)",
     "published_on": "2026-08-06",
-    "url": "https://www.aclara-re.com/investors",
-    "locator": "Penco permitting, verbatim: 'successfully concluding the Penco Module's environmental assessment process covering the first six years of life-of-mine. The Company continues to advance the remaining sectoral permits required for project development while continuing preparatory work for the second environmental impact assessment (EIA 2), which is intended to cover the full life-of-mine of the Penco Module.' THIS SIX-YEAR LIMITATION IS DISCLOSED ONLY IN THE MD&A - none of the three Penco permitting press releases (ICE 29 May 2026, unanimous COEVA approval 8 Jun 2026, RCA published 22-23 Jun 2026) states it. NOTE: the exact MD&A document URL was not captured; re-anchor to the filed SEDAR+ document before relying on this.",
+    "url": "https://cdn.prod.website-files.com/67b9c5dc15db73b34fcf2bf3/6a75e9d1cc7672d180c19fff_Aclara%20Resources%20-%20Q2%202026%20MD%26A.pdf",
+    "locator": "Prepared as of 6 August 2026. Penco permitting, p.4, verbatim: 'successfully concluding the Penco Module's environmental assessment process covering the first six years of life-of-mine. The Company continues to advance the remaining sectoral permits required for project development while continuing preparatory work for the second environmental impact assessment (EIA 2), which is intended to cover the full life-of-mine of the Penco Module.' THIS SIX-YEAR LIMITATION IS DISCLOSED ONLY IN THE MD&A - none of the three Penco permitting press releases (ICE 29 May 2026, unanimous COEVA approval 8 Jun 2026, RCA published 22-23 Jun 2026) states it.",
     "source_confidence": "MEDIUM"
   },
   {
@@ -545,8 +535,8 @@
     "source_type": "DOCUMENT",
     "publisher": "Ucore Rare Metals Inc. (TSXV:UCU)",
     "published_on": "2024-04-29",
-    "url": "https://ucore.com/ucore-qualifies-wicheeda-mixed-rare-earth-carbonate-for-rapidsx-technology-processing-at-commercial-scale-facilities/",
-    "locator": "THE ONLY NAMED THIRD-PARTY DEPOSIT UCORE HAS EVER PHYSICALLY PROCESSED. MREC from Defense Metals Corp's Wicheeda property, British Columbia, out of 2023 SGS Lakefield hydromet piloting on a 26 t bulk sample. No tonnage, recovery or purity is disclosed and it was a sample test, not a tonnage campaign. Context from a sweep of all 91 Ucore posts (Jan 2023 - Aug 2026): every other Kingston campaign discloses feedstock only by deposit type and/or geopolitical class - 'a US-friendly ionic clay mineralization source', 'Vietnamese mixed rare earth oxide derived from ionic clay source material', 'North American bastnaesite', 'a third-party Western ionic clay source'. Aclara, Ionic Rare Earths, Namibia Critical Metals and Northern Minerals have ZERO mentions in the entire corpus. TRAP: the approximately 5 t 'North American bastnaesite' MREC campaign of Aug 2026 is NOT stated to be Wicheeda material despite Wicheeda being a North American bastnaesite carbonatite - treat any link as unconfirmed inference.",
+    "url": "https://www.newsfilecorp.com/release/207230/Ucore-Qualifies-Wicheeda-Mixed-Rare-Earth-Carbonate-for-RapidSX-Technology-Processing-at-CommercialScale-Facilities",
+    "locator": "Ucore has taken the post off ucore.com (404 as of 10 Sep 2026); this is the same release as distributed on Newsfile. THE ONLY NAMED THIRD-PARTY DEPOSIT UCORE HAS EVER PHYSICALLY PROCESSED. MREC from Defense Metals Corp's Wicheeda property, British Columbia, out of 2023 SGS Lakefield hydromet piloting on a 26 t bulk sample. No tonnage, recovery or purity is disclosed and it was a sample test, not a tonnage campaign. Context from a sweep of all 91 Ucore posts (Jan 2023 - Aug 2026): every other Kingston campaign discloses feedstock only by deposit type and/or geopolitical class - 'a US-friendly ionic clay mineralization source', 'Vietnamese mixed rare earth oxide derived from ionic clay source material', 'North American bastnaesite', 'a third-party Western ionic clay source'. Aclara, Ionic Rare Earths, Namibia Critical Metals and Northern Minerals have ZERO mentions in the entire corpus. TRAP: the approximately 5 t 'North American bastnaesite' MREC campaign of Aug 2026 is NOT stated to be Wicheeda material despite Wicheeda being a North American bastnaesite carbonatite - treat any link as unconfirmed inference.",
     "source_confidence": "HIGH"
   },
   {
@@ -831,12 +821,12 @@
   },
   {
     "id": "src-finabel-ree-f35-supply-chain",
-    "name": "Finabel: Rare Earth Metals and the F-35 Supply Chain",
+    "name": "Finabel: Rare Earth Metals and F-35 Supply Chain",
     "source_type": "NEWS",
     "publisher": "Finabel - European Army Interoperability Centre",
-    "published_on": null,
-    "url": "https://finabel.org/rare-earth-metals-and-f-35-supply-chain/",
-    "locator": "Commentary article. Cited by the JARVIS component_system_sources.csv as the ONLY Source 1 for (Dysprosium, Dy-doped NdFeB magnets, F-22 Raptor), Verdict PLAUSIBLE. The article is about the F-35; the F-22 edge is an extrapolation from it, which is why that edge carries MEDIUM and unverified_model_extraction true.",
+    "published_on": "2022-11-18",
+    "url": "https://web.archive.org/web/20260119061848/https://finabel.org/rare-earth-metals-and-f-35-supply-chain/",
+    "locator": "Commentary article by Tom Mantelet. Wayback Machine snapshot of 19 Jan 2026; the live finabel.org page sits behind a Cloudflare bot check. Cited by the JARVIS component_system_sources.csv as the ONLY Source 1 for (Dysprosium, Dy-doped NdFeB magnets, F-22 Raptor), Verdict PLAUSIBLE. Checked against the snapshot: the F-22 is never mentioned, dysprosium appears only in a list of the 17 rare earths, NdFeB is not mentioned, and the only magnet discussed is the Honeywell cobalt-samarium component in the F-35. The F-22 edge is an extrapolation from it, which is why that edge carries LOW and unverified_model_extraction true.",
     "source_confidence": "LOW"
   },
   {
@@ -847,6 +837,36 @@
     "published_on": null,
     "url": "https://rareearthexchanges.com/night-vision-goggles/",
     "locator": "Trade/advocacy outlet. Cited by the JARVIS component_system_sources.csv as Source 1 for (Terbium, Tb green phosphors for displays, Military night-vision and display systems), Verdict CONFIRMED. NOT RETRIEVED IN FULL. Weakest source class in this file - a commercially interested outlet, carrying the only evidence for the Tb phosphor branch.",
+    "source_confidence": "LOW"
+  },
+  {
+    "id": "src-rex-ree-defense-technology",
+    "name": "Rare Earth Exchanges: Rare Earth Elements in Defense Technology",
+    "source_type": "NEWS",
+    "publisher": "Rare Earth Exchanges",
+    "published_on": null,
+    "url": "https://rareearthexchanges.com/rare-earth-elements-in-defense-technology/",
+    "locator": "Trade/advocacy outlet. Cited by the JARVIS component_system_sources.csv as Source 1 for (Neodymium, NdFeB magnets in actuators and motors, F-35 Lightning II), Verdict CONFIRMED, with src-sfa-oxford-critical-minerals-defence as Source 2. Also Source 1 for the F-35 and Tomahawk Tb rows and the JDAM Pr row. NOT RETRIEVED IN FULL. Same commercially interested outlet as src-ree-nvg-rare-earth-exchanges, rated alike.",
+    "source_confidence": "LOW"
+  },
+  {
+    "id": "src-vandyke-tomahawk-critical-minerals",
+    "name": "Amanda Van Dyke: Critical Minerals and War - the Tomahawk",
+    "source_type": "NEWS",
+    "publisher": "Amanda Van Dyke (Substack)",
+    "published_on": null,
+    "url": "https://amandavandyke.substack.com/p/critical-minerals-and-war-the-tomahawk",
+    "locator": "Newsletter post. Cited by the JARVIS component_system_sources.csv as the ONLY Source 1 for (Neodymium, NdFeB magnets in guidance actuators, Tomahawk Cruise Missile), Verdict CONFIRMED, and for the Tomahawk Dy stabilization-magnet row. NOT RETRIEVED IN FULL. An individual author's newsletter, not a primary or institutional document.",
+    "source_confidence": "LOW"
+  },
+  {
+    "id": "src-realloys-magnets-in-defense",
+    "name": "Realloys: Magnets in Defense Applications",
+    "source_type": "NEWS",
+    "publisher": "Realloys",
+    "published_on": null,
+    "url": "https://realloys.com/blog/magnets-in-defense-applications/",
+    "locator": "Company blog post. Cited by the JARVIS component_system_sources.csv as the ONLY Source 1 for (Neodymium, NdFeB magnets in guidance actuators, JDAM), Verdict CONFIRMED. NOT RETRIEVED IN FULL. A company blog, not a primary or institutional document.",
     "source_confidence": "LOW"
   },
   {
