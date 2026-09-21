@@ -45,6 +45,9 @@ export interface ScoreFactorBreakdown {
   readonly factor: string;
   /** Display form of the underlying value: "PARTNER", "WITHIN_12M", "PARTIAL". */
   readonly label: string;
+  /** [0, 1], 1 is best, on every factor. Independent of the weights, which is
+   *  what lets the client re-rank without asking the engine again. */
+  readonly normalized: number;
   /** Points of the score. Contributions sum to the score itself. */
   readonly contribution: number;
   /** Points this factor could have contributed. Zero where it was excluded. */
@@ -71,16 +74,6 @@ export interface AlternativeSource {
   readonly score?: number;
   /** The factors behind `score`. Their contributions sum to it. */
   readonly scoreFactors?: readonly ScoreFactorBreakdown[];
-  /** What put this row below the one above. A ScoreFactor where `decisiveBasis`
-   *  is SCORE, a RankingKey field where it is TIEBREAK. */
-  readonly decisiveFactor?: string | null;
-  /** SCORE where the two rows scored differently, TIEBREAK where they did not. */
-  readonly decisiveBasis?: string | null;
-  /** Points the decisive factor was worth, on SCORE only. A 0.4 gap and a 30
-   *  gap are both "ranked lower" and must not read alike. */
-  readonly decisiveMargin?: number | null;
-  /** The score could not separate this row from the one above at all. */
-  readonly tiedWithPrevious?: boolean;
 }
 
 /** The weights a live graph's scores were computed under. */
@@ -109,7 +102,11 @@ export interface AlertGraph {
   readonly asset: GeoNode;
   readonly downstream: readonly DownstreamNode[];
   readonly edges: readonly DependencyEdge[];
+  /** Ranked and capped: what the rail lists and the globe draws. */
   readonly alternatives: readonly AlternativeSource[];
+  /** Live graphs only. Every (source, plant) pairing the engine returned, in
+   *  its order and unranked — the pool `rankCandidates` works from. */
+  readonly candidates?: readonly AlternativeSource[];
 }
 
 export const GRAPHS: Readonly<Record<string, AlertGraph>> = {

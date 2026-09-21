@@ -1,0 +1,287 @@
+import { useState } from "react";
+
+import type { AlertGraph, AlternativeSource } from "@/lib/monitor/graphs";
+import { nodesById } from "@/lib/monitor/graphs";
+import {
+  DEFAULT_FACTOR_WEIGHTS,
+  FACTOR_NAME,
+  MAX_FACTOR_WEIGHT,
+  factorAvailability,
+  type FactorAvailability,
+  type FactorWeights,
+} from "@/lib/monitor/ranking";
+
+interface AlternativesRankerProps {
+  readonly graph?: AlertGraph;
+  /** The weights `graph.alternatives` was ranked under, or null before the
+   *  reader has ranked anything. Owned above, because the globe draws the same
+   *  ranking and the two must not disagree. */
+  readonly appliedWeights: FactorWeights | null;
+  readonly onRank: (weights: FactorWeights) => void;
+  readonly selectedNodeId: string | null;
+  readonly onSelectNode: (id: string) => void;
+  /** Why there is no graph, where a fetch is pending or failed. */
+  readonly emptyReason: string | null;
+}
+
+const WEIGHT_STEPS = Array.from({ length: MAX_FACTOR_WEIGHT }, (_, i) => i + 1);
+
+/** Factors carrying weight, in list order: what a ranking was struck on. */
+function weighted(
+  weights: FactorWeights,
+  factors: readonly FactorAvailability[],
+): readonly FactorAvailability[] {
+  return factors.filter((f) => (weights[f.factor] ?? 0) > 0);
+}
+
+function sameWeights(
+  a: FactorWeights,
+  b: FactorWeights,
+  factors: readonly FactorAvailability[],
+): boolean {
+  return factors.every((f) => (a[f.factor] ?? 0) === (b[f.factor] ?? 0));
+}
+
+/** One factor: a 0-to-max weight, or the reason it cannot carry one. */
+function FactorRow({
+  availability,
+  weight,
+  onChange,
+}: {
+  readonly availability: FactorAvailability;
+  readonly weight: number;
+  readonly onChange: (weight: number) => void;
+}) {
+  const { factor, available, missing, total } = availability;
+  const name = FACTOR_NAME[factor] ?? factor;
+
+  if (!available) {
+    return (
+      <li
+        className="grid grid-cols-[1fr_auto] items-center gap-2 border-t border-surface-2 px-1 py-1.5 opacity-50"
+        title={`${missing} of ${total} candidates have no data for this factor, so ranking on it would rank on a guess.`}
+      >
+        <span className="text-[10.5px] text-text-tertiary">{name}</span>
+        <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+          Data incomplete · {missing}/{total}
+        </span>
+      </li>
+    );
+  }
+
+  return (
+    <li className="grid grid-cols-[1fr_auto] items-center gap-2 border-t border-surface-2 px-1 py-1.5">
+      <span className="flex flex-col">
+        <span
+          className={`text-[10.5px] ${weight > 0 ? "text-foreground" : "text-text-secondary"}`}
+        >
+          {name}
+        </span>
+        {missing > 0 && (
+          <span className="font-mono text-[9px] text-text-tertiary">
+            {missing} of {total} unassessed
+          </span>
+        )}
+      </span>
+      <span className="flex items-center gap-2">
+        <span
+          role="group"
+          aria-label={`${name} weight`}
+          className="flex items-center gap-[3px]"
+        >
+          {WEIGHT_STEPS.map((step) => (
+            <button
+              key={step}
+              type="button"
+              // Clicking the current weight clears it: the only way to zero.
+              onClick={() => onChange(step === weight ? 0 : step)}
+              aria-label={`${name}: weight ${step} of ${MAX_FACTOR_WEIGHT}`}
+              aria-pressed={step === weight}
+              className={`h-3 w-2.5 cursor-pointer border transition-colors ${
+                step <= weight
+                  ? "border-accent bg-accent"
+                  : "border-surface-2 hover:border-accent"
+              }`}
+            />
+          ))}
+        </span>
+        <span className="w-3 text-right font-mono text-[10px] text-text-secondary tabular-nums">
+          {weight}
+        </span>
+      </span>
+    </li>
+  );
+}
+
+/** One ranked source. The row opens the asset's reference detail on the globe. */
+function RankedRow({
+  alt,
+  feedsName,
+  factors,
+  active,
+  onSelect,
+}: {
+  readonly alt: AlternativeSource;
+  readonly feedsName?: string;
+  /** Factor ids the ranking was struck on; only these are worth printing. */
+  readonly factors: readonly string[];
+  readonly active: boolean;
+  readonly onSelect: () => void;
+}) {
+  const used = (alt.scoreFactors ?? []).filter((f) =>
+    factors.includes(f.factor),
+  );
+  return (
+    <li className="border-t border-surface-2">
+      <button
+        type="button"
+        onClick={onSelect}
+        title="Show this asset's reference detail"
+        className={`grid w-full cursor-pointer grid-cols-[18px_1fr_auto] items-baseline gap-2 px-1 py-2 text-left transition-colors ${
+          active ? "bg-accent-tint" : "hover:bg-ghost-hover"
+        }`}
+      >
+        <span className="font-mono text-[13px] font-semibold text-accent tabular-nums">
+          {alt.rank}
+        </span>
+        <span className="flex flex-col gap-0.5">
+          <span className="text-xs font-semibold text-foreground">
+            {alt.name}
+          </span>
+          <span className="text-[10.5px] text-text-secondary">
+            {alt.country}
+            {feedsName ? ` · feeds ${feedsName}` : ""}
+          </span>
+          {used.length > 0 && (
+            <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
+              {/* "?" marks a fallback, so a guess never reads as a disclosure. */}
+              {used
+                .map((f) => `${f.label.replace(/_/g, " ")}${f.known ? "" : " ?"}`)
+                .join(" · ")}
+            </span>
+          )}
+        </span>
+        {alt.score != null && (
+          <span
+            className="font-mono text-[11px] font-semibold text-foreground tabular-nums"
+            title={`Score ${alt.score.toFixed(0)} of 100 under the weights above`}
+          >
+            {alt.score.toFixed(0)}
+          </span>
+        )}
+      </button>
+    </li>
+  );
+}
+
+/**
+ * Recommended alternatives, ranked on weights the reader sets.
+ *
+ * Three steps, top to bottom: weight the factors, rank, read the result. A
+ * factor the pool holds incomplete data for cannot take a weight — ranking on
+ * it would order candidates by a fallback value. Nothing is listed until the
+ * reader ranks, so the order on screen is always one they asked for.
+ *
+ * Mount with a `key` per alert: the draft weights are local state and must not
+ * carry from one mine's candidates to another's.
+ */
+export default function AlternativesRanker({
+  graph,
+  appliedWeights,
+  onRank,
+  selectedNodeId,
+  onSelectNode,
+  emptyReason,
+}: AlternativesRankerProps) {
+  const [draft, setDraft] = useState<FactorWeights>(DEFAULT_FACTOR_WEIGHTS);
+
+  if (!graph || graph.alternatives.length === 0) {
+    return (
+      <p className="text-xs text-text-tertiary">
+        {emptyReason ?? "No alternatives identified yet."}
+      </p>
+    );
+  }
+
+  const lookup = nodesById(graph);
+  const renderRows = (factors: readonly string[]) => (
+    <ul className="flex flex-col">
+      {graph.alternatives.map((alt) => (
+        <RankedRow
+          key={alt.id}
+          alt={alt}
+          feedsName={lookup.get(alt.feedsNodeId)?.name}
+          factors={factors}
+          active={alt.id === selectedNodeId}
+          onSelect={() => onSelectNode(alt.id)}
+        />
+      ))}
+    </ul>
+  );
+
+  // A fixture graph carries an order and no factors, so there is nothing to
+  // weight. Its list is shown as it stands.
+  if (!graph.candidates) return renderRows([]);
+
+  const factors = factorAvailability(graph.candidates);
+  const draftInPlay = weighted(draft, factors);
+  const dirty =
+    appliedWeights !== null && !sameWeights(draft, appliedWeights, factors);
+
+  return (
+    <div className="flex flex-col gap-2.5">
+      <div className="flex flex-col gap-1.5 border border-surface-2 px-3 py-2.5">
+        <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+          Weight what matters, 0 to {MAX_FACTOR_WEIGHT}. Weights are relative
+          to one another.
+        </p>
+        <ul className="flex flex-col">
+          {factors.map((availability) => (
+            <FactorRow
+              key={availability.factor}
+              availability={availability}
+              weight={draft[availability.factor] ?? 0}
+              onChange={(weight) =>
+                setDraft({ ...draft, [availability.factor]: weight })
+              }
+            />
+          ))}
+        </ul>
+        <button
+          type="button"
+          onClick={() => onRank(draft)}
+          disabled={draftInPlay.length === 0}
+          className="mt-1 w-full cursor-pointer border border-accent px-3 py-1.5 font-mono text-[10px] font-medium tracking-[0.15em] text-accent uppercase transition-colors hover:bg-accent-tint disabled:cursor-not-allowed disabled:border-surface-2 disabled:text-text-tertiary disabled:hover:bg-transparent"
+        >
+          {draftInPlay.length === 0
+            ? "Weight a factor to rank"
+            : appliedWeights === null
+              ? `Rank ${factors[0]?.total ?? 0} candidates`
+              : "Rank again"}
+        </button>
+      </div>
+
+      {appliedWeights !== null && (
+        <div className="flex flex-col gap-1">
+          <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+            Ranked on{" "}
+            {weighted(appliedWeights, factors)
+              .map(
+                (f) =>
+                  `${FACTOR_NAME[f.factor] ?? f.factor} ×${appliedWeights[f.factor]}`,
+              )
+              .join(", ")}
+            .
+            {dirty && (
+              <span className="text-accent">
+                {" "}
+                Weights changed since — rank again to apply.
+              </span>
+            )}
+          </p>
+          {renderRows(weighted(appliedWeights, factors).map((f) => f.factor))}
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import type { Alert, Confidence } from "@/lib/monitor/alerts";
 import type {
   ApiPlatformExposure,
@@ -15,13 +13,10 @@ import {
   UNSOURCED_ORIGIN,
 } from "@/lib/monitor/provenance";
 import { ConfidenceDot, ConfidencePie, DetailRow } from "./ProvenanceDot";
-import {
-  graphForAlert,
-  nodesById,
-  type AlertGraph,
-  type ScoreFactorBreakdown,
-} from "@/lib/monitor/graphs";
+import { graphForAlert, type AlertGraph } from "@/lib/monitor/graphs";
+import type { FactorWeights } from "@/lib/monitor/ranking";
 import { IMPACT_COLOR, SEVERITY_COLOR } from "@/lib/monitor/colors";
+import AlternativesRanker from "./AlternativesRanker";
 import ElementBadges from "./ElementBadges";
 
 interface DecisionPanelProps {
@@ -35,95 +30,12 @@ interface DecisionPanelProps {
   readonly exposureState?: "idle" | "loading" | "error";
   /** Fetch state for a live alert, so an empty panel says which kind of empty. */
   readonly loadState?: "idle" | "loading" | "error";
+  /** Weights `liveGraph.alternatives` is ranked under; null until the reader
+   *  ranks. Held by the console so the globe shows the same order. */
+  readonly appliedWeights: FactorWeights | null;
+  readonly onRank: (weights: FactorWeights) => void;
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
-}
-
-// Display names for the score factors, keyed by ScoreFactor in
-// api/src/disruption.py. The score breakdown is the only thing that reads them,
-// so this is a name map rather than the fuller table it used to be.
-const FACTOR_NAME: Record<string, string> = {
-  time_to_flow: "Time to flow",
-  coverage: "Coverage of the gap",
-  evidence: "Evidence class",
-  alignment: "Country alignment",
-  commitment: "Prior commitment",
-  confidence: "Assertion confidence",
-};
-
-/** Per-factor breakdown for one row's score. Rendered outside the row button,
- *  which cannot legally contain another interactive element.
- *
- *  Only the factors that built the score appear. The API returns all six so a
- *  client can tell an excluded factor from one that was never computed, but a
- *  row of zeroes explains nothing about *this* score, and under a single-factor
- *  policy five of six would be zeroes. Which factors carry weight, and which
- *  the caller excluded, is the scoring-method block's job. */
-function ScoreBreakdown({
-  factors,
-}: {
-  readonly factors: readonly ScoreFactorBreakdown[];
-}) {
-  const used = factors.filter((f) => f.maxContribution > 0);
-  // Track widths are proportional to what each factor could contribute, so a
-  // low-weight factor does not read as a failed high-weight one.
-  const widest = Math.max(...used.map((f) => f.maxContribution), 1);
-  return (
-    <div className="flex flex-col gap-1.5 border-t border-surface-2 bg-surface-1 px-2 py-2">
-      <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
-        Ranking Score Breakdown
-      </p>
-      <ul className="flex flex-col gap-1">
-        {used.map((f) => {
-          const earned = f.contribution / f.maxContribution;
-          return (
-            <li
-              key={f.factor}
-              // The bar gets a fixed cell rather than sharing flex space with the
-              // label: the widest track would otherwise squeeze the label out
-              // entirely, and the "?" that marks a fallback with it.
-              className="grid grid-cols-[70px_52px_1fr_26px] items-center gap-2"
-              title={
-                f.detail ??
-                `${f.contribution.toFixed(1)} of ${f.maxContribution.toFixed(1)} available points`
-              }
-            >
-              <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
-                {FACTOR_NAME[f.factor] ?? f.factor}
-              </span>
-              <span aria-hidden className="block">
-                {/* Track width is proportional to what the factor could contribute,
-                  so a low-weight factor does not read as a failed high-weight one. */}
-                <span
-                  className="block h-[3px] bg-surface-2"
-                  style={{ width: `${(f.maxContribution / widest) * 100}%` }}
-                >
-                  {/* Grey rather than accent where the value is a fallback, so a
-                    guess never renders with the authority of a disclosure. */}
-                  <span
-                    className={`block h-full ${f.known ? "bg-accent" : "bg-text-tertiary"}`}
-                    style={{ width: `${earned * 100}%` }}
-                  />
-                </span>
-              </span>
-              <span
-                className={`truncate font-mono text-[9px] ${
-                  f.known ? "text-text-tertiary" : "text-text-secondary"
-                }`}
-                title={f.known ? undefined : (f.detail ?? undefined)}
-              >
-                {f.label}
-                {f.known ? "" : " ?"}
-              </span>
-              <span className="text-right font-mono text-[9px] text-text-secondary tabular-nums">
-                {f.contribution.toFixed(1)}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
 }
 
 /** source_id -> the document, so an edge can name what it rests on. */
@@ -640,15 +552,12 @@ export default function DecisionPanel({
   exposure,
   exposureState = "idle",
   loadState = "idle",
+  appliedWeights,
+  onRank,
   selectedNodeId,
   onSelectNode,
 }: DecisionPanelProps) {
-  // Which row has its score explanation open. Separate from `selectedNodeId`:
-  // that drives the asset detail on the globe, and asking "why this score" is a
-  // different question from "what is this asset".
-  const [explainedId, setExplainedId] = useState<string | null>(null);
   const graph = liveGraph ?? graphForAlert(alert.id);
-  const lookup = graph ? nodesById(graph) : undefined;
   const minerals = mineralsFor(alert, exposure);
   const entity = entityFor(alert, graph);
   // An empty panel means three different things; saying which avoids reading
@@ -835,96 +744,16 @@ export default function DecisionPanel({
         {/* Recommended alternatives */}
         <div className="flex flex-col gap-1.5">
           <Kicker>Recommended alternatives</Kicker>
-          {graph && graph.alternatives.length > 0 ? (
-            <ul className="flex flex-col">
-              {graph.alternatives.map((alt) => {
-                const feeds = lookup?.get(alt.feedsNodeId);
-                const active = alt.id === selectedNodeId;
-                const explained = alt.id === explainedId;
-                return (
-                  <li key={alt.id} className="border-t border-surface-2">
-                    {/* Two controls, two questions. The row opens the asset
-                        detail; the score opens the arithmetic behind itself. */}
-                    <div className="flex items-stretch">
-                      <button
-                        type="button"
-                        onClick={() => onSelectNode(alt.id)}
-                        title="Show this asset's reference detail"
-                        className={`grid min-w-0 flex-1 cursor-pointer grid-cols-[18px_1fr] items-baseline gap-2 px-1 py-2 text-left transition-colors ${
-                          active ? "bg-accent-tint" : "hover:bg-ghost-hover"
-                        }`}
-                      >
-                        <span className="font-mono text-[13px] font-semibold text-accent tabular-nums">
-                          {alt.rank}
-                        </span>
-                        <span className="flex flex-col gap-0.5">
-                          <span className="text-xs font-semibold text-foreground">
-                            {alt.name}
-                          </span>
-                          <span className="text-[10.5px] text-text-secondary">
-                            {alt.country}
-                            {feeds ? ` · feeds ${feeds.name}` : ""}
-                          </span>
-                          {alt.score != null && (
-                            <span
-                              aria-hidden
-                              className="mt-0.5 h-[2px] w-full bg-surface-2"
-                            >
-                              <span
-                                className="block h-full bg-accent"
-                                style={{ width: `${alt.score}%` }}
-                              />
-                            </span>
-                          )}
-                        </span>
-                      </button>
-                      {alt.score != null && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setExplainedId(explained ? null : alt.id)
-                          }
-                          aria-expanded={explained}
-                          title={
-                            explained
-                              ? "Hide how this score was reached"
-                              : `Score ${alt.score.toFixed(0)} of 100 — show how it was reached`
-                          }
-                          className={`m-2 flex shrink-0 cursor-pointer items-center gap-1 self-center border px-2 py-1 font-mono text-[11px] font-semibold tabular-nums transition-colors ${
-                            explained
-                              ? "border-accent bg-accent-tint text-accent"
-                              : "border-surface-2 text-foreground hover:border-accent hover:text-accent"
-                          }`}
-                        >
-                          {alt.score.toFixed(0)}
-                          <span
-                            aria-hidden
-                            className="disclosure-caret text-[9px] leading-none text-accent"
-                            style={{
-                              transform: explained
-                                ? "rotate(180deg)"
-                                : undefined,
-                            }}
-                          >
-                            ▼
-                          </span>
-                        </button>
-                      )}
-                    </div>
-                    {/* Outside the buttons: a button cannot legally contain
-                        another interactive element, and this carries titled detail. */}
-                    {explained && alt.scoreFactors && (
-                      <ScoreBreakdown factors={alt.scoreFactors} />
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          ) : (
-            <p className="text-xs text-text-tertiary">
-              {emptyReason ?? "No alternatives identified yet."}
-            </p>
-          )}
+          {/* Keyed by alert: the draft weights belong to one mine's pool. */}
+          <AlternativesRanker
+            key={alert.id}
+            graph={graph}
+            appliedWeights={appliedWeights}
+            onRank={onRank}
+            selectedNodeId={selectedNodeId}
+            onSelectNode={onSelectNode}
+            emptyReason={emptyReason}
+          />
         </div>
       </div>
 
