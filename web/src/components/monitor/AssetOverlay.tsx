@@ -364,15 +364,15 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
             )}
             {asset.is_dytb_refiner && (
               <>
-                <dt className="text-text-tertiary uppercase">Output</dt>
-                <dd className="text-accent">Dedicated Dy/Tb stream</dd>
+                <dt className="text-text-tertiary uppercase">Dy/Tb</dt>
+                <dd className="text-accent">Separates Dy and Tb as its own product</dd>
               </>
             )}
           </dl>
 
           {asset.figures.length > 0 && (
             <Section
-              title={asset.kind === "MINE" ? "Production figures" : "Nameplate capacity"}
+              title={asset.kind === "MINE" ? "How much it produces" : "How much it can process"}
             >
               <ul className="flex flex-col divide-y divide-surface-2">
                 {asset.figures.map((figure, i) => (
@@ -387,7 +387,7 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
           )}
 
           {asset.accepted_feeds.length > 0 && (
-            <Section title="Feed envelope">
+            <Section title="What it takes in">
               <ul className="flex flex-col gap-1">
                 {asset.accepted_feeds.map((feed) => (
                   <li key={feed.material_id} className="text-[10.5px] text-text-secondary">
@@ -395,13 +395,13 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
                       {feed.accepted_hosts.length
-                        ? feed.accepted_hosts.map(humanise).join(", ")
-                        : "any host / undisclosed"}
+                        ? `from ${feed.accepted_hosts.map(humanise).join(", ")}`
+                        : "host mineral not stated"}
                     </span>
                     <Attribution
                       provenance={feed.provenance}
                       index={index}
-                      subject={`Accepts ${feed.material_name ?? feed.material_id}`}
+                      subject={`Takes in ${feed.material_name ?? feed.material_id}`}
                     />
                   </li>
                 ))}
@@ -410,20 +410,21 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
           )}
 
           {asset.products.length > 0 && (
-            <Section title="Ships">
+            <Section title="What it sells">
               <ul className="flex flex-col gap-1">
                 {asset.products.map((product) => (
                   <li key={product.material_id} className="text-[10.5px] text-text-secondary">
                     {product.material_name ?? product.material_id}
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
-                      {humanise(product.host_mineral)}
-                      {product.grade_pct_treo != null && ` · ${product.grade_pct_treo}% TREO`}
+                      {`in ${humanise(product.host_mineral).toLowerCase()}`}
+                      {product.grade_pct_treo != null &&
+                        ` · ${product.grade_pct_treo}% rare earth oxides`}
                     </span>
                     <Attribution
                       provenance={product.provenance}
                       index={index}
-                      subject={`Ships ${product.material_name ?? product.material_id}`}
+                      subject={`Sells ${product.material_name ?? product.material_id}`}
                     />
                   </li>
                 ))}
@@ -432,11 +433,11 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
           )}
 
           {(asset.supplied_by.length > 0 || asset.supplies_to.length > 0) && (
-            <Section title="Curated supply links">
+            <Section title="Who it trades with">
               <ul className="flex flex-col gap-0.5">
                 {asset.supplied_by.map((link) => (
                   <li key={link.relationship_id} className="text-[10px] text-text-secondary">
-                    <span className="font-mono text-[9px] text-text-tertiary">← </span>
+                    <span className="font-mono text-[9px] text-text-tertiary">Buys from </span>
                     {link.name ?? link.id}
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
@@ -445,13 +446,13 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                     <Attribution
                       provenance={link.provenance}
                       index={index}
-                      subject={`Supplied by ${link.name ?? link.id} · ${humanise(link.status)}`}
+                      subject={`Buys from ${link.name ?? link.id} · ${humanise(link.status)}`}
                     />
                   </li>
                 ))}
                 {asset.supplies_to.map((link) => (
                   <li key={link.relationship_id} className="text-[10px] text-text-secondary">
-                    <span className="font-mono text-[9px] text-text-tertiary">→ </span>
+                    <span className="font-mono text-[9px] text-text-tertiary">Sells to </span>
                     {link.name ?? link.id}
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
@@ -460,7 +461,7 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                     <Attribution
                       provenance={link.provenance}
                       index={index}
-                      subject={`Supplies ${link.name ?? link.id} · ${humanise(link.status)}`}
+                      subject={`Sells to ${link.name ?? link.id} · ${humanise(link.status)}`}
                     />
                   </li>
                 ))}
