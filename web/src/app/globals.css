@@ -203,3 +203,99 @@ body {
 .disclosure[open] > summary .when-open {
   display: inline;
 }
+
+/* ── Ranked alternatives ─────────────────────────────────────────────────────
+   Entrance and sweep for RankedList. Rows that *move* are animated from script
+   (their distance is only known after layout); everything here is the part CSS
+   can do alone. `backwards` holds a delayed row at its first frame, so a
+   staggered row is invisible rather than sitting in place before its turn. */
+@keyframes rank-row-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rank-row {
+  animation: rank-row-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+@keyframes rank-bar-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.rank-bar {
+  transform-origin: left;
+  animation: rank-bar-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+/* A re-rank changes a segment's width on a row that stays mounted. */
+.rank-bar-segment {
+  transition: width 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* One pass of a scan line down the list each time the reader ranks. */
+@keyframes rank-scan {
+  0% {
+    top: 0;
+    opacity: 0.9;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.rank-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 1px;
+  pointer-events: none;
+  background: var(--accent);
+  box-shadow: 0 0 8px 1px rgb(255 160 40 / 0.55);
+  animation: rank-scan 650ms ease-out forwards;
+}
+
+@keyframes rank-delta-in {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rank-delta {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: rank-delta-in 300ms ease-out 350ms backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rank-row,
+  .rank-bar,
+  .rank-delta {
+    animation: none;
+  }
+  .rank-bar-segment {
+    transition: none;
+  }
+  .rank-scan {
+    display: none;
+  }
+}

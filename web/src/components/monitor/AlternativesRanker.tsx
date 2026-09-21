@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { AlertGraph, AlternativeSource } from "@/lib/monitor/graphs";
+import type { AlertGraph } from "@/lib/monitor/graphs";
 import { nodesById } from "@/lib/monitor/graphs";
 import {
   DEFAULT_FACTOR_WEIGHTS,
@@ -11,6 +11,7 @@ import {
   type FactorAvailability,
   type FactorWeights,
 } from "@/lib/monitor/ranking";
+import RankedList, { FACTOR_SHADE } from "./RankedList";
 
 interface AlternativesRankerProps {
   readonly graph?: AlertGraph;
@@ -122,67 +123,6 @@ function FactorRow({
   );
 }
 
-/** One ranked source. The row opens the asset's reference detail on the globe. */
-function RankedRow({
-  alt,
-  feedsName,
-  factors,
-  active,
-  onSelect,
-}: {
-  readonly alt: AlternativeSource;
-  readonly feedsName?: string;
-  /** Factor ids the ranking was struck on; only these are worth printing. */
-  readonly factors: readonly string[];
-  readonly active: boolean;
-  readonly onSelect: () => void;
-}) {
-  const used = (alt.scoreFactors ?? []).filter((f) =>
-    factors.includes(f.factor),
-  );
-  return (
-    <li className="border-t border-surface-2">
-      <button
-        type="button"
-        onClick={onSelect}
-        title="Show this asset's reference detail"
-        className={`grid w-full cursor-pointer grid-cols-[18px_1fr_auto] items-baseline gap-2 px-1 py-2 text-left transition-colors ${
-          active ? "bg-accent-tint" : "hover:bg-ghost-hover"
-        }`}
-      >
-        <span className="font-mono text-[13px] font-semibold text-accent tabular-nums">
-          {alt.rank}
-        </span>
-        <span className="flex flex-col gap-0.5">
-          <span className="text-xs font-semibold text-foreground">
-            {alt.name}
-          </span>
-          <span className="text-[10.5px] text-text-secondary">
-            {alt.country}
-            {feedsName ? ` · feeds ${feedsName}` : ""}
-          </span>
-          {used.length > 0 && (
-            <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
-              {/* "?" marks a fallback, so a guess never reads as a disclosure. */}
-              {used
-                .map((f) => `${f.label.replace(/_/g, " ")}${f.known ? "" : " ?"}`)
-                .join(" · ")}
-            </span>
-          )}
-        </span>
-        {alt.score != null && (
-          <span
-            className="font-mono text-[11px] font-semibold text-foreground tabular-nums"
-            title={`Score ${alt.score.toFixed(0)} of 100 under the weights above`}
-          >
-            {alt.score.toFixed(0)}
-          </span>
-        )}
-      </button>
-    </li>
-  );
-}
-
 /**
  * Recommended alternatives, ranked on weights the reader sets.
  *
@@ -209,6 +149,9 @@ export default function AlternativesRanker({
     appliedWeights ?? DEFAULT_FACTOR_WEIGHTS,
   );
 
+  // Counts Rank clicks, so the list can replay its sweep on each one.
+  const [run, setRun] = useState(0);
+
   if (!graph || graph.alternatives.length === 0) {
     return (
       <p className="text-xs text-text-tertiary">
@@ -219,18 +162,14 @@ export default function AlternativesRanker({
 
   const lookup = nodesById(graph);
   const renderRows = (factors: readonly string[]) => (
-    <ul className="flex flex-col">
-      {graph.alternatives.map((alt) => (
-        <RankedRow
-          key={alt.id}
-          alt={alt}
-          feedsName={lookup.get(alt.feedsNodeId)?.name}
-          factors={factors}
-          active={alt.id === selectedNodeId}
-          onSelect={() => onSelectNode(alt.id)}
-        />
-      ))}
-    </ul>
+    <RankedList
+      alternatives={graph.alternatives}
+      factors={factors}
+      feedsName={(nodeId) => lookup.get(nodeId)?.name}
+      run={run}
+      selectedNodeId={selectedNodeId}
+      onSelectNode={onSelectNode}
+    />
   );
 
   // A fixture graph carries an order and no factors, so there is nothing to
@@ -268,7 +207,10 @@ export default function AlternativesRanker({
         </ul>
         <button
           type="button"
-          onClick={() => onRank(usable)}
+          onClick={() => {
+            setRun(run + 1);
+            onRank(usable);
+          }}
           disabled={draftInPlay.length === 0}
           className="mt-1 w-full cursor-pointer border border-accent px-3 py-1.5 font-mono text-[10px] font-medium tracking-[0.15em] text-accent uppercase transition-colors hover:bg-accent-tint disabled:cursor-not-allowed disabled:border-surface-2 disabled:text-text-tertiary disabled:hover:bg-transparent"
         >
@@ -284,12 +226,18 @@ export default function AlternativesRanker({
         <div className="flex flex-col gap-1">
           <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
             Ranked on{" "}
-            {weighted(appliedWeights, factors)
-              .map(
-                (f) =>
-                  `${FACTOR_NAME[f.factor] ?? f.factor} ×${appliedWeights[f.factor]}`,
-              )
-              .join(", ")}
+            {weighted(appliedWeights, factors).map((f, i) => (
+              <span key={f.factor}>
+                {i > 0 && ", "}
+                {/* The swatch is the factor's segment colour in the bars below. */}
+                <span
+                  aria-hidden
+                  className="mr-1 inline-block size-[6px]"
+                  style={{ background: FACTOR_SHADE[f.factor] }}
+                />
+                {FACTOR_NAME[f.factor] ?? f.factor} ×{appliedWeights[f.factor]}
+              </span>
+            ))}
             .
             {dirty && (
               <span className="text-accent">
