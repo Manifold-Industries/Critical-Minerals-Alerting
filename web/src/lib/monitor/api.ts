@@ -12,12 +12,14 @@ import type {
   GeoNode,
   ImpactLevel,
 } from "./graphs";
+import {
+  ALTERNATIVES_SHOWN,
+  DEFAULT_FACTOR_WEIGHTS,
+  rankCandidates,
+} from "./ranking";
 
 /** Same origin as the page; next.config.ts forwards it to the API server. */
 const BASE = "/api";
-
-/** Alternatives per affected plant. The engine returns ~20; the rail shows a few. */
-const ALTERNATIVES_PER_FACILITY = 4;
 
 export interface ApiCoordinates {
   readonly lat: number;
@@ -192,10 +194,9 @@ export async function fetchDisruption(
   options: { readonly asOfYear?: number; readonly signal?: AbortSignal } = {},
 ): Promise<DisruptionResponse> {
   const { asOfYear = DEFAULT_IMPACT_YEAR, signal } = options;
-  const params = new URLSearchParams({
-    as_of_year: String(asOfYear),
-    limit: String(ALTERNATIVES_PER_FACILITY),
-  });
+  // No `limit`: the engine caps best-first under its own weights, and the
+  // reader can re-weight, so the cap has to come after ranking, not before.
+  const params = new URLSearchParams({ as_of_year: String(asOfYear) });
   const res = await fetch(`${BASE}/disruption/${mineId}?${params}`, { signal });
   if (!res.ok) {
     throw new Error(`Disruption request failed for ${mineId}: ${res.status}`);
@@ -319,50 +320,42 @@ export function toAlertGraph(res: DisruptionResponse): AlertGraph | undefined {
     }
   }
 
-  // Rank is sequential across the whole panel, but the engine's ordering within
-  // each plant is preserved. Scores are on one scale across plants, so they
-  // could be re-sorted here — they are not, because the engine breaks exact ties
-  // on a key that is not serialised, and re-sorting would drop it.
-  const alternatives: AlternativeSource[] = [];
-  const usedSources = new Set<string>();
-  for (const facility of res.impacted) {
-    for (const alt of facility.alternatives) {
-      if (usedSources.has(alt.source_id) || !alt.coordinates) continue;
-      usedSources.add(alt.source_id);
-      // The API measured `decisive_factor` against a specific row. Dedupe and
-      // the flattening of per-facility lists can both break that adjacency, and
-      // showing "↓ slower to flow" beside a row it was not compared with states
-      // a comparison nobody made. Keep it only where the pairing survived.
-      const above = alternatives[alternatives.length - 1];
-      const pairingHolds =
-        alt.decisive_against != null && above?.id === alt.decisive_against;
-      alternatives.push({
-        id: alt.source_id,
-        rank: alternatives.length + 1,
-        name: alt.name ?? alt.source_id,
-        country: alt.country_name ?? alt.country_id ?? "",
-        lon: alt.coordinates.lon,
-        lat: alt.coordinates.lat,
-        feedsNodeId: facility.facility_id,
-        evidenceClass: alt.evidence_class,
-        score: alt.score.value,
-        scoreFactors: alt.score.factors.map((f) => ({
-          factor: f.factor,
-          label: f.raw_label,
-          contribution: f.contribution,
-          maxContribution: f.max_contribution,
-          known: f.known,
-          detail: f.detail,
-        })),
-        decisiveFactor: pairingHolds ? alt.decisive_factor : null,
-        decisiveBasis: pairingHolds ? alt.decisive_basis : null,
-        decisiveMargin: pairingHolds ? alt.decisive_margin : null,
-        tiedWithPrevious: pairingHolds && alt.tied_with_previous,
-      });
-    }
-  }
+  // One row per (source, plant) pairing, in the engine's order. Ranking, the
+  // dedupe of a source that could feed two plants, and the cap all happen in
+  // `rankCandidates`, because all three depend on the weights in play.
+  const candidates: readonly AlternativeSource[] = res.impacted.flatMap(
+    (facility) =>
+      facility.alternatives.flatMap((alt) =>
+        alt.coordinates
+          ? [
+              {
+                id: alt.source_id,
+                rank: 0,
+                name: alt.name ?? alt.source_id,
+                country: alt.country_name ?? alt.country_id ?? "",
+                lon: alt.coordinates.lon,
+                lat: alt.coordinates.lat,
+                feedsNodeId: facility.facility_id,
+                evidenceClass: alt.evidence_class,
+                score: alt.score.value,
+                scoreFactors: alt.score.factors.map((f) => ({
+                  factor: f.factor,
+                  label: f.raw_label,
+                  normalized: f.normalized,
+                  contribution: f.contribution,
+                  maxContribution: f.max_contribution,
+                  known: f.known,
+                  detail: f.detail,
+                })),
+              },
+            ]
+          : [],
+      ),
+  );
 
   return {
+    asOfYear: res.as_of_year,
+    warnings: res.warnings,
     capacity: res.capacity_context ?? undefined,
     scoring: {
       version: res.scoring.version,
@@ -379,7 +372,12 @@ export function toAlertGraph(res: DisruptionResponse): AlertGraph | undefined {
     },
     downstream,
     edges,
-    alternatives,
+    alternatives: rankCandidates(
+      candidates,
+      DEFAULT_FACTOR_WEIGHTS,
+      ALTERNATIVES_SHOWN,
+    ),
+    candidates,
   };
 }
 

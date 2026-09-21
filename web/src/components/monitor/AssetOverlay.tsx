@@ -63,33 +63,21 @@ function Attribution({
   );
 }
 
-function Section({
-  title,
-  children,
-}: {
-  readonly title: string;
-  readonly children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-1 border-t border-surface-2 pt-2">
-      <h4 className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
-        {title}
-      </h4>
-      {children}
-    </div>
-  );
-}
-
 /**
- * A section that starts closed. For prose the panel should offer but not lead
- * with: the heading still says the notes are there, and the graded rows above
- * keep the top of the panel.
+ * A section that starts closed, so the header, the verification note and the
+ * key facts keep the first screen. The heading carries a count so a closed
+ * section still says whether there is anything inside; "none" is a statement,
+ * not an absence, which is why an empty section is rendered rather than
+ * dropped.
  */
 function CollapsibleSection({
   title,
+  count,
   children,
 }: {
   readonly title: string;
+  /** Rows inside. Omit for prose sections, where a count means nothing. */
+  readonly count?: number;
   readonly children: React.ReactNode;
 }) {
   return (
@@ -100,11 +88,22 @@ function CollapsibleSection({
         </span>
         <h4 className="font-mono text-[9px] font-semibold tracking-[0.15em] uppercase">
           {title}
+          {count !== undefined && (
+            <span className="font-normal text-text-tertiary">
+              {" "}
+              ({count === 0 ? "none" : count})
+            </span>
+          )}
         </h4>
       </summary>
       {children}
     </details>
   );
+}
+
+/** What an open, empty section says. The graph is incomplete, not silent. */
+function Empty({ children }: { readonly children: string }) {
+  return <p className="text-[9.5px] text-text-tertiary">{children}</p>;
 }
 
 /**
@@ -121,7 +120,7 @@ function FigureRow({
 }) {
   const replaced = figure.superseded_by != null;
   const amount = `${figure.tonnes.toLocaleString()} t${
-    figure.period === "LIFE_OF_MINE" ? " LOM" : "/yr"
+    figure.period === "LIFE_OF_MINE" ? " over life of mine" : " a year"
   }`;
   return (
     <li className="flex flex-col gap-0.5 py-1">
@@ -141,8 +140,8 @@ function FigureRow({
       </span>
       <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
         {figure.target_year ? `by ${figure.target_year}` : "no target year"}
-        {replaced && ` · superseded by ${figure.superseded_by}`}
-        {` · ${figure.provenance.type.toLowerCase()}`}
+        {replaced && ` · replaced by the ${figure.superseded_by} figure`}
+        {` · ${humanise(figure.provenance.type)}`}
         <Attribution
           provenance={figure.provenance}
           index={index}
@@ -154,30 +153,43 @@ function FigureRow({
 }
 
 /**
- * The documents everything above rests on, numbered to match the markers.
+ * How much of the card has been checked against the documents it cites.
  *
- * Bottom of the panel rather than inline: a citation is what a reader reaches
- * for after a figure has caught their eye, and the full name of an ASX
- * announcement beside every tonnage would bury the tonnages.
- *
- * Two things this has to keep saying. The confidence here rates the *document*,
- * while the confidence on a row rates the reading drawn from it — a careful
- * reading of a weak source is not a strong claim. And nothing in this graph has
- * been checked against the document it cites, so the count of unverified
- * extractions is computed and stated rather than left for a reader to assume
- * the friendlier answer.
+ * Top of the panel rather than under the bibliography: nothing in this graph
+ * has been verified against its source, and that is the one thing a reader
+ * should know before trusting any row. Computed rather than asserted, so it
+ * cannot drift from the markers it describes.
  */
-function Sources({
-  sources,
+function VerificationNote({
   unverified,
   cited,
 }: {
-  readonly sources: readonly ApiSourceRef[];
   readonly unverified: number;
   readonly cited: number;
 }) {
+  if (cited === 0) return null;
   return (
-    <Section title={`Sources (${sources.length})`}>
+    <p className="text-[9.5px] leading-relaxed text-text-tertiary">
+      <span className="text-accent">Unverified.</span> {unverified} of {cited}{" "}
+      cited claims were extracted by a model and not yet checked by a person.
+      Each dot shows the lower of its support and its source quality.
+    </p>
+  );
+}
+
+/**
+ * The documents everything above rests on, numbered to match the markers.
+ *
+ * Collapsed by default: every fact here is also in the popover of the dot
+ * beside the claim, so for a sighted reader this is a repeat. It stays because
+ * the popover is hidden from assistive tech and its link is out of the tab
+ * order, which makes this list the only keyboard-reachable route to a source,
+ * and because the footnote numbers on the rows point into it.
+ */
+function Sources({ sources }: { readonly sources: readonly ApiSourceRef[] }) {
+  return (
+    <CollapsibleSection title="Sources" count={sources.length}>
+      {sources.length === 0 && <Empty>No document is cited for this site.</Empty>}
       <ol className="flex flex-col gap-1.5">
         {sources.map((source, i) => (
           <li key={source.id} className="grid grid-cols-[14px_1fr] gap-1.5">
@@ -210,8 +222,8 @@ function Sources({
                   source.published_on,
                   humanise(source.source_type),
                   source.source_confidence
-                    ? `Source conf ${source.source_confidence.toLowerCase()}`
-                    : "Source unrated",
+                    ? `Source quality ${source.source_confidence.toLowerCase()}`
+                    : "Source quality unrated",
                   source.url ? null : "No retrievable location",
                 ]
                   .filter(Boolean)
@@ -229,14 +241,7 @@ function Sources({
           </li>
         ))}
       </ol>
-      <p className="mt-1 text-[9.5px] leading-relaxed text-text-tertiary">
-        <span className="text-accent">Unverified.</span> {unverified} of {cited}{" "}
-        cited claims were read out of these documents by a model and checked by
-        nobody. The dot on each row above grades it on the weaker of two
-        ratings: confidence in the reading, and the source confidence listed
-        here for the document it was read from.
-      </p>
-    </Section>
+    </CollapsibleSection>
   );
 }
 
@@ -322,6 +327,13 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
 
       {asset && (
         <div className="flex min-h-0 flex-col gap-2 overflow-y-auto px-3 py-2.5">
+          <VerificationNote
+            cited={provenances.length}
+            unverified={
+              provenances.filter((p) => p?.unverified_model_extraction).length
+            }
+          />
+
           <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 font-mono text-[9px] tracking-[0.05em]">
             {asset.operator_name && (
               <>
@@ -344,7 +356,7 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
             )}
             {asset.expected_start != null && (
               <>
-                <dt className="text-text-tertiary uppercase">Start</dt>
+                <dt className="text-text-tertiary uppercase">Expected start</dt>
                 <dd className="text-text-secondary">
                   {asset.expected_start}
                   <Attribution
@@ -366,30 +378,39 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
             )}
             {asset.is_dytb_refiner && (
               <>
-                <dt className="text-text-tertiary uppercase">Output</dt>
-                <dd className="text-accent">Dedicated Dy/Tb stream</dd>
+                <dt className="text-text-tertiary uppercase">Dy/Tb</dt>
+                <dd className="text-accent">Separates Dy and Tb as its own product</dd>
               </>
             )}
           </dl>
 
-          {asset.figures.length > 0 && (
-            <Section
-              title={asset.kind === "MINE" ? "Production figures" : "Nameplate capacity"}
-            >
-              <ul className="flex flex-col divide-y divide-surface-2">
-                {asset.figures.map((figure, i) => (
-                  <FigureRow
-                    key={`${figure.material_id}-${figure.target_year}-${i}`}
-                    figure={figure}
-                    index={index}
-                  />
-                ))}
-              </ul>
-            </Section>
-          )}
+          <CollapsibleSection
+            title={asset.kind === "MINE" ? "How much it produces" : "How much it can process"}
+            count={asset.figures.length}
+          >
+            {asset.figures.length === 0 && (
+              <Empty>
+                {asset.kind === "MINE"
+                  ? "No production figure is recorded for this mine."
+                  : "This plant publishes no capacity figure."}
+              </Empty>
+            )}
+            <ul className="flex flex-col divide-y divide-surface-2">
+              {asset.figures.map((figure, i) => (
+                <FigureRow
+                  key={`${figure.material_id}-${figure.target_year}-${i}`}
+                  figure={figure}
+                  index={index}
+                />
+              ))}
+            </ul>
+          </CollapsibleSection>
 
-          {asset.accepted_feeds.length > 0 && (
-            <Section title="Feed envelope">
+          {asset.kind === "FACILITY" && (
+            <CollapsibleSection title="What it takes in" count={asset.accepted_feeds.length}>
+              {asset.accepted_feeds.length === 0 && (
+                <Empty>No input material is recorded for this plant.</Empty>
+              )}
               <ul className="flex flex-col gap-1">
                 {asset.accepted_feeds.map((feed) => (
                   <li key={feed.material_id} className="text-[10.5px] text-text-secondary">
@@ -397,96 +418,96 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
                     <span className="font-mono text-[9px] text-text-tertiary">
                       {" · "}
                       {feed.accepted_hosts.length
-                        ? feed.accepted_hosts.map(humanise).join(", ")
-                        : "any host / undisclosed"}
+                        ? `from ${feed.accepted_hosts.map(humanise).join(", ")}`
+                        : "host mineral not stated"}
                     </span>
                     <Attribution
                       provenance={feed.provenance}
                       index={index}
-                      subject={`Accepts ${feed.material_name ?? feed.material_id}`}
+                      subject={`Takes in ${feed.material_name ?? feed.material_id}`}
                     />
                   </li>
                 ))}
               </ul>
-            </Section>
-          )}
-
-          {asset.products.length > 0 && (
-            <Section title="Ships">
-              <ul className="flex flex-col gap-1">
-                {asset.products.map((product) => (
-                  <li key={product.material_id} className="text-[10.5px] text-text-secondary">
-                    {product.material_name ?? product.material_id}
-                    <span className="font-mono text-[9px] text-text-tertiary">
-                      {" · "}
-                      {humanise(product.host_mineral)}
-                      {product.grade_pct_treo != null && ` · ${product.grade_pct_treo}% TREO`}
-                    </span>
-                    <Attribution
-                      provenance={product.provenance}
-                      index={index}
-                      subject={`Ships ${product.material_name ?? product.material_id}`}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </Section>
-          )}
-
-          {(asset.supplied_by.length > 0 || asset.supplies_to.length > 0) && (
-            <Section title="Curated supply links">
-              <ul className="flex flex-col gap-0.5">
-                {asset.supplied_by.map((link) => (
-                  <li key={link.relationship_id} className="text-[10px] text-text-secondary">
-                    <span className="font-mono text-[9px] text-text-tertiary">← </span>
-                    {link.name ?? link.id}
-                    <span className="font-mono text-[9px] text-text-tertiary">
-                      {" · "}
-                      {humanise(link.status)}
-                    </span>
-                    <Attribution
-                      provenance={link.provenance}
-                      index={index}
-                      subject={`Supplied by ${link.name ?? link.id} · ${humanise(link.status)}`}
-                    />
-                  </li>
-                ))}
-                {asset.supplies_to.map((link) => (
-                  <li key={link.relationship_id} className="text-[10px] text-text-secondary">
-                    <span className="font-mono text-[9px] text-text-tertiary">→ </span>
-                    {link.name ?? link.id}
-                    <span className="font-mono text-[9px] text-text-tertiary">
-                      {" · "}
-                      {humanise(link.status)}
-                    </span>
-                    <Attribution
-                      provenance={link.provenance}
-                      index={index}
-                      subject={`Supplies ${link.name ?? link.id} · ${humanise(link.status)}`}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </Section>
-          )}
-
-          {asset.description && (
-            <CollapsibleSection title="Notes">
-              <p className="text-[9.5px] leading-relaxed text-text-tertiary">
-                {asset.description}
-              </p>
             </CollapsibleSection>
           )}
 
-          {asset.sources.length > 0 && (
-            <Sources
-              sources={asset.sources}
-              cited={provenances.length}
-              unverified={
-                provenances.filter((p) => p?.unverified_model_extraction).length
-              }
-            />
-          )}
+          <CollapsibleSection title="What it sells" count={asset.products.length}>
+            {asset.products.length === 0 && (
+              <Empty>No product is recorded for this site.</Empty>
+            )}
+            <ul className="flex flex-col gap-1">
+              {asset.products.map((product) => (
+                <li key={product.material_id} className="text-[10.5px] text-text-secondary">
+                  {product.material_name ?? product.material_id}
+                  <span className="font-mono text-[9px] text-text-tertiary">
+                    {" · "}
+                    {`in ${humanise(product.host_mineral).toLowerCase()}`}
+                    {product.grade_pct_treo != null &&
+                      ` · ${product.grade_pct_treo}% rare earth oxides`}
+                  </span>
+                  <Attribution
+                    provenance={product.provenance}
+                    index={index}
+                    subject={`Sells ${product.material_name ?? product.material_id}`}
+                  />
+                </li>
+              ))}
+            </ul>
+          </CollapsibleSection>
+
+          <CollapsibleSection
+            title="Who it trades with"
+            count={asset.supplied_by.length + asset.supplies_to.length}
+          >
+            {asset.supplied_by.length + asset.supplies_to.length === 0 && (
+              <Empty>No supply relationship is recorded for this site.</Empty>
+            )}
+            <ul className="flex flex-col gap-0.5">
+              {asset.supplied_by.map((link) => (
+                <li key={link.relationship_id} className="text-[10px] text-text-secondary">
+                  <span className="font-mono text-[9px] text-text-tertiary">Buys from </span>
+                  {link.name ?? link.id}
+                  <span className="font-mono text-[9px] text-text-tertiary">
+                    {" · "}
+                    {humanise(link.status)}
+                  </span>
+                  <Attribution
+                    provenance={link.provenance}
+                    index={index}
+                    subject={`Buys from ${link.name ?? link.id} · ${humanise(link.status)}`}
+                  />
+                </li>
+              ))}
+              {asset.supplies_to.map((link) => (
+                <li key={link.relationship_id} className="text-[10px] text-text-secondary">
+                  <span className="font-mono text-[9px] text-text-tertiary">Sells to </span>
+                  {link.name ?? link.id}
+                  <span className="font-mono text-[9px] text-text-tertiary">
+                    {" · "}
+                    {humanise(link.status)}
+                  </span>
+                  <Attribution
+                    provenance={link.provenance}
+                    index={index}
+                    subject={`Sells to ${link.name ?? link.id} · ${humanise(link.status)}`}
+                  />
+                </li>
+              ))}
+            </ul>
+          </CollapsibleSection>
+
+          <CollapsibleSection title="Notes">
+            {asset.description ? (
+              <p className="text-[9.5px] leading-relaxed text-text-tertiary">
+                {asset.description}
+              </p>
+            ) : (
+              <Empty>No notes for this site.</Empty>
+            )}
+          </CollapsibleSection>
+
+          <Sources sources={asset.sources} />
         </div>
       )}
     </aside>

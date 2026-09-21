@@ -45,6 +45,9 @@ export interface ScoreFactorBreakdown {
   readonly factor: string;
   /** Display form of the underlying value: "PARTNER", "WITHIN_12M", "PARTIAL". */
   readonly label: string;
+  /** [0, 1], 1 is best, on every factor. Independent of the weights, which is
+   *  what lets the client re-rank without asking the engine again. */
+  readonly normalized: number;
   /** Points of the score. Contributions sum to the score itself. */
   readonly contribution: number;
   /** Points this factor could have contributed. Zero where it was excluded. */
@@ -71,16 +74,6 @@ export interface AlternativeSource {
   readonly score?: number;
   /** The factors behind `score`. Their contributions sum to it. */
   readonly scoreFactors?: readonly ScoreFactorBreakdown[];
-  /** What put this row below the one above. A ScoreFactor where `decisiveBasis`
-   *  is SCORE, a RankingKey field where it is TIEBREAK. */
-  readonly decisiveFactor?: string | null;
-  /** SCORE where the two rows scored differently, TIEBREAK where they did not. */
-  readonly decisiveBasis?: string | null;
-  /** Points the decisive factor was worth, on SCORE only. A 0.4 gap and a 30
-   *  gap are both "ranked lower" and must not read alike. */
-  readonly decisiveMargin?: number | null;
-  /** The score could not separate this row from the one above at all. */
-  readonly tiedWithPrevious?: boolean;
 }
 
 /** The weights a live graph's scores were computed under. */
@@ -102,6 +95,12 @@ export interface CapacityContext {
 }
 
 export interface AlertGraph {
+  /** Live graphs only. The year the simulation was struck at — every tonnage
+   *  and share in the graph moves with it, so a document quoting them needs it. */
+  readonly asOfYear?: number;
+  /** Live graphs only. The engine's own statements of what this run cannot
+   *  support, verbatim. */
+  readonly warnings?: readonly string[];
   readonly capacity?: CapacityContext;
   /** Live graphs only. Weights are an input, so the panel cannot explain a
    *  score without them. */
@@ -109,138 +108,14 @@ export interface AlertGraph {
   readonly asset: GeoNode;
   readonly downstream: readonly DownstreamNode[];
   readonly edges: readonly DependencyEdge[];
+  /** Ranked and capped: what the rail lists and the globe draws. */
   readonly alternatives: readonly AlternativeSource[];
+  /** Live graphs only. Every (source, plant) pairing the engine returned, in
+   *  its order and unranked — the pool `rankCandidates` works from. */
+  readonly candidates?: readonly AlternativeSource[];
 }
 
 export const GRAPHS: Readonly<Record<string, AlertGraph>> = {
-  "SA-041": {
-    asset: {
-      id: "ga-refinery",
-      name: "Zhanjiang Ga refinery",
-      role: "Primary gallium refining",
-      place: "Guangdong, China",
-      lon: 110.4,
-      lat: 21.2,
-    },
-    downstream: [
-      {
-        id: "ga-radar-fab",
-        name: "AESA module fab",
-        role: "Radar T/R modules",
-        place: "Andover, United States",
-        lon: -71.1,
-        lat: 42.7,
-        impact: "high",
-      },
-      {
-        id: "ga-basestation",
-        name: "5G base station plant",
-        role: "GaN power amplifiers",
-        place: "Stockholm, Sweden",
-        lon: 18.1,
-        lat: 59.3,
-        impact: "medium",
-      },
-      {
-        id: "ga-power",
-        name: "Power electronics line",
-        role: "GaN devices",
-        place: "Nagoya, Japan",
-        lon: 136.9,
-        lat: 35.2,
-        impact: "medium",
-      },
-    ],
-    edges: [
-      { from: "ga-refinery", to: "ga-radar-fab" },
-      { from: "ga-refinery", to: "ga-basestation" },
-      { from: "ga-refinery", to: "ga-power" },
-    ],
-    alternatives: [
-      {
-        id: "ga-alt-1",
-        rank: 1,
-        name: "Rio Tinto Ga circuit",
-        country: "Canada",
-        lon: -71.2,
-        lat: 48.4,
-        feedsNodeId: "ga-radar-fab",
-      },
-      {
-        id: "ga-alt-2",
-        rank: 2,
-        name: "Ingal recovery line",
-        country: "Germany",
-        lon: 6.9,
-        lat: 51.2,
-        feedsNodeId: "ga-basestation",
-      },
-    ],
-  },
-  "SA-038": {
-    asset: {
-      id: "co-corridor",
-      name: "Lobito rail corridor",
-      role: "Cobalt export corridor",
-      place: "Benguela, Angola",
-      lon: 13.5,
-      lat: -12.4,
-    },
-    downstream: [
-      {
-        id: "co-refinery",
-        name: "Cobalt refinery",
-        role: "Sulfate refining",
-        place: "Quzhou, China",
-        lon: 118.9,
-        lat: 28.9,
-        impact: "high",
-      },
-      {
-        id: "co-superalloy",
-        name: "Superalloy foundry",
-        role: "Turbine blade castings",
-        place: "Muskegon, United States",
-        lon: -86.2,
-        lat: 43.2,
-        impact: "medium",
-      },
-      {
-        id: "co-cathode",
-        name: "EV cathode line",
-        role: "NMC precursor",
-        place: "Gunsan, South Korea",
-        lon: 126.7,
-        lat: 35.9,
-        impact: "medium",
-      },
-    ],
-    edges: [
-      { from: "co-corridor", to: "co-refinery", transport: true },
-      { from: "co-refinery", to: "co-superalloy" },
-      { from: "co-refinery", to: "co-cathode" },
-    ],
-    alternatives: [
-      {
-        id: "co-alt-1",
-        rank: 1,
-        name: "Durban port reroute",
-        country: "South Africa",
-        lon: 31.0,
-        lat: -29.9,
-        feedsNodeId: "co-refinery",
-      },
-      {
-        id: "co-alt-2",
-        rank: 2,
-        name: "Dar es Salaam corridor",
-        country: "Tanzania",
-        lon: 39.3,
-        lat: -6.8,
-        feedsNodeId: "co-refinery",
-      },
-    ],
-  },
   "SA-036": {
     asset: {
       id: "ndpr-plant",
@@ -302,168 +177,6 @@ export const GRAPHS: Readonly<Record<string, AlertGraph>> = {
         lon: -115.5,
         lat: 35.5,
         feedsNodeId: "ndpr-magnets",
-      },
-    ],
-  },
-  "SA-033": {
-    asset: {
-      id: "gr-hub",
-      name: "Anode graphite hub",
-      role: "Spherical graphite supply",
-      place: "Heilongjiang, China",
-      lon: 127.5,
-      lat: 45.3,
-    },
-    downstream: [
-      {
-        id: "gr-anode",
-        name: "Anode plant",
-        role: "Coated anode material",
-        place: "Ulsan, South Korea",
-        lon: 129.3,
-        lat: 35.5,
-        impact: "high",
-      },
-      {
-        id: "gr-giga",
-        name: "Cell gigafactory",
-        role: "Battery cells",
-        place: "Sparks, United States",
-        lon: -119.4,
-        lat: 39.5,
-        impact: "medium",
-      },
-    ],
-    edges: [
-      { from: "gr-hub", to: "gr-anode" },
-      { from: "gr-anode", to: "gr-giga", transport: true },
-    ],
-    alternatives: [
-      {
-        id: "gr-alt-1",
-        rank: 1,
-        name: "Balama graphite",
-        country: "Mozambique",
-        lon: 38.5,
-        lat: -13.1,
-        feedsNodeId: "gr-anode",
-      },
-      {
-        id: "gr-alt-2",
-        rank: 2,
-        name: "Matawinie mine",
-        country: "Canada",
-        lon: -73.5,
-        lat: 46.6,
-        feedsNodeId: "gr-giga",
-      },
-    ],
-  },
-  "SA-029": {
-    asset: {
-      id: "li-brine",
-      name: "Salar brine expansion",
-      role: "Lithium brine extraction",
-      place: "Atacama, Chile",
-      lon: -68.2,
-      lat: -23.5,
-    },
-    downstream: [
-      {
-        id: "li-conversion",
-        name: "Conversion plant",
-        role: "Lithium hydroxide",
-        place: "Jiangsu, China",
-        lon: 120.5,
-        lat: 32.0,
-        impact: "medium",
-      },
-      {
-        id: "li-cells",
-        name: "Cell plant",
-        role: "EV battery cells",
-        place: "Commerce, United States",
-        lon: -83.2,
-        lat: 33.9,
-        impact: "low",
-      },
-    ],
-    edges: [
-      { from: "li-brine", to: "li-conversion", transport: true },
-      { from: "li-conversion", to: "li-cells" },
-    ],
-    alternatives: [
-      {
-        id: "li-alt-1",
-        rank: 1,
-        name: "Greenbushes spodumene",
-        country: "Australia",
-        lon: 116.0,
-        lat: -33.9,
-        feedsNodeId: "li-conversion",
-      },
-      {
-        id: "li-alt-2",
-        rank: 2,
-        name: "Thacker Pass",
-        country: "United States",
-        lon: -118.1,
-        lat: 41.7,
-        feedsNodeId: "li-cells",
-      },
-    ],
-  },
-  "SA-027": {
-    asset: {
-      id: "ni-refinery",
-      name: "Class 1 nickel refinery",
-      role: "Battery-grade nickel",
-      place: "Harjavalta, Finland",
-      lon: 22.1,
-      lat: 61.3,
-    },
-    downstream: [
-      {
-        id: "ni-precursor",
-        name: "Precursor plant",
-        role: "Cathode precursor",
-        place: "Kokkola, Finland",
-        lon: 23.1,
-        lat: 63.8,
-        impact: "medium",
-      },
-      {
-        id: "ni-stainless",
-        name: "Stainless mill",
-        role: "Specialty alloys",
-        place: "Terni, Italy",
-        lon: 12.6,
-        lat: 42.6,
-        impact: "low",
-      },
-    ],
-    edges: [
-      { from: "ni-refinery", to: "ni-precursor" },
-      { from: "ni-refinery", to: "ni-stainless" },
-    ],
-    alternatives: [
-      {
-        id: "ni-alt-1",
-        rank: 1,
-        name: "Niihama refinery",
-        country: "Japan",
-        lon: 133.3,
-        lat: 33.9,
-        feedsNodeId: "ni-precursor",
-      },
-      {
-        id: "ni-alt-2",
-        rank: 2,
-        name: "Ambatovy restart",
-        country: "Madagascar",
-        lon: 48.3,
-        lat: -18.9,
-        feedsNodeId: "ni-precursor",
       },
     ],
   },

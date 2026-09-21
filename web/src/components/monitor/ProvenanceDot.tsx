@@ -10,6 +10,7 @@ import {
   GRADE_FILL,
   GRADE_LABEL,
   GRADE_VAR,
+  RATING_LABEL,
   UNSOURCED_NOTE,
   type ConfidenceGrade,
 } from "@/lib/monitor/provenance";
@@ -171,8 +172,8 @@ export function SourceBlock({
           source.published_on,
           humanise(source.source_type),
           source.source_confidence
-            ? `Source ${source.source_confidence.toLowerCase()}`
-            : "Source unrated",
+            ? `Source quality ${source.source_confidence.toLowerCase()}`
+            : "Source quality unrated",
           source.url ? null : "No retrievable location",
         ]
           .filter(Boolean)
@@ -357,8 +358,8 @@ export interface ProvenanceDotProps {
     `${subject}.`,
     `Confidence ${GRADE_LABEL[conf.grade].toLowerCase()}.`,
     unsourced
-      ? `Assertion ${GRADE_LABEL[conf.assertion].toLowerCase()}, resting on no document. ${type}.`
-      : `Assertion ${GRADE_LABEL[conf.assertion].toLowerCase()}, source ${GRADE_LABEL[
+      ? `Support ${GRADE_LABEL[conf.assertion].toLowerCase()}, resting on no document. ${type}.`
+      : `Support ${GRADE_LABEL[conf.assertion].toLowerCase()}, source quality ${GRADE_LABEL[
           conf.source
         ].toLowerCase()}. ${type}, ${source?.name ?? "source unresolved"}.`,
     provenance.unverified_model_extraction
@@ -373,20 +374,23 @@ export interface ProvenanceDotProps {
   return (
     <ConfidenceDot grade={conf.grade} subject={subject} label={label}>
       <dl className="grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-0.5 border-t border-surface-2 pt-1.5 font-mono text-[9px] tracking-[0.05em]">
-        <DetailRow label="Assertion" value={GRADE_LABEL[conf.assertion]} />
+        <DetailRow
+          label={unsourced ? RATING_LABEL.backed : RATING_LABEL.backedBySource}
+          value={GRADE_LABEL[conf.assertion]}
+        />
         {conf.source !== null && (
-          <DetailRow label="Source" value={GRADE_LABEL[conf.source]} />
+          <DetailRow
+            label={RATING_LABEL.sourceReliability}
+            value={GRADE_LABEL[conf.source]}
+          />
         )}
         <DetailRow label="Type" value={type} />
       </dl>
 
-      {/* The two ratings are not interchangeable, and the panel says so rather
-          than trusting the layout to imply it. Only where they disagree: on
-          every row it was wallpaper. */}
+      {/* Only where the two ratings disagree: on every row it was wallpaper. */}
       {!unsourced && conf.binding !== "BOTH" && (
         <p className="text-[9px] leading-relaxed text-text-tertiary">
-          Assertion rates the conclusion drawn; source rates the document it was
-          drawn from. The dot takes the weaker of the two.
+          The dot shows the lower of the two.
         </p>
       )}
 

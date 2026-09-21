@@ -12,6 +12,11 @@ import {
   type MineExposure,
 } from "@/lib/monitor/api";
 import type { AlertGraph, GeoNode } from "@/lib/monitor/graphs";
+import {
+  ALTERNATIVES_SHOWN,
+  rankCandidates,
+  type FactorWeights,
+} from "@/lib/monitor/ranking";
 import AlertQueue from "./AlertQueue";
 import DecisionPanel from "./DecisionPanel";
 import GlobePanel from "./GlobePanel";
@@ -58,6 +63,13 @@ export default function MonitorConsole() {
   const [exposureState, setExposureState] = useState<LoadState>(
     MINE_IDS.length === 0 ? "idle" : "loading",
   );
+  // The weights the reader last ranked under, keyed by alert like `result` is
+  // by mine: a ranking for another alert is ignored rather than reset. Held
+  // here, not in the panel, because the globe draws the same ranked sources.
+  const [ranking, setRanking] = useState<{
+    readonly alertId: string;
+    readonly weights: FactorWeights;
+  }>();
   const [earliestByMine, setEarliestByMine] = useState<Record<string, number | null>>({});
 
   const selectedAlert: Alert | undefined =
@@ -129,6 +141,25 @@ export default function MonitorConsole() {
     return () => controller.abort();
   }, [mineId, asOfYear]);
 
+  const fetchedGraph =
+    mineId && result?.mineId === mineId && result.year === asOfYear
+      ? result.graph
+      : undefined;
+  const appliedWeights =
+    ranking?.alertId === selectedAlert?.id ? ranking.weights : null;
+  // Until the reader ranks, the graph keeps the default alignment-only order.
+  const graph = useMemo(() => {
+    if (!fetchedGraph?.candidates || !appliedWeights) return fetchedGraph;
+    return {
+      ...fetchedGraph,
+      alternatives: rankCandidates(
+        fetchedGraph.candidates,
+        appliedWeights,
+        ALTERNATIVES_SHOWN,
+      ),
+    };
+  }, [fetchedGraph, appliedWeights]);
+
   const selectAlert = useCallback((id: string) => {
     setSelectedId(id);
     setSelectedNodeId(null);
@@ -142,7 +173,6 @@ export default function MonitorConsole() {
     mineId && result?.mineId === mineId && result.year === asOfYear
       ? result
       : undefined;
-  const graph = current?.graph;
   const loadState: LoadState = !mineId ? "idle" : (current?.state ?? "loading");
 
   return (
@@ -172,6 +202,23 @@ export default function MonitorConsole() {
         exposure={mineId ? exposures[mineId] : undefined}
         exposureState={mineId ? exposureState : "idle"}
         loadState={loadState}
+        appliedWeights={appliedWeights}
+        onRank={(weights) => {
+          setRanking({ alertId: selectedAlert.id, weights });
+          // A selected alternative can fall out of the new top few, leaving a
+          // detail overlay open on something no list or marker still shows.
+          const kept = rankCandidates(
+            fetchedGraph?.candidates ?? [],
+            weights,
+            ALTERNATIVES_SHOWN,
+          );
+          const wasAlternative = graph?.alternatives.some(
+            (alt) => alt.id === selectedNodeId,
+          );
+          if (wasAlternative && !kept.some((alt) => alt.id === selectedNodeId)) {
+            setSelectedNodeId(null);
+          }
+        }}
         selectedNodeId={selectedNodeId}
         onSelectNode={setSelectedNodeId}
       />

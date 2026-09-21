@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Link from "next/link";
 
 import type { Alert, Confidence } from "@/lib/monitor/alerts";
 import type {
@@ -9,18 +9,23 @@ import type {
 } from "@/lib/monitor/api";
 import {
   displayedConfidence,
-  humanise,
   toGrade,
   GRADE_LABEL,
+  RATING_LABEL,
+  UNSOURCED_ORIGIN,
 } from "@/lib/monitor/provenance";
-import { ConfidenceDot, ConfidencePie } from "./ProvenanceDot";
-import {
-  graphForAlert,
-  nodesById,
-  type AlertGraph,
-  type ScoreFactorBreakdown,
-} from "@/lib/monitor/graphs";
+import { ConfidenceDot, ConfidencePie, DetailRow } from "./ProvenanceDot";
+import { briefHref } from "@/lib/monitor/briefLink";
+import { graphForAlert, type AlertGraph } from "@/lib/monitor/graphs";
+import type { FactorWeights } from "@/lib/monitor/ranking";
 import { IMPACT_COLOR, SEVERITY_COLOR } from "@/lib/monitor/colors";
+import {
+  capacityCaveat,
+  pct,
+  statusLabel,
+  supplyLabel,
+} from "@/lib/monitor/format";
+import AlternativesRanker from "./AlternativesRanker";
 import ElementBadges from "./ElementBadges";
 
 interface DecisionPanelProps {
@@ -34,95 +39,12 @@ interface DecisionPanelProps {
   readonly exposureState?: "idle" | "loading" | "error";
   /** Fetch state for a live alert, so an empty panel says which kind of empty. */
   readonly loadState?: "idle" | "loading" | "error";
+  /** Weights `liveGraph.alternatives` is ranked under; null until the reader
+   *  ranks. Held by the console so the globe shows the same order. */
+  readonly appliedWeights: FactorWeights | null;
+  readonly onRank: (weights: FactorWeights) => void;
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
-}
-
-// Display names for the score factors, keyed by ScoreFactor in
-// api/src/disruption.py. The score breakdown is the only thing that reads them,
-// so this is a name map rather than the fuller table it used to be.
-const FACTOR_NAME: Record<string, string> = {
-  time_to_flow: "Time to flow",
-  coverage: "Coverage of the gap",
-  evidence: "Evidence class",
-  alignment: "Country alignment",
-  commitment: "Prior commitment",
-  confidence: "Assertion confidence",
-};
-
-/** Per-factor breakdown for one row's score. Rendered outside the row button,
- *  which cannot legally contain another interactive element.
- *
- *  Only the factors that built the score appear. The API returns all six so a
- *  client can tell an excluded factor from one that was never computed, but a
- *  row of zeroes explains nothing about *this* score, and under a single-factor
- *  policy five of six would be zeroes. Which factors carry weight, and which
- *  the caller excluded, is the scoring-method block's job. */
-function ScoreBreakdown({
-  factors,
-}: {
-  readonly factors: readonly ScoreFactorBreakdown[];
-}) {
-  const used = factors.filter((f) => f.maxContribution > 0);
-  // Track widths are proportional to what each factor could contribute, so a
-  // low-weight factor does not read as a failed high-weight one.
-  const widest = Math.max(...used.map((f) => f.maxContribution), 1);
-  return (
-    <div className="flex flex-col gap-1.5 border-t border-surface-2 bg-surface-1 px-2 py-2">
-      <p className="font-mono text-[9px] font-semibold tracking-[0.15em] text-accent uppercase">
-        Ranking Score Breakdown
-      </p>
-      <ul className="flex flex-col gap-1">
-        {used.map((f) => {
-          const earned = f.contribution / f.maxContribution;
-          return (
-            <li
-              key={f.factor}
-              // The bar gets a fixed cell rather than sharing flex space with the
-              // label: the widest track would otherwise squeeze the label out
-              // entirely, and the "?" that marks a fallback with it.
-              className="grid grid-cols-[70px_52px_1fr_26px] items-center gap-2"
-              title={
-                f.detail ??
-                `${f.contribution.toFixed(1)} of ${f.maxContribution.toFixed(1)} available points`
-              }
-            >
-              <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
-                {FACTOR_NAME[f.factor] ?? f.factor}
-              </span>
-              <span aria-hidden className="block">
-                {/* Track width is proportional to what the factor could contribute,
-                  so a low-weight factor does not read as a failed high-weight one. */}
-                <span
-                  className="block h-[3px] bg-surface-2"
-                  style={{ width: `${(f.maxContribution / widest) * 100}%` }}
-                >
-                  {/* Grey rather than accent where the value is a fallback, so a
-                    guess never renders with the authority of a disclosure. */}
-                  <span
-                    className={`block h-full ${f.known ? "bg-accent" : "bg-text-tertiary"}`}
-                    style={{ width: `${earned * 100}%` }}
-                  />
-                </span>
-              </span>
-              <span
-                className={`truncate font-mono text-[9px] ${
-                  f.known ? "text-text-tertiary" : "text-text-secondary"
-                }`}
-                title={f.known ? undefined : (f.detail ?? undefined)}
-              >
-                {f.label}
-                {f.known ? "" : " ?"}
-              </span>
-              <span className="text-right font-mono text-[9px] text-text-secondary tabular-nums">
-                {f.contribution.toFixed(1)}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
 }
 
 /** source_id -> the document, so an edge can name what it rests on. */
@@ -191,15 +113,34 @@ function PathEdgeRow({
           {edge.label}
         </span>
       </span>
-      <span className="ml-[14px] font-mono text-[9px] text-text-tertiary">
-        {[
-          `${GRADE_LABEL[conf.assertion].toLowerCase()} reading`,
-          conf.source !== null
-            ? `${GRADE_LABEL[conf.source].toLowerCase()} source`
-            : "no document",
-          humanise(edge.provenance.type).toLowerCase(),
-        ].join(" · ")}
-      </span>
+      <dl className="ml-[14px] grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-0.5 font-mono text-[9px] tracking-[0.05em]">
+        {conf.source !== null ? (
+          <>
+            <DetailRow
+              label={RATING_LABEL.backedBySource}
+              value={GRADE_LABEL[conf.assertion]}
+            />
+            <DetailRow
+              label={RATING_LABEL.sourceReliability}
+              value={GRADE_LABEL[conf.source]}
+            />
+          </>
+        ) : (
+          <>
+            <DetailRow
+              label={RATING_LABEL.backed}
+              value={GRADE_LABEL[conf.assertion]}
+            />
+            <DetailRow
+              label="Source"
+              value={
+                UNSOURCED_ORIGIN[edge.provenance.type] ??
+                UNSOURCED_ORIGIN.UNKNOWN
+              }
+            />
+          </>
+        )}
+      </dl>
       {source &&
         (source.url ? (
           <a
@@ -249,16 +190,14 @@ function PlatformConfidence({
   const label = [
     `${platform.name}.`,
     `Confidence ${GRADE_LABEL[grade].toLowerCase()},`,
-    "the weakest link on the route from this mine's elements.",
+    "set by the weakest claim in the chain.",
     ...edges.map((e) => `${e.label}.`),
   ].join(" ");
 
   return (
     <ConfidenceDot grade={grade} subject={platform.name} label={label}>
-      <p className="border-t border-surface-2 pt-1.5 text-[9px] leading-relaxed text-text-tertiary">
-        The weakest link on the route from this mine&rsquo;s elements to this
-        system, where each link is itself no stronger than the document under
-        it. Not a joint probability: these assertions are not independent.
+      <p className="text-[9px] leading-relaxed text-text-tertiary">
+        Only as strong as the weakest claim below.
       </p>
       <div className="flex flex-col gap-1.5 border-t border-surface-2 pt-1.5">
         <span className="font-mono text-[9px] tracking-[0.15em] text-accent uppercase">
@@ -269,24 +208,18 @@ function PlatformConfidence({
         ))}
       </div>
       {branching && (
-        <p className="text-[9px] leading-relaxed text-text-tertiary">
-          Where a step has more than one route, the best evidenced of them sets
-          the grade.
+        <p className="border-t border-surface-2 pt-1.5 text-[9px] leading-relaxed text-text-tertiary">
+          More than one chain reaches this system. The grade follows the best
+          one, so some rows above may be weaker than it.
         </p>
       )}
     </ConfidenceDot>
   );
 }
 
-function pct(value: number): string {
-  return value >= 0.1
-    ? `${Math.round(value * 100)}%`
-    : `${(value * 100).toFixed(1)}%`;
-}
-
 // Systemic weight of what just lost feed. Every figure here is against
-// *disclosed* capacity only, so it overstates the true share — the wording has
-// to carry that, and an undisclosed plant must never read as zero.
+// *disclosed* capacity only, so it can overstate the true share — the wording
+// has to carry that, and an undisclosed plant must never read as zero.
 //
 // The year is printed alongside the tonnages because capacities are staged and
 // supersede one another, so these figures move with it. There is no longer a
@@ -295,67 +228,46 @@ function pct(value: number): string {
 function CapacityContext({ graph }: { readonly graph: AlertGraph }) {
   const ctx = graph.capacity;
   if (!ctx) return null;
-  const undisclosed = ctx.undisclosed_facility_ids.length;
+  const unknownAffected = ctx.undisclosed_facility_ids.length;
+  const unknownRefiners = ctx.refiners_total - ctx.refiners_disclosing;
 
+  if (ctx.affected_share == null || ctx.affected_tpa == null) {
+    return (
+      <div className="flex flex-col gap-1.5 border border-surface-2 px-3 py-2.5">
+        <p className="text-xs leading-relaxed text-foreground">
+          Share of Dy/Tb separation capacity{" "}
+          <span className="font-mono font-semibold text-accent">unknown</span>
+        </p>
+        <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+          {unknownAffected === 1
+            ? "The plant that lost feed publishes"
+            : `None of the ${unknownAffected} plants that lost feed publish`}{" "}
+          a capacity figure, so this cannot be sized. It is not zero.
+        </p>
+      </div>
+    );
+  }
+
+  const caveat = capacityCaveat(unknownRefiners, unknownAffected);
   return (
     <div className="flex flex-col gap-1.5 border border-surface-2 px-3 py-2.5">
-      {ctx.affected_share != null && ctx.affected_tpa != null ? (
-        <>
-          <p className="text-xs leading-relaxed text-foreground">
-            <span className="font-mono text-sm font-semibold text-accent tabular-nums">
-              {pct(ctx.affected_share)}
-            </span>{" "}
-            of modelled Dy+Tb separation capacity lost feed
-          </p>
-          <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
-            {ctx.affected_tpa.toLocaleString()} of{" "}
-            {ctx.total_tpa.toLocaleString()} tpa disclosed at {ctx.as_of_year},
-            across {ctx.refiners_disclosing} of {ctx.refiners_total} Dy/Tb
-            refiners. Upper bound: the{" "}
-            {ctx.refiners_total - ctx.refiners_disclosing} plants disclosing no
-            nameplate are absent from the denominator.
-          </p>
-        </>
-      ) : (
-        <>
-          <p className="text-xs leading-relaxed text-foreground">
-            Systemic share{" "}
-            <span className="font-mono font-semibold text-accent">
-              not disclosed
-            </span>
-          </p>
-          <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
-            {undisclosed === 1
-              ? "The affected plant publishes"
-              : `All ${undisclosed} affected plants publish`}{" "}
-            no Dy+Tb nameplate. The exposure is real but unsized — not zero.
-          </p>
-        </>
-      )}
-      {ctx.affected_share != null && undisclosed > 0 && (
+      <p className="text-xs leading-relaxed text-foreground">
+        <span className="font-mono text-sm font-semibold text-accent tabular-nums">
+          {pct(ctx.affected_share)}
+        </span>{" "}
+        of known Dy/Tb separation capacity lost feed
+      </p>
+      <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+        {ctx.affected_tpa.toLocaleString()} of {ctx.total_tpa.toLocaleString()}{" "}
+        tonnes a year, on {ctx.as_of_year} figures.
+      </p>
+      {caveat && (
         <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
-          Excludes {undisclosed} affected plant{undisclosed === 1 ? "" : "s"}{" "}
-          with no disclosed nameplate.
+          {caveat}
         </p>
       )}
     </div>
   );
-}
-
-function statusLabel(status: string): string {
-  const s = status.replace(/_/g, " ").toLowerCase();
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-/** "Sole source" is the fact that decides whether an outage is survivable. */
-function supplyLabel(node: {
-  readonly soleSource?: boolean;
-  readonly remainingSupplies?: number;
-}): string | null {
-  if (node.soleSource === undefined) return null;
-  if (node.soleSource) return "Sole source";
-  const n = node.remainingSupplies ?? 0;
-  return `${n} other supplier${n === 1 ? "" : "s"}`;
 }
 
 /** What the alert hit: the kind of site, and which one. */
@@ -601,15 +513,12 @@ export default function DecisionPanel({
   exposure,
   exposureState = "idle",
   loadState = "idle",
+  appliedWeights,
+  onRank,
   selectedNodeId,
   onSelectNode,
 }: DecisionPanelProps) {
-  // Which row has its score explanation open. Separate from `selectedNodeId`:
-  // that drives the asset detail on the globe, and asking "why this score" is a
-  // different question from "what is this asset".
-  const [explainedId, setExplainedId] = useState<string | null>(null);
   const graph = liveGraph ?? graphForAlert(alert.id);
-  const lookup = graph ? nodesById(graph) : undefined;
   const minerals = mineralsFor(alert, exposure);
   const entity = entityFor(alert, graph);
   // An empty panel means three different things; saying which avoids reading
@@ -796,106 +705,32 @@ export default function DecisionPanel({
         {/* Recommended alternatives */}
         <div className="flex flex-col gap-1.5">
           <Kicker>Recommended alternatives</Kicker>
-          {graph && graph.alternatives.length > 0 ? (
-            <ul className="flex flex-col">
-              {graph.alternatives.map((alt) => {
-                const feeds = lookup?.get(alt.feedsNodeId);
-                const active = alt.id === selectedNodeId;
-                const explained = alt.id === explainedId;
-                return (
-                  <li key={alt.id} className="border-t border-surface-2">
-                    {/* Two controls, two questions. The row opens the asset
-                        detail; the score opens the arithmetic behind itself. */}
-                    <div className="flex items-stretch">
-                      <button
-                        type="button"
-                        onClick={() => onSelectNode(alt.id)}
-                        title="Show this asset's reference detail"
-                        className={`grid min-w-0 flex-1 cursor-pointer grid-cols-[18px_1fr] items-baseline gap-2 px-1 py-2 text-left transition-colors ${
-                          active ? "bg-accent-tint" : "hover:bg-ghost-hover"
-                        }`}
-                      >
-                        <span className="font-mono text-[13px] font-semibold text-accent tabular-nums">
-                          {alt.rank}
-                        </span>
-                        <span className="flex flex-col gap-0.5">
-                          <span className="text-xs font-semibold text-foreground">
-                            {alt.name}
-                          </span>
-                          <span className="text-[10.5px] text-text-secondary">
-                            {alt.country}
-                            {feeds ? ` · feeds ${feeds.name}` : ""}
-                          </span>
-                          {alt.score != null && (
-                            <span
-                              aria-hidden
-                              className="mt-0.5 h-[2px] w-full bg-surface-2"
-                            >
-                              <span
-                                className="block h-full bg-accent"
-                                style={{ width: `${alt.score}%` }}
-                              />
-                            </span>
-                          )}
-                        </span>
-                      </button>
-                      {alt.score != null && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setExplainedId(explained ? null : alt.id)
-                          }
-                          aria-expanded={explained}
-                          title={
-                            explained
-                              ? "Hide how this score was reached"
-                              : `Score ${alt.score.toFixed(0)} of 100 — show how it was reached`
-                          }
-                          className={`m-2 flex shrink-0 cursor-pointer items-center gap-1 self-center border px-2 py-1 font-mono text-[11px] font-semibold tabular-nums transition-colors ${
-                            explained
-                              ? "border-accent bg-accent-tint text-accent"
-                              : "border-surface-2 text-foreground hover:border-accent hover:text-accent"
-                          }`}
-                        >
-                          {alt.score.toFixed(0)}
-                          <span
-                            aria-hidden
-                            className="disclosure-caret text-[9px] leading-none text-accent"
-                            style={{
-                              transform: explained
-                                ? "rotate(180deg)"
-                                : undefined,
-                            }}
-                          >
-                            ▼
-                          </span>
-                        </button>
-                      )}
-                    </div>
-                    {/* Outside the buttons: a button cannot legally contain
-                        another interactive element, and this carries titled detail. */}
-                    {explained && alt.scoreFactors && (
-                      <ScoreBreakdown factors={alt.scoreFactors} />
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          ) : (
-            <p className="text-xs text-text-tertiary">
-              {emptyReason ?? "No alternatives identified yet."}
-            </p>
-          )}
+          {/* Keyed by alert: the draft weights belong to one mine's pool. */}
+          <AlternativesRanker
+            key={alert.id}
+            graph={graph}
+            appliedWeights={appliedWeights}
+            onRank={onRank}
+            selectedNodeId={selectedNodeId}
+            onSelectNode={onSelectNode}
+            emptyReason={emptyReason}
+          />
         </div>
       </div>
 
-      {/* Footer, outside the scroll */}
-      <button
-        type="button"
-        className="blueprint w-full cursor-pointer px-3 py-2.5 text-center font-mono text-[11px] font-medium tracking-[0.15em] text-accent uppercase transition-colors hover:bg-accent-tint"
+      {/* Footer, outside the scroll. A link, not a button: the brief is a page
+          addressed by its URL. It opens in a new tab so the console - and the
+          ranking set in it, which lives only in memory - is still here after. */}
+      <Link
+        href={briefHref(alert.id, {
+          year: liveGraph?.asOfYear,
+          weights: appliedWeights,
+        })}
+        target="_blank"
+        className="blueprint block w-full cursor-pointer px-3 py-2.5 text-center font-mono text-[11px] font-medium tracking-[0.15em] text-accent uppercase transition-colors hover:bg-accent-tint"
       >
         Generate decision brief
-      </button>
+      </Link>
     </section>
   );
 }
