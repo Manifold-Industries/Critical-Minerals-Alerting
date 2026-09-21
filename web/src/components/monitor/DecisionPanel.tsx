@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import type { Alert, Confidence } from "@/lib/monitor/alerts";
 import type {
   ApiPlatformExposure,
@@ -13,6 +15,7 @@ import {
   UNSOURCED_ORIGIN,
 } from "@/lib/monitor/provenance";
 import { ConfidenceDot, ConfidencePie, DetailRow } from "./ProvenanceDot";
+import { briefHref } from "@/lib/monitor/briefLink";
 import { graphForAlert, type AlertGraph } from "@/lib/monitor/graphs";
 import type { FactorWeights } from "@/lib/monitor/ranking";
 import { IMPACT_COLOR, SEVERITY_COLOR } from "@/lib/monitor/colors";
@@ -715,13 +718,19 @@ export default function DecisionPanel({
         </div>
       </div>
 
-      {/* Footer, outside the scroll */}
-      <button
-        type="button"
-        className="blueprint w-full cursor-pointer px-3 py-2.5 text-center font-mono text-[11px] font-medium tracking-[0.15em] text-accent uppercase transition-colors hover:bg-accent-tint"
+      {/* Footer, outside the scroll. A link, not a button: the brief is a page
+          addressed by its URL. It opens in a new tab so the console - and the
+          ranking set in it, which lives only in memory - is still here after. */}
+      <Link
+        href={briefHref(alert.id, {
+          year: liveGraph?.asOfYear,
+          weights: appliedWeights,
+        })}
+        target="_blank"
+        className="blueprint block w-full cursor-pointer px-3 py-2.5 text-center font-mono text-[11px] font-medium tracking-[0.15em] text-accent uppercase transition-colors hover:bg-accent-tint"
       >
         Generate decision brief
-      </button>
+      </Link>
     </section>
   );
 }

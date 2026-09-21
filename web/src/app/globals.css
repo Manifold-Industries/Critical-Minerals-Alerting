@@ -299,3 +299,61 @@ body {
     display: none;
   }
 }
+
+/* ── Decision brief, on paper ────────────────────────────────────────────────
+   The brief is a document, and "Print / save as PDF" is how it leaves the
+   console. On paper the terminal palette is inverted by redefining the tokens
+   rather than restyling the brief, so every component keeps its own classes.
+   The app frame (rail, command header, toolbar) is dropped; the classification
+   banners are kept, top and bottom, because a printed page still needs them. */
+@media print {
+  :root {
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #111111;
+    --surface-0: #ffffff;
+    --surface-1: #ffffff;
+    --surface-2: #cfcfcf;
+    --ghost-hover: #ffffff;
+    --text-secondary: #333333;
+    --text-tertiary: #5c5c5c;
+    --accent: #8a4b00;
+    --accent-tint: #f6ead9;
+  }
+
+  html,
+  body {
+    height: auto;
+    background: #ffffff;
+  }
+
+  nav[aria-label="Modules"],
+  body > header,
+  .no-print {
+    display: none !important;
+  }
+
+  /* The screen layout is a fixed-height shell with one scrolling pane; paper
+     needs the content to flow, or only the first screenful prints. */
+  body,
+  body > div,
+  main,
+  .brief-scroll {
+    display: block !important;
+    overflow: visible !important;
+    min-height: 0;
+  }
+
+  .brief {
+    max-width: none;
+    padding: 0;
+  }
+
+  .brief-section {
+    break-inside: avoid-page;
+  }
+
+  .blueprint::after {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-// Run with `node --test src/lib/monitor/ranking.test.mjs`. Node strips the
+// Run with `npm test`. Node strips the
 // types from ranking.ts itself, so this needs no test framework.
 import assert from "node:assert/strict";
 import { test } from "node:test";
