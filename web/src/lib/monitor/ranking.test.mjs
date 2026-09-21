@@ -105,6 +105,21 @@ test("no weight in play ranks nothing", () => {
   assert.deepEqual(rankCandidates(POOL, { alignment: 0 }, 10), []);
 });
 
+test("a factor the reader cannot weight carries none", () => {
+  const pool = [
+    candidate("sure", [factor("alignment", 0.5), factor("confidence", 1)]),
+    candidate("aligned", [factor("alignment", 1), factor("confidence", 0)]),
+  ];
+  const ranked = rankCandidates(pool, { alignment: 1, confidence: 5 }, 10);
+  assert.deepEqual(
+    ranked.map((c) => [c.id, c.score]),
+    [
+      ["aligned", 100],
+      ["sure", 50],
+    ],
+  );
+});
+
 test("ranking leaves the pool untouched", () => {
   const before = JSON.stringify(POOL);
   rankCandidates(POOL, { coverage: 1 }, 10);
@@ -125,6 +140,8 @@ test("a factor with any fallback value is unavailable", () => {
   // Never measured at all is the limiting case of incomplete.
   assert.equal(byFactor.get("time_to_flow").available, false);
   assert.equal(byFactor.get("time_to_flow").missing, 3);
+  assert.equal(byFactor.has("evidence"), false);
+  assert.equal(byFactor.has("confidence"), false);
 });
 
 test("availability counts sources, not pairings", () => {

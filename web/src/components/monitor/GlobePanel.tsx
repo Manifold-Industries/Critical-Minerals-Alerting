@@ -215,12 +215,18 @@ export default function GlobePanel({
 
   useEffect(() => stopAnim, [stopAnim]);
 
-  // Fly (or jump, on first layout) whenever the alert or mode changes.
+  // Fly (or jump, on first layout) whenever the alert or mode changes. Keyed on
+  // where the fit lands rather than on `graph`: re-ranking the alternatives
+  // makes a new graph object, and that must not snap a panned globe back unless
+  // the points in view actually moved.
+  const fit = fitCamera(mode, graph, { w: size.w, h: size.h });
+  const [fitLon, fitLat] = fit.rotate;
+  const fitScale = fit.scale;
   useEffect(() => {
     if (size.w === 0 || size.h === 0) return;
-    flyTo(fitCamera(mode, graph, { w: size.w, h: size.h }), initializedRef.current);
+    flyTo({ rotate: [fitLon, fitLat], scale: fitScale }, initializedRef.current);
     initializedRef.current = true;
-  }, [selectedAlert.id, mode, graph, size.w, size.h, flyTo]);
+  }, [selectedAlert.id, mode, fitLon, fitLat, fitScale, size.w, size.h, flyTo]);
 
   const clampScale = useCallback((scale: number, s: Size) => {
     const base = baseScale(s);

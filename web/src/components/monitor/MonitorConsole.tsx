@@ -203,9 +203,22 @@ export default function MonitorConsole() {
         exposureState={mineId ? exposureState : "idle"}
         loadState={loadState}
         appliedWeights={appliedWeights}
-        onRank={(weights) =>
-          setRanking({ alertId: selectedAlert.id, weights })
-        }
+        onRank={(weights) => {
+          setRanking({ alertId: selectedAlert.id, weights });
+          // A selected alternative can fall out of the new top few, leaving a
+          // detail overlay open on something no list or marker still shows.
+          const kept = rankCandidates(
+            fetchedGraph?.candidates ?? [],
+            weights,
+            ALTERNATIVES_SHOWN,
+          );
+          const wasAlternative = graph?.alternatives.some(
+            (alt) => alt.id === selectedNodeId,
+          );
+          if (wasAlternative && !kept.some((alt) => alt.id === selectedNodeId)) {
+            setSelectedNodeId(null);
+          }
+        }}
         selectedNodeId={selectedNodeId}
         onSelectNode={setSelectedNodeId}
       />

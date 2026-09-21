@@ -10,23 +10,39 @@ import type { AlternativeSource, ScoreFactorBreakdown } from "./graphs";
 /** Factor id -> relative weight. Absent and zero both mean "not in play". */
 export type FactorWeights = Readonly<Record<string, number>>;
 
-/** Every ScoreFactor in api/src/disruption.py, in the order the panel lists them. */
+/**
+ * The factors a reader can weight, in the order the panel lists them.
+ *
+ * Four of the engine's six. `evidence` and `confidence` are left out on
+ * purpose: they grade how well the graph knows about a link, not how good the
+ * source is, and "prefer the mines we are surer of" is not a sourcing
+ * preference. They still come back on every candidate; nothing here reads them.
+ */
 export const RANK_FACTORS = [
   "alignment",
-  "time_to_flow",
   "coverage",
+  "time_to_flow",
   "commitment",
-  "evidence",
-  "confidence",
 ] as const;
 
 export const FACTOR_NAME: Readonly<Record<string, string>> = {
   alignment: "Country alignment",
+  coverage: "Capacity to cover the gap",
   time_to_flow: "Time to flow",
-  coverage: "Coverage of the gap",
-  commitment: "Prior commitment",
-  evidence: "Evidence class",
-  confidence: "Assertion confidence",
+  commitment: "Uncommitted supply",
+};
+
+/** What a higher weight asks for, in the reader's terms. Kept to what the
+ *  engine actually measures — see `_measure` in api/src/disruption.py. */
+export const FACTOR_DESCRIPTION: Readonly<Record<string, string>> = {
+  alignment:
+    "Where the mine is. Domestic ranks first, then ally, partner, neutral, adversary.",
+  coverage:
+    "How much of the lost Dy/Tb tonnage the mine's own output could replace.",
+  time_to_flow:
+    "How soon material could arrive: time to first production plus qualifying it at the plant.",
+  commitment:
+    "Favours mines whose output is not already contracted to another plant.",
 };
 
 /**
@@ -88,6 +104,14 @@ export function factorAvailability(
   });
 }
 
+/** Only `RANK_FACTORS` carry weight, so a stray key cannot push a score past
+ *  the total it is renormalised over. */
+function weightOf(weights: FactorWeights, factor: string): number {
+  return (RANK_FACTORS as readonly string[]).includes(factor)
+    ? (weights[factor] ?? 0)
+    : 0;
+}
+
 function rescore(
   candidate: AlternativeSource,
   weights: FactorWeights,
@@ -96,7 +120,7 @@ function rescore(
   const scoreFactors: readonly ScoreFactorBreakdown[] = (
     candidate.scoreFactors ?? []
   ).map((f) => {
-    const weight = weights[f.factor] ?? 0;
+    const weight = weightOf(weights, f.factor);
     return {
       ...f,
       contribution: round((100 * weight * f.normalized) / totalWeight),
@@ -124,7 +148,7 @@ export function rankCandidates(
   limit: number,
 ): readonly AlternativeSource[] {
   const totalWeight = RANK_FACTORS.reduce(
-    (sum, factor) => sum + (weights[factor] ?? 0),
+    (sum, factor) => sum + weightOf(weights, factor),
     0,
   );
   if (totalWeight <= 0) return [];

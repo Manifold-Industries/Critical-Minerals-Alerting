@@ -4,6 +4,7 @@ import type { AlertGraph, AlternativeSource } from "@/lib/monitor/graphs";
 import { nodesById } from "@/lib/monitor/graphs";
 import {
   DEFAULT_FACTOR_WEIGHTS,
+  FACTOR_DESCRIPTION,
   FACTOR_NAME,
   MAX_FACTOR_WEIGHT,
   factorAvailability,
@@ -61,7 +62,12 @@ function FactorRow({
         className="grid grid-cols-[1fr_auto] items-center gap-2 border-t border-surface-2 px-1 py-1.5 opacity-50"
         title={`${missing} of ${total} candidates have no data for this factor, so ranking on it would rank on a guess.`}
       >
-        <span className="text-[10.5px] text-text-tertiary">{name}</span>
+        <span className="flex flex-col gap-0.5">
+          <span className="text-[10.5px] text-text-tertiary">{name}</span>
+          <span className="text-[9.5px] leading-snug text-text-tertiary">
+            {FACTOR_DESCRIPTION[factor]}
+          </span>
+        </span>
         <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
           Data incomplete · {missing}/{total}
         </span>
@@ -71,11 +77,14 @@ function FactorRow({
 
   return (
     <li className="grid grid-cols-[1fr_auto] items-center gap-2 border-t border-surface-2 px-1 py-1.5">
-      <span className="flex flex-col">
+      <span className="flex flex-col gap-0.5">
         <span
           className={`text-[10.5px] ${weight > 0 ? "text-foreground" : "text-text-secondary"}`}
         >
           {name}
+        </span>
+        <span className="text-[9.5px] leading-snug text-text-tertiary">
+          {FACTOR_DESCRIPTION[factor]}
         </span>
         {missing > 0 && (
           <span className="font-mono text-[9px] text-text-tertiary">
@@ -193,7 +202,12 @@ export default function AlternativesRanker({
   onSelectNode,
   emptyReason,
 }: AlternativesRankerProps) {
-  const [draft, setDraft] = useState<FactorWeights>(DEFAULT_FACTOR_WEIGHTS);
+  // Seeded from the applied weights, not always the default: this remounts on
+  // every return to an alert, and the controls must show what the list below
+  // them was ranked on.
+  const [draft, setDraft] = useState<FactorWeights>(
+    appliedWeights ?? DEFAULT_FACTOR_WEIGHTS,
+  );
 
   if (!graph || graph.alternatives.length === 0) {
     return (
@@ -224,9 +238,14 @@ export default function AlternativesRanker({
   if (!graph.candidates) return renderRows([]);
 
   const factors = factorAvailability(graph.candidates);
-  const draftInPlay = weighted(draft, factors);
+  // A weight can outlive its factor's data: the pool is refetched when the
+  // simulation year moves. Only factors still available are ever ranked on.
+  const usable = Object.fromEntries(
+    factors.filter((f) => f.available).map((f) => [f.factor, draft[f.factor] ?? 0]),
+  );
+  const draftInPlay = weighted(usable, factors);
   const dirty =
-    appliedWeights !== null && !sameWeights(draft, appliedWeights, factors);
+    appliedWeights !== null && !sameWeights(usable, appliedWeights, factors);
 
   return (
     <div className="flex flex-col gap-2.5">
@@ -249,7 +268,7 @@ export default function AlternativesRanker({
         </ul>
         <button
           type="button"
-          onClick={() => onRank(draft)}
+          onClick={() => onRank(usable)}
           disabled={draftInPlay.length === 0}
           className="mt-1 w-full cursor-pointer border border-accent px-3 py-1.5 font-mono text-[10px] font-medium tracking-[0.15em] text-accent uppercase transition-colors hover:bg-accent-tint disabled:cursor-not-allowed disabled:border-surface-2 disabled:text-text-tertiary disabled:hover:bg-transparent"
         >
