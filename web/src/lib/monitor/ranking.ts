@@ -164,3 +164,38 @@ export function rankCandidates(
   });
   return unique.slice(0, limit).map((c, i) => ({ ...c, rank: i + 1 }));
 }
+
+// ── Weights in a URL ───────────────────────────────────────────────────────
+//
+// The decision brief is opened by link, so the weights a ranking was struck on
+// travel as `alignment:2,commitment:5`. A URL is outside input: anything the
+// panel itself could not have produced is refused whole rather than repaired,
+// because a brief that quietly ranks on different weights than its link says
+// is worse than one that says the link was bad.
+
+/** Weights in play, in `RANK_FACTORS` order. Zeroes and unknown keys are dropped. */
+export function formatWeights(weights: FactorWeights): string {
+  return RANK_FACTORS.filter((factor) => weightOf(weights, factor) > 0)
+    .map((factor) => `${factor}:${weights[factor]}`)
+    .join(",");
+}
+
+/** Null where `raw` is absent or is not something `formatWeights` could emit. */
+export function parseWeights(raw: string | undefined): FactorWeights | null {
+  if (!raw) return null;
+  const entries: [string, number][] = [];
+  for (const part of raw.split(",")) {
+    const [factor, value, ...rest] = part.split(":");
+    const weight = Number(value);
+    const valid =
+      rest.length === 0 &&
+      (RANK_FACTORS as readonly string[]).includes(factor) &&
+      Number.isInteger(weight) &&
+      weight >= 1 &&
+      weight <= MAX_FACTOR_WEIGHT &&
+      !entries.some(([seen]) => seen === factor);
+    if (!valid) return null;
+    entries.push([factor, weight]);
+  }
+  return Object.fromEntries(entries);
+}

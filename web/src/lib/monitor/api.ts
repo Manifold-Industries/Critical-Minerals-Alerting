@@ -354,6 +354,8 @@ export function toAlertGraph(res: DisruptionResponse): AlertGraph | undefined {
   );
 
   return {
+    asOfYear: res.as_of_year,
+    warnings: res.warnings,
     capacity: res.capacity_context ?? undefined,
     scoring: {
       version: res.scoring.version,

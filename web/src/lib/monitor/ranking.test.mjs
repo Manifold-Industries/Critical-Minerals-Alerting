@@ -6,6 +6,8 @@ import { test } from "node:test";
 import {
   DEFAULT_FACTOR_WEIGHTS,
   factorAvailability,
+  formatWeights,
+  parseWeights,
   rankCandidates,
 } from "./ranking.ts";
 
@@ -169,4 +171,34 @@ test("alignment stays available with gaps, and reports them", () => {
     missing: 1,
     available: true,
   });
+});
+
+test("weights survive a round trip through a URL", () => {
+  const weights = { alignment: 2, commitment: 5 };
+  assert.equal(formatWeights(weights), "alignment:2,commitment:5");
+  assert.deepEqual(parseWeights(formatWeights(weights)), weights);
+});
+
+test("formatting drops zeroes and factors that cannot be weighted", () => {
+  assert.equal(
+    formatWeights({ alignment: 1, coverage: 0, confidence: 4 }),
+    "alignment:1",
+  );
+});
+
+test("a URL cannot smuggle in a weight the panel could not set", () => {
+  for (const raw of [
+    undefined,
+    "",
+    "alignment",
+    "alignment:six",
+    "alignment:9",
+    "alignment:-1",
+    "alignment:1.5",
+    "confidence:3",
+    "alignment:0",
+    "alignment:1,alignment:2",
+  ]) {
+    assert.equal(parseWeights(raw), null, String(raw));
+  }
 });

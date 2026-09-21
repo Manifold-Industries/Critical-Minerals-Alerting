@@ -95,6 +95,12 @@ export interface CapacityContext {
 }
 
 export interface AlertGraph {
+  /** Live graphs only. The year the simulation was struck at — every tonnage
+   *  and share in the graph moves with it, so a document quoting them needs it. */
+  readonly asOfYear?: number;
+  /** Live graphs only. The engine's own statements of what this run cannot
+   *  support, verbatim. */
+  readonly warnings?: readonly string[];
   readonly capacity?: CapacityContext;
   /** Live graphs only. Weights are an input, so the panel cannot explain a
    *  score without them. */
