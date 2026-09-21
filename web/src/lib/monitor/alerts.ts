@@ -101,36 +101,6 @@ export const ALERTS: readonly Alert[] = [
     source: { kind: "Website", name: "State environmental agency notice" },
   },
   {
-    id: "SA-041",
-    title: "Gallium export licensing halt cuts refined supply",
-    summary:
-      "Export licensing for refined gallium was halted at the primary refinery, constraining supply to downstream electronics producers.",
-    domain: "Economic",
-    subdomain: "Critical Minerals",
-    severity: "critical",
-    confidence: "HIGH",
-    source: { kind: "Cable", name: "Embassy cable 26-0142" },
-    minerals: ["Ga"],
-    affectedSystems: [
-      "AESA radar modules",
-      "5G base stations",
-      "Power electronics",
-    ],
-  },
-  {
-    id: "SA-038",
-    title: "Cobalt rail corridor closure strands mined output",
-    summary:
-      "A closure of the Lobito rail corridor has stranded mined cobalt output inland, delaying export shipments to refiners.",
-    domain: "Economic",
-    subdomain: "Critical Minerals",
-    severity: "critical",
-    confidence: "MEDIUM",
-    source: { kind: "API", name: "Logistics feed" },
-    minerals: ["Co"],
-    affectedSystems: ["Turbine superalloys", "EV battery cathodes"],
-  },
-  {
     id: "SA-036",
     title: "NdPr magnet alloy plant fire curtails output",
     summary:
@@ -146,45 +116,6 @@ export const ALERTS: readonly Alert[] = [
       "Wind turbines",
       "EV motors",
     ],
-  },
-  {
-    id: "SA-033",
-    title: "Anode-grade graphite export quota tightened",
-    summary:
-      "Export quotas for anode-grade graphite were tightened, restricting feedstock available to battery anode producers.",
-    domain: "Economic",
-    subdomain: "Critical Minerals",
-    severity: "high",
-    confidence: "MEDIUM",
-    source: { kind: "Website", name: "Ministry of Commerce notice" },
-    minerals: ["Graphite"],
-    affectedSystems: ["Battery anodes", "Grid storage"],
-  },
-  {
-    id: "SA-029",
-    title: "Lithium brine expansion delayed by permit dispute",
-    summary:
-      "A permitting dispute delayed the salar brine expansion, pushing back planned growth in lithium output.",
-    domain: "Economic",
-    subdomain: "Critical Minerals",
-    severity: "elevated",
-    confidence: "LOW",
-    source: { kind: "Report", name: "Industry analyst note" },
-    minerals: ["Li"],
-    affectedSystems: ["EV battery cells", "Consumer electronics"],
-  },
-  {
-    id: "SA-027",
-    title: "Class 1 nickel refinery maintenance overrun",
-    summary:
-      "Scheduled maintenance at the class 1 nickel refinery overran, tightening battery-grade nickel availability.",
-    domain: "Economic",
-    subdomain: "Critical Minerals",
-    severity: "moderate",
-    confidence: "MEDIUM",
-    source: { kind: "API", name: "Commodities data feed" },
-    minerals: ["Ni"],
-    affectedSystems: ["Stainless alloys", "Battery cathodes"],
   },
 ];
 
