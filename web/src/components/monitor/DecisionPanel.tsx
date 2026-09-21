@@ -9,11 +9,12 @@ import type {
 } from "@/lib/monitor/api";
 import {
   displayedConfidence,
-  humanise,
   toGrade,
   GRADE_LABEL,
+  RATING_LABEL,
+  UNSOURCED_ORIGIN,
 } from "@/lib/monitor/provenance";
-import { ConfidenceDot, ConfidencePie } from "./ProvenanceDot";
+import { ConfidenceDot, ConfidencePie, DetailRow } from "./ProvenanceDot";
 import {
   graphForAlert,
   nodesById,
@@ -191,15 +192,34 @@ function PathEdgeRow({
           {edge.label}
         </span>
       </span>
-      <span className="ml-[14px] font-mono text-[9px] text-text-tertiary">
-        {[
-          `${GRADE_LABEL[conf.assertion].toLowerCase()} reading`,
-          conf.source !== null
-            ? `${GRADE_LABEL[conf.source].toLowerCase()} source`
-            : "no document",
-          humanise(edge.provenance.type).toLowerCase(),
-        ].join(" · ")}
-      </span>
+      <dl className="ml-[14px] grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-0.5 font-mono text-[9px] tracking-[0.05em]">
+        {conf.source !== null ? (
+          <>
+            <DetailRow
+              label={RATING_LABEL.backedBySource}
+              value={GRADE_LABEL[conf.assertion]}
+            />
+            <DetailRow
+              label={RATING_LABEL.sourceReliability}
+              value={GRADE_LABEL[conf.source]}
+            />
+          </>
+        ) : (
+          <>
+            <DetailRow
+              label={RATING_LABEL.backed}
+              value={GRADE_LABEL[conf.assertion]}
+            />
+            <DetailRow
+              label="Source"
+              value={
+                UNSOURCED_ORIGIN[edge.provenance.type] ??
+                UNSOURCED_ORIGIN.UNKNOWN
+              }
+            />
+          </>
+        )}
+      </dl>
       {source &&
         (source.url ? (
           <a
@@ -249,16 +269,14 @@ function PlatformConfidence({
   const label = [
     `${platform.name}.`,
     `Confidence ${GRADE_LABEL[grade].toLowerCase()},`,
-    "the weakest link on the route from this mine's elements.",
+    "set by the weakest claim in the chain.",
     ...edges.map((e) => `${e.label}.`),
   ].join(" ");
 
   return (
     <ConfidenceDot grade={grade} subject={platform.name} label={label}>
-      <p className="border-t border-surface-2 pt-1.5 text-[9px] leading-relaxed text-text-tertiary">
-        The weakest link on the route from this mine&rsquo;s elements to this
-        system, where each link is itself no stronger than the document under
-        it. Not a joint probability: these assertions are not independent.
+      <p className="text-[9px] leading-relaxed text-text-tertiary">
+        Only as strong as the weakest claim below.
       </p>
       <div className="flex flex-col gap-1.5 border-t border-surface-2 pt-1.5">
         <span className="font-mono text-[9px] tracking-[0.15em] text-accent uppercase">
@@ -269,9 +287,9 @@ function PlatformConfidence({
         ))}
       </div>
       {branching && (
-        <p className="text-[9px] leading-relaxed text-text-tertiary">
-          Where a step has more than one route, the best evidenced of them sets
-          the grade.
+        <p className="border-t border-surface-2 pt-1.5 text-[9px] leading-relaxed text-text-tertiary">
+          More than one chain reaches this system. The grade follows the best
+          one, so some rows above may be weaker than it.
         </p>
       )}
     </ConfidenceDot>

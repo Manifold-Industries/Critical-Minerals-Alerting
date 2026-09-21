@@ -121,7 +121,7 @@ function FigureRow({
 }) {
   const replaced = figure.superseded_by != null;
   const amount = `${figure.tonnes.toLocaleString()} t${
-    figure.period === "LIFE_OF_MINE" ? " LOM" : "/yr"
+    figure.period === "LIFE_OF_MINE" ? " over life of mine" : " a year"
   }`;
   return (
     <li className="flex flex-col gap-0.5 py-1">
@@ -141,8 +141,8 @@ function FigureRow({
       </span>
       <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
         {figure.target_year ? `by ${figure.target_year}` : "no target year"}
-        {replaced && ` · superseded by ${figure.superseded_by}`}
-        {` · ${figure.provenance.type.toLowerCase()}`}
+        {replaced && ` · replaced by the ${figure.superseded_by} figure`}
+        {` · ${humanise(figure.provenance.type)}`}
         <Attribution
           provenance={figure.provenance}
           index={index}
@@ -210,8 +210,8 @@ function Sources({
                   source.published_on,
                   humanise(source.source_type),
                   source.source_confidence
-                    ? `Source conf ${source.source_confidence.toLowerCase()}`
-                    : "Source unrated",
+                    ? `Source quality ${source.source_confidence.toLowerCase()}`
+                    : "Source quality unrated",
                   source.url ? null : "No retrievable location",
                 ]
                   .filter(Boolean)
@@ -231,10 +231,8 @@ function Sources({
       </ol>
       <p className="mt-1 text-[9.5px] leading-relaxed text-text-tertiary">
         <span className="text-accent">Unverified.</span> {unverified} of {cited}{" "}
-        cited claims were read out of these documents by a model and checked by
-        nobody. The dot on each row above grades it on the weaker of two
-        ratings: confidence in the reading, and the source confidence listed
-        here for the document it was read from.
+        cited claims were extracted by a model and not yet checked by a person.
+        Each dot above shows the lower of its support and its source quality.
       </p>
     </Section>
   );
@@ -344,7 +342,7 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
             )}
             {asset.expected_start != null && (
               <>
-                <dt className="text-text-tertiary uppercase">Start</dt>
+                <dt className="text-text-tertiary uppercase">Expected start</dt>
                 <dd className="text-text-secondary">
                   {asset.expected_start}
                   <Attribution

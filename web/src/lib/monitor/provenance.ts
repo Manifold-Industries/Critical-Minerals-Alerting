@@ -105,6 +105,33 @@ export const GRADE_VAR: Record<ConfidenceGrade, string> = {
   UNRATED: "--color-confidence-none",
 };
 
+/**
+ * Labels for the two ratings, phrased as what was rated rather than who rated
+ * it. "Assertion" and "source" named the fields; nobody reading the panel knew
+ * what either meant. No rater is named because the data does not record one:
+ * most claims were written by a model and carry the default unverified flag.
+ * Two words at most: these sit in a 268px popover and a long label wraps the
+ * value onto its own line.
+ */
+export const RATING_LABEL = {
+  /** `assertion_confidence` where the claim cites a document. */
+  backedBySource: "Support",
+  /** `assertion_confidence` where it cites none. */
+  backed: "Support",
+  /** `source_confidence`. */
+  sourceReliability: "Source quality",
+} as const;
+
+/** Where a claim resting on no document came from, short enough to sit in a
+ *  value cell. Keyed by `ProvenanceType` in api/src/models/provenance.py. */
+export const UNSOURCED_ORIGIN: Record<string, string> = {
+  JUDGMENT: "None, analyst judgment",
+  INFERRED: "None, inferred by a person",
+  MODEL_ESTIMATE: "None, model estimate",
+  AUTOMATED: "None, written by a rule",
+  UNKNOWN: "None, origin not recorded",
+};
+
 /** What a provenance type means for a claim resting on no document. Keyed by
  *  `ProvenanceType` in api/src/models/provenance.py. */
 export const UNSOURCED_NOTE: Record<string, string> = {
