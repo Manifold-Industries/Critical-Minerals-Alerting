@@ -284,9 +284,35 @@ function pct(value: number): string {
     : `${(value * 100).toFixed(1)}%`;
 }
 
+/**
+ * The one-line caveat under the capacity share, in terms of what it means for
+ * the reader rather than how it was computed.
+ *
+ * The share is struck against disclosed capacity only. If every plant that
+ * lost feed is disclosed, the missing plants can only enlarge the denominator,
+ * so the true share is no higher than shown. If one of the affected plants is
+ * itself undisclosed, the numerator is short too and the figure is not bounded
+ * either way. The two cases have to read differently.
+ */
+function capacityCaveat(
+  unknownRefiners: number,
+  unknownAffected: number,
+): string | null {
+  if (unknownRefiners === 0) return null;
+  const plants = `${unknownRefiners} refiner${unknownRefiners === 1 ? "" : "s"}`;
+  if (unknownAffected === 0) {
+    return `${plants} publish no capacity figure, so the true share is no higher than this.`;
+  }
+  const hit =
+    unknownAffected === 1
+      ? "one of them lost feed"
+      : `${unknownAffected} of them lost feed`;
+  return `${plants} publish no capacity figure and ${hit}, so the true share could be higher or lower.`;
+}
+
 // Systemic weight of what just lost feed. Every figure here is against
-// *disclosed* capacity only, so it overstates the true share — the wording has
-// to carry that, and an undisclosed plant must never read as zero.
+// *disclosed* capacity only, so it can overstate the true share — the wording
+// has to carry that, and an undisclosed plant must never read as zero.
 //
 // The year is printed alongside the tonnages because capacities are staged and
 // supersede one another, so these figures move with it. There is no longer a
@@ -295,47 +321,42 @@ function pct(value: number): string {
 function CapacityContext({ graph }: { readonly graph: AlertGraph }) {
   const ctx = graph.capacity;
   if (!ctx) return null;
-  const undisclosed = ctx.undisclosed_facility_ids.length;
+  const unknownAffected = ctx.undisclosed_facility_ids.length;
+  const unknownRefiners = ctx.refiners_total - ctx.refiners_disclosing;
 
+  if (ctx.affected_share == null || ctx.affected_tpa == null) {
+    return (
+      <div className="flex flex-col gap-1.5 border border-surface-2 px-3 py-2.5">
+        <p className="text-xs leading-relaxed text-foreground">
+          Share of Dy/Tb separation capacity{" "}
+          <span className="font-mono font-semibold text-accent">unknown</span>
+        </p>
+        <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+          {unknownAffected === 1
+            ? "The plant that lost feed publishes"
+            : `None of the ${unknownAffected} plants that lost feed publish`}{" "}
+          a capacity figure, so this cannot be sized. It is not zero.
+        </p>
+      </div>
+    );
+  }
+
+  const caveat = capacityCaveat(unknownRefiners, unknownAffected);
   return (
     <div className="flex flex-col gap-1.5 border border-surface-2 px-3 py-2.5">
-      {ctx.affected_share != null && ctx.affected_tpa != null ? (
-        <>
-          <p className="text-xs leading-relaxed text-foreground">
-            <span className="font-mono text-sm font-semibold text-accent tabular-nums">
-              {pct(ctx.affected_share)}
-            </span>{" "}
-            of modelled Dy+Tb separation capacity lost feed
-          </p>
-          <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
-            {ctx.affected_tpa.toLocaleString()} of{" "}
-            {ctx.total_tpa.toLocaleString()} tpa disclosed at {ctx.as_of_year},
-            across {ctx.refiners_disclosing} of {ctx.refiners_total} Dy/Tb
-            refiners. Upper bound: the{" "}
-            {ctx.refiners_total - ctx.refiners_disclosing} plants disclosing no
-            nameplate are absent from the denominator.
-          </p>
-        </>
-      ) : (
-        <>
-          <p className="text-xs leading-relaxed text-foreground">
-            Systemic share{" "}
-            <span className="font-mono font-semibold text-accent">
-              not disclosed
-            </span>
-          </p>
-          <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
-            {undisclosed === 1
-              ? "The affected plant publishes"
-              : `All ${undisclosed} affected plants publish`}{" "}
-            no Dy+Tb nameplate. The exposure is real but unsized — not zero.
-          </p>
-        </>
-      )}
-      {ctx.affected_share != null && undisclosed > 0 && (
+      <p className="text-xs leading-relaxed text-foreground">
+        <span className="font-mono text-sm font-semibold text-accent tabular-nums">
+          {pct(ctx.affected_share)}
+        </span>{" "}
+        of known Dy/Tb separation capacity lost feed
+      </p>
+      <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
+        {ctx.affected_tpa.toLocaleString()} of {ctx.total_tpa.toLocaleString()}{" "}
+        tonnes a year, on {ctx.as_of_year} figures.
+      </p>
+      {caveat && (
         <p className="font-mono text-[9px] leading-relaxed text-text-tertiary">
-          Excludes {undisclosed} affected plant{undisclosed === 1 ? "" : "s"}{" "}
-          with no disclosed nameplate.
+          {caveat}
         </p>
       )}
     </div>
