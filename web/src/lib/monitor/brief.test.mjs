@@ -60,6 +60,19 @@ test("the bottom line states each thing the graph holds", () => {
   ]);
 });
 
+test("plants that are all sole-sourced are not counted twice", () => {
+  const lines = bottomLine({
+    alert: ALERT,
+    graph: { ...GRAPH, downstream: GRAPH.downstream.map((p) => ({ ...p, soleSource: true })) },
+    exposure: undefined,
+    weights: null,
+  });
+  assert.equal(
+    lines[2],
+    "2 downstream plants lose feed, and none of them has another supplier.",
+  );
+});
+
 test("a single leader, under the default order, reads differently", () => {
   const lines = bottomLine({
     alert: ALERT,

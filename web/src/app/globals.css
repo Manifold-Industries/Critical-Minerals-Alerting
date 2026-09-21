@@ -306,7 +306,16 @@ body {
    rather than restyling the brief, so every component keeps its own classes.
    The app frame (rail, command header, toolbar) is dropped; the classification
    banners are kept, top and bottom, because a printed page still needs them. */
+.print-only {
+  display: none;
+}
+
 @media print {
+  /* A link cannot be followed on paper, so its address is printed under it. */
+  .print-only {
+    display: block;
+  }
+
   :root {
     color-scheme: light;
     --background: #ffffff;
@@ -321,10 +330,21 @@ body {
     --accent-tint: #f6ead9;
   }
 
+  @page {
+    margin: 16mm;
+  }
+
   html,
   body {
     height: auto;
     background: #ffffff;
+  }
+
+  /* A hover or colour transition caught mid-flight prints as a washed-out
+     in-between; paper has no states to move between. */
+  * {
+    transition: none !important;
+    animation: none !important;
   }
 
   nav[aria-label="Modules"],

@@ -70,6 +70,7 @@ function plantsLine(graph: AlertGraph): string | null {
   const sole = plants.filter((p) => p.soleSource).length;
   if (sole === 0) return `${lose}, and each keeps at least one other supplier.`;
   if (plants.length === 1) return `${lose}, and it has no other supplier.`;
+  if (sole === plants.length) return `${lose}, and none of them has another supplier.`;
   return `${lose}, and ${sole} of them ${sole === 1 ? "has" : "have"} no other supplier.`;
 }
 

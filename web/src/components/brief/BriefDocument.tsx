@@ -3,11 +3,16 @@
 import Link from "next/link";
 
 import type { Alert } from "@/lib/monitor/alerts";
+import { bottomLine, briefLimits } from "@/lib/monitor/brief";
 import { DEFAULT_MODULE_HREF } from "@/lib/modules";
 import type { FactorWeights } from "@/lib/monitor/ranking";
 import { useBriefData } from "@/lib/monitor/useBriefData";
+import BriefAlternatives from "./BriefAlternatives";
+import BriefAtRisk from "./BriefAtRisk";
 import BriefMasthead from "./BriefMasthead";
 import BriefSection, { BriefNotice } from "./BriefSection";
+import BriefSources from "./BriefSources";
+import BriefWhyItMatters from "./BriefWhyItMatters";
 
 interface BriefDocumentProps {
   readonly alert: Alert;
@@ -37,8 +42,24 @@ export default function BriefDocument({
   problem,
   generatedAt,
 }: BriefDocumentProps) {
-  const { graph } = useBriefData(alert, year, weights);
-  const minerals = alert.mineId ? null : (alert.minerals ?? null);
+  const { graph, graphState, exposure, exposureState } = useBriefData(
+    alert,
+    year,
+    weights,
+  );
+  // Same rule as the panel: a mine-backed alert reports the elements the mine
+  // actually carries, and shows none while that is not yet known.
+  const minerals = alert.mineId
+    ? (exposure?.elements ?? null)
+    : (alert.minerals ?? null);
+  // An empty section means three different things; each says which.
+  const emptyReason =
+    graphState === "loading"
+      ? "Simulating the disruption…"
+      : graphState === "error"
+        ? "The disruption engine could not be reached, so this section is empty. This is a gap in the brief, not a finding."
+        : "No dependency graph exists for this alert.";
+  const limits = briefLimits({ graph, exposure, weights });
 
   return (
     <div className="brief-scroll min-h-0 flex-1 overflow-y-auto">
@@ -66,29 +87,95 @@ export default function BriefDocument({
         />
 
         <BriefSection number={1} title="Bottom line">
-          <BriefNotice>The assessment in a few sentences.</BriefNotice>
+          {graphState === "loading" ? (
+            <BriefNotice>{emptyReason}</BriefNotice>
+          ) : (
+            <ul className="flex flex-col gap-1.5">
+              {bottomLine({ alert, graph, exposure, weights }).map((line) => (
+                <li
+                  key={line}
+                  className="border-l-2 border-accent pl-3 text-[13px] leading-relaxed text-foreground"
+                >
+                  {line}
+                </li>
+              ))}
+            </ul>
+          )}
         </BriefSection>
+
         <BriefSection number={2} title="What happened">
-          <BriefNotice>The reported event and where the report came from.</BriefNotice>
+          <p className="text-xs leading-relaxed text-foreground">{alert.summary}</p>
+          <p className="text-[10.5px] leading-relaxed text-text-tertiary">
+            Reported via {alert.source.name} ({alert.source.kind.toLowerCase()}
+            ), report confidence {alert.confidence.toLowerCase()}. This is the
+            report as received; nothing below it verifies the event itself.
+          </p>
         </BriefSection>
-        <BriefSection number={3} title="Why it matters">
-          <BriefNotice>Capacity that lost feed, and the systems that depend on the element.</BriefNotice>
+
+        <BriefSection
+          number={3}
+          title="Why it matters"
+          lede="How much of the system this touches, and what depends on the element."
+        >
+          <BriefWhyItMatters
+            graph={graph}
+            exposure={exposure}
+            exposureState={exposureState}
+            hasMine={alert.mineId !== undefined}
+          />
         </BriefSection>
-        <BriefSection number={4} title="What is at risk">
-          <BriefNotice>The plants downstream of the site.</BriefNotice>
+
+        <BriefSection
+          number={4}
+          title="What is at risk"
+          lede="The plants that lose feed if the site stays down."
+        >
+          <BriefAtRisk graph={graph} emptyReason={emptyReason} />
         </BriefSection>
-        <BriefSection number={5} title="Recommended alternatives">
-          <BriefNotice>Replacement sources, as ranked.</BriefNotice>
+
+        <BriefSection
+          number={5}
+          title="Recommended alternatives"
+          lede="Sources that could be rerouted to the affected plants."
+        >
+          <BriefAlternatives
+            graph={graph}
+            weights={weights}
+            emptyReason={emptyReason}
+          />
         </BriefSection>
-        <BriefSection number={6} title="Limits of this assessment">
-          <BriefNotice>What the figures above cannot support.</BriefNotice>
+
+        <BriefSection
+          number={6}
+          title="Limits of this assessment"
+          lede="What the figures above cannot support. Read before acting on them."
+        >
+          {limits.length === 0 ? (
+            <BriefNotice>{emptyReason}</BriefNotice>
+          ) : (
+            <ul className="flex flex-col gap-2">
+              {limits.map((limit) => (
+                <li
+                  key={limit}
+                  className="grid grid-cols-[10px_1fr] gap-2 text-[11px] leading-relaxed text-text-secondary"
+                >
+                  <span aria-hidden className="text-accent">
+                    ·
+                  </span>
+                  {limit}
+                </li>
+              ))}
+            </ul>
+          )}
         </BriefSection>
+
         <BriefSection number={7} title="Sources">
-          <BriefNotice>The documents the brief rests on.</BriefNotice>
+          <BriefSources alert={alert} exposure={exposure} />
         </BriefSection>
 
         <footer className="border-t border-surface-2 pt-3 font-mono text-[9px] leading-relaxed tracking-[0.05em] text-text-tertiary">
-          DB-{alert.id} · Generated {generatedAt} · Assembled from the supply
+          DB-{alert.id} · Generated {generatedAt}
+          {graph?.asOfYear ? ` · Simulated at ${graph.asOfYear}` : ""} · Assembled from the supply
           graph; no figure in this document is estimated or written by a model.
         </footer>
       </article>

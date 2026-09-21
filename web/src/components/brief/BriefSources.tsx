@@ -39,7 +39,7 @@ export default function BriefSources({
         </li>
         {documents.map((source, i) => {
           const grade = toGrade(source.source_confidence);
-          const meta = [source.publisher, source.published_on, source.locator]
+          const meta = [source.publisher, source.published_on]
             .filter(Boolean)
             .join(" · ");
           return (
@@ -66,6 +66,17 @@ export default function BriefSources({
                   </span>
                 )}
                 {meta && <span className="text-[10px] text-text-tertiary">{meta}</span>}
+                {/* The graph's locator doubles as a curation note and can run
+                    to a paragraph. Two lines is enough to find the passage; the
+                    whole of it is on the asset's reference detail. */}
+                {source.locator && (
+                  <span
+                    className="line-clamp-2 text-[10px] leading-snug text-text-tertiary"
+                    title={source.locator}
+                  >
+                    {source.locator}
+                  </span>
+                )}
                 {source.url && (
                   <span className="print-only text-[9px] break-all text-text-tertiary">
                     {source.url}
