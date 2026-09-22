@@ -57,25 +57,3 @@ export const FOOTER_LINKS: readonly LandingLink[] = [
   { label: "Privacy & Security", href: PENDING },
   { label: "USA.gov", href: "https://www.usa.gov" },
 ];
-
-// The standard DoD notice-and-consent banner text, shown before sign-in.
-export const CONSENT_EYEBROW = "Notice and consent";
-export const CONSENT_TITLE = "U.S. Government information system";
-
-// Stands above the notice, outside the scrolling area, so the disclaimer cannot
-// be missed: agreeing to a verbatim federal consent banner is the one moment on
-// this screen where a reader could take the prototype for the real thing.
-export const CONSENT_DEMO_NOTE =
-  "This is a demonstration prototype, not an actual Department of War system. The notice below is reproduced for realism and has no legal effect.";
-export const CONSENT_BODY =
-  "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions:";
-
-export const CONSENT_TERMS: readonly string[] = [
-  "The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct, law enforcement, and counterintelligence investigations.",
-  "At any time, the USG may inspect and seize data stored on this IS.",
-  "Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.",
-  "This IS includes security measures — such as authentication and access controls — to protect USG interests, not for your personal benefit or privacy.",
-];
-
-export const CONSENT_CANCEL = "Cancel";
-export const CONSENT_AGREE = "I agree · Enter system";

@@ -1,5 +1,6 @@
 import { IconArrowRight } from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   EMBLEM_SIZE,
@@ -10,18 +11,18 @@ import {
   SYSTEM_NAME,
   SYSTEM_SUBLINE,
 } from "@/lib/landing/content";
-
-interface EntryBlockProps {
-  readonly onEnter: () => void;
-}
+import { DEFAULT_MODULE_HREF } from "@/lib/modules";
 
 // The masthead: seal, name, and the one control on the screen. Centred column,
 // capped at 760px so the title breaks in the same place as the subline.
 //
+// There is nothing between the reader and the console — entering is a plain
+// link, so it prefetches, opens in a new tab, and needs no client state.
+//
 // The type and spacing here are sized to keep the whole screen — masthead, info
 // strip, and footer — inside one viewport on a laptop, so the entry block is
 // never something a reader has to scroll past.
-export default function EntryBlock({ onEnter }: EntryBlockProps) {
+export default function EntryBlock() {
   return (
     <div className="mx-auto flex w-full max-w-[760px] flex-col items-center gap-[clamp(16px,2.6vh,24px)] text-center">
       <Image
@@ -45,14 +46,13 @@ export default function EntryBlock({ onEnter }: EntryBlockProps) {
         </p>
       </div>
 
-      <button
-        type="button"
-        onClick={onEnter}
+      <Link
+        href={DEFAULT_MODULE_HREF}
         className="mt-1 inline-flex items-center gap-3 bg-accent px-10 py-3 font-mono text-[15px] font-semibold uppercase tracking-[0.12em] text-surface-0 transition-colors duration-150 hover:bg-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         {ENTER_LABEL}
         <IconArrowRight size={18} stroke={2.2} aria-hidden="true" />
-      </button>
+      </Link>
 
       <p className="font-mono text-[13px] text-text-tertiary">{ENTER_HELPER}</p>
     </div>
