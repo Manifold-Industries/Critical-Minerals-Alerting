@@ -24,19 +24,17 @@ export const GOVERNMENT_NOTICE =
 export const SYSTEM_LABELS: readonly string[] = [
   "SYS · MIC-AP",
   "REL 1.0",
-  "OASD(IBP)",
+  "OASW(IBP)",
 ];
 
 export const ORG_EYEBROW = "Department of War";
-// The office keeps its statutory title, which is also what the emblem beside it
-// reads: changing it here would contradict the seal.
 export const SYSTEM_NAME = "Mineral Intelligence Center";
 export const SYSTEM_SUBLINE =
-  "Office of the Assistant Secretary of Defense for Industrial Base Policy";
+  "Office of the Assistant Secretary of War for Industrial Base Policy";
 // The office's own emblem, in public/. Decorative on this screen: the eyebrow,
 // title, and subline beside it already name the office the seal identifies, so
 // it carries an empty alt rather than repeating them to a screen reader.
-export const EMBLEM_SRC = "/ASD IBP Emblem.png";
+export const EMBLEM_SRC = "/ASWIBP.png";
 export const EMBLEM_SIZE = 112;
 
 export const ENTER_LABEL = "Enter System";
