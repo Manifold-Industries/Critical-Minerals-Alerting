@@ -140,8 +140,8 @@ test("a factor with any fallback value is unavailable", () => {
   });
   assert.equal(byFactor.get("alignment").available, true);
   // Never measured at all is the limiting case of incomplete.
-  assert.equal(byFactor.get("time_to_flow").available, false);
-  assert.equal(byFactor.get("time_to_flow").missing, 3);
+  assert.equal(byFactor.get("operating_status").available, false);
+  assert.equal(byFactor.get("operating_status").missing, 3);
   assert.equal(byFactor.has("evidence"), false);
   assert.equal(byFactor.has("confidence"), false);
 });
