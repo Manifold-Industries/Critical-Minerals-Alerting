@@ -10,6 +10,7 @@ import {
   type ApiSourceRef,
 } from "@/lib/monitor/api";
 import { humanise } from "@/lib/monitor/provenance";
+import OperatingStatusBadge from "./OperatingStatusBadge";
 import ProvenanceDot from "./ProvenanceDot";
 
 interface AssetOverlayProps {
@@ -304,15 +305,21 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
           {asset && (
             <p className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
               {asset.kind === "MINE" ? "Mine" : humanise(asset.facility_type ?? "Facility")}
-              {" · "}
-              {humanise(asset.operating_status)}
+              {asset.country_name ? ` · ${asset.country_name}` : ""}
+            </p>
+          )}
+          {/* Whether the site is running is the first fact a reader needs,
+              so it gets its own line rather than a slot in the subtitle. It
+              is still an attested claim, so its provenance stays beside it. */}
+          {asset && (
+            <div className="mt-1 flex items-center gap-1">
+              <OperatingStatusBadge status={asset.operating_status} size="lg" />
               <Attribution
                 provenance={asset.operating_status_provenance}
                 index={index}
                 subject={`Operating status · ${humanise(asset.operating_status)}`}
               />
-              {asset.country_name ? ` · ${asset.country_name}` : ""}
-            </p>
+            </div>
           )}
         </div>
         <button

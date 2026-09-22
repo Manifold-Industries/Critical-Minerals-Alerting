@@ -1,5 +1,6 @@
-import { pct, statusLabel, supplyLabel } from "@/lib/monitor/format";
+import { pct, supplyLabel } from "@/lib/monitor/format";
 import type { AlertGraph } from "@/lib/monitor/graphs";
+import OperatingStatusBadge from "../monitor/OperatingStatusBadge";
 import {
   BRIEF_TABLE,
   BRIEF_TD,
@@ -68,8 +69,14 @@ export default function BriefAtRisk({
               >
                 {supplyLabel(node) ?? "—"}
               </td>
-              <td className={BRIEF_TD}>
-                {node.operatingStatus ? statusLabel(node.operatingStatus) : "—"}
+              <td className={`${BRIEF_TD} whitespace-nowrap`}>
+                {/* A dash for an unrecorded status, in keeping with the rest
+                    of the table: an unstated fact is not a chip. */}
+                {node.operatingStatus ? (
+                  <OperatingStatusBadge status={node.operatingStatus} />
+                ) : (
+                  "—"
+                )}
               </td>
               {live && (
                 <td className={`${BRIEF_TD} text-right font-mono tabular-nums`}>
