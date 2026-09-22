@@ -23,7 +23,7 @@ interface EntryBlockProps {
 // never something a reader has to scroll past.
 export default function EntryBlock({ onEnter }: EntryBlockProps) {
   return (
-    <div className="mx-auto flex w-full max-w-[760px] flex-col items-center gap-6 text-center">
+    <div className="mx-auto flex w-full max-w-[760px] flex-col items-center gap-[clamp(16px,2.6vh,24px)] text-center">
       <Image
         src={EMBLEM_SRC}
         alt=""
