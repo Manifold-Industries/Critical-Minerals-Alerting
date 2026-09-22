@@ -140,8 +140,8 @@ test("a factor with any fallback value is unavailable", () => {
   });
   assert.equal(byFactor.get("alignment").available, true);
   // Never measured at all is the limiting case of incomplete.
-  assert.equal(byFactor.get("time_to_flow").available, false);
-  assert.equal(byFactor.get("time_to_flow").missing, 3);
+  assert.equal(byFactor.get("commitment").available, false);
+  assert.equal(byFactor.get("commitment").missing, 3);
   assert.equal(byFactor.has("evidence"), false);
   assert.equal(byFactor.has("confidence"), false);
 });
@@ -177,6 +177,19 @@ test("weights survive a round trip through a URL", () => {
   const weights = { alignment: 2, commitment: 5 };
   assert.equal(formatWeights(weights), "alignment:2,commitment:5");
   assert.deepEqual(parseWeights(formatWeights(weights)), weights);
+});
+
+test("a link written against the old factor set is refused, not repaired", () => {
+  // Both were once weightable. time_to_flow was dropped outright, and
+  // operating_status became a gate the engine applies before ranking, so
+  // neither can carry a weight now. A brief that quietly ranked on different
+  // weights than its link says is worse than one that says the link was bad.
+  assert.equal(parseWeights("alignment:1,time_to_flow:3"), null);
+  assert.equal(parseWeights("alignment:1,operating_status:3"), null);
+  assert.deepEqual(parseWeights("alignment:1,commitment:3"), {
+    alignment: 1,
+    commitment: 3,
+  });
 });
 
 test("formatting drops zeroes and factors that cannot be weighted", () => {

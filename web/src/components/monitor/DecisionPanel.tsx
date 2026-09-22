@@ -19,14 +19,10 @@ import { briefHref } from "@/lib/monitor/briefLink";
 import { graphForAlert, type AlertGraph } from "@/lib/monitor/graphs";
 import type { FactorWeights } from "@/lib/monitor/ranking";
 import { IMPACT_COLOR, SEVERITY_COLOR } from "@/lib/monitor/colors";
-import {
-  capacityCaveat,
-  pct,
-  statusLabel,
-  supplyLabel,
-} from "@/lib/monitor/format";
+import { capacityCaveat, pct, supplyLabel } from "@/lib/monitor/format";
 import AlternativesRanker from "./AlternativesRanker";
 import ElementBadges from "./ElementBadges";
+import OperatingStatusBadge from "./OperatingStatusBadge";
 
 interface DecisionPanelProps {
   readonly alert: Alert;
@@ -646,7 +642,10 @@ export default function DecisionPanel({
                             : node.role}
                         </span>
                         {(supplyLabel(node) || node.operatingStatus) && (
-                          <span className="mt-0.5 flex flex-wrap items-center gap-1">
+                          <span className="mt-1 flex flex-wrap items-center gap-1.5">
+                            {node.operatingStatus && (
+                              <OperatingStatusBadge status={node.operatingStatus} />
+                            )}
                             {supplyLabel(node) && (
                               <span
                                 className={`font-mono text-[9px] tracking-[0.1em] uppercase ${
@@ -656,16 +655,6 @@ export default function DecisionPanel({
                                 }`}
                               >
                                 {supplyLabel(node)}
-                              </span>
-                            )}
-                            {supplyLabel(node) && node.operatingStatus && (
-                              <span className="text-[9px] text-text-tertiary">
-                                ·
-                              </span>
-                            )}
-                            {node.operatingStatus && (
-                              <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
-                                {statusLabel(node.operatingStatus)}
                               </span>
                             )}
                           </span>

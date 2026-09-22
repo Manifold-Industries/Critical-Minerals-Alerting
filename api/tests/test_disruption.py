@@ -10,15 +10,13 @@ import pytest
 
 from scripts.validate_data import build
 from src.disruption import (
-    ALIGNMENT_RANK,
+    ALIGNMENT_SCALE,
     DEFAULT_WEIGHTS,
-    TIME_BUCKET_UNKNOWN,
     UNSIZED_COVERAGE_SCORE,
     WEIGHTS_VERSION,
     QuantityBasis,
     RankingKey,
     ScoreFactor,
-    _TIME_LABELS,
     _coverage_measure,
     build_scoring_policy,
     simulate_disruption,
@@ -131,20 +129,9 @@ def test_infeasible_routes_are_pruned(graph: SupplyGraph) -> None:
     assert all(a.qualification is not QualificationTier.INFEASIBLE for a in hit.alternatives)
 
 
-def test_alignment_ranks_third_behind_evidence_and_time(graph: SupplyGraph) -> None:
-    """A DOMESTIC candidate must not overtake a nearer-term one of the same class."""
-    impact = simulate_disruption(graph, "proj-monte-alto", as_of_year=2027)
-    hit = _find(impact, "fac-caremag-lacq")
-    by_id = {a.source_id: a for a in hit.alternatives}
-    round_top, serra_verde = by_id["proj-round-top"], by_id["proj-serra-verde"]
-    assert round_top.alignment == "DOMESTIC" and serra_verde.alignment == "PARTNER"
-    assert round_top.key.time_bucket > serra_verde.key.time_bucket
-    assert serra_verde.key < round_top.key
-
-
 def test_unassessed_alignment_sorts_with_neutral_not_below_it() -> None:
-    assert ALIGNMENT_RANK[None] == ALIGNMENT_RANK["NEUTRAL"]
-    assert ALIGNMENT_RANK[None] < ALIGNMENT_RANK["ADVERSARY"]
+    assert ALIGNMENT_SCALE.rank_of(None) == ALIGNMENT_SCALE.rank_of("NEUTRAL")
+    assert ALIGNMENT_SCALE.rank_of(None) < ALIGNMENT_SCALE.rank_of("ADVERSARY")
 
 
 def test_ranking_key_orders_lexicographically() -> None:
@@ -162,7 +149,9 @@ def test_results_are_sorted_by_score(graph: SupplyGraph) -> None:
 
 def test_the_key_breaks_exact_score_ties(graph: SupplyGraph) -> None:
     """Equal scores must still order deterministically, or output is unstable."""
-    impact = simulate_disruption(graph, "proj-caldeira", as_of_year=2029)
+    # Monte Alto rather than Caldeira: the operating-status gate shrank every
+    # pool, and this is the run that still holds two equally scored candidates.
+    impact = simulate_disruption(graph, "proj-monte-alto", as_of_year=2027)
     tied = 0
     for hit in impact.impacted:
         for above, below in zip(hit.alternatives, hit.alternatives[1:]):
@@ -233,19 +222,28 @@ def test_alignment_only_scoring_takes_five_values(graph: SupplyGraph) -> None:
     assert seen and seen <= {0.0, 25.0, 50.0, 75.0, 100.0}
 
 
-def test_most_pairs_tie_on_score_and_fall_through_to_the_key(
+def test_the_score_now_separates_most_pairs_rather_than_the_tiebreak(
     graph: SupplyGraph,
 ) -> None:
-    """The cost of a five-value score: the tiebreak does most of the ordering."""
-    impact = simulate_disruption(graph, "proj-caldeira", as_of_year=2029)
+    """The gate's second effect, and the reason this assertion inverted.
+
+    A five-value score used to leave most adjacent pairs tied, so the
+    lexicographic key did most of the ordering and a reader told only about the
+    score had been told about one criterion in eight. Gating on operating
+    status cut the pool to a handful of candidates that rarely share a country
+    alignment, so the score separates most pairs on its own. Whatever it cannot
+    separate still falls to the key, deterministically.
+    """
     pairs = ties = 0
-    for hit in impact.impacted:
-        for above, below in zip(hit.alternatives, hit.alternatives[1:]):
-            pairs += 1
-            if above.score.value == below.score.value:
-                ties += 1
-                assert above.key < below.key
-    assert pairs and ties / pairs > 0.5
+    for mine, year in (("proj-monte-alto", 2027), ("proj-browns-range", 2028)):
+        impact = simulate_disruption(graph, mine, as_of_year=year)
+        for hit in impact.impacted:
+            for above, below in zip(hit.alternatives, hit.alternatives[1:]):
+                pairs += 1
+                if above.score.value == below.score.value:
+                    ties += 1
+                    assert above.key < below.key
+    assert pairs and ties / pairs < 0.5
 
 
 def test_a_single_factor_policy_says_so(graph: SupplyGraph) -> None:
@@ -284,9 +282,11 @@ def test_a_fallback_is_marked_rather_than_passed_off_as_data(graph: SupplyGraph)
     coverage = [a.score.factor(ScoreFactor.COVERAGE) for a in rows]
     assert coverage and all(not f.known and f.raw is None and f.detail for f in coverage)
 
-    blind = [a.score.factor(ScoreFactor.TIME_TO_FLOW) for a in rows if a.months_to_flow is None]
-    assert blind, "no candidate had unknown readiness, so nothing was exercised"
-    assert all(f.normalized == 0.0 and not f.known and f.raw is None for f in blind)
+    # The alignment fallback is no longer reachable from live data: the only
+    # unassessed countries here host pre-production projects, which the
+    # operating-status gate removes before scoring. It is covered as a unit in
+    # tests/test_qualitative_factors.py instead.
+    assert all(a.alignment_known for a in rows)
 
 
 def test_excluding_a_factor_renormalises_the_rest(graph: SupplyGraph) -> None:
@@ -375,9 +375,4 @@ def test_unknown_factor_raises() -> None:
 def test_the_tiebreak_is_not_a_scoring_factor() -> None:
     """A factor for source_id would score candidates on the spelling of their id."""
     assert "source_id" not in set(ScoreFactor)
-    assert len(ScoreFactor) == 6
-
-
-def test_every_time_bucket_has_a_label() -> None:
-    """Missing one is an IndexError deep inside scoring, not a wrong number."""
-    assert len(_TIME_LABELS) == TIME_BUCKET_UNKNOWN + 1
+    assert len(ScoreFactor) == 5

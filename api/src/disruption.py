@@ -5,11 +5,23 @@ feed, how exposed each one is, and which other sources could be rerouted in.
 
 What the ranking is, and is not
 -------------------------------
-Candidates are ordered by ``CandidateScore``: each of six factors is normalised
-to [0, 1] with 1 as best, weighted, and renormalised over the weights actually
-in play, giving 0-100 where higher is better. ``RankingKey`` is still built and
-still returned - it breaks exact score ties, and it records the lexicographic
-order the score replaced.
+Who is ranked is decided before anything is scored. ``RANKABLE_STATUSES`` keeps
+only sources that can ship - operating or commissioning - and drops the rest
+before a single factor is measured. That is a gate rather than a low score on
+purpose: an unbuilt mine scored last is still on the list, and still one weight
+change away from the top of it. It prunes hard here, because most of this graph
+is pre-production, so ``simulate_disruption`` warns with the count.
+
+What survives is ordered by ``CandidateScore``: each of five factors is
+normalised to [0, 1] with 1 as best, weighted, and renormalised over the weights
+actually in play, giving 0-100 where higher is better. ``RankingKey`` is still
+built and still returned - it breaks exact score ties, and it records the
+lexicographic order the score replaced.
+
+Two of the five - alignment and assertion confidence - are qualitative: a
+vocabulary ordered by hand, normalised by position. They share one mechanism,
+``OrdinalScale``, so adding a qualitative factor is a rank table and an enum
+member rather than new arithmetic.
 
 ``DEFAULT_WEIGHTS`` scores on country alignment alone. Every other factor is
 still measured and still returned, at weight zero. Three consequences follow,
@@ -31,9 +43,10 @@ and all three are load-bearing:
   come back measured, so re-weighting is a caller decision, not a code change:
   pass ``weights`` to move any of them.
 
-Nothing here is derived. There is no principled exchange rate between a
-qualification tier, a month and a tonne, so any weighting is a stated editorial
-position and carries a version string that says which one it was.
+Nothing here is derived. There is no principled exchange rate between an
+operating status, a qualification tier and a tonne, so any weighting is a
+stated editorial position and carries a version string that says which one it
+was.
 
 Two limits worth stating before anyone acts on the output:
 
@@ -93,28 +106,63 @@ class QuantityBasis(StrEnum):
     UNKNOWN = "UNKNOWN"
 
 
-#: Alignment ordering. An unassessed country sorts *with* NEUTRAL rather than
-#: below it: Malawi carries no alignment at all, and Kangankunde is a contracted
-#: Eneabba feed that a null must not bury. ``AlternativeFeed.alignment_known``
-#: distinguishes the two.
-ALIGNMENT_RANK: dict[str | None, int] = {
+#: Alignment ordering, best first. An unassessed country sorts *with* NEUTRAL
+#: rather than below it - Malawi carries no alignment at all, and Kangankunde is
+#: a contracted Eneabba feed that a null must not bury - which is recorded on
+#: ``ALIGNMENT_SCALE.unknown_rank`` rather than as a null key here.
+#: ``AlternativeFeed.alignment_known`` distinguishes a stated NEUTRAL from an
+#: absent one.
+ALIGNMENT_RANK: dict[str, int] = {
     "DOMESTIC": 0,
     "ALLY": 1,
     "PARTNER": 2,
     "NEUTRAL": 3,
-    None: 3,
     "ADVERSARY": 4,
 }
-
-#: Upper bound in months for each time-to-flow bucket. Raw lead months are a
-#: modelling heuristic the seed data is explicit about, never a disclosed lead
-#: time, so they are bucketed rather than sorted on directly.
-TIME_BUCKETS: tuple[int, ...] = (0, 6, 12, 24)
-TIME_BUCKET_UNKNOWN = len(TIME_BUCKETS) + 1
 
 #: Statuses under which an asset can ship now. Anything else needs a stated
 #: start year; absent one, readiness is unknown rather than guessed.
 READY_STATUSES = frozenset({OperatingStatus.OPERATING, OperatingStatus.COMMISSIONING})
+
+#: Statuses a candidate must hold to be ranked at all. Operating status is a
+#: gate, not a preference: a mine that is not producing is not a worse option,
+#: it is not an option, and no weight expresses that. Any weight above zero
+#: leaves an unbuilt mine on the list, one weight change away from the top of
+#: it; only removing it from the pool says what is meant.
+#:
+#: ``READY_STATUSES`` rather than ``{OPERATING}`` alone, so the engine keeps one
+#: definition of "can ship now" rather than two that disagree. Commissioning
+#: assets are starting production, and the readiness arithmetic below has always
+#: treated them as able to feed a plant today.
+#:
+#: This prunes hard. Most of the seed graph is pre-production, so a typical
+#: reroute list goes from roughly eighteen candidates to four. That is the
+#: intended effect, and ``simulate_disruption`` warns with the count so a
+#: shortened list reads as a filter rather than as a graph with no options.
+RANKABLE_STATUSES = READY_STATUSES
+
+#: Operating-status ordering, best first. No longer scored - see
+#: ``RANKABLE_STATUSES`` - but still the second field of ``RankingKey``, so a
+#: producing mine sorts above one still commissioning where the two score alike.
+#:
+#: The whole vocabulary is ranked, not just the rankable part, so moving the
+#: gate cannot land a status on an undefined rank. SUSPENDED shares PLANNED's
+#: rank deliberately: both are "not producing, and nobody has stated a date",
+#: and the graph holds nothing that separates a restart from a first start.
+OPERATING_STATUS_RANK: dict[str, int] = {
+    OperatingStatus.OPERATING: 0,
+    OperatingStatus.COMMISSIONING: 1,
+    OperatingStatus.UNDER_CONSTRUCTION: 2,
+    OperatingStatus.PLANNED: 3,
+    OperatingStatus.SUSPENDED: 3,
+    OperatingStatus.CLOSED: 4,
+}
+
+#: Rank for a status the table does not hold, or an id that resolved to no
+#: asset. Below every real status, so an unreadable node never sorts above one
+#: known to be producing. Unreachable while the gate stands, since every
+#: rankable status is in the table; kept so a wider gate cannot KeyError.
+_UNKNOWN_STATUS_RANK = max(OPERATING_STATUS_RANK.values()) + 1
 
 _TIER_RANK = {
     QualificationTier.INFEASIBLE: 0,
@@ -122,7 +170,13 @@ _TIER_RANK = {
     QualificationTier.FEED_ENVELOPE: 2,
     QualificationTier.QUALIFIED: 3,
 }
-_CONFIDENCE_RANK = {Confidence.HIGH: 0, Confidence.MEDIUM: 1, Confidence.LOW: 2, None: 3}
+#: Assertion-confidence ordering, best first. An unstated confidence ranks below
+#: LOW rather than with it, on ``CONFIDENCE_SCALE.unknown_rank``.
+_CONFIDENCE_RANK: dict[str, int] = {
+    Confidence.HIGH: 0,
+    Confidence.MEDIUM: 1,
+    Confidence.LOW: 2,
+}
 _COMMITTING_STATUSES = frozenset(
     {RelationshipStatus.OBSERVED, RelationshipStatus.CONTRACTED, RelationshipStatus.PLANNED}
 )
@@ -134,28 +188,31 @@ class ScoreFactor(StrEnum):
     ``source_id`` is deliberately not among them. It breaks exact ties so that
     orderings stay stable and testable, and a tiebreak that contributed points
     would be scoring candidates on the spelling of their id.
+
+    Operating status is not among them either, and for a different reason: it
+    decides whether a candidate is on the list at all. See ``RANKABLE_STATUSES``.
     """
 
     EVIDENCE = "evidence"
-    TIME_TO_FLOW = "time_to_flow"
     ALIGNMENT = "alignment"
     COVERAGE = "coverage"
     COMMITMENT = "commitment"
     CONFIDENCE = "confidence"
 
 
-#: Bumped whenever a weight moves, so a stored response can be read back against
-#: the policy that produced it rather than against today's defaults.
-WEIGHTS_VERSION = "v2-alignment-only"
+#: Bumped whenever a weight moves or the factor set changes, so a stored
+#: response can be read back against the policy that produced it rather than
+#: against today's defaults. v4 made operating status a gate instead of a
+#: factor, which changes the candidate set and not only the order.
+WEIGHTS_VERSION = "v4-alignment-only"
 
 #: Country alignment, and nothing else. An editorial position, not a derived
 #: result - see the module docstring for what resting on one five-step ordinal
-#: does to the ordering. The other five are held at zero rather than deleted:
+#: does to the ordering. The other four are held at zero rather than deleted:
 #: they are still measured, still returned, and a caller who wants any of them
 #: back passes ``weights`` rather than editing this.
 DEFAULT_WEIGHTS: dict[ScoreFactor, float] = {
     ScoreFactor.ALIGNMENT: 1.0,
-    ScoreFactor.TIME_TO_FLOW: 0.0,
     ScoreFactor.COVERAGE: 0.0,
     ScoreFactor.EVIDENCE: 0.0,
     ScoreFactor.COMMITMENT: 0.0,
@@ -180,19 +237,6 @@ _SCORE_DP = 6
 #: schema cannot drift on what a rank means.
 COVERAGE_LABEL: dict[int, str] = {0: "COVERS", 1: "UNSIZED", 2: "PARTIAL"}
 
-#: One label per time bucket, including the unknown bucket at the end.
-_TIME_LABELS: tuple[str, ...] = (
-    "IMMEDIATE",
-    "WITHIN_6M",
-    "WITHIN_12M",
-    "WITHIN_24M",
-    "BEYOND_24M",
-    "UNKNOWN",
-)
-
-_MAX_ALIGNMENT_RANK = max(ALIGNMENT_RANK.values())
-_MAX_CONFIDENCE_RANK = max(_CONFIDENCE_RANK.values())
-
 
 @dataclass(frozen=True)
 class FeedQuantity:
@@ -216,8 +260,11 @@ class RankingKey:
     #: the curated one and describes itself as "not evidence"; letting a generated
     #: row outrank a hand-read one inverts the rule the generator enforces.
     evidence_class: int
-    #: Readiness gap plus qualification lead, bucketed. Feasibility before preference.
-    time_bucket: int
+    #: Operating status as an ordinal. Not a scoring factor - the gate has
+    #: already removed everything that cannot ship - but the survivors still
+    #: differ, and a producing mine should sort above one still commissioning
+    #: where the two score alike. Feasibility before preference, as before.
+    status_rank: int
     #: Country alignment. A preference, so it sits below both feasibility keys -
     #: only two mines in the graph are DOMESTIC, and ranking on it any higher
     #: floats an exploration-stage project above routes that can flow now.
@@ -353,6 +400,105 @@ class _Measured:
     detail: str | None = None
 
 
+@dataclass(frozen=True)
+class OrdinalScale:
+    """A qualitative factor: a vocabulary someone wrote down best to worst.
+
+    Two of the five factors are this shape - alignment and assertion confidence.
+    Neither is measured; each is a list of categories ordered by hand,
+    normalised by position. Holding that as data rather than as near-identical
+    blocks inside ``_measure`` is what makes the next qualitative factor a table
+    and an enum member instead of new arithmetic.
+
+    A scale expresses a preference and nothing stronger. Where a category should
+    disqualify a candidate rather than cost it points, the rule belongs in
+    ``_candidate_edges`` instead - ``RANKABLE_STATUSES`` is the case.
+
+    Two things the shape has to get right, because both have bitten a factor
+    here already:
+
+    * **Ranks may repeat.** Categories the graph cannot separate share a rank
+      rather than being ordered by an accident of declaration order.
+    * **Unknown is a position, not a default.** Where an absent value sits is a
+      judgement that differs per factor - an unassessed country scores with
+      NEUTRAL, an unstated confidence scores below LOW - so each scale states
+      its own, and says why in ``unknown_detail``.
+    """
+
+    factor: ScoreFactor
+    #: Category -> rank, 0 best. Holds every category in the vocabulary, so a
+    #: label is never a lie.
+    ranks: Mapping[str, int]
+    #: Where a value the graph does not hold sits on this scale.
+    unknown_rank: int
+    #: What the row shows in place of a category it has not got.
+    unknown_label: str
+    #: Why ``unknown_rank`` is where it is, carried onto the factor as
+    #: ``detail`` so a reader sees the fallback rather than inferring a
+    #: disclosure from the number.
+    unknown_detail: str
+
+    def __post_init__(self) -> None:
+        # At import, not at request time: a scale with one position normalises
+        # by zero, and a ZeroDivisionError raised from inside scoring says
+        # nothing about the table that caused it.
+        if not self.ranks:
+            raise ValueError(f"{self.factor.value} scale has no categories")
+        if self.max_rank < 1:
+            raise ValueError(
+                f"{self.factor.value} scale has one position, so it cannot order anything"
+            )
+
+    @property
+    def max_rank(self) -> int:
+        """The worst position on the scale, including the unknown one."""
+        return max((*self.ranks.values(), self.unknown_rank))
+
+    def rank_of(self, value: str | None) -> int:
+        """Where ``value`` sits. Outside the vocabulary is the same statement as
+        absent: both mean the graph holds nothing this scale can read."""
+        if value is None:
+            return self.unknown_rank
+        return self.ranks.get(value, self.unknown_rank)
+
+    def measure(self, value: str | None, rank: int) -> _Measured:
+        """Normalise to [0, 1] with 1 as best.
+
+        ``rank`` is passed in rather than recomputed so that a caller reading it
+        off ``RankingKey`` cannot end up with a score and a key that disagree
+        about what a candidate looked like.
+        """
+        known = value is not None and value in self.ranks
+        return _Measured(
+            factor=self.factor,
+            normalized=1.0 - rank / self.max_rank,
+            raw=float(rank),
+            # str() rather than the value itself: callers pass StrEnum members,
+            # and a label that is sometimes an enum and sometimes a string is a
+            # difference that escapes into the serialised response.
+            raw_label=str(value) if known else self.unknown_label,
+            known=known,
+            detail=None if known else self.unknown_detail,
+        )
+
+
+ALIGNMENT_SCALE = OrdinalScale(
+    factor=ScoreFactor.ALIGNMENT,
+    ranks=ALIGNMENT_RANK,
+    unknown_rank=ALIGNMENT_RANK["NEUTRAL"],
+    unknown_label="UNASSESSED",
+    unknown_detail="country carries no alignment assessment; scored with NEUTRAL, not below it",
+)
+
+CONFIDENCE_SCALE = OrdinalScale(
+    factor=ScoreFactor.CONFIDENCE,
+    ranks=_CONFIDENCE_RANK,
+    unknown_rank=max(_CONFIDENCE_RANK.values()) + 1,
+    unknown_label="UNSTATED",
+    unknown_detail="no assertion confidence stated; scored at the floor",
+)
+
+
 def _coverage_measure(key: RankingKey) -> tuple[float, float | None, bool, str | None]:
     """Collapse ``coverage_rank`` and ``shortfall`` onto one axis.
 
@@ -376,13 +522,17 @@ def _coverage_measure(key: RankingKey) -> tuple[float, float | None, bool, str |
 def _measure(
     key: RankingKey,
     alignment: str | None,
-    months: int | None,
     confidence: Confidence | None,
 ) -> tuple[_Measured, ...]:
     """Normalise every axis to [0, 1] with 1 as best.
 
     Ordinals are read off ``RankingKey`` rather than recomputed, so the score and
     the key can never disagree about what a candidate looked like.
+
+    The two qualitative axes go through ``OrdinalScale`` and are one line each;
+    the rest stay here because their arithmetic is not a position in a list.
+    Operating status is absent by design - it gates the pool rather than
+    scoring within it.
     """
     coverage_normal, coverage_raw, coverage_known, coverage_detail = _coverage_measure(key)
     return (
@@ -393,26 +543,7 @@ def _measure(
             "CURATED" if key.evidence_class == 0 else "AUTOMATED",
             True,
         ),
-        _Measured(
-            ScoreFactor.TIME_TO_FLOW,
-            1.0 - key.time_bucket / TIME_BUCKET_UNKNOWN,
-            float(months) if months is not None else None,
-            _TIME_LABELS[key.time_bucket],
-            months is not None,
-            None
-            if months is not None
-            else "no stated start year or qualification lead; scored below every known bucket",
-        ),
-        _Measured(
-            ScoreFactor.ALIGNMENT,
-            1.0 - key.alignment_rank / _MAX_ALIGNMENT_RANK,
-            float(key.alignment_rank),
-            alignment or "UNASSESSED",
-            alignment is not None,
-            None
-            if alignment is not None
-            else "country carries no alignment assessment; scored with NEUTRAL, not below it",
-        ),
+        ALIGNMENT_SCALE.measure(alignment, key.alignment_rank),
         _Measured(
             ScoreFactor.COVERAGE,
             coverage_normal,
@@ -428,16 +559,7 @@ def _measure(
             "UNCOMMITTED" if key.committed == 0 else "COMMITTED_ELSEWHERE",
             True,
         ),
-        _Measured(
-            ScoreFactor.CONFIDENCE,
-            1.0 - key.confidence / _MAX_CONFIDENCE_RANK,
-            float(key.confidence),
-            confidence.value if confidence is not None else "UNSTATED",
-            confidence is not None,
-            None
-            if confidence is not None
-            else "no assertion confidence stated; scored at the floor",
-        ),
+        CONFIDENCE_SCALE.measure(confidence, key.confidence),
     )
 
 
@@ -480,7 +602,11 @@ class AlternativeFeed:
     provenance: Provenance
     alignment: str | None
     alignment_known: bool
+    #: What the operating-status factor was scored from. ``None`` only where the
+    #: id resolved to no asset at all.
+    operating_status: OperatingStatus | None
     available_feed: FeedQuantity | None
+    #: Informational only - see ``_months_to_flow``. Nothing is ranked on it.
     months_to_flow: int | None
     readiness_known: bool
     already_committed_to: tuple[str, ...]
@@ -669,6 +795,11 @@ def _years_to_ready(graph: SupplyGraph, source_id: str, as_of_year: int) -> int 
     Operating and commissioning assets ship now. Everything else needs a stated
     start year; most planned projects have none, and guessing one from
     development stage would invent a number the graph does not hold.
+
+    A stated start that has already passed on an asset which is still not
+    producing is the third case, and it is unknown rather than zero. Eneabba is
+    under construction with a start of 2027: clamping the negative gap reported
+    a half-built plant as able to ship today for every year after that.
     """
     node = graph.projects.get(source_id) or graph.facilities.get(source_id)
     if node is None:
@@ -678,7 +809,7 @@ def _years_to_ready(graph: SupplyGraph, source_id: str, as_of_year: int) -> int 
     start = getattr(node, "expected_production_start", None) or getattr(node, "expected_start", None)
     if start is None:
         return None
-    return max(0, start.value - as_of_year)
+    return start.value - as_of_year if start.value >= as_of_year else None
 
 
 def _effective_tier(edge: Relationship) -> QualificationTier | None:
@@ -702,10 +833,15 @@ def _months_to_flow(
 ) -> tuple[int | None, bool]:
     """Readiness gap plus qualification lead, and whether readiness was known.
 
+    Informational: nothing is ranked on this, and nothing is filtered on it
+    either. ``RANKABLE_STATUSES`` has already removed everything that cannot
+    ship, so every row this runs on is operating or commissioning and the
+    figure only says how long qualification still has to run.
+
     ``qualification_lead_months`` is null in two unrelated situations: on a
     QUALIFIED edge it means no qualification work remains, and on every one of
     the 218 automated edges it means nobody has estimated it. Resolving that by
-    tier is what keeps a generated row out of the immediate bucket.
+    tier is what keeps a generated row from claiming it could flow immediately.
     """
     years = _years_to_ready(graph, source_id, as_of_year)
     tier = _effective_tier(edge)
@@ -718,15 +854,6 @@ def _months_to_flow(
     if years is None or lead is None:
         return None, years is not None
     return years * 12 + lead, True
-
-
-def _time_bucket(months: int | None) -> int:
-    if months is None:
-        return TIME_BUCKET_UNKNOWN
-    for index, upper in enumerate(TIME_BUCKETS):
-        if months <= upper:
-            return index
-    return len(TIME_BUCKETS)
 
 
 def _committed_elsewhere(graph: SupplyGraph, source_id: str, facility_id: str) -> tuple[str, ...]:
@@ -745,14 +872,31 @@ def _coverage(gap: float | None, available: FeedQuantity | None) -> tuple[int, f
     return 2, 1.0 - (available.tonnes / gap) if gap else 0.0
 
 
+def _operating_status(graph: SupplyGraph, source_id: str) -> OperatingStatus | None:
+    """An asset's operating status, or ``None`` where the node cannot be found.
+
+    Both node types carry one, so a null here means the id resolved to nothing
+    rather than to an asset that declined to say.
+    """
+    node = graph.projects.get(source_id) or graph.facilities.get(source_id)
+    return node.operating_status.value if node is not None else None
+
+
 def _candidate_edges(
     graph: SupplyGraph,
     facility_id: str,
     excluded: frozenset[str],
     min_qualification: QualificationTier,
-) -> list[Relationship]:
+) -> tuple[list[Relationship], frozenset[str]]:
+    """Rerouteable edges into ``facility_id``, and who the status gate removed.
+
+    The gate is returned rather than just applied. It prunes most of this graph,
+    and a list that quietly lost three quarters of its candidates reads as a
+    supply chain with no options rather than as a filter with an opinion.
+    """
     floor = _TIER_RANK[min_qualification]
     seen: set[str] = set()
+    gated: set[str] = set()
     out: list[Relationship] = []
     for edge in (
         *graph.supplies_to.get(facility_id, ()),
@@ -766,9 +910,16 @@ def _candidate_edges(
             continue
         if tier is not None and _TIER_RANK[tier] < floor:
             continue
+        # The operating-status gate, applied after the feasibility prunes so the
+        # count reports sources this rule alone removed. Not a low score: an
+        # asset that cannot ship ranked last is still on offer, and still one
+        # weight change away from the top of the list.
+        if _operating_status(graph, edge.from_id) not in RANKABLE_STATUSES:
+            gated.add(edge.from_id)
+            continue
         seen.add(edge.from_id)
         out.append(edge)
-    return out
+    return out, frozenset(gated)
 
 
 def _rank_alternatives(
@@ -780,26 +931,29 @@ def _rank_alternatives(
     as_of_year: int,
     min_qualification: QualificationTier,
     policy: ScoringPolicy,
-) -> tuple[AlternativeFeed, ...]:
+) -> tuple[tuple[AlternativeFeed, ...], frozenset[str]]:
+    """Ranked candidates for one plant, and the sources the status gate removed."""
+    edges, gated_out = _candidate_edges(graph, facility_id, excluded, min_qualification)
     rows: list[AlternativeFeed] = []
-    for edge in _candidate_edges(graph, facility_id, excluded, min_qualification):
+    for edge in edges:
         source_id = edge.from_id
         available = _source_feed(graph, source_id, as_of_year)
         months, readiness_known = _months_to_flow(graph, edge, source_id, as_of_year)
         coverage_rank, shortfall = _coverage(gap, available)
         alignment = graph.alignment_of(source_id)
+        status = _operating_status(graph, source_id)
         committed = _committed_elsewhere(graph, source_id, facility_id)
         key = RankingKey(
             evidence_class=1 if edge.provenance.type is ProvenanceType.AUTOMATED else 0,
-            time_bucket=_time_bucket(months),
-            alignment_rank=ALIGNMENT_RANK.get(alignment, ALIGNMENT_RANK[None]),
+            status_rank=OPERATING_STATUS_RANK.get(status, _UNKNOWN_STATUS_RANK),
+            alignment_rank=ALIGNMENT_SCALE.rank_of(alignment),
             coverage_rank=coverage_rank,
             shortfall=shortfall,
             committed=1 if committed else 0,
-            confidence=_CONFIDENCE_RANK.get(edge.provenance.assertion_confidence, 3),
+            confidence=CONFIDENCE_SCALE.rank_of(edge.provenance.assertion_confidence),
             source_id=source_id,
         )
-        score = _score(policy, _measure(key, alignment, months, edge.provenance.assertion_confidence))
+        score = _score(policy, _measure(key, alignment, edge.provenance.assertion_confidence))
         rows.append(
             AlternativeFeed(
                 source_id=source_id,
@@ -810,6 +964,7 @@ def _rank_alternatives(
                 provenance=edge.provenance,
                 alignment=alignment,
                 alignment_known=alignment is not None,
+                operating_status=status,
                 available_feed=available,
                 months_to_flow=months,
                 readiness_known=readiness_known,
@@ -824,7 +979,7 @@ def _rank_alternatives(
         )
     # Score first, the lexicographic key only where scores are exactly equal, so
     # an ordering stays deterministic without the tiebreak ever earning points.
-    return tuple(sorted(rows, key=lambda r: (-r.score.value, r.key)))
+    return tuple(sorted(rows, key=lambda r: (-r.score.value, r.key))), gated_out
 
 
 def _dependent_nodes(graph: SupplyGraph, mine_id: str, max_hops: int) -> frozenset[str]:
@@ -937,11 +1092,23 @@ def simulate_disruption(
 
     dependent = _dependent_nodes(graph, mine_id, max_hops)
     impacted: list[FacilityImpact] = []
+    gated_out: set[str] = set()
     for facility_id, hops, trail in _walk_downstream(graph, mine_id, max_hops):
         facility = graph.facilities[facility_id]
         remaining = [
             e for e in graph.supplies_to.get(facility_id, ()) if e.from_id not in dependent
         ]
+        alternatives, gated = _rank_alternatives(
+            graph,
+            facility_id,
+            dependent,
+            gap,
+            lost.basis if lost else None,
+            as_of_year,
+            min_qualification,
+            policy,
+        )
+        gated_out |= gated
         impacted.append(
             FacilityImpact(
                 facility_id=facility_id,
@@ -951,27 +1118,26 @@ def simulate_disruption(
                 operating_status=facility.operating_status.value,
                 sole_source=not remaining,
                 remaining_supplies_in=len(remaining),
-                alternatives=_rank_alternatives(
-                    graph,
-                    facility_id,
-                    dependent,
-                    gap,
-                    lost.basis if lost else None,
-                    as_of_year,
-                    min_qualification,
-                    policy,
-                ),
+                alternatives=alternatives,
             )
         )
     impacted.sort(key=lambda i: (i.hops, -(i.nameplate_dytb_tpa or 0.0), i.facility_id))
 
+    if gated_out:
+        ranked = len({a.source_id for i in impacted for a in i.alternatives})
+        warnings.append(
+            f"{len(gated_out)} otherwise-eligible sources are not operating and were excluded "
+            f"before ranking, leaving {ranked}; this graph is mostly pre-production, so the "
+            "reroute space shown is far smaller than the one the graph holds"
+        )
     unknown_readiness = sum(
         1 for i in impacted for a in i.alternatives if not a.readiness_known
     )
     if unknown_readiness:
         warnings.append(
-            f"{unknown_readiness} candidate rows have no stated start year; readiness is "
-            "unknown rather than estimated, so they fall to the unknown time bucket"
+            f"{unknown_readiness} candidate rows have no usable start year; months_to_flow is "
+            "unknown rather than estimated on those rows. Ordering is unaffected - every "
+            "ranked source is already operating or commissioning"
         )
     if any(not a.basis_comparable for i in impacted for a in i.alternatives):
         warnings.append(

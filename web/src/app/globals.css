@@ -99,6 +99,40 @@ body {
     border: 1px solid var(--surface-2);
     color: var(--text-tertiary);
   }
+
+  /* Operating status. `--tone` is set by OperatingStatusBadge from the status
+     family in lib/monitor/status.ts. Bordered and tinted, with a short bar as
+     its mark: not a square (severity) and not a circle (confidence). An
+     unknown status keeps the chrome but drops the fill, so "not stated" reads
+     as an absence rather than a fourth state. */
+  .tag-status {
+    gap: 5px;
+    font-weight: 600;
+    color: var(--tone);
+    border: 1px solid color-mix(in srgb, var(--tone) 55%, var(--surface-2));
+    background: color-mix(in srgb, var(--tone) 14%, transparent);
+  }
+
+  .tag-status[data-tone="unknown"] {
+    font-weight: 500;
+    background: transparent;
+  }
+
+  .tag-status-mark {
+    width: 8px;
+    height: 3px;
+    flex: none;
+    background: var(--tone);
+  }
+
+  .tag-status-lg {
+    padding: 4px 8px;
+    font-size: 10.5px;
+  }
+
+  .tag-status-lg .tag-status-mark {
+    width: 10px;
+  }
 }
 
 .blueprint::after {
@@ -328,6 +362,10 @@ body {
     --text-tertiary: #5c5c5c;
     --accent: #8a4b00;
     --accent-tint: #f6ead9;
+    /* The status chip keeps its tint on paper; the screen greens and reds are
+       too pale on white to carry it. */
+    --positive: #1a7a45;
+    --negative: #b3261e;
   }
 
   @page {

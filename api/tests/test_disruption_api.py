@@ -9,6 +9,7 @@ whole, and a bad request fails with a status rather than a 500.
 import pytest
 from fastapi.testclient import TestClient
 
+from src.disruption import ScoreFactor
 from src.main import app
 
 
@@ -160,7 +161,9 @@ def test_decisive_factor_names_a_real_field_for_its_basis(client: TestClient) ->
 
     key_fields = {f.name for f in RankingKey.__dataclass_fields__.values()}
     factors = {f.value for f in ScoreFactor}
-    body = client.get("/disruption/proj-caldeira", params={"as_of_year": 2029}).json()
+    # Monte Alto rather than Caldeira: the status gate shrank every pool, and
+    # this is the run that still holds two candidates with equal scores.
+    body = client.get("/disruption/proj-monte-alto", params={"as_of_year": 2027}).json()
     seen = set()
     for impact in body["impacted"]:
         for alt in impact["alternatives"][1:]:
@@ -174,7 +177,8 @@ def test_decisive_factor_names_a_real_field_for_its_basis(client: TestClient) ->
 def test_an_equal_score_reads_as_a_tie_not_a_ranking(client: TestClient) -> None:
     """The score is the ordering instrument. Where it cannot separate two rows,
     the tiebreak did, and presenting that as ranked invents a distinction."""
-    body = client.get("/disruption/proj-caldeira", params={"as_of_year": 2029}).json()
+    body = client.get("/disruption/proj-monte-alto", params={"as_of_year": 2027}).json()
+    tied_seen = False
     for impact in body["impacted"]:
         rows = impact["alternatives"]
         for above, below in zip(rows, rows[1:]):
@@ -182,6 +186,8 @@ def test_an_equal_score_reads_as_a_tie_not_a_ranking(client: TestClient) -> None
             assert below["tied_with_previous"] is tied
             assert below["decisive_basis"] == ("TIEBREAK" if tied else "SCORE")
             assert (below["decisive_margin"] is None) is tied
+            tied_seen = tied_seen or tied
+    assert tied_seen, "no pair tied, so the tie branch was never exercised"
 
 
 def test_first_row_carries_a_score_but_no_comparison(client: TestClient) -> None:
@@ -198,7 +204,7 @@ def test_score_breakdown_survives_serialisation(client: TestClient) -> None:
     assert rows
     for alt in rows:
         score = alt["score"]
-        assert len(score["factors"]) == 6
+        assert len(score["factors"]) == len(ScoreFactor)
         assert sum(f["contribution"] for f in score["factors"]) == pytest.approx(
             score["value"], abs=1e-6
         )
@@ -236,7 +242,7 @@ def test_excluding_a_factor_reports_it_on_the_wire(client: TestClient) -> None:
         # Every unweighted factor reads as excluded, which is what zero weight is.
         assert {"commitment", "confidence"} <= dropped
         # Still on the wire: excluded and never-computed are different statements.
-        assert len(alt["score"]["factors"]) == 6
+        assert len(alt["score"]["factors"]) == len(ScoreFactor)
         assert sum(f["max_contribution"] for f in alt["score"]["factors"]) == pytest.approx(
             100.0, abs=1e-4
         )
