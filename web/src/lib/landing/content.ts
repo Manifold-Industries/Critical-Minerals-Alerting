@@ -37,7 +37,7 @@ export const INFO_COLUMNS: readonly InfoColumn[] = [
   },
   {
     label: "Access",
-    body: "DoD personnel, federal partners, and cleared contractors with a sponsored account and a valid credential.",
+    body: "Department of War personnel, federal partners, and cleared contractors with a sponsored account and a valid credential.",
     link: { label: "Request an account", href: PENDING },
   },
   {

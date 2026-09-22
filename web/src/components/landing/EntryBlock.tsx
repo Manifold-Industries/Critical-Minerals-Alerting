@@ -30,7 +30,7 @@ export default function EntryBlock({ onEnter }: EntryBlockProps) {
         width={EMBLEM_SIZE}
         height={EMBLEM_SIZE}
         priority
-        className="h-24 w-24 select-none"
+        className="h-28 w-28 select-none"
       />
 
       <div className="flex flex-col items-center gap-3">
