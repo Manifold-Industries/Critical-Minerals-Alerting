@@ -6,10 +6,17 @@
 // to learn about it. Kept apart from `ranking.ts`, which is arithmetic and has
 // no opinion about names or colour.
 //
-// These are four of the engine's six. `evidence` and `confidence` are left out
-// on purpose: they grade how well the graph knows about a link, not how good
-// the source is, and "prefer the mines we are surer of" is not a sourcing
+// These are three of the engine's five. `evidence` and `confidence` are left
+// out on purpose: they grade how well the graph knows about a link, not how
+// good the source is, and "prefer the mines we are surer of" is not a sourcing
 // preference. They still come back on every candidate; nothing here reads them.
+//
+// Operating status is not here either, and for a different reason: it is not a
+// factor at all. The engine excludes any source that is not operating or
+// commissioning before ranking, so every candidate in the pool has already
+// passed it and there is nothing left to weight. See RANKABLE_STATUSES in
+// api/src/disruption.py, and the response warnings, which say how many sources
+// it removed.
 
 export interface FactorDescriptor {
   /** Matches `ScoreFactor` in api/src/disruption.py. */
@@ -38,13 +45,6 @@ export const FACTORS: readonly FactorDescriptor[] = [
     description:
       "How much of the lost Dy/Tb tonnage the mine's own output could replace.",
     shade: "color-mix(in srgb, var(--accent) 72%, transparent)",
-  },
-  {
-    id: "operating_status",
-    name: "Operating status",
-    description:
-      "Whether the mine is producing. Operating ranks first, then commissioning, under construction, and planned or suspended together.",
-    shade: "color-mix(in srgb, var(--accent) 52%, transparent)",
   },
   {
     id: "commitment",
