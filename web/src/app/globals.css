@@ -224,8 +224,11 @@ body {
   transition: transform 150ms ease;
 }
 
-/* Down when collapsed, up when expanded. */
-.disclosure[open] .disclosure-caret {
+/* Down when collapsed, up when expanded. Scoped to the summary this disclosure
+   owns: the OSINT section nests a card's disclosure inside the section's, and a
+   descendant selector would flip every closed card's caret the moment the
+   section opened. */
+.disclosure[open] > summary .disclosure-caret {
   transform: rotate(180deg);
 }
 

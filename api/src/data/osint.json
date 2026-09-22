@@ -1,0 +1,279 @@
+{
+  "metadata": {
+    "corpus_name": "Critical Minerals OSINT Demo Corpus - 2026 Developments",
+    "generated_at": "2026-09-22",
+    "scope": "Curated 2026 OSINT developments for five critical-minerals project nodes.",
+    "demo_disclaimer": "Sources are manually curated for demonstration. Priority labels and relevance scores are demo ranking outputs, not independently validated quantitative risk scores.",
+    "ranking_intent": "Prioritize developments that materially change ownership/control, production status, capacity, financing/offtake, operational state, or geopolitical exposure of the node."
+  },
+  "nodes": [
+    {
+      "node_id": "proj-browns-range",
+      "node_name": "Browns Range Heavy Rare Earths Project",
+      "aliases": [
+        "Browns Range",
+        "Browns Range HRE Project"
+      ],
+      "articles": [
+        {
+          "id": "br-2026-05-18-divestment-order",
+          "published_at": "2026-05-18",
+          "title": "Federal treasurer orders more Chinese-linked investors to offload shares in Australian rare earths mine",
+          "source": "ABC News Australia",
+          "source_url": "https://www.abc.net.au/news/2026-05-18/northern-minerals-chinese-linked-investors-jim-chalmers/106692558",
+          "category": "OWNERSHIP_GOVERNANCE",
+          "priority": "VERY_HIGH",
+          "relevance_score": 0.99,
+          "tags": [
+            "foreign-investment",
+            "ownership",
+            "China",
+            "Australia",
+            "government-action"
+          ],
+          "what_changed": "Australia's Treasurer ordered six China-linked investors holding roughly 17% of Northern Minerals to divest their stakes.",
+          "summary": "The Australian government escalated scrutiny of Northern Minerals' shareholder base by issuing new divestment orders on national-interest grounds.",
+          "why_it_matters": "Northern Minerals owns and is developing Browns Range. A forced change in a large block of ownership can affect governance, financing, strategic control, and the development trajectory of a project intended to supply dysprosium and terbium outside China."
+        },
+        {
+          "id": "br-2026-07-08-noncompliance",
+          "published_at": "2026-07-08",
+          "title": "China-linked investors' refusal to divest from WA heavy rare earths company 'extraordinary', expert says",
+          "source": "ABC News Australia",
+          "source_url": "https://www.abc.net.au/news/2026-07-08/china-linked-northern-minerals-investors-keep-shares-chalmers/106891792",
+          "category": "OWNERSHIP_GOVERNANCE",
+          "priority": "VERY_HIGH",
+          "relevance_score": 0.98,
+          "tags": [
+            "foreign-investment",
+            "ownership",
+            "compliance",
+            "China",
+            "Australia"
+          ],
+          "what_changed": "The investors subject to the May divestment order had not fully complied by the deadline and still held a majority of the shares they had been directed to sell.",
+          "summary": "The ownership dispute surrounding Northern Minerals remained unresolved after the federal divestment deadline, raising the prospect of further government enforcement.",
+          "why_it_matters": "This is an escalation of an unresolved ownership and control risk around the company developing Browns Range, rather than a one-off policy announcement. It is the type of follow-on development a continuous monitoring system should elevate."
+        }
+      ]
+    },
+    {
+      "node_id": "proj-serra-verde",
+      "node_name": "Serra Verde Pela Ema Operation",
+      "aliases": [
+        "Serra Verde",
+        "Pela Ema"
+      ],
+      "articles": [
+        {
+          "id": "sv-2026-04-20-acquisition-announced",
+          "published_at": "2026-04-20",
+          "title": "USA Rare Earth Announces Definitive Agreement to Acquire Serra Verde Group for ~$2.8 Billion",
+          "source": "USA Rare Earth / SEC filing",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1970622/000121390026045342/ea028691001ex99-1.htm",
+          "category": "OWNERSHIP_MA",
+          "priority": "VERY_HIGH",
+          "relevance_score": 0.99,
+          "tags": [
+            "acquisition",
+            "ownership",
+            "offtake",
+            "price-floor",
+            "United-States",
+            "Brazil"
+          ],
+          "what_changed": "USA Rare Earth announced a definitive agreement to acquire Serra Verde for an implied value of about $2.8 billion.",
+          "summary": "The transaction would combine Serra Verde's producing heavy-rare-earth operation with USA Rare Earth's downstream processing, metallization, and magnet-manufacturing capabilities.",
+          "why_it_matters": "A change of control at a producing heavy-rare-earth operation can alter downstream flows, strategic alignment, capital availability, and integration into U.S.-linked magnet supply chains."
+        },
+        {
+          "id": "sv-2026-08-24-offtake-capitalization",
+          "published_at": "2026-08-24",
+          "title": "USA Rare Earth Announces Completion of Upsized $1.55 Billion Capitalization of the U.S. Government-Backed SPV for Serra Verde Offtake",
+          "source": "USA Rare Earth / SEC filing",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1970622/000121390026092810/ea030292401ex99-1.htm",
+          "category": "OFFTAKE_FINANCING",
+          "priority": "VERY_HIGH",
+          "relevance_score": 0.98,
+          "tags": [
+            "offtake",
+            "government-support",
+            "financing",
+            "price-floor",
+            "supply-security"
+          ],
+          "what_changed": "The special-purpose vehicle intended to purchase Serra Verde Phase 1 production completed an upsized $1.55 billion capitalization package, including U.S. government support.",
+          "summary": "The financing and forward-purchase structure strengthened the economic and strategic support surrounding Serra Verde's production and 15-year offtake arrangement.",
+          "why_it_matters": "Long-term offtake, price floors, and government-backed capitalization can reduce demand and price risk for the operation while tying its output more directly to U.S. strategic supply-chain objectives."
+        },
+        {
+          "id": "sv-2026-09-04-acquisition-completed",
+          "published_at": "2026-09-04",
+          "title": "USA Rare Earth Completes Combination with Serra Verde Group",
+          "source": "USA Rare Earth / SEC filing",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1970622/000121390026097399/ea030400101ex99-1.htm",
+          "category": "OWNERSHIP_MA",
+          "priority": "VERY_HIGH",
+          "relevance_score": 1.0,
+          "tags": [
+            "acquisition",
+            "closing",
+            "ownership",
+            "vertical-integration",
+            "heavy-rare-earths"
+          ],
+          "what_changed": "USA Rare Earth completed its combination with Serra Verde on September 3, 2026.",
+          "summary": "The previously announced transaction closed, formally placing Serra Verde within an integrated mine-to-magnet rare-earth platform.",
+          "why_it_matters": "This converts a proposed ownership change into an executed one. For current-state monitoring, the closing should outrank the earlier acquisition announcement because it changes the actual ownership and strategic context of the node."
+        }
+      ]
+    },
+    {
+      "node_id": "proj-mountain-pass",
+      "node_name": "Mountain Pass Rare Earth Mine",
+      "aliases": [
+        "Mountain Pass"
+      ],
+      "articles": [
+        {
+          "id": "mp-2026-08-06-hree-commissioning",
+          "published_at": "2026-08-06",
+          "title": "MP Materials Form 10-Q for the quarter ended June 30, 2026",
+          "source": "MP Materials / SEC filing",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000048/mp-20260630.htm",
+          "category": "CAPACITY_CAPABILITY",
+          "priority": "VERY_HIGH",
+          "relevance_score": 0.98,
+          "tags": [
+            "heavy-rare-earths",
+            "separation",
+            "commissioning",
+            "dysprosium",
+            "terbium"
+          ],
+          "what_changed": "MP Materials stated in its Q2 2026 Form 10-Q that it expects to begin heavy-rare-earth refining in the second half of 2026, with initial production of terbium and dysprosium.",
+          "summary": "MP Materials said it expects to begin refining heavy rare earth elements at Mountain Pass in the second half of 2026, starting with terbium and dysprosium.",
+          "why_it_matters": "Beginning domestic terbium and dysprosium refining would expand what the Mountain Pass node can supply and reduce reliance on external heavy-rare-earth processing. This is a change in processing capability, not merely a production-volume update."
+        },
+        {
+          "id": "mp-2026-06-30-recycling-expansion",
+          "published_at": "2026-08-06",
+          "title": "MP Materials Form 10-Q for the quarter ended June 30, 2026",
+          "source": "MP Materials / SEC filing",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000048/mp-20260630.htm",
+          "category": "CAPACITY_CAPABILITY",
+          "priority": "HIGH",
+          "relevance_score": 0.93,
+          "tags": [
+            "recycling",
+            "heavy-rare-earths",
+            "samarium",
+            "Apple",
+            "capacity-expansion"
+          ],
+          "what_changed": "MP disclosed plans to extend heavy-rare-earth refining to samarium oxide and add scaled magnet-recycling capacity at Mountain Pass with dedicated NdPr and heavy-rare-earth separation.",
+          "summary": "The company is broadening Mountain Pass from mining and separation into a more flexible feedstock and recycling hub.",
+          "why_it_matters": "Recycling and additional HREE separation diversify feedstock and product pathways at the node, potentially increasing resilience and altering future material flows through the U.S. rare-earth supply chain."
+        }
+      ]
+    },
+    {
+      "node_id": "proj-mount-weld",
+      "node_name": "Mt Weld Mine and Concentration Plant",
+      "aliases": [
+        "Mt Weld",
+        "Mount Weld"
+      ],
+      "articles": [
+        {
+          "id": "mw-2026-08-26-expansion-rampup",
+          "published_at": "2026-08-26",
+          "title": "Lynas Rare Earths Limited - Annual Report 2026",
+          "source": "Lynas Rare Earths",
+          "source_url": "https://financialfilings.com/filings/lynas-rare-earths-limited/annual-report/2026/57561152/",
+          "category": "OPERATIONS_CAPACITY",
+          "priority": "VERY_HIGH",
+          "relevance_score": 0.97,
+          "tags": [
+            "expansion",
+            "commissioning",
+            "ramp-up",
+            "water-recycling",
+            "ore-variation"
+          ],
+          "what_changed": "Lynas reported completion of construction and commissioning for the Mt Weld expansion, with the new flowsheet continuing to ramp during FY2026.",
+          "summary": "The expansion moved from construction into operational ramp-up, while Lynas also reported water-recycling and ore-variation challenges that affected downstream processing.",
+          "why_it_matters": "This directly changes the productive state and expected throughput of Mt Weld. The reported ramp-up issues are also material operational signals because they affected concentrate quality and downstream productivity."
+        },
+        {
+          "id": "mw-2026-02-26-expansion-commissioning",
+          "published_at": "2026-02-26",
+          "title": "Lynas Rare Earths FY26 Half Year Results",
+          "source": "Lynas Rare Earths / ASX market announcement",
+          "source_url": "https://www.marketindex.com.au/asx/lyc/announcements/lynas-rare-earths-fy26-half-year-results-6A1313815",
+          "category": "OPERATIONS_CAPACITY",
+          "priority": "HIGH",
+          "relevance_score": 0.92,
+          "tags": [
+            "commissioning",
+            "flotation",
+            "capacity",
+            "renewable-power"
+          ],
+          "what_changed": "Lynas reported that commissioning of the Mt Weld expansion was complete and the new flotation circuit had ramped to about 70% of nameplate.",
+          "summary": "The half-year update provided an earlier 2026 milestone showing the expansion transitioning into production optimization and recovery improvement.",
+          "why_it_matters": "This establishes the trajectory leading into the later FY2026 ramp-up update and gives the system temporal context for whether Mt Weld is progressing, stalling, or encountering new operational constraints."
+        }
+      ]
+    },
+    {
+      "node_id": "proj-kangankunde",
+      "node_name": "Kangankunde Rare Earths Project",
+      "aliases": [
+        "Kangankunde"
+      ],
+      "articles": [
+        {
+          "id": "kk-2026-07-02-first-blast",
+          "published_at": "2026-07-02",
+          "title": "Lindian completes first blast at Kangankunde, starts active mining",
+          "source": "Mining Weekly",
+          "source_url": "https://www.miningweekly.com/article/lindian-completes-first-blast-at-kangankunde-starts-active-mining-2026-07-02",
+          "category": "PROJECT_STAGE_CHANGE",
+          "priority": "VERY_HIGH",
+          "relevance_score": 0.99,
+          "tags": [
+            "first-blast",
+            "mining-start",
+            "construction",
+            "commissioning",
+            "Malawi"
+          ],
+          "what_changed": "Kangankunde completed its first production blast, marking the start of active mining operations.",
+          "summary": "The project moved from development/construction into active mining, with ore being hauled to run-of-mine stockpiles ahead of process-plant commissioning.",
+          "why_it_matters": "This is a true state transition for the node. A project moving from construction to active mining materially changes its readiness, schedule risk, and expected timing of future rare-earth supply."
+        },
+        {
+          "id": "kk-2026-08-20-production-readiness",
+          "published_at": "2026-08-20",
+          "title": "Lindian says Kangankunde on track for production this year",
+          "source": "Mining & Trade News",
+          "source_url": "https://www.miningtradenews.com/view%20article.php?article=519",
+          "category": "PROJECT_EXECUTION",
+          "priority": "HIGH",
+          "relevance_score": 0.94,
+          "tags": [
+            "construction",
+            "commissioning",
+            "stockpile",
+            "power-infrastructure",
+            "Q4-production"
+          ],
+          "what_changed": "Lindian reported that Kangankunde remained on track for Q4 2026 first production, with mining, stockpiling, plant construction, and power infrastructure advancing.",
+          "summary": "The update provided evidence that the July transition into mining was being followed by continued progress toward commissioning and first production.",
+          "why_it_matters": "For a developing mine, schedule execution is a key strategic variable. This follow-on update helps distinguish a one-time construction milestone from sustained progress toward becoming an operating supply source."
+        }
+      ]
+    }
+  ]
+}

@@ -17,6 +17,30 @@ One JSON file per datatype, each a top-level list whose fields mirror the datacl
 | `relationships.json` | `Relationship` | `SUPPLIES`, `INVESTED_IN`, `ALTERNATIVE_TO` edges not already expressed as node fields |
 | `relationships_inferred.json` | `Relationship` | **Derived, not evidence.** `CAN_SUPPLY` edges written by the form-matching pass. Regenerate, never hand-edit |
 
+## `osint.json` is not seed data
+
+`osint.json` sits in this directory because the API serves it, and it is the one file here that
+breaks every convention below. It is **not** parsed by `build()`, does not enter `SupplyGraph`, and
+does not mirror a dataclass in `api/src/models/`. It keeps its upstream shape (`metadata` +
+`nodes`, each node holding `articles`) because that is what it is: a snapshot of an external
+monitoring feed, produced on its own cadence by something outside this repo. It is loaded and
+validated by `src/osint/corpus.py` and mapped onto the generic per-node contract in
+`src/service/osint.py`, which is the seam a real collector would replace.
+
+Two things follow, and both are deliberate:
+
+- **Its publishers do not belong in `sources.json`.** That file holds documents a *graph claim*
+  cites, each resolvable from a `Provenance`. An OSINT article is not cited by any claim in the
+  graph, so adding it would imply support no row is asking for.
+- **`priority` and `relevance_score` are ranking outputs, not attested values.** They carry no
+  `Provenance` and must never be rendered as confidence. `relevance_score` exists to order the
+  list; the console shows the label and not the number, and the corpus's own caveat travels with
+  every response as `ranking_note`.
+
+The one thing the corpus owes the graph is a resolvable `node_id`. `validate_data.py` checks it
+and reports an association naming no project or facility as an error, for the same reason it
+reports a `source_id` naming no document.
+
 ## Conventions
 
 - **Ids** are prefixed by type: `src-`, `dep-`, `org-`, `proj-`, `fac-`, `mat-`, `cmp-`, `sys-`, `rel-`.
