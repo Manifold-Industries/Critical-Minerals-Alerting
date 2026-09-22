@@ -100,6 +100,27 @@ def test_an_unheld_value_is_marked_rather_than_passed_off_as_data() -> None:
     assert scale.rank_of("MOTHBALLED") == scale.rank_of(None)
 
 
+def test_a_scale_that_cannot_order_anything_is_refused_at_import() -> None:
+    """One position normalises by zero. Raised where the table is written, not
+    from inside scoring, where the traceback would not name the cause."""
+    with pytest.raises(ValueError, match="one position"):
+        OrdinalScale(
+            factor=ScoreFactor.ALIGNMENT,
+            ranks={"ONLY": 0},
+            unknown_rank=0,
+            unknown_label="UNSTATED",
+            unknown_detail="nothing stated",
+        )
+    with pytest.raises(ValueError, match="no categories"):
+        OrdinalScale(
+            factor=ScoreFactor.ALIGNMENT,
+            ranks={},
+            unknown_rank=1,
+            unknown_label="UNSTATED",
+            unknown_detail="nothing stated",
+        )
+
+
 def test_the_three_qualitative_factors_all_go_through_one_scale() -> None:
     """The point of the abstraction: adding a fourth is a table, not arithmetic."""
     scales = (ALIGNMENT_SCALE, CONFIDENCE_SCALE, OPERATING_STATUS_SCALE)

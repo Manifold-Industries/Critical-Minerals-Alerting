@@ -419,6 +419,17 @@ class OrdinalScale:
     #: disclosure from the number.
     unknown_detail: str
 
+    def __post_init__(self) -> None:
+        # At import, not at request time: a scale with one position normalises
+        # by zero, and a ZeroDivisionError raised from inside scoring says
+        # nothing about the table that caused it.
+        if not self.ranks:
+            raise ValueError(f"{self.factor.value} scale has no categories")
+        if self.max_rank < 1:
+            raise ValueError(
+                f"{self.factor.value} scale has one position, so it cannot order anything"
+            )
+
     @property
     def max_rank(self) -> int:
         """The worst position on the scale, including the unknown one."""
@@ -588,6 +599,7 @@ class AlternativeFeed:
     #: id resolved to no asset at all.
     operating_status: OperatingStatus | None
     available_feed: FeedQuantity | None
+    #: Informational only - see ``_months_to_flow``. Nothing is ranked on it.
     months_to_flow: int | None
     readiness_known: bool
     already_committed_to: tuple[str, ...]
@@ -814,10 +826,14 @@ def _months_to_flow(
 ) -> tuple[int | None, bool]:
     """Readiness gap plus qualification lead, and whether readiness was known.
 
+    Informational: nothing is ranked on this. Readiness reaches the score
+    through ``ScoreFactor.OPERATING_STATUS``, which every asset carries, rather
+    than through a figure that is null on roughly half the pool.
+
     ``qualification_lead_months`` is null in two unrelated situations: on a
     QUALIFIED edge it means no qualification work remains, and on every one of
     the 218 automated edges it means nobody has estimated it. Resolving that by
-    tier is what keeps a generated row out of the immediate bucket.
+    tier is what keeps a generated row from claiming it could flow immediately.
     """
     years = _years_to_ready(graph, source_id, as_of_year)
     tier = _effective_tier(edge)
