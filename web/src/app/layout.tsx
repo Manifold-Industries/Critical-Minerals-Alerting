@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 import ClassificationBanner from "@/components/ClassificationBanner";
-import CommandHeader from "@/components/CommandHeader";
-import NavRail from "@/components/NavRail";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,11 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex h-full flex-col">
         <ClassificationBanner />
-        <CommandHeader />
-        <div className="flex min-h-0 flex-1">
-          <NavRail />
-          <main className="flex min-h-0 flex-1 flex-col">{children}</main>
-        </div>
+        {children}
         <ClassificationBanner />
       </body>
     </html>
