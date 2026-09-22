@@ -29,11 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex h-full flex-col">
         <ClassificationBanner />
-        <CommandHeader />
-        <div className="flex min-h-0 flex-1">
-          <NavRail />
-          <main className="flex min-h-0 flex-1 flex-col">{children}</main>
-        </div>
+        {children}
         <ClassificationBanner />
       </body>
     </html>
