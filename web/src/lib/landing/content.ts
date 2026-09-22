@@ -27,7 +27,9 @@ export const SYSTEM_LABELS: readonly string[] = [
   "OASD(IBP)",
 ];
 
-export const ORG_EYEBROW = "Department of Defense";
+export const ORG_EYEBROW = "Department of War";
+// The office keeps its statutory title, which is also what the emblem beside it
+// reads: changing it here would contradict the seal.
 export const SYSTEM_NAME = "Mineral Intelligence Center";
 export const SYSTEM_SUBLINE =
   "Office of the Assistant Secretary of Defense for Industrial Base Policy";
