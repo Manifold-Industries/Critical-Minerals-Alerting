@@ -17,16 +17,6 @@ export interface InfoColumn {
 // rather than pointing readers at a 404; swap in real paths as they land.
 const PENDING = "#";
 
-export const GOVERNMENT_NOTICE =
-  "An official website of the United States government.";
-
-/** System identity, shown at the right of the utility bar. */
-export const SYSTEM_LABELS: readonly string[] = [
-  "SYS · MIC-AP",
-  "REL 1.0",
-  "OASW(IBP)",
-];
-
 export const ORG_EYEBROW = "Department of War";
 export const SYSTEM_NAME = "Mineral Intelligence Center";
 export const SYSTEM_SUBLINE =
