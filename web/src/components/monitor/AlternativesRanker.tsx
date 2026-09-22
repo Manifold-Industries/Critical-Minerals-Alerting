@@ -2,16 +2,15 @@ import { useState } from "react";
 
 import type { AlertGraph } from "@/lib/monitor/graphs";
 import { nodesById } from "@/lib/monitor/graphs";
+import { factorDescription, factorName, factorShade } from "@/lib/monitor/factors";
 import {
   DEFAULT_FACTOR_WEIGHTS,
-  FACTOR_DESCRIPTION,
-  FACTOR_NAME,
   MAX_FACTOR_WEIGHT,
   factorAvailability,
   type FactorAvailability,
   type FactorWeights,
 } from "@/lib/monitor/ranking";
-import RankedList, { FACTOR_SHADE } from "./RankedList";
+import RankedList from "./RankedList";
 
 interface AlternativesRankerProps {
   readonly graph?: AlertGraph;
@@ -55,7 +54,7 @@ function FactorRow({
   readonly onChange: (weight: number) => void;
 }) {
   const { factor, available, missing, total } = availability;
-  const name = FACTOR_NAME[factor] ?? factor;
+  const name = factorName(factor);
 
   if (!available) {
     return (
@@ -66,7 +65,7 @@ function FactorRow({
         <span className="flex flex-col gap-0.5">
           <span className="text-[10.5px] text-text-tertiary">{name}</span>
           <span className="text-[9.5px] leading-snug text-text-tertiary">
-            {FACTOR_DESCRIPTION[factor]}
+            {factorDescription(factor)}
           </span>
         </span>
         <span className="font-mono text-[9px] tracking-[0.1em] text-text-tertiary uppercase">
@@ -85,7 +84,7 @@ function FactorRow({
           {name}
         </span>
         <span className="text-[9.5px] leading-snug text-text-tertiary">
-          {FACTOR_DESCRIPTION[factor]}
+          {factorDescription(factor)}
         </span>
         {missing > 0 && (
           <span className="font-mono text-[9px] text-text-tertiary">
@@ -233,9 +232,9 @@ export default function AlternativesRanker({
                 <span
                   aria-hidden
                   className="mr-1 inline-block size-[6px]"
-                  style={{ background: FACTOR_SHADE[f.factor] }}
+                  style={{ background: factorShade(f.factor) }}
                 />
-                {FACTOR_NAME[f.factor] ?? f.factor} ×{appliedWeights[f.factor]}
+                {factorName(f.factor)} ×{appliedWeights[f.factor]}
               </span>
             ))}
             .

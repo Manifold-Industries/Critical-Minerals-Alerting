@@ -5,53 +5,11 @@
 // caller decision. This is the same arithmetic as `_score` in
 // api/src/disruption.py: weight, renormalise over the weights in play, 0-100.
 
+import { BASE_FACTOR, RANK_FACTORS } from "./factors.ts";
 import type { AlternativeSource, ScoreFactorBreakdown } from "./graphs";
 
 /** Factor id -> relative weight. Absent and zero both mean "not in play". */
 export type FactorWeights = Readonly<Record<string, number>>;
-
-/**
- * The factors a reader can weight, in the order the panel lists them.
- *
- * Four of the engine's six. `evidence` and `confidence` are left out on
- * purpose: they grade how well the graph knows about a link, not how good the
- * source is, and "prefer the mines we are surer of" is not a sourcing
- * preference. They still come back on every candidate; nothing here reads them.
- */
-export const RANK_FACTORS = [
-  "alignment",
-  "coverage",
-  "time_to_flow",
-  "commitment",
-] as const;
-
-export const FACTOR_NAME: Readonly<Record<string, string>> = {
-  alignment: "Country alignment",
-  coverage: "Capacity to cover the gap",
-  time_to_flow: "Time to flow",
-  commitment: "Uncommitted supply",
-};
-
-/** What a higher weight asks for, in the reader's terms. Kept to what the
- *  engine actually measures — see `_measure` in api/src/disruption.py. */
-export const FACTOR_DESCRIPTION: Readonly<Record<string, string>> = {
-  alignment:
-    "Where the mine is. Domestic ranks first, then ally, partner, neutral, adversary.",
-  coverage:
-    "How much of the lost Dy/Tb tonnage the mine's own output could replace.",
-  time_to_flow:
-    "How soon material could arrive: time to first production plus qualifying it at the plant.",
-  commitment:
-    "Favours mines whose output is not already contracted to another plant.",
-};
-
-/**
- * The factor a ranking starts from, and the one exception to the completeness
- * rule below: it stays selectable where a country carries no assessment,
- * because without it there is nothing to start from. The gap is still counted
- * in `FactorAvailability.missing`, so the panel can say so.
- */
-export const BASE_FACTOR = "alignment";
 
 /** Mirrors DEFAULT_WEIGHTS on the server: alignment alone. */
 export const DEFAULT_FACTOR_WEIGHTS: FactorWeights = { [BASE_FACTOR]: 1 };
@@ -107,9 +65,7 @@ export function factorAvailability(
 /** Only `RANK_FACTORS` carry weight, so a stray key cannot push a score past
  *  the total it is renormalised over. */
 function weightOf(weights: FactorWeights, factor: string): number {
-  return (RANK_FACTORS as readonly string[]).includes(factor)
-    ? (weights[factor] ?? 0)
-    : 0;
+  return RANK_FACTORS.includes(factor) ? (weights[factor] ?? 0) : 0;
 }
 
 function rescore(
@@ -189,7 +145,7 @@ export function parseWeights(raw: string | undefined): FactorWeights | null {
     const weight = Number(value);
     const valid =
       rest.length === 0 &&
-      (RANK_FACTORS as readonly string[]).includes(factor) &&
+      RANK_FACTORS.includes(factor) &&
       Number.isInteger(weight) &&
       weight >= 1 &&
       weight <= MAX_FACTOR_WEIGHT &&

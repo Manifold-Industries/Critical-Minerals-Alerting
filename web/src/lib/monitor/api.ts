@@ -93,7 +93,12 @@ export interface ApiAlternativeFeed {
   readonly status: string;
   readonly alignment: string | null;
   readonly alignment_known: boolean;
+  /** Whether this source is producing. A weighted ranking factor. CLOSED never
+   *  appears: a closed asset is dropped from the pool rather than ranked. */
+  readonly operating_status: string | null;
   readonly available_feed: ApiFeedQuantity | null;
+  /** Informational. Nothing is ranked on it — `operating_status` carries
+   *  readiness into the score instead. */
   readonly months_to_flow: number | null;
   readonly readiness_known: boolean;
   readonly basis_comparable: boolean;

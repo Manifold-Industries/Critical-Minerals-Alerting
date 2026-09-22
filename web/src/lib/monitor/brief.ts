@@ -12,13 +12,8 @@ import type { Alert } from "./alerts";
 import type { MineExposure } from "./api";
 import type { AlertGraph } from "./graphs";
 import { capacityCaveat, pct } from "./format.ts";
-import {
-  BASE_FACTOR,
-  FACTOR_NAME,
-  RANK_FACTORS,
-  factorAvailability,
-  type FactorWeights,
-} from "./ranking.ts";
+import { BASE_FACTOR, RANK_FACTORS, factorName } from "./factors.ts";
+import { factorAvailability, type FactorWeights } from "./ranking.ts";
 
 /** How many systems the bottom line names before leaving the rest to section 3. */
 const SYSTEMS_NAMED = 2;
@@ -47,7 +42,7 @@ function plural(count: number, one: string, many: string): string {
 export function weightsPhrase(weights: FactorWeights): string {
   return joinNames(
     RANK_FACTORS.filter((factor) => (weights[factor] ?? 0) > 0).map(
-      (factor) => `${(FACTOR_NAME[factor] ?? factor).toLowerCase()} ×${weights[factor]}`,
+      (factor) => `${factorName(factor).toLowerCase()} ×${weights[factor]}`,
     ),
   );
 }
@@ -159,7 +154,7 @@ export function briefLimits({
 
   const inPlay = weights ?? { [BASE_FACTOR]: 1 };
   const gaps = factorAvailability(graph.candidates).flatMap((f) => {
-    const name = FACTOR_NAME[f.factor] ?? f.factor;
+    const name = factorName(f.factor);
     const of = `${f.missing} of ${plural(f.total, "candidate", "candidates")}`;
     if (!f.available) {
       return [`"${name}" could not be weighted: ${of} ${f.missing === 1 ? "has" : "have"} no data for it.`];

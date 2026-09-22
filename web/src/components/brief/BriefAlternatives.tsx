@@ -1,10 +1,9 @@
 import type { AlertGraph } from "@/lib/monitor/graphs";
 import { nodesById } from "@/lib/monitor/graphs";
 import { weightsPhrase } from "@/lib/monitor/brief";
+import { RANK_FACTORS, factorName } from "@/lib/monitor/factors";
 import {
   DEFAULT_FACTOR_WEIGHTS,
-  FACTOR_NAME,
-  RANK_FACTORS,
   type FactorWeights,
 } from "@/lib/monitor/ranking";
 import {
@@ -74,7 +73,7 @@ export default function BriefAlternatives({
             <th className={BRIEF_TH}>Would feed</th>
             {factors.map((factor) => (
               <th key={factor} className={BRIEF_TH}>
-                {FACTOR_NAME[factor] ?? factor}
+                {factorName(factor)}
               </th>
             ))}
             {scored && <th className={`${BRIEF_TH} text-right`}>Score</th>}

@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
+import { factorName, factorShade } from "@/lib/monitor/factors";
 import type { AlternativeSource } from "@/lib/monitor/graphs";
-import { FACTOR_NAME } from "@/lib/monitor/ranking";
 
 interface RankedListProps {
   readonly alternatives: readonly AlternativeSource[];
@@ -15,16 +15,6 @@ interface RankedListProps {
   readonly selectedNodeId: string | null;
   readonly onSelectNode: (id: string) => void;
 }
-
-// One shade per factor, fixed, so a factor keeps its colour from one ranking to
-// the next and the legend above the list can be read against the bars. Shades
-// of the one accent rather than new hues: the console has a single signal colour.
-export const FACTOR_SHADE: Readonly<Record<string, string>> = {
-  alignment: "var(--accent)",
-  coverage: "color-mix(in srgb, var(--accent) 72%, transparent)",
-  time_to_flow: "color-mix(in srgb, var(--accent) 52%, transparent)",
-  commitment: "color-mix(in srgb, var(--accent) 36%, transparent)",
-};
 
 const MOVE_MS = 450;
 const COUNT_MS = 700;
@@ -186,10 +176,10 @@ function RankedRow({
                   <span
                     key={f.factor}
                     className="rank-bar-segment h-full"
-                    title={`${FACTOR_NAME[f.factor] ?? f.factor}: ${f.contribution.toFixed(0)} of ${f.maxContribution.toFixed(0)} points`}
+                    title={`${factorName(f.factor)}: ${f.contribution.toFixed(0)} of ${f.maxContribution.toFixed(0)} points`}
                     style={{
                       width: `${f.contribution}%`,
-                      background: FACTOR_SHADE[f.factor] ?? "var(--accent)",
+                      background: factorShade(f.factor),
                     }}
                   />
                 ))}
