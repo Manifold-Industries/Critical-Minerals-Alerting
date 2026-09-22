@@ -1,9 +1,11 @@
 import { IconArrowRight } from "@tabler/icons-react";
+import Image from "next/image";
 
 import {
+  EMBLEM_SIZE,
+  EMBLEM_SRC,
   ENTER_HELPER,
   ENTER_LABEL,
-  LOGO_MARK,
   ORG_EYEBROW,
   SYSTEM_NAME,
   SYSTEM_SUBLINE,
@@ -18,12 +20,14 @@ interface EntryBlockProps {
 export default function EntryBlock({ onEnter }: EntryBlockProps) {
   return (
     <div className="mx-auto flex w-full max-w-[760px] flex-col items-center gap-7 text-center">
-      <div
-        aria-hidden="true"
-        className="blueprint flex h-28 w-28 items-center justify-center font-mono text-[40px] font-semibold tracking-[0.02em] text-accent"
-      >
-        {LOGO_MARK}
-      </div>
+      <Image
+        src={EMBLEM_SRC}
+        alt=""
+        width={EMBLEM_SIZE}
+        height={EMBLEM_SIZE}
+        priority
+        className="h-28 w-28 select-none"
+      />
 
       <div className="flex flex-col items-center gap-3.5">
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-text-secondary">

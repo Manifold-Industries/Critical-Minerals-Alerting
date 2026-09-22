@@ -31,7 +31,11 @@ export const ORG_EYEBROW = "Department of Defense";
 export const SYSTEM_NAME = "Mineral Intelligence Center";
 export const SYSTEM_SUBLINE =
   "Office of the Assistant Secretary of Defense for Industrial Base Policy";
-export const LOGO_MARK = "MIC";
+// The office's own emblem, in public/. Decorative on this screen: the eyebrow,
+// title, and subline beside it already name the office the seal identifies, so
+// it carries an empty alt rather than repeating them to a screen reader.
+export const EMBLEM_SRC = "/ASD IBP Emblem.png";
+export const EMBLEM_SIZE = 112;
 
 export const ENTER_LABEL = "Enter System";
 export const ENTER_HELPER = "CAC / PIV required · Authorized users only";
