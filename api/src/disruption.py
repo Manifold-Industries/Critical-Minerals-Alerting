@@ -833,9 +833,10 @@ def _months_to_flow(
 ) -> tuple[int | None, bool]:
     """Readiness gap plus qualification lead, and whether readiness was known.
 
-    Informational: nothing is ranked on this. Readiness reaches the score
-    through ``ScoreFactor.OPERATING_STATUS``, which every asset carries, rather
-    than through a figure that is null on roughly half the pool.
+    Informational: nothing is ranked on this, and nothing is filtered on it
+    either. ``RANKABLE_STATUSES`` has already removed everything that cannot
+    ship, so every row this runs on is operating or commissioning and the
+    figure only says how long qualification still has to run.
 
     ``qualification_lead_months`` is null in two unrelated situations: on a
     QUALIFIED edge it means no qualification work remains, and on every one of
