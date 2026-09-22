@@ -28,7 +28,10 @@ export const EMBLEM_SRC = "/ASWIBP.png";
 export const EMBLEM_SIZE = 112;
 
 export const ENTER_LABEL = "Enter System";
-export const ENTER_HELPER = "CAC / PIV required · Authorized users only";
+// CAC / PIV sign-in is not built yet, so the helper says so rather than
+// claiming a credential check the system does not perform.
+export const ENTER_HELPER =
+  "CAC / PIV sign-in coming soon · No credential required yet";
 
 export const INFO_COLUMNS: readonly InfoColumn[] = [
   {
@@ -69,9 +72,4 @@ export const CONSENT_TERMS: readonly string[] = [
 ];
 
 export const CONSENT_CANCEL = "Cancel";
-export const CONSENT_AGREE = "I agree · Sign in with CAC / PIV";
-
-export const AUTH_EYEBROW = "Authenticating";
-export const AUTH_BODY =
-  "Insert your CAC and select your certificate when prompted.";
-export const AUTH_CANCEL = "Cancel";
+export const CONSENT_AGREE = "I agree · Enter system";
