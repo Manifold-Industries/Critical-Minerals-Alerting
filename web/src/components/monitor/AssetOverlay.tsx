@@ -10,7 +10,9 @@ import {
   type ApiSourceRef,
 } from "@/lib/monitor/api";
 import { humanise } from "@/lib/monitor/provenance";
+import { CollapsibleSection, Empty } from "./Disclosure";
 import OperatingStatusBadge from "./OperatingStatusBadge";
+import OsintSection from "./osint/OsintSection";
 import ProvenanceDot from "./ProvenanceDot";
 
 interface AssetOverlayProps {
@@ -62,49 +64,6 @@ function Attribution({
       )}
     </span>
   );
-}
-
-/**
- * A section that starts closed, so the header, the verification note and the
- * key facts keep the first screen. The heading carries a count so a closed
- * section still says whether there is anything inside; "none" is a statement,
- * not an absence, which is why an empty section is rendered rather than
- * dropped.
- */
-function CollapsibleSection({
-  title,
-  count,
-  children,
-}: {
-  readonly title: string;
-  /** Rows inside. Omit for prose sections, where a count means nothing. */
-  readonly count?: number;
-  readonly children: React.ReactNode;
-}) {
-  return (
-    <details className="disclosure flex flex-col gap-1 border-t border-surface-2 pt-2">
-      <summary className="flex cursor-pointer items-center gap-1.5 text-accent transition-colors hover:text-foreground">
-        <span aria-hidden className="disclosure-caret text-[11px] leading-none">
-          ▼
-        </span>
-        <h4 className="font-mono text-[9px] font-semibold tracking-[0.15em] uppercase">
-          {title}
-          {count !== undefined && (
-            <span className="font-normal text-text-tertiary">
-              {" "}
-              ({count === 0 ? "none" : count})
-            </span>
-          )}
-        </h4>
-      </summary>
-      {children}
-    </details>
-  );
-}
-
-/** What an open, empty section says. The graph is incomplete, not silent. */
-function Empty({ children }: { readonly children: string }) {
-  return <p className="text-[9.5px] text-text-tertiary">{children}</p>;
 }
 
 /**
@@ -390,6 +349,12 @@ export default function AssetOverlay({ assetId, onClose }: AssetOverlayProps) {
               </>
             )}
           </dl>
+
+          {/* Recent developments, ranked by relevance to this node. Directly
+              under the key facts because it answers the same question they do
+              — what state is this site in — rather than what it holds. It owns
+              its own request, so a failure here leaves everything below intact. */}
+          <OsintSection nodeId={asset.id} />
 
           <CollapsibleSection
             title={asset.kind === "MINE" ? "How much it produces" : "How much it can process"}

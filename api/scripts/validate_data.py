@@ -48,6 +48,8 @@ from src.models import (  # noqa: E402
     Source,
     SourceType,
 )
+from src.osint import CorpusError, load_corpus  # noqa: E402
+from src.osint import validate as osint_validate  # noqa: E402
 
 DATA = Path(__file__).resolve().parents[1] / "src" / "data"
 
@@ -212,7 +214,28 @@ def check(data: dict[str, list]) -> tuple[list[str], list[str]]:
     warnings += [f"{p.id} has no SUPPLIES edge" for p in data["projects"] if p.id not in supplies_from]
     warnings += [f"{p.id} has no product form" for p in data["projects"] if not p.products]
     warnings += _form_disagreements(data)
+    errors += _osint_associations(node_ids)
     return errors, warnings
+
+
+def _osint_associations(node_ids: set[str]) -> list[str]:
+    """Corpus node ids that name nothing in the world model.
+
+    The OSINT corpus is not seed data and is not parsed by ``build()`` - it is
+    a snapshot of an external feed, loaded beside the graph rather than into it
+    (see ``src/osint/corpus.py``). The one thing it owes the graph is a
+    resolvable association: an article attached to a node that does not exist
+    is the OSINT equivalent of a citation nothing can resolve, and it would
+    surface as a section the console can never reach.
+    """
+    try:
+        corpus = load_corpus()
+    except CorpusError as exc:
+        return [f"osint.json: {exc}"]
+    return [
+        f"osint.json: node {node_id} names no project or facility"
+        for node_id in osint_validate(corpus, node_ids)
+    ]
 
 
 def _form_disagreements(data: dict[str, list]) -> list[str]:
