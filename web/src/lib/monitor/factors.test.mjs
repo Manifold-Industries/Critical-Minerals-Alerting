@@ -38,12 +38,10 @@ test("the base factor is one the panel actually lists", () => {
 });
 
 test("factor ids match the engine's ScoreFactor values", () => {
-  // Four of the engine's six: evidence and confidence grade how well the graph
-  // knows about a link, not how good the source is, so neither is weightable.
-  assert.deepEqual(
-    [...RANK_FACTORS].sort(),
-    ["alignment", "commitment", "coverage", "operating_status"],
-  );
+  // Three of the engine's five. Evidence and confidence grade how well the
+  // graph knows about a link, not how good the source is. Operating status is
+  // not a factor at all: it gates the pool before ranking.
+  assert.deepEqual([...RANK_FACTORS].sort(), ["alignment", "commitment", "coverage"]);
 });
 
 test("a factor the client has not been taught about still prints", () => {
