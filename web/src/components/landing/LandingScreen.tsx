@@ -41,7 +41,7 @@ export default function LandingScreen() {
 
   return (
     <>
-      <section className="flex flex-1 items-center justify-center py-[clamp(56px,10vh,120px)]">
+      <section className="flex flex-1 items-center justify-center py-[clamp(24px,6vh,64px)]">
         <EntryBlock onEnter={() => send("enter")} />
       </section>
 

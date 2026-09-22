@@ -3,7 +3,7 @@ import { INFO_COLUMNS } from "@/lib/landing/content";
 // Three columns that collapse to one when a column can no longer hold 240px.
 export default function InfoStrip() {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-x-[clamp(24px,4vw,64px)] gap-y-8 border-t border-surface-2 py-7">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-x-[clamp(24px,4vw,64px)] gap-y-7 border-t border-surface-2 py-6">
       {INFO_COLUMNS.map(({ label, body, link }) => (
         <section key={label} className="flex flex-col gap-1.5">
           <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.1em] text-accent">
