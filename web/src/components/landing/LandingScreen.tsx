@@ -1,56 +1,43 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
+import { CONSENT_REQUIRED } from "@/lib/landing/flow";
 import { DEFAULT_MODULE_HREF } from "@/lib/modules";
-import {
-  AUTH_HANDOFF_MS,
-  nextEntryState,
-  type EntryEvent,
-  type EntryState,
-} from "@/lib/landing/flow";
-import AuthenticatingModal from "./AuthenticatingModal";
 import ConsentModal from "./ConsentModal";
 import EntryBlock from "./EntryBlock";
 
-// Owns the entry flow: the masthead is always on screen, and the state decides
-// which modal, if any, sits over it. Cancelling from either modal returns here
-// with nothing else changed.
+// Owns the entry flow: the masthead is always on screen, and "Enter System"
+// either shows the notice first or goes straight through. Cancelling the notice
+// returns here with nothing else changed.
 export default function LandingScreen() {
   const router = useRouter();
-  const [state, setState] = useState<EntryState>("idle");
+  const [isConsentOpen, setIsConsentOpen] = useState(false);
 
-  const send = useCallback((event: EntryEvent) => {
-    setState((current) => nextEntryState(current, event));
-  }, []);
+  const enterConsole = useCallback(() => {
+    setIsConsentOpen(false);
+    router.push(DEFAULT_MODULE_HREF);
+  }, [router]);
 
-  const cancel = useCallback(() => send("cancel"), [send]);
+  const handleEnter = useCallback(() => {
+    if (CONSENT_REQUIRED) {
+      setIsConsentOpen(true);
+      return;
+    }
+    enterConsole();
+  }, [enterConsole]);
 
-  // The credential exchange is not wired up yet, so the modal stands in for it
-  // and then hands off to the console. Cancelling clears the timer.
-  useEffect(() => {
-    if (state !== "authenticating") return;
-
-    const timer = setTimeout(() => {
-      router.push(DEFAULT_MODULE_HREF);
-    }, AUTH_HANDOFF_MS);
-
-    return () => clearTimeout(timer);
-  }, [state, router]);
+  const closeConsent = useCallback(() => setIsConsentOpen(false), []);
 
   return (
     <>
       <section className="flex flex-1 items-center justify-center py-[clamp(16px,4vh,56px)]">
-        <EntryBlock onEnter={() => send("enter")} />
+        <EntryBlock onEnter={handleEnter} />
       </section>
 
-      {state === "consent" ? (
-        <ConsentModal onAgree={() => send("agree")} onCancel={cancel} />
-      ) : null}
-
-      {state === "authenticating" ? (
-        <AuthenticatingModal onCancel={cancel} />
+      {isConsentOpen ? (
+        <ConsentModal onAgree={enterConsole} onCancel={closeConsent} />
       ) : null}
     </>
   );
