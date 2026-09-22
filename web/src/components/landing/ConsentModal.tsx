@@ -4,6 +4,7 @@ import {
   CONSENT_AGREE,
   CONSENT_BODY,
   CONSENT_CANCEL,
+  CONSENT_DEMO_NOTE,
   CONSENT_EYEBROW,
   CONSENT_TERMS,
   CONSENT_TITLE,
@@ -38,6 +39,10 @@ export default function ConsentModal({
       >
         {CONSENT_TITLE}
       </h2>
+
+      <p className="border border-accent/40 bg-accent-tint px-3 py-2 text-[13px] leading-[1.45] text-accent">
+        {CONSENT_DEMO_NOTE}
+      </p>
 
       <div className="min-h-0 flex-1 overflow-y-auto text-[13px] leading-[1.5] text-text-secondary">
         <p>{CONSENT_BODY}</p>

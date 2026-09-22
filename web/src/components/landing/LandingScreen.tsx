@@ -13,7 +13,7 @@ import EntryBlock from "./EntryBlock";
 // returns here with nothing else changed.
 export default function LandingScreen() {
   const router = useRouter();
-  const [isConsentOpen, setIsConsentOpen] = useState(false);
+  const [isConsentOpen, setIsConsentOpen] = useState(true);
 
   const enterConsole = useCallback(() => {
     setIsConsentOpen(false);
