@@ -173,10 +173,37 @@ test("alignment stays available with gaps, and reports them", () => {
   });
 });
 
+test("operating status is a factor the reader can weight", () => {
+  const pool = [
+    candidate("planned", [factor("alignment", 1), factor("operating_status", 0.25)]),
+    candidate("producing", [factor("alignment", 0.75), factor("operating_status", 1)]),
+  ];
+  // Alignment alone puts the planned mine first; status is what reverses it.
+  assert.deepEqual(
+    rankCandidates(pool, DEFAULT_FACTOR_WEIGHTS, 10).map((c) => c.id),
+    ["planned", "producing"],
+  );
+  assert.deepEqual(
+    rankCandidates(pool, { alignment: 1, operating_status: 2 }, 10).map((c) => c.id),
+    ["producing", "planned"],
+  );
+});
+
 test("weights survive a round trip through a URL", () => {
   const weights = { alignment: 2, commitment: 5 };
   assert.equal(formatWeights(weights), "alignment:2,commitment:5");
   assert.deepEqual(parseWeights(formatWeights(weights)), weights);
+});
+
+test("a link written against the old factor set is refused, not repaired", () => {
+  // time_to_flow was dropped when operating_status arrived. A brief that
+  // quietly ranked on different weights than its link says is worse than one
+  // that says the link was bad.
+  assert.equal(parseWeights("alignment:1,time_to_flow:3"), null);
+  assert.deepEqual(parseWeights("alignment:1,operating_status:3"), {
+    alignment: 1,
+    operating_status: 3,
+  });
 });
 
 test("formatting drops zeroes and factors that cannot be weighted", () => {
