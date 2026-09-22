@@ -216,6 +216,25 @@ def test_status_still_separates_two_candidates_that_score_alike(
     assert producing.key.status_rank < starting.key.status_rank
 
 
+def test_status_outranks_preference_inside_a_tied_pair(graph: SupplyGraph) -> None:
+    """Feasibility before preference, on live rows.
+
+    Serra Verde and Caldeira are both Brazilian and both commissioning, so they
+    tie on score outright and the key separates them. Bring one into production
+    and it must move above the other, because ``status_rank`` sits above
+    ``alignment_rank`` in the key.
+    """
+    before = _alternatives(graph, "proj-monte-alto", 2027, "fac-caremag-lacq")
+    serra, caldeira = before["proj-serra-verde"], before["proj-caldeira"]
+    assert serra.score.value == caldeira.score.value
+    assert list(before).index("proj-serra-verde") < list(before).index("proj-caldeira")
+
+    promoted = _with_status(graph, "proj-caldeira", OperatingStatus.OPERATING)
+    after = _alternatives(promoted, "proj-monte-alto", 2027, "fac-caremag-lacq")
+    assert after["proj-caldeira"].score.value == after["proj-serra-verde"].score.value
+    assert list(after).index("proj-caldeira") < list(after).index("proj-serra-verde")
+
+
 def test_the_gate_is_reported_on_every_row(graph: SupplyGraph) -> None:
     """A reader must be able to see the rule was applied rather than trust it."""
     rows = _alternatives(graph, "proj-monte-alto", 2027, "fac-caremag-lacq")
