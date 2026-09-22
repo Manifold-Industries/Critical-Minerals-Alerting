@@ -61,6 +61,12 @@ export const FOOTER_LINKS: readonly LandingLink[] = [
 // The standard DoD notice-and-consent banner text, shown before sign-in.
 export const CONSENT_EYEBROW = "Notice and consent";
 export const CONSENT_TITLE = "U.S. Government information system";
+
+// Stands above the notice, outside the scrolling area, so the disclaimer cannot
+// be missed: agreeing to a verbatim federal consent banner is the one moment on
+// this screen where a reader could take the prototype for the real thing.
+export const CONSENT_DEMO_NOTE =
+  "This is a demonstration prototype, not an actual Department of War system. The notice below is reproduced for realism and has no legal effect.";
 export const CONSENT_BODY =
   "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions:";
 
