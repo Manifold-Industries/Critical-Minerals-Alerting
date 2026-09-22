@@ -115,14 +115,15 @@ class AlternativeFeed(BaseModel):
     #: False where the country carries no alignment assessment at all, which is
     #: not the same as being assessed NEUTRAL.
     alignment_known: bool
-    #: Whether this source is producing: OPERATING, COMMISSIONING,
-    #: UNDER_CONSTRUCTION, PLANNED or SUSPENDED. A weighted ranking factor, so
-    #: it is on the row for the same reason ``alignment`` is. CLOSED never
-    #: appears: a closed asset is dropped from the pool rather than ranked.
+    #: Always OPERATING or COMMISSIONING. Operating status is a gate, not a
+    #: factor: a source that cannot ship is excluded before ranking rather than
+    #: scored below one that can. Returned so a reader can see the rule was
+    #: applied rather than take it on trust. The response ``warnings`` say how
+    #: many sources the gate removed.
     operating_status: str | None = None
     available_feed: FeedQuantity | None = None
-    #: Readiness gap plus qualification lead. Informational: nothing is ranked on
-    #: it, and ``operating_status`` carries readiness into the score instead.
+    #: Readiness gap plus qualification lead. Informational: nothing is ranked
+    #: on it, and every ranked source is already operating or commissioning.
     months_to_flow: int | None = None
     #: False where no usable start year is stated. Readiness is unknown, not
     #: immediate. Applies to ``months_to_flow`` only, never to the ordering.

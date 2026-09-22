@@ -1,9 +1,10 @@
-"""Qualitative ranking factors and the ordinal scale they share.
+"""The ordinal scale behind the qualitative factors, and the operating-status gate.
 
-Three of the six factors are the same shape: a vocabulary someone ordered by
-hand. These pin the shared machinery (``OrdinalScale``) and the editorial
-decisions encoded in the operating-status table, which are judgements the code
-cannot check for itself and so have to be stated somewhere.
+Two separate mechanisms, kept in one file because operating status moved
+between them. Alignment and assertion confidence are *scored*: vocabularies
+ordered by hand and normalised by position, which is what ``OrdinalScale`` is
+for. Operating status is *not* scored - it decides whether a candidate is on
+the list at all, which no weight can express.
 """
 
 from dataclasses import replace
@@ -14,8 +15,8 @@ from scripts.validate_data import build
 from src.disruption import (
     ALIGNMENT_SCALE,
     CONFIDENCE_SCALE,
-    DROPPED_STATUSES,
-    OPERATING_STATUS_SCALE,
+    OPERATING_STATUS_RANK,
+    RANKABLE_STATUSES,
     OrdinalScale,
     RankingKey,
     ScoreFactor,
@@ -35,9 +36,9 @@ def _with_status(graph: SupplyGraph, project_id: str, status: OperatingStatus) -
     """The same graph with one project's operating status changed.
 
     The seed data holds no suspended asset and no closed one that is anybody's
-    candidate, so the rules below have no live example to rest on. Restating
-    them as a fixture would drift from the real graph; substituting one field
-    of it will not.
+    candidate, so those rules have no live example to rest on. Restating the
+    graph as a fixture would drift from the real one; substituting a single
+    field of it will not.
     """
     project = graph.projects[project_id]
     moved = replace(project, operating_status=replace(project.operating_status, value=status))
@@ -48,6 +49,11 @@ def _alternatives(graph: SupplyGraph, mine: str, year: int, plant: str):
     impact = simulate_disruption(graph, mine, as_of_year=year)
     hit = next(i for i in impact.impacted if i.facility_id == plant)
     return {a.source_id: a for a in hit.alternatives}
+
+
+def _status_of(graph: SupplyGraph, source_id: str) -> OperatingStatus:
+    node = graph.projects.get(source_id) or graph.facilities.get(source_id)
+    return node.operating_status.value
 
 
 # --- the shared scale --------------------------------------------------------
@@ -69,9 +75,9 @@ def test_a_scale_normalises_best_to_one_and_worst_to_zero() -> None:
 
 def test_categories_sharing_a_rank_score_the_same() -> None:
     """A tie in the table must be a tie in the score, not a declaration-order
-    accident. This is what 'suspended and planned are the same' rests on."""
+    accident."""
     scale = OrdinalScale(
-        factor=ScoreFactor.OPERATING_STATUS,
+        factor=ScoreFactor.ALIGNMENT,
         ranks={"GOOD": 0, "SAME_A": 1, "SAME_B": 1, "BAD": 2},
         unknown_rank=2,
         unknown_label="UNSTATED",
@@ -121,134 +127,110 @@ def test_a_scale_that_cannot_order_anything_is_refused_at_import() -> None:
         )
 
 
-def test_the_three_qualitative_factors_all_go_through_one_scale() -> None:
-    """The point of the abstraction: adding a fourth is a table, not arithmetic."""
-    scales = (ALIGNMENT_SCALE, CONFIDENCE_SCALE, OPERATING_STATUS_SCALE)
+def test_both_qualitative_factors_go_through_one_scale() -> None:
+    """The point of the abstraction: adding a third is a table, not arithmetic."""
+    scales = (ALIGNMENT_SCALE, CONFIDENCE_SCALE)
     assert all(isinstance(s, OrdinalScale) for s in scales)
-    assert {s.factor for s in scales} == {
-        ScoreFactor.ALIGNMENT,
-        ScoreFactor.CONFIDENCE,
-        ScoreFactor.OPERATING_STATUS,
-    }
+    assert {s.factor for s in scales} == {ScoreFactor.ALIGNMENT, ScoreFactor.CONFIDENCE}
 
 
-# --- the operating-status table ----------------------------------------------
+# --- operating status is a gate, not a score ---------------------------------
 
 
-def test_operating_status_runs_from_producing_to_shut() -> None:
-    rank = OPERATING_STATUS_SCALE.rank_of
-    assert (
-        rank(OperatingStatus.OPERATING)
-        < rank(OperatingStatus.COMMISSIONING)
-        < rank(OperatingStatus.UNDER_CONSTRUCTION)
-        < rank(OperatingStatus.PLANNED)
-        < rank(OperatingStatus.CLOSED)
+def test_operating_status_is_not_a_scoring_factor() -> None:
+    """It decides membership of the list. A weight cannot express that: any
+    weight above zero still leaves a shut mine on the list, one weight change
+    away from the top of it."""
+    assert "operating_status" not in set(ScoreFactor)
+    assert len(ScoreFactor) == 5
+
+
+def test_only_assets_that_can_ship_are_ranked(graph: SupplyGraph) -> None:
+    """Across every mine and the whole year band, not one sampled case."""
+    seen: set[OperatingStatus] = set()
+    for mine_id in graph.projects:
+        for year in (2025, 2027, 2029):
+            impact = simulate_disruption(graph, mine_id, as_of_year=year)
+            for hit in impact.impacted:
+                seen |= {_status_of(graph, a.source_id) for a in hit.alternatives}
+    assert seen, "no candidate was ranked at all, so nothing was exercised"
+    assert seen <= RANKABLE_STATUSES
+
+
+def test_the_gate_admits_producing_and_starting_up(graph: SupplyGraph) -> None:
+    """The threshold, stated once. Commissioning is in because the engine
+    already treats it as able to ship - see READY_STATUSES."""
+    assert RANKABLE_STATUSES == frozenset(
+        {OperatingStatus.OPERATING, OperatingStatus.COMMISSIONING}
     )
 
 
-def test_suspended_and_planned_are_the_same_answer() -> None:
-    """An editorial decision, not a derived one. A paused mine and an unbuilt
-    one are both 'not producing, no stated date', and the graph holds nothing
-    that separates them."""
-    assert OPERATING_STATUS_SCALE.rank_of(
-        OperatingStatus.SUSPENDED
-    ) == OPERATING_STATUS_SCALE.rank_of(OperatingStatus.PLANNED)
+def test_a_planned_mine_is_not_offered(graph: SupplyGraph) -> None:
+    rows = _alternatives(graph, "proj-monte-alto", 2027, "fac-caremag-lacq")
+    assert _status_of(graph, "proj-round-top") is OperatingStatus.PLANNED
+    assert "proj-round-top" not in rows
+    # And it is the gate that removed it, not some unrelated prune.
+    reopened = _with_status(graph, "proj-round-top", OperatingStatus.OPERATING)
+    assert "proj-round-top" in _alternatives(
+        reopened, "proj-monte-alto", 2027, "fac-caremag-lacq"
+    )
 
 
-def test_an_unstated_status_scores_at_the_floor_not_in_the_middle() -> None:
-    """Unlike alignment, which scores an unassessed country with NEUTRAL. A node
-    whose status nobody recorded must not outrank one known to be producing."""
-    assert OPERATING_STATUS_SCALE.rank_of(None) == OPERATING_STATUS_SCALE.max_rank
-    assert OPERATING_STATUS_SCALE.measure(None, OPERATING_STATUS_SCALE.max_rank).normalized == 0.0
+@pytest.mark.parametrize(
+    "status", [OperatingStatus.SUSPENDED, OperatingStatus.CLOSED, OperatingStatus.PLANNED]
+)
+def test_a_source_that_stops_being_operational_leaves_the_list(
+    graph: SupplyGraph, status: OperatingStatus
+) -> None:
+    before = _alternatives(graph, "proj-browns-range", 2028, "fac-eneabba")
+    assert "proj-mount-weld" in before
+
+    stopped = _with_status(graph, "proj-mount-weld", status)
+    after = _alternatives(stopped, "proj-browns-range", 2028, "fac-eneabba")
+    assert "proj-mount-weld" not in after
+    assert set(after) == set(before) - {"proj-mount-weld"}
+
+
+def test_a_pruned_pool_says_how_much_it_pruned(graph: SupplyGraph) -> None:
+    """Most of this graph is pre-production, so the gate removes most of the
+    reroute space. A list that shrank by an order of magnitude without saying
+    so reads as a graph with no options rather than a filter with an opinion."""
+    impact = simulate_disruption(graph, "proj-monte-alto", as_of_year=2027)
+    assert any("not operating" in w for w in impact.warnings)
+
+
+def test_status_still_separates_two_candidates_that_score_alike(
+    graph: SupplyGraph,
+) -> None:
+    """Gating to two statuses leaves one distinction inside the list, and a
+    producing mine should come before one still starting up."""
+    rows = _alternatives(graph, "proj-monte-alto", 2027, "fac-caremag-lacq")
+    producing = next(
+        a for a in rows.values() if _status_of(graph, a.source_id) is OperatingStatus.OPERATING
+    )
+    starting = next(
+        a
+        for a in rows.values()
+        if _status_of(graph, a.source_id) is OperatingStatus.COMMISSIONING
+    )
+    assert producing.key.status_rank < starting.key.status_rank
+
+
+def test_the_gate_is_reported_on_every_row(graph: SupplyGraph) -> None:
+    """A reader must be able to see the rule was applied rather than trust it."""
+    rows = _alternatives(graph, "proj-monte-alto", 2027, "fac-caremag-lacq")
+    assert rows
+    assert all(a.operating_status in RANKABLE_STATUSES for a in rows.values())
 
 
 def test_every_status_in_the_vocabulary_is_ranked() -> None:
-    """A status missing from the table scores at the floor with no label saying
-    so, which reads as a disclosure rather than a gap."""
-    assert set(OPERATING_STATUS_SCALE.ranks) == {s.value for s in OperatingStatus}
+    """The tiebreak table still covers the whole vocabulary, so tightening or
+    loosening the gate cannot land a status on an undefined rank."""
+    assert set(OPERATING_STATUS_RANK) == {s.value for s in OperatingStatus}
+    assert RANKABLE_STATUSES <= set(OPERATING_STATUS_RANK)
 
 
-# --- status in a live ranking ------------------------------------------------
-
-
-def test_status_is_measured_on_every_candidate(graph: SupplyGraph) -> None:
-    rows = _alternatives(graph, "proj-monte-alto", 2027, "fac-caremag-lacq")
-    operating = rows["proj-mountain-pass"].score.factor(ScoreFactor.OPERATING_STATUS)
-    planned = rows["proj-round-top"].score.factor(ScoreFactor.OPERATING_STATUS)
-
-    assert operating.raw_label == "OPERATING" and operating.normalized == 1.0
-    assert planned.raw_label == "PLANNED" and planned.normalized < operating.normalized
-    assert operating.known and planned.known
-
-
-def test_weighting_status_puts_a_producing_mine_over_an_unbuilt_one(
-    graph: SupplyGraph,
-) -> None:
-    """Round Top is DOMESTIC and Mountain Pass is too, so alignment alone cannot
-    separate them. Status can, and that is the point of adding it."""
-    impact = simulate_disruption(
-        graph,
-        "proj-monte-alto",
-        as_of_year=2027,
-        weights={ScoreFactor.OPERATING_STATUS: 1.0, ScoreFactor.ALIGNMENT: 1.0},
-    )
-    hit = next(i for i in impact.impacted if i.facility_id == "fac-caremag-lacq")
-    rows = {a.source_id: a for a in hit.alternatives}
-    mountain_pass, round_top = rows["proj-mountain-pass"], rows["proj-round-top"]
-
-    assert mountain_pass.alignment == round_top.alignment == "DOMESTIC"
-    assert mountain_pass.score.value > round_top.score.value
-    assert hit.alternatives.index(mountain_pass) < hit.alternatives.index(round_top)
-
-
-def test_a_suspended_candidate_scores_where_a_planned_one_does(
-    graph: SupplyGraph,
-) -> None:
-    suspended = _with_status(graph, "proj-makuutu", OperatingStatus.SUSPENDED)
-    rows = _alternatives(suspended, "proj-monte-alto", 2027, "fac-caremag-lacq")
-    paused = rows["proj-makuutu"].score.factor(ScoreFactor.OPERATING_STATUS)
-    unbuilt = rows["proj-songwe-hill"].score.factor(ScoreFactor.OPERATING_STATUS)
-
-    assert paused.raw_label == "SUSPENDED" and unbuilt.raw_label == "PLANNED"
-    assert paused.normalized == unbuilt.normalized
-
-
-def test_a_closed_candidate_is_dropped_rather_than_ranked_last(
-    graph: SupplyGraph,
-) -> None:
-    """Scoring it last still offers it. A shut plant is not a slower option, it
-    is not an option, so it leaves the pool before anything is measured."""
-    before = _alternatives(graph, "proj-monte-alto", 2027, "fac-caremag-lacq")
-    assert "proj-lofdal" in before
-
-    closed = _with_status(graph, "proj-lofdal", OperatingStatus.CLOSED)
-    after = _alternatives(closed, "proj-monte-alto", 2027, "fac-caremag-lacq")
-    assert "proj-lofdal" not in after
-    assert set(after) == set(before) - {"proj-lofdal"}
-
-
-def test_the_drop_list_is_the_gate_the_scale_is_not(graph: SupplyGraph) -> None:
-    """CLOSED stays in the rank table although nothing closed reaches scoring,
-    so its label is available if the gate ever moves."""
-    assert DROPPED_STATUSES == frozenset({OperatingStatus.CLOSED})
-    assert OperatingStatus.CLOSED.value in OPERATING_STATUS_SCALE.ranks
-
-
-# --- what replaced time-to-flow ----------------------------------------------
-
-
-def test_time_to_flow_is_no_longer_a_scoring_factor() -> None:
-    """Dropped when status arrived: both answered 'can this feed me soon', and a
-    reader weighting each got one preference counted twice."""
-    assert "time_to_flow" not in set(ScoreFactor)
-    assert len(ScoreFactor) == 6
-
-
-def test_the_key_still_orders_on_status_where_it_ordered_on_time() -> None:
-    better = RankingKey(0, 0, 3, 2, 1.0, 1, 3, "zzz")
-    worse = RankingKey(0, 1, 0, 0, 0.0, 0, 0, "aaa")
-    assert better.status_rank < worse.status_rank
-    assert better < worse
+# --- readiness ---------------------------------------------------------------
 
 
 def test_readiness_is_unknown_once_a_stated_start_has_passed(
@@ -267,3 +249,10 @@ def test_an_operating_asset_ships_now_whatever_year_is_asked(
 ) -> None:
     """The clamp is only wrong for assets that are not producing yet."""
     assert _years_to_ready(graph, "proj-mount-weld", 2029) == 0
+
+
+def test_the_key_orders_on_status_before_preference() -> None:
+    better = RankingKey(0, 0, 3, 2, 1.0, 1, 3, "zzz")
+    worse = RankingKey(0, 1, 0, 0, 0.0, 0, 0, "aaa")
+    assert better.status_rank < worse.status_rank
+    assert better < worse

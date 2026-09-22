@@ -5,18 +5,23 @@ feed, how exposed each one is, and which other sources could be rerouted in.
 
 What the ranking is, and is not
 -------------------------------
-Candidates are ordered by ``CandidateScore``: each of six factors is normalised
-to [0, 1] with 1 as best, weighted, and renormalised over the weights actually
-in play, giving 0-100 where higher is better. ``RankingKey`` is still built and
-still returned - it breaks exact score ties, and it records the lexicographic
-order the score replaced.
+Who is ranked is decided before anything is scored. ``RANKABLE_STATUSES`` keeps
+only sources that can ship - operating or commissioning - and drops the rest
+before a single factor is measured. That is a gate rather than a low score on
+purpose: an unbuilt mine scored last is still on the list, and still one weight
+change away from the top of it. It prunes hard here, because most of this graph
+is pre-production, so ``simulate_disruption`` warns with the count.
 
-Three of the six - alignment, operating status and assertion confidence - are
-qualitative: a vocabulary ordered by hand, normalised by position. They share
-one mechanism, ``OrdinalScale``, so adding a qualitative factor is a rank table
-and an enum member rather than new arithmetic. What a scale cannot express is a
-disqualification: ``DROPPED_STATUSES`` removes closed assets from the pool
-before anything is measured, because a shut plant ranked last is still on offer.
+What survives is ordered by ``CandidateScore``: each of five factors is
+normalised to [0, 1] with 1 as best, weighted, and renormalised over the weights
+actually in play, giving 0-100 where higher is better. ``RankingKey`` is still
+built and still returned - it breaks exact score ties, and it records the
+lexicographic order the score replaced.
+
+Two of the five - alignment and assertion confidence - are qualitative: a
+vocabulary ordered by hand, normalised by position. They share one mechanism,
+``OrdinalScale``, so adding a qualitative factor is a rank table and an enum
+member rather than new arithmetic.
 
 ``DEFAULT_WEIGHTS`` scores on country alignment alone. Every other factor is
 still measured and still returned, at weight zero. Three consequences follow,
@@ -115,18 +120,35 @@ ALIGNMENT_RANK: dict[str, int] = {
     "ADVERSARY": 4,
 }
 
-#: Operating-status ordering, best first. Editorial in the same way alignment
-#: is: nothing in the graph measures the distance between commissioning and
-#: under construction, so the spacing is a stated position, not a result.
+#: Statuses under which an asset can ship now. Anything else needs a stated
+#: start year; absent one, readiness is unknown rather than guessed.
+READY_STATUSES = frozenset({OperatingStatus.OPERATING, OperatingStatus.COMMISSIONING})
+
+#: Statuses a candidate must hold to be ranked at all. Operating status is a
+#: gate, not a preference: a mine that is not producing is not a worse option,
+#: it is not an option, and no weight expresses that. Any weight above zero
+#: leaves an unbuilt mine on the list, one weight change away from the top of
+#: it; only removing it from the pool says what is meant.
 #:
-#: SUSPENDED shares PLANNED's rank deliberately. A paused mine and an unbuilt
-#: one are both "not producing, and nobody has stated a date", and the graph
-#: holds nothing that separates a restart from a first start. Splitting them
-#: would invent the difference rather than read it.
+#: ``READY_STATUSES`` rather than ``{OPERATING}`` alone, so the engine keeps one
+#: definition of "can ship now" rather than two that disagree. Commissioning
+#: assets are starting production, and the readiness arithmetic below has always
+#: treated them as able to feed a plant today.
 #:
-#: CLOSED is ranked for completeness only. Nothing closed reaches scoring - see
-#: ``DROPPED_STATUSES`` - so its rank is what a label would rest on if that gate
-#: ever moved, not a position anything is sorted into today.
+#: This prunes hard. Most of the seed graph is pre-production, so a typical
+#: reroute list goes from roughly eighteen candidates to four. That is the
+#: intended effect, and ``simulate_disruption`` warns with the count so a
+#: shortened list reads as a filter rather than as a graph with no options.
+RANKABLE_STATUSES = READY_STATUSES
+
+#: Operating-status ordering, best first. No longer scored - see
+#: ``RANKABLE_STATUSES`` - but still the second field of ``RankingKey``, so a
+#: producing mine sorts above one still commissioning where the two score alike.
+#:
+#: The whole vocabulary is ranked, not just the rankable part, so moving the
+#: gate cannot land a status on an undefined rank. SUSPENDED shares PLANNED's
+#: rank deliberately: both are "not producing, and nobody has stated a date",
+#: and the graph holds nothing that separates a restart from a first start.
 OPERATING_STATUS_RANK: dict[str, int] = {
     OperatingStatus.OPERATING: 0,
     OperatingStatus.COMMISSIONING: 1,
@@ -136,16 +158,11 @@ OPERATING_STATUS_RANK: dict[str, int] = {
     OperatingStatus.CLOSED: 4,
 }
 
-#: Statuses that take an asset out of the candidate pool before anything is
-#: measured. Ranking a closed plant last still offers it, one weight change away
-#: from the top of the list; it is not a slower option, it is not an option.
-#: Held apart from ``OPERATING_STATUS_RANK`` because a gate and a preference are
-#: different statements and only one of them is weightable.
-DROPPED_STATUSES = frozenset({OperatingStatus.CLOSED})
-
-#: Statuses under which an asset can ship now. Anything else needs a stated
-#: start year; absent one, readiness is unknown rather than guessed.
-READY_STATUSES = frozenset({OperatingStatus.OPERATING, OperatingStatus.COMMISSIONING})
+#: Rank for a status the table does not hold, or an id that resolved to no
+#: asset. Below every real status, so an unreadable node never sorts above one
+#: known to be producing. Unreachable while the gate stands, since every
+#: rankable status is in the table; kept so a wider gate cannot KeyError.
+_UNKNOWN_STATUS_RANK = max(OPERATING_STATUS_RANK.values()) + 1
 
 _TIER_RANK = {
     QualificationTier.INFEASIBLE: 0,
@@ -171,15 +188,12 @@ class ScoreFactor(StrEnum):
     ``source_id`` is deliberately not among them. It breaks exact ties so that
     orderings stay stable and testable, and a tiebreak that contributed points
     would be scoring candidates on the spelling of their id.
+
+    Operating status is not among them either, and for a different reason: it
+    decides whether a candidate is on the list at all. See ``RANKABLE_STATUSES``.
     """
 
     EVIDENCE = "evidence"
-    #: Sits where TIME_TO_FLOW used to, and answers the question it answered:
-    #: can this asset feed anyone. The two were not kept side by side because
-    #: status is most of what determines time to flow, so a reader weighting
-    #: both had one preference counted twice. Time to flow is still measured and
-    #: still returned on the row as ``months_to_flow``; it is no longer scored.
-    OPERATING_STATUS = "operating_status"
     ALIGNMENT = "alignment"
     COVERAGE = "coverage"
     COMMITMENT = "commitment"
@@ -188,17 +202,17 @@ class ScoreFactor(StrEnum):
 
 #: Bumped whenever a weight moves or the factor set changes, so a stored
 #: response can be read back against the policy that produced it rather than
-#: against today's defaults. v3 replaced time_to_flow with operating_status.
-WEIGHTS_VERSION = "v3-alignment-only"
+#: against today's defaults. v4 made operating status a gate instead of a
+#: factor, which changes the candidate set and not only the order.
+WEIGHTS_VERSION = "v4-alignment-only"
 
 #: Country alignment, and nothing else. An editorial position, not a derived
 #: result - see the module docstring for what resting on one five-step ordinal
-#: does to the ordering. The other five are held at zero rather than deleted:
+#: does to the ordering. The other four are held at zero rather than deleted:
 #: they are still measured, still returned, and a caller who wants any of them
 #: back passes ``weights`` rather than editing this.
 DEFAULT_WEIGHTS: dict[ScoreFactor, float] = {
     ScoreFactor.ALIGNMENT: 1.0,
-    ScoreFactor.OPERATING_STATUS: 0.0,
     ScoreFactor.COVERAGE: 0.0,
     ScoreFactor.EVIDENCE: 0.0,
     ScoreFactor.COMMITMENT: 0.0,
@@ -246,8 +260,10 @@ class RankingKey:
     #: the curated one and describes itself as "not evidence"; letting a generated
     #: row outrank a hand-read one inverts the rule the generator enforces.
     evidence_class: int
-    #: Operating status as an ordinal. Sits here, where the time-to-flow bucket
-    #: used to, for the same reason: feasibility before preference.
+    #: Operating status as an ordinal. Not a scoring factor - the gate has
+    #: already removed everything that cannot ship - but the survivors still
+    #: differ, and a producing mine should sort above one still commissioning
+    #: where the two score alike. Feasibility before preference, as before.
     status_rank: int
     #: Country alignment. A preference, so it sits below both feasibility keys -
     #: only two mines in the graph are DOMESTIC, and ranking on it any higher
@@ -388,18 +404,21 @@ class _Measured:
 class OrdinalScale:
     """A qualitative factor: a vocabulary someone wrote down best to worst.
 
-    Three of the six factors are this shape - alignment, operating status and
-    assertion confidence. None of them is measured; each is a list of categories
-    ordered by hand, normalised by position. Holding that as data rather than as
-    three near-identical blocks inside ``_measure`` is what makes the next
-    qualitative factor a table and an enum member instead of new arithmetic.
+    Two of the five factors are this shape - alignment and assertion confidence.
+    Neither is measured; each is a list of categories ordered by hand,
+    normalised by position. Holding that as data rather than as near-identical
+    blocks inside ``_measure`` is what makes the next qualitative factor a table
+    and an enum member instead of new arithmetic.
+
+    A scale expresses a preference and nothing stronger. Where a category should
+    disqualify a candidate rather than cost it points, the rule belongs in
+    ``_candidate_edges`` instead - ``RANKABLE_STATUSES`` is the case.
 
     Two things the shape has to get right, because both have bitten a factor
     here already:
 
     * **Ranks may repeat.** Categories the graph cannot separate share a rank
-      rather than being ordered by an accident of declaration order. SUSPENDED
-      and PLANNED are the case.
+      rather than being ordered by an accident of declaration order.
     * **Unknown is a position, not a default.** Where an absent value sits is a
       judgement that differs per factor - an unassessed country scores with
       NEUTRAL, an unstated confidence scores below LOW - so each scale states
@@ -407,8 +426,8 @@ class OrdinalScale:
     """
 
     factor: ScoreFactor
-    #: Category -> rank, 0 best. Holds every category in the vocabulary, even
-    #: ones gated out of the pool elsewhere, so a label is never a lie.
+    #: Category -> rank, 0 best. Holds every category in the vocabulary, so a
+    #: label is never a lie.
     ranks: Mapping[str, int]
     #: Where a value the graph does not hold sits on this scale.
     unknown_rank: int
@@ -471,17 +490,6 @@ ALIGNMENT_SCALE = OrdinalScale(
     unknown_detail="country carries no alignment assessment; scored with NEUTRAL, not below it",
 )
 
-OPERATING_STATUS_SCALE = OrdinalScale(
-    factor=ScoreFactor.OPERATING_STATUS,
-    ranks=OPERATING_STATUS_RANK,
-    # The floor, unlike alignment's. Every asset in the graph carries a status,
-    # so an absent one means the node could not be resolved at all, and a node
-    # nothing is known about must not outrank one known to be producing.
-    unknown_rank=max(OPERATING_STATUS_RANK.values()),
-    unknown_label="UNSTATED",
-    unknown_detail="no operating status could be resolved for this asset; scored at the floor",
-)
-
 CONFIDENCE_SCALE = OrdinalScale(
     factor=ScoreFactor.CONFIDENCE,
     ranks=_CONFIDENCE_RANK,
@@ -514,7 +522,6 @@ def _coverage_measure(key: RankingKey) -> tuple[float, float | None, bool, str |
 def _measure(
     key: RankingKey,
     alignment: str | None,
-    status: OperatingStatus | None,
     confidence: Confidence | None,
 ) -> tuple[_Measured, ...]:
     """Normalise every axis to [0, 1] with 1 as best.
@@ -522,9 +529,10 @@ def _measure(
     Ordinals are read off ``RankingKey`` rather than recomputed, so the score and
     the key can never disagree about what a candidate looked like.
 
-    The three qualitative axes go through ``OrdinalScale`` and are one line
-    each; the two computed ones - coverage and the binary flags - stay here
-    because their arithmetic is not a position in a list.
+    The two qualitative axes go through ``OrdinalScale`` and are one line each;
+    the rest stay here because their arithmetic is not a position in a list.
+    Operating status is absent by design - it gates the pool rather than
+    scoring within it.
     """
     coverage_normal, coverage_raw, coverage_known, coverage_detail = _coverage_measure(key)
     return (
@@ -535,7 +543,6 @@ def _measure(
             "CURATED" if key.evidence_class == 0 else "AUTOMATED",
             True,
         ),
-        OPERATING_STATUS_SCALE.measure(status, key.status_rank),
         ALIGNMENT_SCALE.measure(alignment, key.alignment_rank),
         _Measured(
             ScoreFactor.COVERAGE,
@@ -879,9 +886,16 @@ def _candidate_edges(
     facility_id: str,
     excluded: frozenset[str],
     min_qualification: QualificationTier,
-) -> list[Relationship]:
+) -> tuple[list[Relationship], frozenset[str]]:
+    """Rerouteable edges into ``facility_id``, and who the status gate removed.
+
+    The gate is returned rather than just applied. It prunes most of this graph,
+    and a list that quietly lost three quarters of its candidates reads as a
+    supply chain with no options rather than as a filter with an opinion.
+    """
     floor = _TIER_RANK[min_qualification]
     seen: set[str] = set()
+    gated: set[str] = set()
     out: list[Relationship] = []
     for edge in (
         *graph.supplies_to.get(facility_id, ()),
@@ -890,17 +904,21 @@ def _candidate_edges(
     ):
         if edge.from_id in excluded or not graph.is_asset(edge.from_id) or edge.from_id in seen:
             continue
-        # A gate, not a low score: a shut asset ranked last is still on offer.
-        if _operating_status(graph, edge.from_id) in DROPPED_STATUSES:
-            continue
         tier = _effective_tier(edge)
         if tier is QualificationTier.INFEASIBLE:
             continue
         if tier is not None and _TIER_RANK[tier] < floor:
             continue
+        # The operating-status gate, applied after the feasibility prunes so the
+        # count reports sources this rule alone removed. Not a low score: an
+        # asset that cannot ship ranked last is still on offer, and still one
+        # weight change away from the top of the list.
+        if _operating_status(graph, edge.from_id) not in RANKABLE_STATUSES:
+            gated.add(edge.from_id)
+            continue
         seen.add(edge.from_id)
         out.append(edge)
-    return out
+    return out, frozenset(gated)
 
 
 def _rank_alternatives(
@@ -912,9 +930,11 @@ def _rank_alternatives(
     as_of_year: int,
     min_qualification: QualificationTier,
     policy: ScoringPolicy,
-) -> tuple[AlternativeFeed, ...]:
+) -> tuple[tuple[AlternativeFeed, ...], frozenset[str]]:
+    """Ranked candidates for one plant, and the sources the status gate removed."""
+    edges, gated_out = _candidate_edges(graph, facility_id, excluded, min_qualification)
     rows: list[AlternativeFeed] = []
-    for edge in _candidate_edges(graph, facility_id, excluded, min_qualification):
+    for edge in edges:
         source_id = edge.from_id
         available = _source_feed(graph, source_id, as_of_year)
         months, readiness_known = _months_to_flow(graph, edge, source_id, as_of_year)
@@ -924,7 +944,7 @@ def _rank_alternatives(
         committed = _committed_elsewhere(graph, source_id, facility_id)
         key = RankingKey(
             evidence_class=1 if edge.provenance.type is ProvenanceType.AUTOMATED else 0,
-            status_rank=OPERATING_STATUS_SCALE.rank_of(status),
+            status_rank=OPERATING_STATUS_RANK.get(status, _UNKNOWN_STATUS_RANK),
             alignment_rank=ALIGNMENT_SCALE.rank_of(alignment),
             coverage_rank=coverage_rank,
             shortfall=shortfall,
@@ -932,9 +952,7 @@ def _rank_alternatives(
             confidence=CONFIDENCE_SCALE.rank_of(edge.provenance.assertion_confidence),
             source_id=source_id,
         )
-        score = _score(
-            policy, _measure(key, alignment, status, edge.provenance.assertion_confidence)
-        )
+        score = _score(policy, _measure(key, alignment, edge.provenance.assertion_confidence))
         rows.append(
             AlternativeFeed(
                 source_id=source_id,
@@ -960,7 +978,7 @@ def _rank_alternatives(
         )
     # Score first, the lexicographic key only where scores are exactly equal, so
     # an ordering stays deterministic without the tiebreak ever earning points.
-    return tuple(sorted(rows, key=lambda r: (-r.score.value, r.key)))
+    return tuple(sorted(rows, key=lambda r: (-r.score.value, r.key))), gated_out
 
 
 def _dependent_nodes(graph: SupplyGraph, mine_id: str, max_hops: int) -> frozenset[str]:
@@ -1073,11 +1091,23 @@ def simulate_disruption(
 
     dependent = _dependent_nodes(graph, mine_id, max_hops)
     impacted: list[FacilityImpact] = []
+    gated_out: set[str] = set()
     for facility_id, hops, trail in _walk_downstream(graph, mine_id, max_hops):
         facility = graph.facilities[facility_id]
         remaining = [
             e for e in graph.supplies_to.get(facility_id, ()) if e.from_id not in dependent
         ]
+        alternatives, gated = _rank_alternatives(
+            graph,
+            facility_id,
+            dependent,
+            gap,
+            lost.basis if lost else None,
+            as_of_year,
+            min_qualification,
+            policy,
+        )
+        gated_out |= gated
         impacted.append(
             FacilityImpact(
                 facility_id=facility_id,
@@ -1087,28 +1117,26 @@ def simulate_disruption(
                 operating_status=facility.operating_status.value,
                 sole_source=not remaining,
                 remaining_supplies_in=len(remaining),
-                alternatives=_rank_alternatives(
-                    graph,
-                    facility_id,
-                    dependent,
-                    gap,
-                    lost.basis if lost else None,
-                    as_of_year,
-                    min_qualification,
-                    policy,
-                ),
+                alternatives=alternatives,
             )
         )
     impacted.sort(key=lambda i: (i.hops, -(i.nameplate_dytb_tpa or 0.0), i.facility_id))
 
+    if gated_out:
+        ranked = len({a.source_id for i in impacted for a in i.alternatives})
+        warnings.append(
+            f"{len(gated_out)} otherwise-eligible sources are not operating and were excluded "
+            f"before ranking, leaving {ranked}; this graph is mostly pre-production, so the "
+            "reroute space shown is far smaller than the one the graph holds"
+        )
     unknown_readiness = sum(
         1 for i in impacted for a in i.alternatives if not a.readiness_known
     )
     if unknown_readiness:
         warnings.append(
             f"{unknown_readiness} candidate rows have no usable start year; months_to_flow is "
-            "unknown rather than estimated on those rows. Ordering is unaffected - readiness "
-            "is scored through operating_status, which every asset carries"
+            "unknown rather than estimated on those rows. Ordering is unaffected - every "
+            "ranked source is already operating or commissioning"
         )
     if any(not a.basis_comparable for i in impacted for a in i.alternatives):
         warnings.append(
