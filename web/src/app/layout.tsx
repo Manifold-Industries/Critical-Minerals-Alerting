@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 import ClassificationBanner from "@/components/ClassificationBanner";
-import CommandHeader from "@/components/CommandHeader";
-import NavRail from "@/components/NavRail";
 import "./globals.css";
 
 const geistSans = Geist({
