@@ -115,9 +115,17 @@ class AlternativeFeed(BaseModel):
     #: False where the country carries no alignment assessment at all, which is
     #: not the same as being assessed NEUTRAL.
     alignment_known: bool
+    #: Whether this source is producing: OPERATING, COMMISSIONING,
+    #: UNDER_CONSTRUCTION, PLANNED or SUSPENDED. A weighted ranking factor, so
+    #: it is on the row for the same reason ``alignment`` is. CLOSED never
+    #: appears: a closed asset is dropped from the pool rather than ranked.
+    operating_status: str | None = None
     available_feed: FeedQuantity | None = None
+    #: Readiness gap plus qualification lead. Informational: nothing is ranked on
+    #: it, and ``operating_status`` carries readiness into the score instead.
     months_to_flow: int | None = None
-    #: False where no start year is stated. Readiness is unknown, not immediate.
+    #: False where no usable start year is stated. Readiness is unknown, not
+    #: immediate. Applies to ``months_to_flow`` only, never to the ordering.
     readiness_known: bool
     #: False where this tonnage and the lost tonnage were struck at different
     #: points in the chain, so any coverage ratio between them is an upper bound.

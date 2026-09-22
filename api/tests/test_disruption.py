@@ -10,15 +10,13 @@ import pytest
 
 from scripts.validate_data import build
 from src.disruption import (
-    ALIGNMENT_RANK,
+    ALIGNMENT_SCALE,
     DEFAULT_WEIGHTS,
-    TIME_BUCKET_UNKNOWN,
     UNSIZED_COVERAGE_SCORE,
     WEIGHTS_VERSION,
     QuantityBasis,
     RankingKey,
     ScoreFactor,
-    _TIME_LABELS,
     _coverage_measure,
     build_scoring_policy,
     simulate_disruption,
@@ -131,20 +129,20 @@ def test_infeasible_routes_are_pruned(graph: SupplyGraph) -> None:
     assert all(a.qualification is not QualificationTier.INFEASIBLE for a in hit.alternatives)
 
 
-def test_alignment_ranks_third_behind_evidence_and_time(graph: SupplyGraph) -> None:
-    """A DOMESTIC candidate must not overtake a nearer-term one of the same class."""
+def test_alignment_ranks_third_behind_evidence_and_status(graph: SupplyGraph) -> None:
+    """A DOMESTIC candidate must not overtake a further-along one of the same class."""
     impact = simulate_disruption(graph, "proj-monte-alto", as_of_year=2027)
     hit = _find(impact, "fac-caremag-lacq")
     by_id = {a.source_id: a for a in hit.alternatives}
     round_top, serra_verde = by_id["proj-round-top"], by_id["proj-serra-verde"]
     assert round_top.alignment == "DOMESTIC" and serra_verde.alignment == "PARTNER"
-    assert round_top.key.time_bucket > serra_verde.key.time_bucket
+    assert round_top.key.status_rank > serra_verde.key.status_rank
     assert serra_verde.key < round_top.key
 
 
 def test_unassessed_alignment_sorts_with_neutral_not_below_it() -> None:
-    assert ALIGNMENT_RANK[None] == ALIGNMENT_RANK["NEUTRAL"]
-    assert ALIGNMENT_RANK[None] < ALIGNMENT_RANK["ADVERSARY"]
+    assert ALIGNMENT_SCALE.rank_of(None) == ALIGNMENT_SCALE.rank_of("NEUTRAL")
+    assert ALIGNMENT_SCALE.rank_of(None) < ALIGNMENT_SCALE.rank_of("ADVERSARY")
 
 
 def test_ranking_key_orders_lexicographically() -> None:
@@ -284,9 +282,12 @@ def test_a_fallback_is_marked_rather_than_passed_off_as_data(graph: SupplyGraph)
     coverage = [a.score.factor(ScoreFactor.COVERAGE) for a in rows]
     assert coverage and all(not f.known and f.raw is None and f.detail for f in coverage)
 
-    blind = [a.score.factor(ScoreFactor.TIME_TO_FLOW) for a in rows if a.months_to_flow is None]
-    assert blind, "no candidate had unknown readiness, so nothing was exercised"
-    assert all(f.normalized == 0.0 and not f.known and f.raw is None for f in blind)
+    # The same rule on an OrdinalScale: Malawi carries no alignment assessment,
+    # so Kangankunde scores with NEUTRAL and is marked as not resting on one.
+    blind = [a.score.factor(ScoreFactor.ALIGNMENT) for a in rows if not a.alignment_known]
+    assert blind, "no candidate had an unassessed country, so nothing was exercised"
+    assert all(not f.known and f.detail and f.raw_label == "UNASSESSED" for f in blind)
+    assert all(f.normalized == ALIGNMENT_SCALE.measure("NEUTRAL", 3).normalized for f in blind)
 
 
 def test_excluding_a_factor_renormalises_the_rest(graph: SupplyGraph) -> None:
@@ -376,8 +377,3 @@ def test_the_tiebreak_is_not_a_scoring_factor() -> None:
     """A factor for source_id would score candidates on the spelling of their id."""
     assert "source_id" not in set(ScoreFactor)
     assert len(ScoreFactor) == 6
-
-
-def test_every_time_bucket_has_a_label() -> None:
-    """Missing one is an IndexError deep inside scoring, not a wrong number."""
-    assert len(_TIME_LABELS) == TIME_BUCKET_UNKNOWN + 1

@@ -124,7 +124,7 @@ def _feed(feed: FeedQuantity | None) -> schemas.FeedQuantity | None:
 #: two rows score exactly the same and the key had to separate them.
 _KEY_FIELDS = (
     "evidence_class",
-    "time_bucket",
+    "status_rank",
     "alignment_rank",
     "coverage_rank",
     "shortfall",
@@ -220,6 +220,7 @@ def _alternative(
         status=alt.status.value,
         alignment=alt.alignment,
         alignment_known=alt.alignment_known,
+        operating_status=alt.operating_status.value if alt.operating_status else None,
         available_feed=_feed(alt.available_feed),
         months_to_flow=alt.months_to_flow,
         readiness_known=alt.readiness_known,
