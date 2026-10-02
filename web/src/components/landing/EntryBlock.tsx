@@ -8,6 +8,7 @@ import {
   ENTER_HELPER,
   ENTER_LABEL,
   ORG_EYEBROW,
+  SYSTEM_EXPANSION,
   SYSTEM_NAME,
   SYSTEM_SUBLINE,
 } from "@/lib/landing/content";
@@ -38,8 +39,14 @@ export default function EntryBlock() {
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-text-secondary">
           {ORG_EYEBROW}
         </p>
-        <h1 className="font-mono text-[clamp(30px,4.2vw,54px)] font-semibold uppercase leading-none tracking-[0.02em] text-foreground">
-          {SYSTEM_NAME}
+        <h1 className="flex flex-col items-center gap-3">
+          {/* No uppercase transform: the lowercase "i" is part of the mark. */}
+          <span className="font-mono text-[clamp(30px,4.2vw,54px)] font-semibold leading-none tracking-[0.02em] text-foreground">
+            {SYSTEM_NAME}
+          </span>
+          <span className="font-mono text-[13px] font-medium uppercase leading-[1.4] tracking-[0.12em] text-accent">
+            {SYSTEM_EXPANSION}
+          </span>
         </h1>
         <p className="text-[15px] leading-[1.5] text-text-secondary">
           {SYSTEM_SUBLINE}

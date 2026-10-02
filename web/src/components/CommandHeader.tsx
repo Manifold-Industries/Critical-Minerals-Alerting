@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
+import { PLATFORM_NAME } from "@/lib/brand";
 import { formatZulu } from "@/lib/zulu";
 
 function subscribeToClock(onStoreChange: () => void): () => void {
@@ -22,7 +23,10 @@ export default function CommandHeader() {
   return (
     <header className="flex items-center justify-between border-b border-surface-2 bg-surface-1 px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] text-text-secondary">
       <p className="uppercase">
-        <span className="font-semibold text-accent">Critical Minerals</span>
+        {/* normal-case keeps the mark's lowercase "i" */}
+        <span className="font-semibold normal-case text-accent">
+          {PLATFORM_NAME}
+        </span>
         <span className="mx-2 text-text-tertiary">·</span>
         <span className="text-foreground">Supply Chain Monitoring</span>
       </p>

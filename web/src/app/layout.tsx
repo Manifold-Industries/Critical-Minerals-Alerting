@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 import ClassificationBanner from "@/components/ClassificationBanner";
+import { PLATFORM_EXPANSION, PLATFORM_NAME } from "@/lib/brand";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,9 +17,8 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Critical Minerals Alerting",
-  description:
-    "Supply chain disruption alerting console for critical minerals.",
+  title: PLATFORM_NAME,
+  description: PLATFORM_EXPANSION,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -2,6 +2,8 @@
 // reviewed in one place — every string here is public-facing text an owner will
 // want to edit without touching layout.
 
+import { PLATFORM_EXPANSION, PLATFORM_NAME } from "@/lib/brand";
+
 export interface LandingLink {
   readonly label: string;
   readonly href: string;
@@ -18,7 +20,8 @@ export interface InfoColumn {
 const PENDING = "#";
 
 export const ORG_EYEBROW = "Department of War";
-export const SYSTEM_NAME = "Mineral Intelligence Center";
+export const SYSTEM_NAME = PLATFORM_NAME;
+export const SYSTEM_EXPANSION = PLATFORM_EXPANSION;
 export const SYSTEM_SUBLINE =
   "Office of the Assistant Secretary of War for Industrial Base Policy";
 // The office's own emblem, in public/. Decorative on this screen: the eyebrow,
